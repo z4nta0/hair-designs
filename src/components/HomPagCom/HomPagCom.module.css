@@ -1,0 +1,446 @@
+    /* ── Design Tokens ── */
+    :root {
+      --navy:      #2b3245;
+      --navy-mid:  #3c4562;
+      --cream:     #f5f0e8;
+      --ivory:     #faf7f2;
+      --rose:      #d4806a;
+      --rose-lt:   #e8a898;
+      --mauve:     #c9a0a0;
+      --sage:      #8ea89a;
+      --charcoal:  #4a4a4a;
+      --warm-gray: #7a7570;
+      --border:    #e0d5c8;
+    }
+ 
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--ivory);
+      color: var(--charcoal);
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+ 
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--navy);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+      border-bottom: 3px solid var(--rose);
+    }
+    .navBrand {
+      display: flex; align-items: center; gap: 14px;
+      text-decoration: none;
+    }
+    .navLogoIcon {
+      width: 44px; height: 44px;
+    }
+    .navIitle {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--cream);
+      letter-spacing: 0.04em;
+    }
+    .navLinks {
+      display: flex; gap: 2.4rem; list-style: none;
+    }
+    .navLinks a {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .navLinks a:hover { opacity: 1; color: var(--rose-lt); }
+ 
+    /* ── Stripe texture helper ── */
+    .stripeBg {
+      background-image: repeating-linear-gradient(
+        90deg,
+        var(--navy) 0px,
+        var(--navy) 28px,
+        var(--navy-mid) 28px,
+        var(--navy-mid) 56px
+      );
+    }
+ 
+    /* ── HERO ── */
+    .home {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      padding: 0;
+      padding-top: 68px;
+    }
+    .heroStripe {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: stretch;
+    }
+    .heroLeft {
+      background-image: repeating-linear-gradient(
+        90deg,
+        var(--navy) 0px,
+        var(--navy) 30px,
+        #232a3d 30px,
+        #232a3d 60px
+      );
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 60px;
+      position: relative;
+    }
+    .heroLeft::after {
+      content: '';
+      position: absolute; right: -1px; top: 0; bottom: 0; width: 3px;
+      background: var(--rose);
+    }
+    .heroEmblem {
+      text-align: center;
+    }
+    /* SVG arrow/floral emblem */
+    .heroEmblem svg {
+      width: 220px; height: 220px;
+      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.4));
+    }
+    .heroRight {
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      padding: 80px 60px;
+    }
+    .heroText {}
+    .heroEyebrow {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--rose);
+      letter-spacing: 0.06em;
+      margin-bottom: 10px;
+    }
+    .heroName {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 6vw, 5.2rem);
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+    .heroName em {
+      font-style: italic;
+      color: var(--rose);
+    }
+    .heroTagline {
+      font-family: 'Lato', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 28px;
+    }
+    .heroDivider {
+      width: 56px; height: 2px;
+      background: var(--rose);
+      margin-bottom: 28px;
+    }
+    .heroOwners {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: var(--rose);
+      line-height: 1.6;
+    }
+    .heroOwners span { display: block; }
+    .heroSubtitle {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--warm-gray);
+      margin-top: 8px;
+    }
+    .heroCta {
+      margin-top: 36px;
+      display: flex; gap: 16px; flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 13px 32px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none; cursor: pointer;
+      transition: all 0.25s;
+    }
+    .btnPrimary {
+      background: var(--navy);
+      color: var(--cream);
+    }
+    .btnPrimary:hover { background: var(--navy-mid); transform: translateY(-2px); }
+    .btnOutline {
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+    }
+    .btnOutline:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
+ 
+    /* ── Bottom strip ── */
+    .heroBottomBar {
+      background: var(--navy);
+      border-top: 3px solid var(--rose);
+      padding: 16px 5%;
+      display: flex; align-items: center; justify-content: center; gap: 40px;
+      flex-wrap: wrap;
+    }
+    .heroBottomBar .infoItem {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--cream);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      opacity: 0.9;
+    }
+    .heroBottomBar .infoItem svg { width:18px; height:18px; stroke: var(--rose-lt); fill:none; }
+ 
+    /* ── Section shared ── */
+    section { padding: 90px 5%; }
+    .sectionTag {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+    .sectionTitle {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .sectionDivider {
+      width: 48px; height: 2px;
+      background: var(--rose);
+      margin-bottom: 28px;
+    }
+ 
+    /* ── Services ── */
+    .services {
+      background: var(--ivory);
+    }
+    .servicesGrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 28px;
+      margin-top: 48px;
+    }
+    .serviceCard {
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--rose);
+      padding: 36px 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .serviceCard:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(43,50,69,0.12); }
+    .serviceIcon {
+      width: 44px; height: 44px; margin-bottom: 20px;
+    }
+    .serviceCard h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      color: var(--navy);
+      margin-bottom: 10px;
+    }
+    .serviceCard p {
+      font-size: 0.88rem;
+      color: var(--warm-gray);
+      line-height: 1.65;
+    }
+ 
+    /* ── About ── */
+    .about {
+      background: var(--cream);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .aboutVisual {
+      position: relative;
+    }
+    .aboutFrame {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background-image: repeating-linear-gradient(
+        90deg,
+        var(--navy) 0px,
+        var(--navy) 24px,
+        #232a3d 24px,
+        #232a3d 48px
+      );
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .aboutCardInner {
+      background: var(--cream);
+      margin: 28px;
+      padding: 48px 36px;
+      text-align: center;
+      border: 2px solid var(--rose-lt);
+      width: calc(100% - 56px);
+    }
+    .aboutCardInner svg {
+      width: 130px; height: 130px; margin-bottom: 24px;
+    }
+    .aboutNames {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--rose);
+      line-height: 1.6;
+      margin-bottom: 8px;
+    }
+    .aboutRole {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+    }
+    .aboutText p {
+      color: var(--charcoal);
+      font-size: 0.95rem;
+      margin-bottom: 18px;
+      line-height: 1.8;
+    }
+ 
+    /* ── Contact ── */
+    .contact {
+      background-image: repeating-linear-gradient(
+        90deg,
+        var(--navy) 0px,
+        var(--navy) 30px,
+        #232a3d 30px,
+        #232a3d 60px
+      );
+      color: var(--cream);
+    }
+    .contact .sectionTitle { color: var(--cream); }
+    .contact .sectionTag { color: var(--rose-lt); }
+    .contactGrid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      margin-top: 48px;
+      align-items: start;
+    }
+    .contactInfo { color: var(--cream); }
+    .contactInfoItem {
+      display: flex; gap: 18px; align-items: flex-start;
+      margin-bottom: 30px;
+    }
+    .contactInfoItem svg {
+      width: 22px; height: 22px; flex-shrink: 0;
+      stroke: var(--rose-lt); fill: none; margin-top: 2px;
+    }
+    .contactInfoItem strong {
+      display: block;
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--rose-lt);
+      margin-bottom: 4px;
+    }
+    .contactInfoItem span {
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    /* Contact form */
+    .contactForm {
+      background: var(--cream);
+      padding: 44px 40px;
+      border-top: 4px solid var(--rose);
+    }
+    .contactForm h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 24px;
+    }
+    .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .formGroup { margin-bottom: 18px; }
+    .formGroup label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 6px;
+    }
+    .formGroup input,
+    .formGroup textarea,
+    .formGroup select {
+      width: 100%;
+      padding: 12px 16px;
+      font-family: 'Lato', sans-serif;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      background: var(--ivory);
+      border: 1.5px solid var(--border);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .formGroup input:focus,
+    .formGroup textarea:focus,
+    .formGroup select:focus { border-color: var(--rose); }
+    .formGroup textarea { resize: vertical; min-height: 110px; }
+    .btnRose {
+      background: var(--rose);
+      color: #fff;
+      width: 100%;
+      margin-top: 8px;
+      padding: 15px;
+    }
+    .btnRose:hover { background: #c2705a; transform: translateY(-2px); }
+ 
+    /* ── Footer ── */
+    footer {
+      background: #1d2235;
+      border-top: 3px solid var(--rose);
+      padding: 28px 5%;
+      text-align: center;
+      color: rgba(245,240,232,0.5);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+    }
+    footer span { color: var(--rose-lt); }
+ 
+    /* ── Fade-in animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .heroEmblem   { animation: fadeUp 0.9s ease both; animation-delay: 0.1s; }
+    .heroText     { animation: fadeUp 0.9s ease both; animation-delay: 0.3s; }
+ 
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .heroStripe { grid-template-columns: 1fr; }
+      .heroLeft { padding: 60px 40px; }
+      .heroLeft::after { display: none; }
+      .heroRight { padding: 60px 40px; }
+      .about { grid-template-columns: 1fr; }
+      .contactGrid { grid-template-columns: 1fr; }
+      .formRow { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 0 4%; }
+      .navLinks { gap: 1.4rem; }
+      section { padding: 64px 6%; }
+    }
