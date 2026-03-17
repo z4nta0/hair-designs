@@ -41,7 +41,7 @@
     .navLogoIcon {
       width: 44px; height: 44px;
     }
-    .navIitle {
+    .navTitle {
       font-family: 'Playfair Display', serif;
       font-size: 1.35rem;
       color: var(--cream);
