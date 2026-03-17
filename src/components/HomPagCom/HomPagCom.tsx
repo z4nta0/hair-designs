@@ -157,13 +157,13 @@ function HomPagCom () {
       <h2 className={styles.sectionTitle}>Small Town.<br/>Big Heart.</h2>
       <div className={styles.sectionDivider}></div>
       <p>
-        Tucked along State Hwy 254 in Carson's Corner, Missouri, Hair Designs is a family-run salon with heart. Juli Wilkerson and Keeli Bryan bring years of professional cosmetology experience right to your neighborhood — no big-city drive required.
+        Tucked along State Hwy 254 in Carson's Corner, Missouri, Hair Designs is a family run salon with heart. Juli Wilkerson and Keeli Bryan bring years of professional cosmetology experience right to your neighborhood with no big city drive required.
       </p>
       <p>
         Whether you're coming in for a quick trim or a complete color transformation, you'll be welcomed like a neighbor, because you are one. We take pride in listening to what you want and delivering results you'll love.
       </p>
       <p>
-        We serve women, men, and children of all ages. Our cozy salon is the kind of place where you'll leave looking great — and feeling like you've caught up with an old friend.
+        We serve women, men, and children of all ages. Our cozy salon is the kind of place where you'll leave looking great and feeling like you've caught up with an old friend.
       </p>
       <a className={`${styles.btn} ${styles.btnPrimary}`} href="#contact" style={{ marginTop: '8px' }}>Reach Out</a>
     </div>
