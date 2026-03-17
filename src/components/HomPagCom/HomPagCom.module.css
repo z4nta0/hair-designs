@@ -117,7 +117,6 @@
       display: flex; align-items: center; justify-content: center;
       padding: 80px 60px;
     }
-    .heroText {}
     .heroEyebrow {
       font-family: 'Dancing Script', cursive;
       font-size: 1.1rem;
@@ -394,7 +393,7 @@
       border: 1.5px solid var(--border);
       outline: none;
       transition: border-color 0.2s;
-      -webkit-appearance: none;
+      appearance: none;
     }
     .formGroup input:focus,
     .formGroup textarea:focus,
