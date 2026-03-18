@@ -5,7 +5,6 @@ import                './index.css';     /** This import is the root CSS file wh
 import AppRooCom from './AppRooCom.tsx'; /** This import is the custom React root component that contains the core routing structure of the application, acting as the container for the router, global components (navbar, footer, etc...) and any components that are dynamically rendered via React Router based on the current URL. */
 
 
-import { BrowserRouter } from 'react-router-dom'; /** This import is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */
 import { createRoot    } from 'react-dom/client'; /** This import is the new standard React DOM 18 API for creating a root DOM node to render the application, replacing the older ReactDOM.render method and providing better performance and support for concurrent features. */
 import { StrictMode    } from 'react';            /** This import is the standard React development only tool for highlighting potential problems in an application by activating additional checks and warnings for its descendants, it renders no visible UI, has no impact on the production build and acts solely as a passive debugging aid during development. */
 
@@ -40,10 +39,8 @@ type RooDomNodRender     = () => void;
  * the root DOM node using the standard React DOM {@link createRoot} function
  * and said function's {@link Root.render} method. It wraps the custom React
  * {@link AppRooCom} component within the standard React {@link StrictMode}
- * component for development only checks and warnings and the standard React
- * Router {@link BrowserRouter} component for client side routing. This
- * function is then called at the end of the file in order to render the
- * application.
+ * component for development only checks and warnings. This function is then
+ * called at the end of the file in order to render the application.
  *
  *
  * @author React Create Root <https://react.dev/reference/react-dom/client/createRoot>
@@ -74,21 +71,11 @@ const rooDomNodRender : RooDomNodRender = () => {
         <  StrictMode > { /** Strict Mode = This component is the standard React development only tool for highlighting potential problems in an application by activating additional checks and warnings for its descendants, it renders no visible UI, has no impact on the production build and acts solely as a passive debugging aid during development. */ }
 
 
-            { /** Start BrowserRouter Component */ }
+            { /** Start AppRooCom Component */ }
 
-            <  BrowserRouter > { /** BrowserRouter = This component is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */ }
+            < AppRooCom /> { /** App Root Component = This component is the custom React root component that contains the core routing structure of the application, acting as the container for the router, global components (navbar, footer, etc...) and any components that are dynamically rendered via React Router based on the current URL. */ }
 
-
-                { /** Start AppRooCom Component */ }
-
-                < AppRooCom /> { /** App Root Component = This component is the custom React root component that contains the core routing structure of the application, acting as the container for the router, global components (navbar, footer, etc...) and any components that are dynamically rendered via React Router based on the current URL. */ }
-
-                { /** End AppRooCom Component */ }
-
-
-            </ BrowserRouter >
-
-            { /** End BrowserRouter Component */ }
+            { /** End AppRooCom Component */ }
 
 
         </ StrictMode >
@@ -104,7 +91,7 @@ const rooDomNodRender : RooDomNodRender = () => {
 
     // #region Return Statement
 
-    /** Return = This standard Javascript return statement will explicitly return undefined, which is the expected return value for a function that does not return anything. */
+    /** Return = This standard Javascript return statement will explicitly return undefined, with the idea behind this being to remove any ambiguity that the function has ended and to clearly indicate that there is no intention of returning any meaningful value. */
     return void 0;
 
     // #endregion Return Statement
