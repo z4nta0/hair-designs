@@ -66,21 +66,21 @@ const rooDomNodRender : RooDomNodRender = () => {
     rooDomNod.render(
 
 
-        // #region StrictMode Component
+        /* <!-- ══ Start StrictMode Component ══ --> */
 
         <  StrictMode > { /** Strict Mode = This component is the standard React development only tool for highlighting potential problems in an application by activating additional checks and warnings for its descendants, it renders no visible UI, has no impact on the production build and acts solely as a passive debugging aid during development. */ }
 
 
-            { /** Start AppRooCom Component */ }
+            { /* <!-- ══ Start AppRooCom Component ══ --> */ }
 
             < AppRooCom /> { /** App Root Component = This component is the custom React root component that contains the core routing structure of the application, acting as the container for the router, global components (navbar, footer, etc...) and any components that are dynamically rendered via React Router based on the current URL. */ }
 
-            { /** End AppRooCom Component */ }
+            { /* <!-- ══ End AppRooCom Component ══ --> */ }
 
 
         </ StrictMode >
 
-        // #endregion StrictMode Component
+        /* <!-- ══ End StrictMode Component ══ --> */
 
 
     );

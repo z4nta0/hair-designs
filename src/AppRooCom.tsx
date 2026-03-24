@@ -2,6 +2,7 @@
 // #region Imports
 
 import HomPagCom from './components/HomPagCom/HomPagCom.tsx'; /** This import is the custom React component that will return the Home page when navigated to via React Router. */
+import NavBarCom from './components/NavBar/NavBar.tsx';       /** This import is the custom component that will return the Navigation Bar, which is rendered on every page and contains the links to navigate between sections. */
 import styles    from './AppRooCom.module.css';               /** This import is the custom CSS file that contains all of the styling declarations for this component. */
 
 
@@ -56,24 +57,24 @@ function AppRooCom () : React.ReactElement {
     const appRooComJsx : React.ReactElement = (
 
 
-        /** Start BrowserRouter Component */
+        /* <!-- ══ Start BrowserRouter Component ══ --> */
 
         <  BrowserRouter > { /** BrowserRouter = This component is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */ }
 
 
-            { /* Start NavBarCom Component */ }
+            { /* <!-- ══ Start NavBarCom Component ══ --> */ }
 
-            { /**< NavBarCom /> { /* Navigation Bar Component = This custom React component contains all of the logic and JSX for the sticky navigation bar at the top of the application. */ }
+            < NavBarCom /> { /* Navigation Bar Component = This custom React component contains all of the logic and JSX for the sticky navigation bar at the top of the application. */ }
 
-            { /* End NavBarCom Component */ }
+            { /* <!-- ══ End NavBarCom Component ══ --> */ }
 
 
-            { /* Start appMaiEle Element */ }
+            { /* <!-- ══ Start appMaiEle Element ══ --> */ }
 
             <  main id='appMaiEle' className={ styles.appMain } > { /* App Main Element = This custom HTML main element is the container for all of the custom React components that will be rendered by React Router based on the current URL path. */ }
 
 
-                { /* Start Routes Component */ }
+                { /* <!-- ══ Start Routes Component ══ --> */ }
 
                 <  Routes > { /** Routes = This component is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */ }
 
@@ -83,25 +84,25 @@ function AppRooCom () : React.ReactElement {
 
                 </ Routes >
 
-                { /* End Routes Component */ }
+                { /* <!-- ══ End Routes Component ══ --> */ }
 
 
             </ main >
 
-            { /* End appMaiEle Element */ }
+            { /* <!-- ══ End appMaiEle Element ══ --> */ }
 
 
 
-            { /* Start FooBarCom Component */ }
+            { /* <!-- ══ Start FooBarCom Component ══ --> */ }
 
             {/**< FooBarCom /> { /* Footer Bar Component = This custom React component contains all of the logic and JSX for the footer bar at the bottom of the application. */ }
 
-            { /* End FooBarCom Component */ }
+            { /* <!-- ══ End FooBarCom Component ══ --> */ }
 
 
         </ BrowserRouter >
         
-        /** End BrowserRouter Component */
+        /* <!-- ══ End BrowserRouter Component ══ --> */
 
 
     );

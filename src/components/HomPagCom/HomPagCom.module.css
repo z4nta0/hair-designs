@@ -25,45 +25,9 @@
       overflow-x: hidden;
     }
  
-    /* ── Nav ── */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: var(--navy);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 68px;
-      border-bottom: 3px solid var(--rose);
-    }
-    .navBrand {
-      display: flex; align-items: center; gap: 14px;
-      text-decoration: none;
-    }
-    .navLogoIcon {
-      width: 44px; height: 44px;
-    }
-    .navTitle {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--cream);
-      letter-spacing: 0.04em;
-    }
-    .navLinks {
-      display: flex; gap: 2.4rem; list-style: none;
-    }
-    .navLinks a {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--cream);
-      text-decoration: none;
-      opacity: 0.85;
-      transition: opacity 0.2s, color 0.2s;
-    }
-    .navLinks a:hover { opacity: 1; color: var(--rose-lt); }
+    
  
-    /* ── Stripe texture helper ── */
+    /* ── Stripe texture helper - ????????? ── */
     .stripeBg {
       background-image: repeating-linear-gradient(
         90deg,
@@ -75,19 +39,19 @@
     }
  
     /* ── HERO ── */
-    .home {
+    .homeSection {
       min-height: 100vh;
       display: flex; flex-direction: column;
       padding: 0;
       padding-top: 68px;
     }
-    .heroStripe {
+    .heroDiv {
       flex: 1;
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
     }
-    .heroLeft {
+    .heroLeftDiv {
       background-image: repeating-linear-gradient(
         90deg,
         var(--navy) 0px,
@@ -98,33 +62,31 @@
       display: flex; align-items: center; justify-content: center;
       padding: 80px 60px;
       position: relative;
+      text-align: center;
     }
-    .heroLeft::after {
+    .heroLeftDiv::after {
       content: '';
       position: absolute; right: -1px; top: 0; bottom: 0; width: 3px;
       background: var(--rose);
     }
-    .heroEmblem {
-      text-align: center;
-    }
     /* SVG arrow/floral emblem */
-    .heroEmblem svg {
+    .logoImage_homeSection {
       width: 220px; height: 220px;
       filter: drop-shadow(0 6px 24px rgba(0,0,0,0.4));
     }
-    .heroRight {
+    .heroRightDiv {
       background: var(--cream);
       display: flex; align-items: center; justify-content: center;
       padding: 80px 60px;
     }
-    .heroEyebrow {
+    .heroTaglineParagraph {
       font-family: 'Dancing Script', cursive;
       font-size: 1.1rem;
       color: var(--rose);
       letter-spacing: 0.06em;
       margin-bottom: 10px;
     }
-    .heroName {
+    .heroHeading1 {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 6vw, 5.2rem);
       font-weight: 600;
@@ -132,11 +94,11 @@
       line-height: 1.08;
       margin-bottom: 14px;
     }
-    .heroName em {
+    .heading1Emphasis {
       font-style: italic;
       color: var(--rose);
     }
-    .heroTagline {
+    .heroSubheadingParagraph {
       font-family: 'Lato', sans-serif;
       font-size: 0.95rem;
       font-weight: 300;
@@ -145,30 +107,36 @@
       color: var(--warm-gray);
       margin-bottom: 28px;
     }
-    .heroDivider {
+    .heroHorizontalRule {
       width: 56px; height: 2px;
-      background: var(--rose);
+      color: var(--rose);
       margin-bottom: 28px;
     }
-    .heroOwners {
+    .namesDiv {
       font-family: 'Dancing Script', cursive;
       font-size: 1.5rem;
       color: var(--rose);
       line-height: 1.6;
     }
-    .heroOwners span { display: block; }
-    .heroSubtitle {
+    .nameSpans { display: block; }
+    .ampersandSpan {
+
+        font-size: 1.1rem;
+        color: var(--mauve)
+
+    }
+    .heroDescriptionParagraph {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-size: 1rem;
       color: var(--warm-gray);
       margin-top: 8px;
     }
-    .heroCta {
+    .ctaDiv {
       margin-top: 36px;
       display: flex; gap: 16px; flex-wrap: wrap;
     }
-    .btn {
+    .buttonAnchors {
       display: inline-block;
       padding: 13px 32px;
       font-family: 'Lato', sans-serif;
@@ -180,100 +148,107 @@
       border: none; cursor: pointer;
       transition: all 0.25s;
     }
-    .btnPrimary {
+    .buttonAnchors_primary {
       background: var(--navy);
       color: var(--cream);
     }
-    .btnPrimary:hover { background: var(--navy-mid); transform: translateY(-2px); }
-    .btnOutline {
+    .buttonAnchors_primary:hover { background: var(--navy-mid); transform: translateY(-2px); }
+    .buttonAnchors_outline {
       background: transparent;
       color: var(--navy);
       border: 2px solid var(--navy);
     }
-    .btnOutline:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
+    .buttonAnchors_outline:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
  
     /* ── Bottom strip ── */
-    .heroBottomBar {
+    .heroBottomBarDiv {
       background: var(--navy);
       border-top: 3px solid var(--rose);
       padding: 16px 5%;
       display: flex; align-items: center; justify-content: center; gap: 40px;
       flex-wrap: wrap;
     }
-    .heroBottomBar .infoItem {
+    .infoDivs_hbbDivEle {
       display: flex; align-items: center; gap: 10px;
       color: var(--cream);
       font-size: 0.85rem;
       letter-spacing: 0.04em;
       opacity: 0.9;
     }
-    .heroBottomBar .infoItem svg { width:18px; height:18px; stroke: var(--rose-lt); fill:none; }
+    .heroBottomBarSvgs { width:18px; height:18px; stroke: var(--rose-lt); fill:none; }
  
-    /* ── Section shared ── */
-    section { padding: 90px 5%; }
-    .sectionTag {
-      font-family: 'Dancing Script', cursive;
+    
+
+ 
+    /* ── Services ── */
+    .servicesSection {
+      background: var(--ivory);
+      padding: 90px 5%;
+    }
+    .servicesTaglineParagraph {
+        font-family: 'Dancing Script', cursive;
       font-size: 1.1rem;
       color: var(--rose);
       margin-bottom: 8px;
     }
-    .sectionTitle {
-      font-family: 'Playfair Display', serif;
+    .servicesHeading2 {
+        font-family: 'Playfair Display', serif;
       font-size: clamp(1.8rem, 4vw, 2.8rem);
       color: var(--navy);
       margin-bottom: 16px;
     }
-    .sectionDivider {
-      width: 48px; height: 2px;
-      background: var(--rose);
+    .servicesHorizontalRule {
+        width: 48px; height: 2px;
+      color: var(--rose);
       margin-bottom: 28px;
     }
- 
-    /* ── Services ── */
-    .services {
-      background: var(--ivory);
+    .servicesDescriptionParagraph {
+        max-width: 560px;
+        color: var(--warm-gray);
+        font-size: 0.95rem;
     }
-    .servicesGrid {
+    .cardsContainerDiv {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 28px;
       margin-top: 48px;
     }
-    .serviceCard {
+    .cardDivs {
       background: var(--cream);
       border: 1px solid var(--border);
       border-top: 4px solid var(--rose);
       padding: 36px 28px;
       transition: transform 0.25s, box-shadow 0.25s;
     }
-    .serviceCard:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(43,50,69,0.12); }
-    .serviceIcon {
+    .cardDivs:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(43,50,69,0.12); }
+    .cardSvgs {
       width: 44px; height: 44px; margin-bottom: 20px;
     }
-    .serviceCard h3 {
+    .cardHeading3s {
       font-family: 'Playfair Display', serif;
       font-size: 1.15rem;
       color: var(--navy);
       margin-bottom: 10px;
     }
-    .serviceCard p {
+    .cardParagraphs {
       font-size: 0.88rem;
       color: var(--warm-gray);
       line-height: 1.65;
     }
  
     /* ── About ── */
-    .about {
+    .aboutSection {
       background: var(--cream);
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 80px;
       align-items: center;
+      padding: 90px 5%;
     }
-    .aboutVisual {
+    .aboutVisualDiv {
       position: relative;
     }
-    .aboutFrame {
+    .stripedBackgroundDiv {
       width: 100%;
       aspect-ratio: 4/5;
       background-image: repeating-linear-gradient(
@@ -286,7 +261,7 @@
       display: flex; align-items: center; justify-content: center;
       position: relative;
     }
-    .aboutCardInner {
+    .aboutCardDiv {
       background: var(--cream);
       margin: 28px;
       padding: 48px 36px;
@@ -294,31 +269,51 @@
       border: 2px solid var(--rose-lt);
       width: calc(100% - 56px);
     }
-    .aboutCardInner svg {
+    .logoImage_aboutSection {
       width: 130px; height: 130px; margin-bottom: 24px;
     }
-    .aboutNames {
+    .aboutNamesDiv {
       font-family: 'Dancing Script', cursive;
       font-size: 1.8rem;
       color: var(--rose);
       line-height: 1.6;
       margin-bottom: 8px;
     }
-    .aboutRole {
+    .aboutDescriptionParagraph {
       font-family: 'Playfair Display', serif;
       font-style: italic;
       font-size: 0.95rem;
       color: var(--warm-gray);
     }
-    .aboutText p {
+    .aboutTaglineParagraph {
+        font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+    .aboutHeading2 {
+        font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--navy);
+      margin-bottom: 16px;
+    }
+    .aboutHorizontalRule {
+        width: 48px; height: 2px;
+      color: var(--rose);
+      margin-bottom: 28px;
+    }
+    .aboutTextParagraphs {
       color: var(--charcoal);
       font-size: 0.95rem;
       margin-bottom: 18px;
       line-height: 1.8;
     }
+    .aboutTextDiv .buttonAnchors {
+        margin-top: 8px;
+    }
  
     /* ── Contact ── */
-    .contact {
+    .contactSection {
       background-image: repeating-linear-gradient(
         90deg,
         var(--navy) 0px,
@@ -327,26 +322,44 @@
         #232a3d 60px
       );
       color: var(--cream);
+      padding: 90px 5%;
     }
-    .contact .sectionTitle { color: var(--cream); }
-    .contact .sectionTag { color: var(--rose-lt); }
-    .contactGrid {
+    .contactTaglineParagraph {
+        font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--rose);
+      margin-bottom: 8px;
+        color: var(--rose-lt);
+    }
+    .contactHeading2 {
+        font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--navy);
+      margin-bottom: 16px;
+        color: var(--cream);
+    }
+    .contactHorizontalRule {
+      width: 48px; height: 2px;
+      color: var(--rose);
+      margin-bottom: 28px;
+    }
+    .contactDiv {
       display: grid;
       grid-template-columns: 1fr 1.4fr;
       gap: 60px;
       margin-top: 48px;
       align-items: start;
     }
-    .contactInfo { color: var(--cream); }
-    .contactInfoItem {
+    .contactInformationDiv { color: var(--cream); }
+    .informationDivs {
       display: flex; gap: 18px; align-items: flex-start;
       margin-bottom: 30px;
     }
-    .contactInfoItem svg {
+    .contactSvgs {
       width: 22px; height: 22px; flex-shrink: 0;
       stroke: var(--rose-lt); fill: none; margin-top: 2px;
     }
-    .contactInfoItem strong {
+    .contactInformationStrongs {
       display: block;
       font-size: 0.75rem;
       letter-spacing: 0.14em;
@@ -354,25 +367,49 @@
       color: var(--rose-lt);
       margin-bottom: 4px;
     }
-    .contactInfoItem span {
+    .phoneAnchor {
+        text-decoration: none;
+        color: var(--cream);
       font-size: 0.95rem;
       opacity: 0.9;
     }
+    .hoursSpan {
+        font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    .quoteDiv {
+        margin-top: 16px;
+        padding: 20px;
+        background: rgba(255,255,255,0.06);
+        border-left: 3px solid var(--rose);
+    }
+    .quoteParagraph {
+        font-size: 0.88rem;
+        opacity: 0.8;
+        font-style: italic;
+        line-height: 1.7;
+    }
+    .quoteNamesParagraph {
+        margin-top: 10px;
+        font-family: 'Dancing Script',cursive;
+        color: var(--rose-lt);
+        font-size: 1.1rem;
+    }
     /* Contact form */
-    .contactForm {
+    .contactFormDiv {
       background: var(--cream);
       padding: 44px 40px;
       border-top: 4px solid var(--rose);
     }
-    .contactForm h3 {
+    .contactFormHeading3 {
       font-family: 'Playfair Display', serif;
       font-size: 1.4rem;
       color: var(--navy);
       margin-bottom: 24px;
     }
-    .formRow { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .formGroup { margin-bottom: 18px; }
-    .formGroup label {
+    .formDivs_names { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+    .formDivs { margin-bottom: 18px; }
+    .formLabels {
       display: block;
       font-size: 0.75rem;
       font-weight: 700;
@@ -381,9 +418,7 @@
       color: var(--warm-gray);
       margin-bottom: 6px;
     }
-    .formGroup input,
-    .formGroup textarea,
-    .formGroup select {
+    .formInputs {
       width: 100%;
       padding: 12px 16px;
       font-family: 'Lato', sans-serif;
@@ -395,10 +430,8 @@
       transition: border-color 0.2s;
       appearance: none;
     }
-    .formGroup input:focus,
-    .formGroup textarea:focus,
-    .formGroup select:focus { border-color: var(--rose); }
-    .formGroup textarea { resize: vertical; min-height: 110px; }
+    .formInputs:focus { border-color: var(--rose); }
+    .formInputs_message { resize: vertical; min-height: 110px; }
     .btnRose {
       background: var(--rose);
       color: #fff;
@@ -409,7 +442,7 @@
     .btnRose:hover { background: #c2705a; transform: translateY(-2px); }
  
     /* ── Footer ── */
-    footer {
+    .footbarFooter {
       background: #1d2235;
       border-top: 3px solid var(--rose);
       padding: 28px 5%;
@@ -418,15 +451,15 @@
       font-size: 0.8rem;
       letter-spacing: 0.06em;
     }
-    footer span { color: var(--rose-lt); }
+    .footerSpan { color: var(--rose-lt); }
  
     /* ── Fade-in animation ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(28px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .heroEmblem   { animation: fadeUp 0.9s ease both; animation-delay: 0.1s; }
-    .heroText     { animation: fadeUp 0.9s ease both; animation-delay: 0.3s; }
+    .heroLeftDiv  .fadeUpInAnimation  { animation: fadeUp 0.9s ease both; animation-delay: 0.1s; }
+    .heroRightDiv .fadeUpInAnimation  { animation: fadeUp 0.9s ease both; animation-delay: 0.3s; }
  
     /* ── Responsive ── */
     @media (max-width: 900px) {
