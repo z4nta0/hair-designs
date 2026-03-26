@@ -49,3 +49,46 @@
     filter: invert(1) brightness(2);
   }
 }
+
+/* #region HTML */
+
+html { /** HTML = This standard selector contains all elements except for :root and is marginally more semantic (vs. the :root selector) for controlling the box model of the entire document. */
+
+    box-sizing : border-box; /** This value was chosen to be used to enforce consistent border box sizing, with the idea behind this being to prevent padding and borders from increasing a total element's size.  */
+
+}
+
+/* #endregion HTML */
+
+
+
+/* #region Universal + Pseudo */
+
+*, *::before, *::after { /** Universal + Pseudo = These standard selectors contain all elements and are the universal selectors of any type in the HTML document along with their ::before and ::after pseudo elements. */
+
+    box-sizing : inherit; /** This value was chosen to be used to ensure all HTML elements and their ::before and ::after pseudo elements inherit the box sizing property from their parent, with the idea behind this being to prevent padding and borders from increasing a total element's size.  */
+
+}
+
+/* #endregion Universal + Pseudo */
+
+
+a{ 
+
+    text-decoration: none;
+
+}
+
+
+
+/* #region UL */
+
+ul { /** Unordered List = This standard selector contains only itself and is used to setup basic styling for all unordered list selectors while also leaving room for more specialized styling from custom classes via a component's CSS module file. */
+
+    list-style : none; /** This value was chosen to be used to remove its defaults. */
+    margin     : 0;    /** This value was chosen to be used to remove its defaults. */
+    padding    : 0;    /** This value was chosen to be used to remove its defaults. */
+
+}
+
+/* #endregion UL */

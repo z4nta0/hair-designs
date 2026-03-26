@@ -22,12 +22,12 @@ import styles  from './HomPagCom.module.css'; /** This import is the custom CSS 
  * page. It is for that reason that I made the choice to extract each section
  * of the page into their own custom components, and then render all of those
  * components together inside of this custom Home page component. This way, if
- * I want to add more pages in the future, I can just create new components for
- * those pages and then set up the React Router structure to route to those
- * pages instead of this one, without having to change any of the internal
- * structure of this custom Home page component. For now though, this is the
- * only page, and it is rendered by the custom AppRooCom component when
- * navigated to '/' via React Router.
+ * I want to add more pages in the future, I can just turn those components
+ * into pages and then set up the React Router structure to route to them
+ * instead of this one, without having to change any of the internal structure
+ * of this custom Home page component. For now though this is the only page,
+ * and it is rendered by the custom AppRooCom component when navigated to '/'
+ * via React Router.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  * 

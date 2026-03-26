@@ -1,37 +1,150 @@
-/* ── Nav ── */
-    .navbarNav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: var(--navy);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 5%;
-      height: 68px;
-      border-bottom: 3px solid var(--rose);
-    }
-    .logoAnchor {
-      display: flex; align-items: center; gap: 14px;
-      text-decoration: none;
-    }
-    .logoImage_navbarNav {
-      width: 44px; height: 44px;
-    }
-    .titleSpan {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--cream);
-      letter-spacing: 0.04em;
-    }
-    .navUnorderedList {
-      display: flex; gap: 2.4rem; list-style: none;
-    }
-    .navbarAnchors {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--cream);
-      text-decoration: none;
-      opacity: 0.85;
-      transition: opacity 0.2s, color 0.2s;
-    }
-    .navbarAnchors:hover { opacity: 1; color: var(--rose-lt); }
+
+/* #region navbarHeader */
+
+.navbarHeader { /* What : Navbar Header. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar content, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <header> element. */
+
+
+    /* #region Selector Scoped Custom Properties */
+
+    --nav-hea-gta :               
+        'logoAnchor   navbarNav'; /** What : Navbar Header Grid Template Areas. Why : A custom variable was required in order to clearly and precisely place this selector's children elements within its grid layout structure. How : Using a CSS custom property to store the value that will be used for this selector's grid-template-areas property. */
+
+    /* #endregion Selector Scoped Custom Properties */
+
+
+
+    align-items           : center;                  /* What : Children Vertical Positioning.   Why : A property value was required in order to vertically center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                                                          How : Using a standard CSS value of center. */
+    background-color      : var( --navy );           /* What : Self Styling.                    Why : A property value was required in order to distinguish this selector from the rest of the content (since it is in a fixed position that all page content will scroll beneath) while also aligning with the brand's color scheme.               How : Using a global scoped CSS custom property value. */
+    border-bottom         : 3px solid var( --rose ); /* What : Self Styling.                    Why : A property value was required in order to separate this selector from the content below it and to match the borders used in the hero banner of the Home section while also aligning with the brand's color scheme.                            How : Using a custom value, a standard CSS value of solid and a global scoped CSS custom property value. */
+    display               : grid;                    /* What : Children Layout Structure.       Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                                                            How : Using a standard CSS value of grid. */
+    grid-template-areas   : var( --nav-hea-gta );    /* What : Children Grid Placement.         Why : A property value was required in order to clearly and precisely place the grid children within this selector's grid layout structure.                                                                                                         How : Using a selector scoped CSS custom property value. */
+    grid-template-columns : auto auto;               /* What : Children Grid Sizing.            Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content.                                         How : Using a standard CSS value of auto. */
+    height                : 68px;                    /* What : Self Sizing.                     Why : A property value was required in order to ensure that this selector has enough vertical space to comfortably fit its content while also maintaining a visually appealing proportion relative to the rest of the page content.                 How : Using a custom value. */
+    justify-content       : space-between;           /* What : Children Horizontal Positioning. Why : A property value was required in order to equally distribute all horizontal space between the grid children's cells within this selector's grid layout structure so that they would appear balanced and aesthetically pleasing.               How : Using a standard CSS value of space-between. */
+    justify-items         : center;                  /* What : Children Horizontal Positioning. Why : A property value was required in order to horizontally center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                                                        How : Using a standard CSS value of center. */
+    left                  : 0;                       /* What : Self Horizontal Positioning.     Why : A property value was required in order to ensure that this selector is positioned at the left edge of the viewport and stretches across the full width since it is in a fixed position.                                                       How : Using a custom value. */
+    padding               : 0 5%;                    /* What : Self Inner Whitespace.           Why : A property value was required in order to provide horizontal spacing within this selector so that its content does not touch the edges of the viewport.                                                                                       How : Using a custom value. */
+    position              : fixed;                   /* What : Self Positioning.                Why : A property value was required in order to fix this selector to a specific position of the viewport so that it remains visible while scrolling.                                                                                                How : Using a standard CSS value of fixed. */
+    right                 : 0;                       /* What : Self Horizontal Positioning.     Why : A property value was required in order to ensure that this selector is positioned at the right edge of the viewport and stretches across the full width since it is in a fixed position.                                                      How : Using a custom value. */
+    top                   : 0;                       /* What : Self Vertical Positioning.       Why : A property value was required in order to ensure that this selector is positioned at the top edge of the viewport since it is in a fixed position.                                                                                            How : Using a custom value. */
+    z-index               : 1;                       /* What : Self Layering.                   Why : A property value was required in order to ensure that this selector appears above all other content on the current page since it is in a fixed position that all page content will scroll beneath.                                            How : Using a custom value. */
+
+
+}
+
+
+
+/* #region logoAnchor */
+
+.logoAnchor { /* What : Logo Anchor. Why : A semantic element was required in order to contain, group and provide the grid structure for the brand's logo image and name text for the application and to act as a link to the Home section of the page. How : Using a standard HTML <a> element. */
+
+
+    /* #region Selector Scoped Custom Properties */
+
+    --log-anc-gta :               
+        'logoImage   titleSpan'; /** What : Logo Anchor Grid Template Areas. Why : A custom variable was required in order to clearly and precisely place this selector's children elements within its grid layout structure. How : Using a CSS custom property to store the value that will be used for this selector's grid-template-areas property. */
+
+    /* #endregion Selector Scoped Custom Properties */
+
+
+
+    align-items           : center;               /* What : Children Vertical Positioning.   Why : A property value was required in order to vertically center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                  How : Using a standard CSS value of center. */
+    display               : grid;                 /* What : Children Layout Structure.       Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                    How : Using a standard CSS value of grid. */
+    grid-template-areas   : var( --log-anc-gta ); /* What : Children Grid Placement.         Why : A property value was required in order to clearly and precisely place the grid children within this selector's grid layout structure.                                                                 How : Using a selector scoped CSS custom property value. */
+    grid-template-columns : auto auto;            /* What : Children Grid Sizing.            Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content. How : Using a standard CSS value of auto. */
+    column-gap            : 14px;                 /* What : Self Grid Layout Whitespace.     Why : A property value was required in order to provide horizontal spacing between the grid children so that they remain visually separated with a semantically appealing separation.                       How : Using a custom value. */
+    padding-bottom        : 3px;                  /* What : Self Inner Whitespace.           Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box so that its children better align vertically due to the parent's border-bottom. How : Using a custom value. */
+
+}
+
+
+
+/* #region logoImage */
+
+.logoImage { /* What : Logo Image. Why : A semantic element was required in order to display the brand's SVG logo to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <img> element. */
+
+
+    height : 44px; /* What : Self Sizing. Why : A property value was required in order to ensure that this selector's height maintains a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
+    width  : 44px; /* What : Self Sizing. Why : A property value was required in order to ensure that this selector's width maintains a visually appealing proportion relative to the rest of the page content.  How : Using a custom value. */
+
+
+}
+
+/* #endregion logoImage */
+
+
+
+/* #region titleSpan */
+
+.titleSpan { /* What : Title Span. Why : A generic, inline text element was required in order to display the brand's name to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <span> element. */
+
+
+    color          : var( --cream );            /* What : Self Styling. Why : A property value was required in order to color this selector's text exactly the same as the .navbarAnchors while also aligning with the brand's color scheme.                                How : Using a global scoped CSS custom property value. */
+    font-family    : 'Playfair Display', serif; /* What : Self Styling. Why : A property value was required in order to change this selector's text to a serif type family to better align with this brand's more classical, elegant aesthetic.                             How : Using a custom imported Google Fonts value. */
+    font-size      : 1.35rem;                   /* What : Self Styling. Why : A property value was required in order to ensure that this selector's text stands out as the brand name and maintains a visually appealing proportion relative to the logo image.             How : Using a custom value. */
+    letter-spacing : 0.04em;                    /* What : Self Styling. Why : A property value was required in order to better visually weight this selector's text with the logo image and to enhance the readability of it.                                               How : Using a custom value. */
+    line-height    : 44px;                      /* What : Self Sizing.  Why : A property value was required in order to ensure that this selector's text is vertically centered within the same height as the logo image so that they appear balanced and visually aligned. How : Using a custom value that matches the .logoImage height. */
+
+
+}
+
+/* #endregion titleSpan */
+
+
+/* #endregion logoAnchor */
+
+
+
+/* #region navbarUnorderedList */
+
+.navbarUnorderedList { /* What: Navbar Unordered List. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar's main navigation links and their <li> containers. How : Using a standard HTML <ul> element. */
+
+
+    align-items           : center;            /* What : Children Vertical Positioning. Why : A property value was required in order to vertically center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                  How : Using a standard CSS value of center. */
+    display               : grid;              /* What : Children Layout Structure.     Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                    How : Using a standard CSS value of grid. */
+    grid-template-columns : repeat( 4, auto ); /* What : Children Grid Sizing.          Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content. How : Using a standard CSS value of repeat and auto. */
+    column-gap            : 2.4rem;            /* What : Self Grid Layout Whitespace.   Why : A property value was required in order to provide horizontal spacing between the grid children so that they remain visually separated with a semantically appealing separation.                       How : Using a custom value. */
+    padding-bottom        : 3px;               /* What : Self Inner Whitespace.         Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box so that its children better align vertically due to the parent's border-bottom. How : Using a custom value. */
+
+
+}
+
+
+
+/* #region navbarAnchors */
+
+.navbarAnchors { /* What : Navbar Anchors. Why : A custom selector was required in order to share the styling of all the semantic elements that were required to contain the links to the different sections of the page. How : Using standard HTML <a> elements with a shared custom class name selector. */
+
+
+    color          : var( --cream );           /* What : Self Styling. Why : A property value was required in order to color this selector's text exactly the same as the .titleSpan while also aligning with the brand's color scheme.                      How : Using a global scoped CSS custom property value. */
+    font-family    : 'Lato', sans-serif;       /* What : Self Styling. Why : A property value was required in order to change this selector's text to a sans-serif type family to better align the navigation links with their purpose (modern, functional). How : Using a custom imported Google Fonts value. */
+    font-size      : 0.82rem;                  /* What : Self Styling. Why : A property value was required in order to ensure that this selector's text maintains a visually appealing proportion relative to the rest of the page content.                  How : Using a custom value. */
+    font-weight    : 700;                      /* What : Self Styling. Why : A property value was required in order to add more visual weight to the navigation links while also enhancing their readability.                                                How : Using a custom value. */
+    letter-spacing : 0.14em;                   /* What : Self Styling. Why : A property value was required in order to better visually weight the navigation links while also enhancing their readability.                                                   How : Using a custom value. */
+    opacity        : 0.85;                     /* What : Self Styling. Why : A property value was required in order to slightly dim the text to create a subtle visual hierarchy and enhance the navigation link's hover transition style changes.           How : Using a custom value. */
+    text-transform : uppercase;                /* What : Self Styling. Why : A property value was required in order to to add more visual weight to the navigation links while also enhancing their readability.                                             How : Using a standard CSS value of uppercase. */
+    transition     : opacity 0.2s, color 0.2s; /* What : Self Styling. Why : A property value was required in order to smoothly transition the opacity and color changes on hover for a better user experience.                                              How : Using a standard CSS opacity and color value combined with custom values. */
+
+
+}
+
+
+
+.navbarAnchors:hover { /* What : Navbar Anchors. Why : A custom selector was required in order to share the styling of all the semantic elements that were required to contain the links to the different sections of the page. How : Using standard HTML <a> elements with a shared custom class name selector. */
+
+
+    color   : var( --rose-lt ); /* What : Self Styling. Why : A property value was required in order to color this selector's text to a slightly darker color as a visual confirmation to the user that the item is being hovered while also aligning with the brand's color scheme. How : Using a global scoped CSS custom property value. */
+    opacity : 1;                /* What : Self Styling. Why : A property value was required in order to brighten the text as a visual confirmation to the user that the item is being hovered.                                                                                       How : Using a custom value. */
+
+
+}
+
+/* #endregion navbarAnchors */
+
+
+/* #endregion navbarUnorderedList */
+
+
+/* #endregion navbarHeader */
+
+

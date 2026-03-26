@@ -1,44 +1,39 @@
 
 // #region Imports
 
-import logoSvg from '../../assets/logo.svg';  /** This import is the SVG version of the Hair Designs logo, which is used in various places throughout the Home page. */
-import styles  from './NavBar.module.css'; /** This import is the custom CSS file that contains all of the styling declarations for this component. */
+import logoSvg from '../../assets/logo.svg'; /** What : Logo SVG. Why : A scalable, lightweight image of the brand's logo was required in the navigation bar to act as a brand identifier and as a link to the Home section.                  How : Using a standard SVG image format placed inside the ./src/assets folder. */
+import styles  from './NavBar.module.css';   /** What : Styles.   Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class name conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
 
 // #endregion Imports
 
 
 
-// #region HomPagCom
+// #region NavBarCom
 
 /**
- * HomPagCom = Home Page Component
+ * NavBarCom = Navigation Bar Component
  *
  * @summary
- * This custom React component executes the logic of and renders the JSX of the
- * Home page. At the time of creation, there is really only this one page (with
- * the navbar and footer being extracted into their own separate components
- * that are rendered inside of the custom AppRooCom component regardless of the
- * current page). The navbar links just point to the different sections of this
- * page. It is for that reason that I made the choice to extract each section
- * of the page into their own custom components, and then render all of those
- * components together inside of this custom Home page component. This way, if
- * I want to add more pages in the future, I can just create new components for
- * those pages and then set up the React Router structure to route to those
- * pages instead of this one, without having to change any of the internal
- * structure of this custom Home page component. For now though, this is the
- * only page, and it is rendered by the custom AppRooCom component when
- * navigated to '/' via React Router.
+ * What : Navigation Bar Component. Why : A navigation bar was required for the
+ * application in order to allow users to easily navigate to the different
+ * sections of the Home page and to provide a consistent header across the
+ * application regardless of the page being viewed. How : Using a custom React
+ * functional component that returns the JSX representing the HTML content of
+ * the navigation bar, styled with a CSS module and containing an imported SVG
+ * logo image. No extra functionality or logic was required for the navigation
+ * bar at this time, so it is just a simple component that renders the JSX for
+ * the navbar and does not use any props or state.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  * 
  * @param props - This component does not use any props.
  * 
- * @returns A React JSX element representing the Home component.
- * @see {@link homPagComJsx}
+ * @returns A React JSX element representing the Navigation Bar component.
+ * @see {@link navBarComJsx}
  * 
  * @example
  * ```tsx
- * <HomPagCom /> // => homPagComJsx
+ * <NavBarCom /> // => navBarComJsx
  * ```
  *
 */
@@ -46,26 +41,27 @@ import styles  from './NavBar.module.css'; /** This import is the custom CSS fil
 function NavBarCom () : React.ReactElement {
 
 
-    /** Home Page Component Javascript XML  = This custom variable stores the HTML like code that this component will render when called by its parent component, with the idea behind this being that I prefer to store this in a variable before being returned so that it can be referenced inside of comments in the other sections of this component. */
+    // #region navBarComJsx
+
+    /** What : Navigation Bar Component Javascript XML. Why : A custom variable was required in order to store the HTML like code that this component will return to its parent component and so that it can be referenced inside of comments in the other sections of this component. How : Using a standard Javascript const variable declaration and its corresponding Typescript type annotation. */
     const navBarComJsx : React.ReactElement = (
 
 
+            /* <!-- ══ Start navHeaEle ══ --> */
 
-            /* <!-- ══ Start navNavEle ══ --> */
-
-            <  nav id='navNavEle' className={ styles.navbarNav } > { /* Navbar Nav Element = This custom nav HTML element contains the main navigation links for the application, though they are really just links to the different sections of the Home page (for now). */ }
+            <  header id='navHeaEle' className={ styles.navbarHeader } > { /* What : Navbar Header Element. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar content, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <header> element. */ }
 
 
                 { /* <!-- ══ Start logAncEle ══ --> */ }
 
-                < a id='logAncEle' className={ styles.logoAnchor } href='#homSecEle' aria-label='Main navigation' > { /* Logo Anchor Element = This custom anchor HTML element contains the brand's logo for the application, which is used here as a link to the top section of the page. */ }
+                < a id='logAncEle' className={ styles.logoAnchor } href='#homSecEle' > { /* What : Logo Anchor Element. Why : A semantic element was required in order to contain, group and provide the grid structure for the brand's logo image and name text for the application and to act as a link to the Home section of the page. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
 
-                    < img id='logImgEle_logAncEle' className={ ` ${ styles.logoImage }   ${ styles.logoImage_navbarNav } ` } src={ logoSvg } alt='Hair Designs logo that is used as a link to the Home page' /> { /* Logo Image Element for Logo Anchor Element = This custom img HTML element contains the brand's SVG logo for the application, which is used here as a visual brand identifier inside the navbar and as a link to the top section of the page. */ }
+                    < img id='nblImaEle' className={ styles.logoImage } src={ logoSvg } alt='Hair Designs logo of a BOLO that is used as a link to the Home page' /> { /* What : Navbar Logo Image Element. Why : A semantic element was required in order to display the brand's SVG logo to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <img> element with an appropriate alt text attribute. */ }
 
 
 
-                    < span id='titSpaEle' className={ styles.titleSpan } >Hair Designs</ span > { /* Title Span Element = This custom span HTML element contains the brand's name for the application, which is used here as a visual brand identifier inside the navbar and as a link to the top section of the page. */ }
+                    < span id='nbtSpaEle' className={ styles.titleSpan } >Hair Designs</ span > { /* What : Navbar Title Span Element. Why : A generic, inline text element was required in order to display the brand's name to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <span> element. */ }
 
 
                 </ a >
@@ -74,49 +70,98 @@ function NavBarCom () : React.ReactElement {
 
 
 
-                { /* <!-- ══ Start navUnlEle ══ --> */ }
+                { /* <!-- ══ Start navNavEle ══ --> */ }
 
-                < ul id='navUnlEle' className={ styles.navUnorderedList } > { /* Navbar Unordered List Element = This custom ul HTML element contains the main navigation links for the application, though they are really just links to the different sections of the Home page (for now). */ }
-
-
-                    < li id='homLiiEle' className={ ` ${ styles.navbarLi }   ${ styles.navbarLi_home     } ` } >< a id='homAncEle_navUnlEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_home     } ` } href='#homSecEle' >Home</     a ></ li > { /* Home List Item Element     + Home Anchor Element for Navbar Unordered List Element     = These custom li and a HTML elements contain the link to the Home section of the page. */ }
+                <  nav id='navNavEle' className={ styles.navbarNav } aria-label='Main navigation' > { /* What : Navbar Nav Element. Why : A semantic element was required in order to contain the navigation bar's main navigation links <ul> container. How : Using a standard HTML <nav> element with an appropriate aria-label attribute. */ }
 
 
+                    { /* <!-- ══ Start navUnlEle ══ --> */ }
 
-                    < li id='serLiiEle' className={ ` ${ styles.navbarLi }   ${ styles.navbarLi_services } ` } >< a id='serAncEle_navUnlEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_services } ` } href='#serSecEle' >Services</ a ></ li > { /* Services List Item Element + Services Anchor Element for Navbar Unordered List Element = These custom li and a HTML elements contain the link to the Services section of the page. */ }
-
-
-
-                    < li id='aboLiiEle' className={ ` ${ styles.navbarLi }   ${ styles.navbarLi_about    } ` } >< a id='aboAncEle_navUnlEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_about    } ` } href='#aboSecEle' >About</    a ></ li > { /* About List Item Element    + About Anchor Element for Navbar Unordered List Element    = These custom li and a HTML elements contain the link to the About section of the page. */ }
+                    < ul id='navUnlEle' className={ styles.navbarUnorderedList } > { /* What: Navbar Unordered List Element. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar's main navigation links and their <li> containers. How : Using a standard HTML <ul> element. */ }
 
 
+                        { /* <!-- ══ Start homLiiEle ══ --> */ }
 
-                    < li id='conLiiEle' className={ ` ${ styles.navbarLi }   ${ styles.navbarLi_contact  } ` } >< a id='conAncEle_navUnlEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_contact  } ` } href='#conSecEle' >Contact</  a ></ li > { /* Contact List Item Element  + Contact Anchor Element for Navbar Unordered List Element  = These custom li and a HTML elements contain the link to the Contact section of the page. */ }
-
-
-                </ ul >
-
-                { /* <!-- ══ End navUnlEle ══ --> */ }
+                        <  li id='homLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_home } ` } > { /* What : Home List Item Element. Why : A semantic element was required in order to contain the anchor for the Home section. How : Using a standard HTML <li> element. */ }
 
 
-            </ nav >
+                            < a id='nbhAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_home } ` } href='#homSecEle' >Home</ a > { /* What : Navbar Home Anchor Element. Why : A semantic element was required in order to contain the link to the Home section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
-            /* <!-- ══ End navNavEle ══ --> */
 
-            
+                        </ li >
+
+                        { /* <!-- ══ End homLiiEle ══ --> */ }
+
+
+
+                        { /* <!-- ══ Start serLiiEle ══ --> */ }
+
+                        <  li id='serLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_services } ` } > { /* What : Services List Item Element. Why : A semantic element was required in order to contain the anchor for the Services section. How : Using a standard HTML <li> element. */ }
+
+
+                            < a id='nbsAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_services } ` } href='#serSecEle' >Services</ a > { /* What : Navbar Services Anchor Element. Why : A semantic element was required in order to contain the link to the Services section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+
+
+                        </ li >
+
+                        { /* <!-- ══ End serLiiEle ══ --> */ }
+
+
+
+                        { /* <!-- ══ Start aboLiiEle ══ --> */ }
+
+                        <  li id='aboLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_about } ` } > { /* What : About List Item Element. Why : A semantic element was required in order to contain the anchor for the About section. How : Using a standard HTML <li> element. */ }
+
+
+                            < a id='nbaAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_about } ` } href='#aboSecEle' >About</ a > { /* What : Navbar About Anchor Element. Why : A semantic element was required in order to contain the link to the About section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+
+
+                        </ li >
+
+                        { /* <!-- ══ End aboLiiEle ══ --> */ }
+
+
+
+                        { /* <!-- ══ Start conLiiEle ══ --> */ }
+
+                        <  li id='conLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_contact } ` } > { /* What : Contact List Item Element. Why : A semantic element was required in order to contain the anchor for the Contact section. How : Using a standard HTML <li> element. */ }
+
+
+                            < a id='nbcAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_contact } ` } href='#conSecEle' >Contact</ a > { /* What : Navbar Contact Anchor Element. Why : A semantic element was required in order to contain the link to the Contact section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+
+
+                        </ li >
+
+                        { /* <!-- ══ End conLiiEle ══ --> */ }
+
+
+                    </ ul >
+
+                    { /* <!-- ══ End navUnlEle ══ --> */ }
+
+
+                </ nav >
+
+                { /* <!-- ══ End navNavEle ══ --> */ }
+
+
+            </ header >
+
+            /* <!-- ══ End navHeaEle ══ --> */
+
 
     );
+
+    // #endregion navBarComJsx
 
 
 
     return navBarComJsx;
 
-    // #endregion Return Statement
-
 
 };
 
-// #endregion HomPagCom
+// #endregion NavBarCom
 
 
 
