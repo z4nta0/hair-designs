@@ -180,61 +180,7 @@
     
 
  
-    /* ── Services ── */
-    .servicesSection {
-      background: var(--ivory);
-      padding: 90px 5%;
-    }
-    .servicesTaglineParagraph {
-        font-family: 'Dancing Script', cursive;
-      font-size: 1.1rem;
-      color: var(--rose);
-      margin-bottom: 8px;
-    }
-    .servicesHeading2 {
-        font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      color: var(--navy);
-      margin-bottom: 16px;
-    }
-    .servicesHorizontalRule {
-        width: 48px; height: 2px;
-      color: var(--rose);
-      margin-bottom: 28px;
-    }
-    .servicesDescriptionParagraph {
-        max-width: 560px;
-        color: var(--warm-gray);
-        font-size: 0.95rem;
-    }
-    .cardsContainerDiv {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 28px;
-      margin-top: 48px;
-    }
-    .cardDivs {
-      background: var(--cream);
-      border: 1px solid var(--border);
-      border-top: 4px solid var(--rose);
-      padding: 36px 28px;
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .cardDivs:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(43,50,69,0.12); }
-    .cardSvgs {
-      width: 44px; height: 44px; margin-bottom: 20px;
-    }
-    .cardHeading3s {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.15rem;
-      color: var(--navy);
-      margin-bottom: 10px;
-    }
-    .cardParagraphs {
-      font-size: 0.88rem;
-      color: var(--warm-gray);
-      line-height: 1.65;
-    }
+
  
     /* ── About ── */
     .aboutSection {
