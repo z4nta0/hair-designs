@@ -84,6 +84,16 @@ column gaps, and image sizes) are each a `clamp()` of a `--hor-rhy-*` step
 between two `--spa-hor-*` steps, and everything inside a component stays on
 fixed rem steps. It lands in a commit of its own, so it can be reverted if
 it doesn't suit this design.
+- **Content cap** (decided 2026-10-12, ahead of the horizontal rhythm, after
+  the compact type scale left the wide sections looking sparse): content
+  stops at `--con-max-wid`, 1,920px over the square of the core design
+  number (about 1,094px, the same as tonys-toppers; the other sibling sites
+  use 1,920px over the first power, about 1,449px). The Services, About, and
+  Contact sections, and the bar in a commit of its own (`28d1b0c`, easy to
+  revert if it doesn't suit), set their side padding to the larger of 5% and
+  half the space beyond the cap, so their backgrounds stay full width while
+  their content centers. The hero stays full width, and the footer, which
+  already centers its line, is unchanged.
 
 ## Scroll position
 Decided 2026-10-12: the 404 page makes this a two-route site, but it's
