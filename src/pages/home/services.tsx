@@ -1,7 +1,7 @@
 
 // #region Imports
 
-import styles from './Services.module.css'; /** What : Styles. Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class naming conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
+import styles from './services.module.css'; /** What : Styles. Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class naming conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
 
 // #endregion Imports
 

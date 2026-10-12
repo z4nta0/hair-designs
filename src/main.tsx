@@ -1,8 +1,8 @@
 
 // #region Imports
 
-import                './index.css';     /** This import is the root CSS file where all non module CSS is placed, typically used for global styles that apply throughout the entire application. */
-import AppRooCom from './AppRooCom.tsx'; /** This import is the custom React root component that contains the core routing structure of the application, acting as the container for the router, global components (navbar, footer, etc...) and any components that are dynamically rendered via React Router based on the current URL. */
+import                './styles/styles.css'; /** This import is the root CSS file where all non module CSS is placed, typically used for global styles that apply throughout the entire application. */
+import AppRooCom from './app.tsx';            /** This import is the custom React root component that contains the core routing structure of the application, acting as the container for the router, global components (navbar, footer, etc...) and any components that are dynamically rendered via React Router based on the current URL. */
 
 
 import { createRoot    } from 'react-dom/client'; /** This import is the new standard React DOM 18 API for creating a root DOM node to render the application, replacing the older ReactDOM.render method and providing better performance and support for concurrent features. */

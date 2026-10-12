@@ -10,7 +10,7 @@ Live at [hairdesigns.hair](https://hairdesigns.hair/).
 - **React 19** + **TypeScript**
 - **React Router** (a single home page today, with a 404 page to come)
 - **ESLint** with typescript-eslint, and **Playwright** with axe-core for the test suites
-- Deployed on **Netlify**, which serves `index.html` for every path so the router can handle it
+- Deployed on **Netlify**, which serves `index.html` for every path (`public/_redirects`) so the router can handle it
 
 ## Getting started
 
@@ -44,6 +44,26 @@ Each suite runs in Chromium, Firefox, and WebKit against its own dev server on p
 ```bash
 npm run build
 npm run preview
+```
+
+## Project structure
+
+```
+src/
+├── assets/        Images shared by 2+ places (logo.svg)
+├── pages/
+│   └── home/      Home page and its sections (hero, services, about, contact), with their stylesheets
+├── ui/            Components on every page (nav, footer), each with its own .module.css
+├── styles/        Global CSS (styles.css)
+├── app.tsx        Root component: the router, the bar, the routes, and the footer
+└── main.tsx       Entry point
+public/            Files served at fixed addresses: the favicon and Netlify's _redirects
+tests/
+├── accessibility/ axe-core scan and scripted checks
+├── rendering/     screenshot comparisons and their baselines/
+├── responsive/    layout checks across screen widths
+├── support/       the page states the suites visit
+└── playwright.config.ts
 ```
 
 ## Contact form

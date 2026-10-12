@@ -64,11 +64,11 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every pa
 		await expect( curPagObj ).toHaveScreenshot( `${ staRcdObj.ideStr }.png`, { // What: Baseline Comparison Assertion. Why: The state should look exactly as approved. How: This captures the whole page with animations stopped and the copyright year masked, and compares it with the state's baseline pixel for pixel, color for color.
 
 
-			animations        : 'disabled',                                         // What: Animations. Why: A looping animation would never hold still for the capture. How: This stops every animation at its start.
-			fullPage          : true,                                               // What: Full Page. Why: The whole state has to match, not just the first screen. How: This captures the page's full height.
-			mask              : [ curPagObj.locator( 'footer' ).getByText( /©/ ) ], // What: Mask. Why: The copyright year changes every January. How: This covers the copyright line in the capture, found through the footer element, since today's footer sits inside main and so isn't exposed as the contentinfo landmark.
-			maxDiffPixelRatio : MAX_DIF_NUM,                                        // What: Maximum Diff Pixel Ratio. Why: No pixel may differ from the baseline. How: This reads the suite's zero tolerance.
-			threshold         : PIX_THR_NUM                                         // What: Threshold. Why: Even a slight color change should fail. How: This reads the suite's zero per-pixel threshold.
+			animations        : 'disabled',                                                // What: Animations. Why: A looping animation would never hold still for the capture. How: This stops every animation at its start.
+			fullPage          : true,                                                      // What: Full Page. Why: The whole state has to match, not just the first screen. How: This captures the page's full height.
+			mask              : [ curPagObj.getByRole( 'contentinfo' ).getByText( /©/ ) ], // What: Mask. Why: The copyright year changes every January. How: This covers the copyright line in the capture.
+			maxDiffPixelRatio : MAX_DIF_NUM,                                               // What: Maximum Diff Pixel Ratio. Why: No pixel may differ from the baseline. How: This reads the suite's zero tolerance.
+			threshold         : PIX_THR_NUM                                                // What: Threshold. Why: Even a slight color change should fail. How: This reads the suite's zero per-pixel threshold.
 
 
 		} );

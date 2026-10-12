@@ -1,14 +1,15 @@
 
 // #region Imports
 
-import HomPagCom from './components/HomPagCom/HomPagCom.tsx'; /** This import is the custom React component that will return the Home page when navigated to via React Router. */
-import NavBarCom from './components/NavBar/NavBar.tsx';       /** This import is the custom component that will return the Navigation Bar, which is rendered on every page and contains the links to navigate between sections. */
-import styles    from './AppRooCom.module.css';               /** This import is the custom CSS file that contains all of the styling declarations for this component. */
+import NavBarCom from './ui/nav.tsx';         /** This import is the custom component that will return the Navigation Bar, which is rendered on every page and contains the links to navigate between sections. */
+import styles    from './app.module.css';     /** This import is the custom CSS file that contains all of the styling declarations for this component. */
 
 
-import { BrowserRouter } from 'react-router';     /** This import is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */
-import { Route         } from 'react-router';     /** This import is the standard React Router component that is used to declaratively render specific UI components when the application's current URL matches this component's custom defined path, acting as a bridge between the URL and the user interface. */
-import { Routes        } from 'react-router';     /** This import is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */
+import { BrowserRouter } from 'react-router';           /** This import is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */
+import { HomPagCom     } from './pages/home/home.tsx'; // What: Home Page Component. Why: The root path renders the home page. How: This is the route's element.
+import { Route         } from 'react-router';           /** This import is the standard React Router component that is used to declaratively render specific UI components when the application's current URL matches this component's custom defined path, acting as a bridge between the URL and the user interface. */
+import { Routes        } from 'react-router';           /** This import is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */
+import { SitFooCom     } from './ui/footer.tsx';       // What: Site Footer Component. Why: Every page ends with the footer. How: This renders it after the main element.
 
 // #endregion Imports
 
@@ -30,7 +31,7 @@ import { Routes        } from 'react-router';     /** This import is the standar
  * components that should be rendered regardless of the current path are also
  * declared inside of said BrowserRouter component but outside of the appMaiEle
  * element and the Routes component. For this application, that includes both
- * the custom {@link NavBarCom} component and the custom {@link FooBarCom}
+ * the custom {@link NavBarCom} component and the custom {@link SitFooCom}
  * component.
  *
  * @author React Router <https://reactrouter.com/>
@@ -93,11 +94,7 @@ function AppRooCom () : React.ReactElement {
 
 
 
-            { /* <!-- ══ Start FooBarCom Component ══ --> */ }
-
-            {/**< FooBarCom /> { /* Footer Bar Component = This custom React component contains all of the logic and JSX for the footer bar at the bottom of the application. */ }
-
-            { /* <!-- ══ End FooBarCom Component ══ --> */ }
+            <SitFooCom />{ /* What: Site Footer Component. Why: Every page ends with the footer, outside the main element so it's the page's contentinfo landmark. How: This renders it after main. */ }
 
 
         </ BrowserRouter >

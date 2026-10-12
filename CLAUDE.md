@@ -74,6 +74,42 @@ Decided 2026-10-12: the 404 page makes this a two-route site, but it's
 expected to fit one screen without scrolling, so `useScrTopFun` is left out
 for now. Revisit once the 404 page is built; if it scrolls, add the hook.
 
+## Directory structure
+Decided 2026-10-12, matching seal-and-shield's adaptation of the user-level
+"### Directory structure" layout to a website with routes rather than a web
+app with tabs.
+```
+src/
+  main.tsx               entry point
+  app.tsx                root component, the router, the bar, the main
+                         element with the routes, and the footer
+  assets/                images used by 2 or more places (logo.svg)
+  pages/
+    home/                the home page (home.tsx) and its sections (hero,
+                         services, about, contact)
+  ui/                    components every page renders (nav, footer)
+  styles/                global CSS only (styles.css)
+```
+Outside `src/`: `tests/` holds the Playwright suites (see "## Test
+suites"), and `public/_redirects` holds Netlify's single-page app fallback,
+replacing the old `netlify.toml`.
+- **`pages/` takes the place of `tabs/`.** Each route gets its own folder, and
+  a component only that page uses lives in it. The 404 page will be
+  `pages/not-found/`.
+- **A page's main file is named after its folder** (`pages/home/home.tsx`),
+  the same as seal-and-shield.
+- **The bar and footer live in `ui/`** as `nav.tsx` and `footer.tsx`, since
+  the 404 page will use them too. The footer now renders after `main`, so
+  it's the page's `contentinfo` landmark.
+- **Interim state until step 6** (done 2026-10-12 as a pure move, every
+  screenshot unchanged): the moved files keep their old formatting and
+  names (`Services`, `NavBarCom`, `styles` as the module import), the hero,
+  About, and contact sections still share `home.module.css`, whose `:root`
+  colors and global reset the footer's module reads too, and
+  `styles/styles.css` is still the Vite template's `index.css`. Step 6
+  formats each file, gives every component its own module, and moves the
+  global rules into `styles.css` before the 404 page needs them.
+
 ## Cleanup plan
 Decided 2026-10-12, on the `cleanup-code` branch. Each step is committed
 once it's verified, and every step from 4 on keeps the test suites passing
@@ -109,7 +145,8 @@ with unchanged screenshots unless the step is meant to change the page.
    `pages/not-found/`, `ui/` (nav, footer), `styles/` (`fonts.css`,
    `styles.css`), `assets/`, and Netlify's `_headers` and `_redirects` in
    `public/` replacing `netlify.toml`. The footer moves out of the home page
-   into `ui/footer.tsx`.
+   into `ui/footer.tsx`. Done 2026-10-12, as described under "## Directory
+   structure", with `_headers` (security headers) left for the SEO step.
 6. **Formatting, naming, and comment passes, CSS modules, and design
    tokens**, one file per commit. The earlier hand formatting is replaced
    wherever it differs from the rules: per-declaration CSS comments,
@@ -159,8 +196,7 @@ the features they check.
 - `npm run test:rendering`: compares a full-page screenshot of every state
   with its baseline in `tests/rendering/baselines/`, with zero tolerance (no
   pixel may differ, and the per-pixel color threshold is 0 too). The footer's
-  copyright line is masked, found through the `footer` element, since today's
-  footer sits inside `main` and isn't the `contentinfo` landmark yet. After an
+  copyright line is masked. After an
   intended visual change, refresh with `npm run test:rendering --
   --update-snapshots` and commit the baselines with it. Baselines are captured
   on Linux.

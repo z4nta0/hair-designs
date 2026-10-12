@@ -675,17 +675,6 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
 
 /* #endregion formDisabledDiv */
  
-    /* ── Footer ── */
-    .footbarFooter {
-      background: #1d2235;
-      border-top: 3px solid var(--rose);
-      padding: 28px 5%;
-      text-align: center;
-      color: rgba(245,240,232,0.5);
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-    }
-    .footerSpan { color: var(--rose-lt); }
  
     /* ── Fade-in animation ── */
     @keyframes fadeUp {

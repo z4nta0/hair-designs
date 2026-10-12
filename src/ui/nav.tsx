@@ -1,8 +1,8 @@
 
 // #region Imports
 
-import logoSvg from '../../assets/logo.svg'; /** What : Logo SVG. Why : A scalable, lightweight image of the brand's logo was required in the navigation bar to act as a brand identifier and as a link to the Home section.                    How : Using a standard SVG image format placed inside the ./src/assets folder. */
-import styles  from './NavBar.module.css';   /** What : Styles.   Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class naming conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
+import logoSvg from '../assets/logo.svg';    /** What : Logo SVG. Why : A scalable, lightweight image of the brand's logo was required in the navigation bar to act as a brand identifier and as a link to the Home section.                    How : Using a standard SVG image format placed inside the ./src/assets folder. */
+import styles  from './nav.module.css';      /** What : Styles.   Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class naming conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
 
 
 import { useState } from 'react'; // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
