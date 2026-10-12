@@ -58,8 +58,13 @@ Built 2026-10-12 (`90d30fb`).
 - Known quirk: Tab past the tooltip's link, the page's last stop, sends
   Firefox's focus to its own toolbar without a blur the page can see, so the
   tooltip stays up until focus or the pointer returns.
-- Copy elsewhere that invites a message (the contact quote, the form's
-  heading) is reworded to point to a call instead in step 7.
+- **Copy** (decided with the user 2026-10-12, step 7): the stylists' quote
+  invites a call or a visit instead of a message ("We're your neighbors, so
+  give us a call or stop by. We'd love to hear from you."), the form card
+  keeps its "Send Us a Message" heading, since the card still reads as the
+  designed contact form and the tooltip and legend explain it's off, and
+  the quote's sign-off keeps its em dash under the user-level copy rules'
+  attribution exception.
 
 ## Type scale
 Decided 2026-10-12: the root is 68.75% (11px) on every viewport, as in the
@@ -239,7 +244,12 @@ with unchanged screenshots unless the step is meant to change the page.
      camelCase-only module keys. The design tokens and the horizontal
      layout come next.
 7. **Copy**: every em dash reworded (the service select's placeholder, the
-   contact quote, and its sign-off), and the message wording above.
+   contact quote, and its sign-off), and the message wording above. Done
+   2026-10-12: the placeholder reads "Select a service", the quote is
+   reworded without its dash or its invitation to message, and the
+   sign-off's dash stays as a quote attribution, an exception added to the
+   user-level copy rules at the user's request. The old favicon's SVG
+   comment still holds one, left for the favicon's replacement in step 8.
 8. **New features**: the 404 page, SEO and local SEO, the social preview
    card and favicon set (the current `favicon.svg` predates the new logo),
    and interaction feedback. The phone menu, reduced motion, and the
