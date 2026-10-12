@@ -658,10 +658,11 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
 
 }
 
-.formNoteSpan { /* What: Form Note Span. Why: Screen readers read the form's message from this, while sighted visitors get the tooltip. How: This hides it visually with the standard clip technique, leaving it in the accessibility tree. */
+.formNoteLegend { /* What: Form Note Legend. Why: Screen readers read the form's message from this, while sighted visitors get the tooltip. How: This hides it visually with the standard clip technique, leaving it in the accessibility tree, in navy so checkers that measure hidden text don't find cream on the cream card. */
 
 
 	clip        : rect( 0 0 0 0 );
+	color       : var( --navy );
 	height      : 1px;
 	margin      : -1px;
 	overflow    : hidden;

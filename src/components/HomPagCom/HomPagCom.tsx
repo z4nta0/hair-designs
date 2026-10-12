@@ -604,7 +604,7 @@ function HomPagCom () : React.ReactElement {
                                 className={ styles.formDisabledDiv }
 
                                 tabIndex={ 0 }
-                                aria-describedby='forNotSpa'
+                                aria-describedby='forNotLeg'
                                 aria-label='Contact form, turned off'
                                 role='group'
 
@@ -614,7 +614,7 @@ function HomPagCom () : React.ReactElement {
                                 onPointerDown={ ( preEveObj ) => { if ( !tipDivRef.current?.contains( preEveObj.target as Node ) ) plaTipFun( preEveObj.clientX, preEveObj.clientY ); } } // What: Press Open Handler. Why: A tap on a touchscreen has no hover to open the tooltip, but a tap on the open tooltip, such as on its phone link, mustn't move it out from under the finger. How: This opens it where the finger landed, unless the press was inside the tooltip. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
                                 onPointerEnter={ ( entEveObj ) => { if ( entEveObj.pointerType === 'mouse' ) plaTipFun( entEveObj.clientX, entEveObj.clientY ); } } // What: Mouse Enter Handler. Why: A mouse hovering the form should learn why it's turned off. How: This opens the tooltip where the pointer entered, for a mouse only, since a touch also fires enter before its press.
                                 onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( null ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.
-                            >{ /* What: Form Disabled Div Element. Why: Disabled fields don't reliably pass the pointer on in every browser, and the keyboard skips them entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and describing the form through forNotSpa. */ }
+                            >{ /* What: Form Disabled Div Element. Why: Disabled fields don't reliably pass the pointer on in every browser, and the keyboard skips them entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and describing the form through its fieldset's legend. */ }
 
 
                                 <fieldset
@@ -622,6 +622,13 @@ function HomPagCom () : React.ReactElement {
 
                                     disabled
                                 >{ /* What: Form Fieldset Element. Why: The salon doesn't take messages, so every field and the button are turned off at once. How: This disables everything inside it. */ }
+
+
+                                    <legend
+                                        id='forNotLeg'
+                                        className={ styles.formNoteLegend }
+                                    >The form is disabled at this time. Please call us at 417-988-6239. We apologize for any inconvenience.</legend>{ /* What: Form Note Legend Element. Why: A fieldset should say what its group is, and screen readers should hear why the form is off without needing the tooltip. How: This holds the tooltip's message, hidden visually, and also describes the wrapper through aria-describedby. */ }
+
 
 
 
@@ -872,10 +879,6 @@ function HomPagCom () : React.ReactElement {
 
 
 
-                                <span
-                                    id='forNotSpa'
-                                    className={ styles.formNoteSpan }
-                                >The form is disabled at this time. Please call us at 417-988-6239. We apologize for any inconvenience.</span>{ /* What: Form Note Span Element. Why: Screen readers should hear why the form is off without needing the tooltip. How: This holds the same message, hidden visually, and describes the wrapper through aria-describedby. */ }
 
 
                             </div>

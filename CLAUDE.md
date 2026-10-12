@@ -49,8 +49,12 @@ Built 2026-10-12 (`90d30fb`).
   top edge, and the next Tab reaches its phone link. On blur it waits a frame
   and closes only if focus settled outside the wrapper, which also survives
   the test suite blurring and refocusing each stop.
-- Screen readers hear the same message from a visually hidden note tied to
-  the wrapper through `aria-describedby`.
+- Screen readers hear the same message from the fieldset's visually hidden
+  `<legend>`, which names the fieldset and also describes the wrapper
+  through `aria-describedby`. It's a legend rather than a plain hidden span
+  (changed 2026-10-12 after the user's WAVE check) so the fieldset has the
+  legend WAVE asks for, and it's set in navy, since WAVE measures clipped
+  text and the inherited cream on the form's cream card read as 1:1.
 - Known quirk: Tab past the tooltip's link, the page's last stop, sends
   Firefox's focus to its own toolbar without a blur the page can see, so the
   tooltip stays up until focus or the pointer returns.
@@ -212,6 +216,14 @@ passes (126 tests) in all three.
   four script taglines grew from 1.1rem to 25.572px (the scale's `p03`) so
   they count as large text, the user's choice over keeping their size in a
   darker `#a75743`. The brand rose stays on borders, rules, and buttons.
+- **WAVE** (the user's check, 2026-10-12): its one contrast error was the
+  hidden form note's cream on cream, and its missing-legend alert was the
+  disabled fieldset; both were fixed by making the note the fieldset's
+  legend. Its "possible heading" alerts on the four script taglines and the
+  two "Licensed Cosmetologists" captions are kept on purpose, as in the
+  user's other projects: the taglines lead into real headings and the
+  captions are captions, so making them headings would add false entries to
+  the outline screen reader users navigate by.
 - **Checked by hand**: axe can't measure text over the contact section's
   striped navy, so it lists those items as needing review. Measured against
   both stripes (and the quote box's 6% white overlay), the lowest is 5.30:1
