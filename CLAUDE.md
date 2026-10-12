@@ -18,9 +18,13 @@ treatment. The `author` meta names the business itself.
 - **Facebook**: https://www.facebook.com/hairdesignscosmetology, which joins
   the structured data as `sameAs`. There's no X account, so no
   `twitter:site`.
-- **Service area**: still to be confirmed by the user (the salon draws from
-  the small towns around Carson's Corner). Only towns the user confirms go
-  into the structured data's `areaServed`.
+- **Service area** (decided 2026-10-12): Hickory County, Missouri, plus the
+  towns the user named from the map around Carson's Corner: Hermitage (the
+  nearest larger town and the county seat), Pittsburg, Galmey, Wheatland,
+  Nemo, Preston, Cross Timbers, Elkton, and Urbana. The user described it as
+  "Hickory County and surrounding counties", but structured data names real
+  places, so the surrounding counties are covered by the towns rather than
+  listed as a vague region.
 - **Off-site work for the business** (to hand over once the SEO pass is
   done): a Google Business Profile with the street address, Google Search
   Console with the sitemap submitted, Bing Webmaster Tools, and listings
@@ -61,10 +65,17 @@ Decided 2026-10-12, on the `cleanup-code` branch. Each step is committed
 once it's verified, and every step from 4 on keeps the test suites passing
 with unchanged screenshots unless the step is meant to change the page.
 1. **Project setup**: this file, the unused template assets removed
-   (`f8d37f9`), and the README rewritten.
+   (`f8d37f9`), and the README rewritten. Done 2026-10-12.
 2. **Dependency upgrades**, one at a time with a build check after each:
    `react-router-dom` 7 to `react-router` 8, then TypeScript 6.0. The JSON
-   config files are reformatted to the JSON rules.
+   config files are reformatted to the JSON rules. Done 2026-10-12: React
+   19.3 first (React Router 8 needs 19.2.7 or newer), `npm audit fix`
+   clearing 14 advisories (mostly the Vite 8.0 dev server, now 8.3.4),
+   React Router 8.4 (checked rendering in all three engines), TypeScript
+   6.0.3 with typescript-eslint 8.71.1 (whose peer range accepts it), and
+   the JSON configs formatted. React Router 8 needs Node 22.22 or newer,
+   so Netlify must build with Node 24.x (set in the site's Netlify
+   settings, as seal-and-shield does).
 3. **ESLint**: `eslint.config.ts` from ease-my-life's, replacing the
    template's `eslint.config.js`.
 4. **Playwright and axe** in all three engines, adapted from
