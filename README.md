@@ -52,9 +52,10 @@ npm run preview
 src/
 ├── assets/        Images shared by 2+ places (logo.svg)
 ├── pages/
-│   └── home/      Home page and its sections (hero, services, about, contact), with their stylesheets
-├── ui/            Components on every page (nav, footer), each with its own .module.css
-├── styles/        Global CSS (styles.css)
+│   └── home/      Home page and its sections (hero, services, about, contact), each with its own .module.css
+├── ui/            Components on every page (nav, footer), each with its own .module.css, and section-link.ts (section links that leave no hash in the address)
+├── styles/        Global CSS (fonts.css for the self-hosted fonts, styles.css for the tokens and base elements)
+├── utils/         motion.ts (the reduced-motion check for JavaScript scrolling)
 ├── app.tsx        Root component: the router, the bar, the routes, and the footer
 └── main.tsx       Entry point
 public/            Files served at fixed addresses: the favicon and Netlify's _redirects

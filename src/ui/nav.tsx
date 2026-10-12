@@ -7,7 +7,8 @@ import cssModObj from './nav.module.css';    // What: CSS Module Object. Why: Th
 import logSvgUrl from '../assets/logo.svg'; // What: Logo SVG URL. Why: The bar's brand opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
-import { useState } from 'react'; // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
+import { useSecCliFun } from './section-link.ts'; // What: Use Section Click Function. Why: Every link in the bar reaches its section the same way, leaving no hash in the address. How: This returns secCliFun, the shared click handler.
+import { useState     } from 'react';             // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
 
 // #endregion Imports
 
@@ -43,20 +44,20 @@ import { useState } from 'react'; // What: Use State. Why: The bar tracks whethe
  * @summary
  * The section links the bar and the phone menu both render, in page order.
  * Every row shares one shape, so its fields carry no comments of their own:
- * - `hreStr` (String): Href String, the section's id as an in-page link.
+ * - `ideStr` (String): Identifier String, the section's id.
  * - `labStr` (String): Label String, the link's text.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
 */
 
-const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone menu list the same links, so they're defined once. How: Each row pairs a section's link with its label.
+const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone menu list the same links, so they're defined once. How: Each row pairs a section's id with the link's label.
 
 
-	{ hreStr : '#home',     labStr : 'Home'     },
-	{ hreStr : '#services', labStr : 'Services' },
-	{ hreStr : '#about',    labStr : 'About'    },
-	{ hreStr : '#contact',  labStr : 'Contact'  }
+	{ ideStr : 'home',     labStr : 'Home'     },
+	{ ideStr : 'services', labStr : 'Services' },
+	{ ideStr : 'about',    labStr : 'About'    },
+	{ ideStr : 'contact',  labStr : 'Contact'  }
 
 
 ];
@@ -77,7 +78,10 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
  * row of section links on wide screens, and on narrow screens the menu
  * button and the panel it opens. The panel is inert while closed, so its
  * links stay out of the focus order, and each of its links closes it on the
- * way to its section.
+ * way to its section. Every link points at its section's address on the
+ * home page, which a Ctrl, Cmd, Shift, Alt, or middle click opens, while a
+ * plain click goes through secCliFun, scrolling in place without leaving a
+ * hash in the address.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -96,6 +100,8 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
 function NavBarCom () : React.JSX.Element {
 
 
+	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: Every link in the bar reaches its section the same way. How: This leaves a modified click to the browser and otherwise scrolls to the section without a hash.
+
 	const [ menOpeBoo, setMenOpeBoo ] = useState( false ); // What: Menu Open Boolean And Setter. Why: The phone menu opens and closes from its button. How: This holds whether it's open, starting closed.
 
 
@@ -109,8 +115,10 @@ function NavBarCom () : React.JSX.Element {
 			<a
 				className={ cssModObj.navBraAnc }
 
-				href='#home'
-			>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This jumps to the home section. */ }
+				href='/#home'
+
+				onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'home' ) }
+			>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, leaving no hash in the address. */ }
 
 
 				<img
@@ -141,14 +149,16 @@ function NavBarCom () : React.JSX.Element {
 					{ NAV_LIN_ARR.map( ( linRcdObj ) => ( // What: Link Item Map. Why: Each section gets a link in the bar. How: This renders one list item per row.
 
 
-						<li key={ linRcdObj.hreStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it. */ }
+						<li key={ linRcdObj.ideStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it. */ }
 
 
 							<a
 								className={ cssModObj.navLinAnc }
 
-								href={ linRcdObj.hreStr }
-							>{ linRcdObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link jumps to its section. How: This links to the section's id. */ }
+								href={ `/#${ linRcdObj.ideStr }` }
+
+								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, linRcdObj.ideStr ) }
+							>{ linRcdObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there without a hash. */ }
 
 
 						</li>
@@ -197,14 +207,14 @@ function NavBarCom () : React.JSX.Element {
 
 
 					<a
-						key={ linRcdObj.hreStr }
+						key={ linRcdObj.ideStr }
 
 						className={ cssModObj.menLinAnc }
 
-						href={ linRcdObj.hreStr }
+						href={ `/#${ linRcdObj.ideStr }` }
 
-						onClick={ () => setMenOpeBoo( false ) }
-					>{ linRcdObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This jumps to the section and closes the menu behind it.
+						onClick={ ( cliEveObj ) => { if ( secCliFun( cliEveObj, linRcdObj.ideStr ) ) setMenOpeBoo( false ); } } // What: Menu Link Click Handler. Why: A chosen link should close the menu on the way to its section, but a link opened in a new tab leaves the menu as it was. How: This closes the menu only when secCliFun handled the click.
+					>{ linRcdObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This scrolls to the section without a hash and closes the menu behind it.
 
 
 				))}

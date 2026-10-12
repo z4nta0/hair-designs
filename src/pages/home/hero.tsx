@@ -6,6 +6,9 @@
 import cssModObj from './hero.module.css';      // What: CSS Module Object. Why: The hero is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The hero's centerpiece is the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
+
+import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Click Function. Why: The hero's buttons reach their sections the same way the bar does. How: This returns secCliFun, the shared click handler that scrolls to a section without leaving a hash in the address.
+
 // #endregion Imports
 
 
@@ -57,6 +60,10 @@ import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The h
 */
 
 function HerSecCom () : React.JSX.Element {
+
+
+	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: The hero's buttons reach their sections the same way the bar does. How: This leaves a modified click to the browser and otherwise scrolls to the section without a hash.
+
 
 
 	return (
@@ -128,14 +135,18 @@ function HerSecCom () : React.JSX.Element {
 							<a
 								className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncPrimary } `}
 
-								href='#services'
-							>Our Services</a>{ /* What: Primary Button Base Anchor Element. Why: Seeing the services is the main next step. How: This jumps to the Services section. */ }
+								href='/#services'
+
+								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'services' ) }
+							>Our Services</a>{ /* What: Primary Button Base Anchor Element. Why: Seeing the services is the main next step. How: This scrolls to the Services section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 							<a
 								className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncOutline } `}
 
-								href='#contact'
-							>Get in Touch</a>{ /* What: Outline Button Base Anchor Element. Why: Reaching the salon is the other next step. How: This jumps to the Contact section. */ }
+								href='/#contact'
+
+								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'contact' ) }
+							>Get in Touch</a>{ /* What: Outline Button Base Anchor Element. Why: Reaching the salon is the other next step. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 
 						</div>

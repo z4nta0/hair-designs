@@ -6,6 +6,9 @@
 import cssModObj from './about.module.css';     // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The stylists' card opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
+
+import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Click Function. Why: The About section's button reaches the Contact section the same way the bar does. How: This returns secCliFun, the shared click handler that scrolls to a section without leaving a hash in the address.
+
 // #endregion Imports
 
 
@@ -53,6 +56,10 @@ import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The s
 */
 
 function AboSecCom () : React.JSX.Element {
+
+
+	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: The About section's button reaches the Contact section the same way the bar does. How: This leaves a modified click to the browser and otherwise scrolls to the section without a hash.
+
 
 
 	return (
@@ -115,8 +122,10 @@ function AboSecCom () : React.JSX.Element {
 				<a
 					className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncPrimary } `}
 
-					href='#contact'
-				>Reach Out</a>{ /* What: Primary Button Base Anchor Element. Why: The story ends with a way to reach the salon. How: This jumps to the Contact section. */ }
+					href='/#contact'
+
+					onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'contact' ) }
+				>Reach Out</a>{ /* What: Primary Button Base Anchor Element. Why: The story ends with a way to reach the salon. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 
 			</div>

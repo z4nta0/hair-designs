@@ -87,8 +87,10 @@ src/
   pages/
     home/                the home page (home.tsx) and its sections (hero,
                          services, about, contact)
-  ui/                    components every page renders (nav, footer)
-  styles/                global CSS only (styles.css)
+  ui/                    components every page renders (nav, footer) and
+                         section-link.ts
+  styles/                global CSS only (fonts.css, styles.css)
+  utils/                 app-agnostic helpers (motion.ts)
 ```
 Outside `src/`: `tests/` holds the Playwright suites (see "## Test
 suites"), and `public/_redirects` holds Netlify's single-page app fallback,
@@ -96,6 +98,22 @@ replacing the old `netlify.toml`.
 - **`pages/` takes the place of `tabs/`.** Each route gets its own folder, and
   a component only that page uses lives in it. The 404 page will be
   `pages/not-found/`.
+- **Section links leave no hash in the address** (decided 2026-10-12, as in
+  the user's other sites except reese-roofing). Every link to a home page
+  section (the bar's links and brand, the phone menu, the hero's two
+  buttons, and the About section's button) points at its real address
+  (`/#about`), so a Ctrl, Cmd, Shift, Alt, or middle click opens it in a new
+  tab, while a plain click goes through `ui/section-link.ts`'s `secCliFun`:
+  it scrolls to the section in place (instantly under reduced motion,
+  through `utils/motion.ts`'s `redMotFun`), or from any other page navigates
+  home with the section's id as the hash. The home page jumps to a section
+  named in the hash on arrival, from a shared address or another page, and
+  clears it. Adapted from tonys-toppers' version, with `useSecCliFun` added
+  so every link shares one click handler; the phone menu closes only when a
+  click was handled. Checked in all three engines: every link lands 71px
+  down, below the bar, with a clean address (a modified click opens a new tab
+  in Chromium and Firefox; headless WebKit doesn't open tabs on modified
+  clicks, so that case is unchecked there).
 - **A page's main file is named after its folder** (`pages/home/home.tsx`),
   the same as seal-and-shield.
 - **The bar and footer live in `ui/`** as `nav.tsx` and `footer.tsx`, since
