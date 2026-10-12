@@ -1,19 +1,41 @@
 
+
+
 // #region Imports
 
-import NavBarCom from './ui/nav.tsx';         /** This import is the custom component that will return the Navigation Bar, which is rendered on every page and contains the links to navigate between sections. */
-import styles    from './app.module.css';     /** This import is the custom CSS file that contains all of the styling declarations for this component. */
+import NavBarCom from './ui/nav.tsx'; // What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders it above the main element.
 
 
-import { BrowserRouter } from 'react-router';           /** This import is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */
-import { HomPagCom     } from './pages/home/home.tsx'; // What: Home Page Component. Why: The root path renders the home page. How: This is the route's element.
-import { Route         } from 'react-router';           /** This import is the standard React Router component that is used to declaratively render specific UI components when the application's current URL matches this component's custom defined path, acting as a bridge between the URL and the user interface. */
-import { Routes        } from 'react-router';           /** This import is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */
-import { SitFooCom     } from './ui/footer.tsx';       // What: Site Footer Component. Why: Every page ends with the footer. How: This renders it after the main element.
+import { HomPagCom } from './pages/home/home.tsx'; // What: Home Page Component. Why: The home page holds every section of the site. How: The root path's route renders it.
+import { Route     } from 'react-router';          // What: Route. Why: Each page is matched to a path. How: This declares one path and the page it renders.
+import { Routes    } from 'react-router';          // What: Routes. Why: Only one page should render for any path. How: This renders the first route whose path matches.
+import { SitFooCom } from './ui/footer.tsx';       // What: Site Footer Component. Why: Every page ends with the footer. How: This renders it after the main element.
 
 // #endregion Imports
 
 
+
+/**
+ * app.tsx = App
+ *
+ * @summary
+ * The site's root component, mounted by main.tsx inside the router. It
+ * renders what every page shares around the route table: the fixed bar
+ * above the main element, which holds whichever page matches the current
+ * path (for now only the home page at the root path), and the footer after
+ * it, where it's the page's contentinfo landmark.
+ *
+ * Sections:
+ *  - Components
+ *  - Exports
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+// #region Components
 
 // #region AppRooCom
 
@@ -21,102 +43,77 @@ import { SitFooCom     } from './ui/footer.tsx';       // What: Site Footer Comp
  * AppRooCom = App Root Component
  *
  * @summary
- * This custom React component executes the root logic of and renders the root
- * JSX of the application. The custom React Router structure is set up here via
- * the standard React Router {@link BrowserRouter} component, which acts as the
- * core of the application by routing all requested paths to the specified
- * custom components. Said custom components will then be rendered via React
- * Router inside of both the custom appMaiEle HTML element and the standard
- * React Router {@link Routes} component. In addition, any custom global
- * components that should be rendered regardless of the current path are also
- * declared inside of said BrowserRouter component but outside of the appMaiEle
- * element and the Routes component. For this application, that includes both
- * the custom {@link NavBarCom} component and the custom {@link SitFooCom}
- * component.
+ * The top of the component tree: renders the bar, then the main element with
+ * the site's route table, so whichever page matches the current path is the
+ * one on screen, then the footer. The bar and footer sit outside the routes
+ * so every page shares them without rendering them itself.
  *
- * @author React Router <https://reactrouter.com/>
- * @author z4nta0       <https://github.com/z4nta0>
- * 
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
  * @param props - This component does not use any props.
- * 
- * @returns A React JSX element representing the App component.
- * @see {@link appRooComJsx}
- * 
+ *
+ * @returns The bar, the page matching the current path, and the footer.
+ *
  * @example
  * ```tsx
- * <AppRooCom /> // => appRooComJsx
+ * AppRooCom() // => <AppRooCom />
  * ```
  *
 */
 
-function AppRooCom () : React.ReactElement {
+function AppRooCom () : React.JSX.Element {
 
 
-    // #region Return Statement
-
-    /** App Root Component Javascript XML   = This custom variable stores the HTML like code that this component will render when called by its parent component, with the idea behind this being that I prefer to store this in a variable before being returned so that it can be referenced inside of comments in the other sections of this component. */
-    const appRooComJsx : React.ReactElement = (
+	return (
 
 
-        /* <!-- ══ Start BrowserRouter Component ══ --> */
-
-        <  BrowserRouter > { /** BrowserRouter = This component is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */ }
+		<>
 
 
-            { /* <!-- ══ Start NavBarCom Component ══ --> */ }
-
-            < NavBarCom /> { /* Navigation Bar Component = This custom React component contains all of the logic and JSX for the sticky navigation bar at the top of the application. */ }
-
-            { /* <!-- ══ End NavBarCom Component ══ --> */ }
-
-
-            { /* <!-- ══ Start appMaiEle Element ══ --> */ }
-
-            <  main id='appMaiEle' className={ styles.appMain } > { /* App Main Element = This custom HTML main element is the container for all of the custom React components that will be rendered by React Router based on the current URL path. */ }
-
-
-                { /* <!-- ══ Start Routes Component ══ --> */ }
-
-                <  Routes > { /** Routes = This component is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */ }
-
-
-                    < Route path='/' element={ < HomPagCom /> } /> { /** Route -> HomPagCom = This standard React Router component will render the custom Home page component. */ }
-
-
-                </ Routes >
-
-                { /* <!-- ══ End Routes Component ══ --> */ }
-
-
-            </ main >
-
-            { /* <!-- ══ End appMaiEle Element ══ --> */ }
+			<NavBarCom />{ /* What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders the logo, the section links, and the phone menu. */ }
 
 
 
-            <SitFooCom />{ /* What: Site Footer Component. Why: Every page ends with the footer, outside the main element so it's the page's contentinfo landmark. How: This renders it after main. */ }
+			<main>{ /* What: App Main Element. Why: Each page's content is the page's main landmark, apart from the bar and footer every page shares. How: This holds the route table. */ }
 
 
-        </ BrowserRouter >
-        
-        /* <!-- ══ End BrowserRouter Component ══ --> */
+				<Routes>{ /* What: Page Routes. Why: Only one page should render for any path. How: This renders the first route below whose path matches. */ }
 
 
-    );
+					<Route
+						element={ <HomPagCom /> }
+						path='/'
+					/>{ /* What: Home Route. Why: The site's root address is its home page. How: This renders HomPagCom at the root path. */ }
+
+
+				</Routes>
+
+
+			</main>
 
 
 
-    return appRooComJsx;
-
-    // #endregion Return Statement
+			<SitFooCom />{ /* What: Site Footer Component. Why: Every page ends with the footer, outside the main element so it's the page's contentinfo landmark. How: This renders it after main. */ }
 
 
-};
+		</>
+
+
+	);
+
+
+}
 
 // #endregion AppRooCom
 
+// #endregion Components
 
 
-export default AppRooCom;
+
+// #region Exports
+
+export { AppRooCom }; // What: Named Exports. Why: main.tsx is the sole consumer, mounting this as the site's root. How: This exports AppRooCom.
+
+// #endregion Exports
 
 
