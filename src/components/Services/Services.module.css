@@ -163,6 +163,22 @@
 
 
 
+@media ( prefers-reduced-motion : reduce ) { /* What: Card Divs Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	.cardDivs { /* What: Card Divs Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+
+
 /* #region cardSvgs */
 
 .cardSvgs { /* What : Card SVGs. Why : A custom selector was required in order to share the styling of all the semantic image elements that were required to contain the service card's lightweight, scalable SVG icons. How : Using standard HTML <svg> elements with a shared custom class name selector. */

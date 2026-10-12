@@ -16,6 +16,20 @@
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+@media ( prefers-reduced-motion : reduce ) { /* What: HTML Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	html { /* What: HTML Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		scroll-behavior : auto;
+
+
+	}
+
+
+}
+
     body {
       font-family: 'Lato', sans-serif;
       background: var(--ivory);
@@ -159,6 +173,20 @@
       border: 2px solid var(--navy);
     }
     .buttonAnchors_outline:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
+@media ( prefers-reduced-motion : reduce ) { /* What: Button Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	.buttonAnchors { /* What: Button Anchors Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
  
     /* ── Bottom strip ── */
     .heroBottomBarDiv {
@@ -377,6 +405,20 @@
       appearance: none;
     }
     .formInputs:focus { border-color: var(--rose); }
+@media ( prefers-reduced-motion : reduce ) { /* What: Form Inputs Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	.formInputs { /* What: Form Inputs Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
     .formInputs_message { resize: vertical; min-height: 110px; }
     .btnRose {
       background: var(--rose);
@@ -406,6 +448,21 @@
     }
     .heroLeftDiv  .fadeUpInAnimation  { animation: fadeUp 0.9s ease both; animation-delay: 0.1s; }
     .heroRightDiv .fadeUpInAnimation  { animation: fadeUp 0.9s ease both; animation-delay: 0.3s; }
+@media ( prefers-reduced-motion : reduce ) { /* What: Fade Up In Animation Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	.heroLeftDiv .fadeUpInAnimation,
+	.heroRightDiv .fadeUpInAnimation { /* What: Fade Up In Animation Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets both halves' entrances with the same two-class selectors as their base rules, so it outranks them. */
+
+
+		animation : none;
+
+
+	}
+
+
+}
+
  
     /* ── Responsive ── */
     @media (max-width: 900px) {

@@ -139,6 +139,22 @@
 
 }
 
+
+
+@media ( prefers-reduced-motion : reduce ) { /* What: Navbar Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	.navbarAnchors { /* What: Navbar Anchors Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
 /* #endregion navbarAnchors */
 
 
