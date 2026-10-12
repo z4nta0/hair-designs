@@ -671,12 +671,13 @@ function HomPagCom () : React.ReactElement {
                                     id='fosSelEle'
                                     className={ ` ${ styles.formInputs }   ${ styles.formInputs_service } ` }
                                     name='service'
+                                    defaultValue=''
                                     required
 
                                 > { /* What : Form Service Select Element. Why : A semantic element was required to allow users to select a service for the form within the contact section. How : Using a standard HTML <select> element with the appropriate attributes (name, required). */ }
 
 
-                                    < option disabled selected value=''       >— Select a service —</ option >
+                                    < option disabled value=''                >— Select a service —</ option >
 
 
 
