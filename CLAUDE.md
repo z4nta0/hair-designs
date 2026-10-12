@@ -101,14 +101,19 @@ replacing the old `netlify.toml`.
 - **The bar and footer live in `ui/`** as `nav.tsx` and `footer.tsx`, since
   the 404 page will use them too. The footer now renders after `main`, so
   it's the page's `contentinfo` landmark.
-- **Interim state until step 6** (done 2026-10-12 as a pure move, every
-  screenshot unchanged): the moved files keep their old formatting and
-  names (`Services`, `NavBarCom`, `styles` as the module import), the hero,
-  About, and contact sections still share `home.module.css`, whose `:root`
-  colors and global reset the footer's module reads too, and
-  `styles/styles.css` is still the Vite template's `index.css`. Step 6
-  formats each file, gives every component its own module, and moves the
-  global rules into `styles.css` before the 404 page needs them.
+- **Component names** follow the naming rules since the formatting pass:
+  `AppRooCom`, `NavBarCom`, `SitFooCom`, `HomPagCom`, `HerSecCom`,
+  `SerSecCom`, `AboSecCom`, and `ConSecCom`, each exported by name.
+- **Every component has its own CSS module** (`hero.module.css`,
+  `nav.module.css`, ...), read as `cssModObj` through camelCase keys only,
+  and `styles/styles.css` holds just the color tokens and the base element
+  rules, with `styles/fonts.css` declaring the self-hosted fonts.
+  `main.tsx` imports both after the app, and nothing in them overlaps a
+  module's rules, so their order doesn't change the page.
+- **Element names the rules didn't list** (decided 2026-10-12 by the rules'
+  own "expand a tag to its full name" instruction): `hr` (horizontal rule)
+  takes `Hor`, `strong` takes `Str`, `fieldset` takes `Fie`, `legend` takes
+  `Leg`, `circle` takes `Cir`, `line` takes `Lin`, and `rect` takes `Rec`.
 
 ## Cleanup plan
 Decided 2026-10-12, on the `cleanup-code` branch. Each step is committed
@@ -162,6 +167,15 @@ with unchanged screenshots unless the step is meant to change the page.
    backgrounds) and the darkened `--warm-gray` (`#716c67`) become role
    colors, and the script taglines' literal 25.572px is already the font
    size scale's `--fon-siz-p03`, so they take that step without moving.
+   - **Formatting and module passes: done 2026-10-12**, one file per commit
+     with every suite passing and every screenshot unchanged: `styles.css`
+     rewritten from the template (its leftover variables had collided with
+     the site's own), `main.tsx` and `app.tsx`, self-hosted fonts (which
+     ended the Firefox flake), `index.html`, `vite.config.ts` with its page
+     minifier, `.gitignore`, the section ids, then the nav, footer, hero,
+     Services, About, and Contact, each with its own module, and finally
+     camelCase-only module keys. The design tokens and the horizontal
+     layout come next.
 7. **Copy**: every em dash reworded (the service select's placeholder, the
    contact quote, and its sign-off), and the message wording above.
 8. **New features**: the 404 page, SEO and local SEO, the social preview
