@@ -183,13 +183,14 @@
 
 /* #region conQuoDiv */
 
-.conQuoDiv { /* What: Contact Quote Div. Why: A word from the stylists closes the details. How: This sets it on a faint light panel with a rose edge. */
+.conQuoDiv { /* What: Contact Quote Div. Why: A word from the stylists closes the details. How: This sets it on a faint light panel with a rose edge, only as wide as the quote's lines. */
 
 
-	background  : rgb( 255 255 255 / var( --cdn-pow-010-rec ) );   /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060 */
-	border-left : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
-	margin-top  : var( --spa-ver-bas );                            /* Spacing Vertical Base ~= 14.572px */
-	padding     : var( --spa-ver-p01 ) var( --spa-hor-p01 );       /* Spacing Vertical Base Plus 1 ~= 19.304px, Spacing Horizontal Base Plus 1 ~= 19.304px */
+	background  : rgb( 255 255 255 / var( --cdn-pow-010-rec ) );                                                         /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060 */
+	border-left : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                       /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	margin-top  : var( --spa-ver-bas );                                                                                  /* Spacing Vertical Base ~= 14.572px */
+	max-width   : calc( var( --cdn-pow-011 ) * var( --fon-siz-p01 ) + var( --spa-hor-p01 ) * 2 + var( --bor-wid-xla ) ); /* Core-Design-Number to the Power of 11 ~= 22.047, Font Size Base Plus 1 ~= 14.572px, Spacing Horizontal Base Plus 1 ~= 19.304px, Border Width Extra Large ~= 3.572px, about 363px in all */ /* What: Panel Width Note. Why: The panel exists to hold the quote, so its translucent background should end where the quote's capped lines do rather than run on empty. How: This adds the quote's small text width at its font size to the panel's side padding and rose left border. */
+	padding     : var( --spa-ver-p01 ) var( --spa-hor-p01 );                                                             /* Spacing Vertical Base Plus 1 ~= 19.304px, Spacing Horizontal Base Plus 1 ~= 19.304px */
 
 
 }
