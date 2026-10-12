@@ -84,19 +84,19 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
  * NavBarCom = Navigation Bar Component
  *
  * @summary
- * Renders the fixed top bar: the brand linking to the top of the page, the
- * row of section links on wide screens, and on narrow screens the menu
- * button and the panel it opens. The panel is inert while closed, so its
- * links stay out of the focus order, and each of its links closes it on the
- * way to its section. Under the links, the menu offers a Call button and a
- * link to the salon's Facebook page, each row fading in just after the one
- * before, over a scrim that dims the page. While it's open the rest of the
+ * Renders the fixed top bar: the brand linking to the top of the page, the row
+ * of section links on wide screens, and on narrow screens the menu button and
+ * the panel it opens. The panel is inert while closed, so its links stay out
+ * of the focus order, and each of its links, like the bar's brand, closes it
+ * on the way to its section. Under the links, the menu offers a Call button
+ * and a link to the salon's Facebook page, each row fading in just after the
+ * one before, over a scrim that dims the page. While it's open the rest of the
  * page is inert; tapping the scrim closes it, Escape closes it and returns
- * focus to the toggle, and widening the screen past 900px closes it, since
- * its toggle is gone. Every link points at its section's address on the
- * home page, which a Ctrl, Cmd, Shift, Alt, or middle click opens, while a
- * plain click goes through secCliFun, scrolling in place without leaving a
- * hash in the address.
+ * focus to the toggle, and widening the screen past 900px closes it, since its
+ * toggle is gone. Every link points at its section's address on the home page,
+ * which a Ctrl, Cmd, Shift, Alt, or middle click opens, while a plain click
+ * goes through secCliFun, scrolling in place without leaving a hash in the
+ * address.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -215,8 +215,8 @@ function NavBarCom () : React.JSX.Element {
 
 					href='/#home'
 
-					onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'home' ) }
-				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, leaving no hash in the address. */ }
+					onClick={ ( cliEveObj ) => { if ( secCliFun( cliEveObj, 'home' ) ) setMenOpeBoo( false ); } } // What: Brand Click Handler. Why: The brand stays tappable above the open phone menu, and the page it scrolls to shouldn't be left inert behind a menu still open. How: This closes the menu whenever secCliFun handled the click, leaving a modified click's new tab alone.
+				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, leaving no hash in the address, and closes the phone menu if it's open. */ }
 
 
 					<img
