@@ -349,14 +349,14 @@
 
 
 	appearance  : none;
-	background  : var( --bac-pag-col );                            /* Background Page Color = #faf7f2 */
-	border      : var( --bor-wid-bas ) solid var( --bor-mai-col ); /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
-	color       : var( --tex-sec-col );                            /* Text Secondary Color = #4a4a4a */
-	font-family : var( --fon-fam-mai );                            /* Font Family Main = 'Lato', sans-serif */
-	font-size   : var( --fon-siz-p01 );                            /* Font Size Base Plus 1 ~= 14.572px */
-	outline     : none;                                            /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
-	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );       /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
-	transition  : border-color 0.2s;
+	background  : var( --bac-pag-col );                                   /* Background Page Color = #faf7f2 */
+	border      : var( --bor-wid-bas ) solid var( --bor-mai-col );        /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
+	color       : var( --tex-sec-col );                                   /* Text Secondary Color = #4a4a4a */
+	font-family : var( --fon-fam-mai );                                   /* Font Family Main = 'Lato', sans-serif */
+	font-size   : var( --fon-siz-p01 );                                   /* Font Size Base Plus 1 ~= 14.572px */
+	outline     : none;                                                   /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
+	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );              /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
+	transition  : border-color var( --dur-tra-p01 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 	width       : 100%;
 
 
@@ -407,20 +407,20 @@
 .forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card. */
 
 
-	background      : var( --acc-mai-col );                      /* Accent Main Color = #d4806a */
+	background      : var( --acc-mai-col );                                                                                      /* Accent Main Color = #d4806a */
 	border          : none;
-	color           : var( --tex-acc-col );                      /* Text Accent Color = #ffffff */
+	color           : var( --tex-acc-col );                                                                                      /* Text Accent Color = #ffffff */
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
-	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
+	font-family     : var( --fon-fam-mai );                                                                                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                                                                                      /* Font Size Base = 11px */
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
-	margin-top      : var( --spa-ver-m02 );                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
-	padding         : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
+	margin-top      : var( --spa-ver-m02 );                                                                                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-bas );                                                                 /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
 	text-decoration : none;
 	text-transform  : uppercase;
-	transition      : background 0.25s, transform 0.25s;
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
 	width           : 100%;
 
 
@@ -462,20 +462,20 @@
 .forTipDiv { /* What: Form Tooltip Div. Why: The message has to read clearly above whatever it covers. How: This floats a narrow navy card with a rose top edge just above its point, centered on it. */
 
 
-	animation   : forTipDivOpenFadeIn 0.2s ease;
-	background  : var( --bac-inv-col );                                    /* Background Inverse Color = #2b3245 */
-	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );         /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	animation   : forTipDivOpenFadeIn var( --dur-ani-p01 ) var( --mot-sta-eas ); /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+	background  : var( --bac-inv-col );                                          /* Background Inverse Color = #2b3245 */
+	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );               /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	box-shadow  : 0 8px 24px rgba( 0, 0, 0, 0.25 );
-	color       : var( --tex-inv-col );                                    /* Text Inverse Color = #f5f0e8 */
+	color       : var( --tex-inv-col );                                          /* Text Inverse Color = #f5f0e8 */
 	cursor      : default;
-	font-size   : var( --fon-siz-p01 );                                    /* Font Size Base Plus 1 ~= 14.572px */
-	line-height : var( --ver-rhy-bas );                                    /* Vertical Rhythm Base ~= 1.325 */
-	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );               /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
+	font-size   : var( --fon-siz-p01 );                                          /* Font Size Base Plus 1 ~= 14.572px */
+	line-height : var( --ver-rhy-bas );                                          /* Vertical Rhythm Base ~= 1.325 */
+	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );                     /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
 	position    : absolute;
 	text-align  : center;
-	transform   : translate( -50%, calc( -100% - var( --spa-ver-m01 ) ) ); /* Spacing Vertical Base Minus 1 = 11px */
-	width       : calc( var( --ver-rhy-p10 ) * 1rem );                     /* Vertical Rhythm Base Plus 10 ~= 242.522px */
-	z-index     : 1;                                                       /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
+	transform   : translate( -50%, calc( -100% - var( --spa-ver-m01 ) ) );       /* Spacing Vertical Base Minus 1 = 11px */
+	width       : calc( var( --ver-rhy-p10 ) * 1rem );                           /* Vertical Rhythm Base Plus 10 ~= 242.522px */
+	z-index     : 1;                                                             /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
 
 
 }

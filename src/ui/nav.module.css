@@ -115,14 +115,14 @@
 .navLinAnc { /* What: Navigation Link Anchor. Why: Each section link reads as a quiet label until it's pointed at. How: This sets it in small spaced cream capitals, slightly faded. */
 
 
-	color          : var( --tex-inv-col );                   /* Text Inverse Color = #f5f0e8 */
-	font-family    : var( --fon-fam-mai );                   /* Font Family Main = 'Lato', sans-serif */
-	font-size      : var( --fon-siz-p01 );                   /* Font Size Base Plus 1 ~= 14.572px */
+	color          : var( --tex-inv-col );                                                                               /* Text Inverse Color = #f5f0e8 */
+	font-family    : var( --fon-fam-mai );                                                                               /* Font Family Main = 'Lato', sans-serif */
+	font-size      : var( --fon-siz-p01 );                                                                               /* Font Size Base Plus 1 ~= 14.572px */
 	font-weight    : 700;
-	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em ); /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
+	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em );                                                             /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
 	opacity        : 0.85;
 	text-transform : uppercase;
-	transition     : opacity 0.2s, color 0.2s;
+	transition     : opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), color var( --dur-tra-p01 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 
 
 }
@@ -189,7 +189,7 @@
 	background-color : var( --tex-inv-col );                /* Text Inverse Color = #f5f0e8 */
 	display          : block;
 	height           : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
-	transition       : background-color 0.2s, opacity 0.2s, transform 0.2s;
+	transition       : background-color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 	width            : calc( var( --ver-rhy-p02 ) * 1rem ); /* Vertical Rhythm Base Plus 2 ~= 25.572px */
 
 
@@ -255,7 +255,7 @@
 	right            : 0;
 	top              : calc( 100% + var( --bor-wid-xla ) );             /* Border Width Extra Large ~= 3.572px */
 	transform        : translateY( calc( var( --spa-ver-m02 ) * -1 ) ); /* Spacing Vertical Base Minus 2 ~= -8.304px */
-	transition       : opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
+	transition       : opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), visibility 0s var( --dur-tra-p01 ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 	visibility       : hidden;
 
 
@@ -265,7 +265,7 @@
 
 	opacity    : 1;
 	transform  : none;
-	transition : opacity 0.2s, transform 0.2s, visibility 0s;
+	transition : opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), visibility 0s; /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 	visibility : visible;
 
 
@@ -309,7 +309,7 @@
 	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em );                                                       /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
 	padding        : var( --spa-ver-bas ) 0;                                                                       /* Spacing Vertical Base ~= 14.572px */
 	text-transform : uppercase;
-	transition     : color 0.2s;
+	transition     : color var( --dur-tra-p01 ) var( --mot-sta-eas );                                              /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 
 
 }

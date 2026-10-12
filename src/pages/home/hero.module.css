@@ -118,10 +118,10 @@
 
 /* #region herLogDiv */
 
-.herLogDiv { /* What: Hero Logo Div. Why: The logo should rise into place as the page opens. How: This plays blockEnterFadeIn after a short 0.1s delay, holding its start until then. */
+.herLogDiv { /* What: Hero Logo Div. Why: The logo should rise into place as the page opens. How: This plays blockEnterFadeIn after a short delay, holding its start until then. */
 
 
-	animation : blockEnterFadeIn 0.9s ease 0.1s both;
+	animation : blockEnterFadeIn var( --dur-ani-p06 ) var( --mot-sta-eas ) var( --dur-ani-m01 ) both; /* Duration Animation Base Plus 6 ~= 853.0ms, Motion Standard Easing = ease, Duration Animation Base Minus 1 ~= 119.2ms */
 
 
 }
@@ -209,10 +209,10 @@
 
 /* #region herConDiv */
 
-.herConDiv { /* What: Hero Content Div. Why: The welcome should rise into place just after the logo. How: This plays blockEnterFadeIn after a 0.3s delay, holding its start until then. */
+.herConDiv { /* What: Hero Content Div. Why: The welcome should rise into place just after the logo. How: This plays blockEnterFadeIn after a slightly longer delay than the logo's, holding its start until then. */
 
 
-	animation : blockEnterFadeIn 0.9s ease 0.3s both;
+	animation : blockEnterFadeIn var( --dur-ani-p06 ) var( --mot-sta-eas ) var( --dur-ani-p02 ) both; /* Duration Animation Base Plus 6 ~= 853.0ms, Motion Standard Easing = ease, Duration Animation Base Plus 2 ~= 277.0ms */
 
 
 }
@@ -354,7 +354,7 @@
 	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-decoration : none;
 	text-transform  : uppercase;
-	transition      : background 0.25s, color 0.25s, transform 0.25s;
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), color var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
 
 
 }
