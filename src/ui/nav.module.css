@@ -24,19 +24,19 @@
 
 
 	align-items           : center;
-	background-color      : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
-	border-bottom         : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	background-color      : var( --bac-inv-col );                                     /* Background Inverse Color = #2b3245 */
+	border-bottom         : var( --bor-wid-xla ) solid var( --acc-mai-col );          /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display               : grid;
 	grid-template-columns : repeat( 2, auto );
-	height                : var( --nav-bar-hei );                            /* Navigation Bar Height ~= 59.447px */
+	height                : var( --nav-bar-hei );                                     /* Navigation Bar Height ~= 59.447px */
 	justify-content       : space-between;
 	justify-items         : center;
 	left                  : 0;
-	padding               : 0 5%;
+	padding               : 0 max( 5%, calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The bar's brand and links should line up with the sections' capped content below on larger screens. How: The side padding is 5% until half the space beyond the cap is larger, then that half. */
 	position              : fixed;
 	right                 : 0;
 	top                   : 0;
-	z-index               : 1;                                               /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
+	z-index               : 1;                                                        /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
 
 
 }
