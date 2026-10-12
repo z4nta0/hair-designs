@@ -67,11 +67,11 @@ treatment. The `author` meta names the business itself.
   512px icon as the salon's `logo` and the card as its `image`. After each
   deploy, the user checks the card in a preview checker such as
   opengraph.xyz.
-- **Off-site work for the user, once the branch is deployed** (updated
-  2026-10-12): add the site to Google Search Console and Bing Webmaster
-  Tools and submit the sitemap, as on the user's other projects. The
-  business listings (the Google Business Profile, Apple, Bing Places, Yelp)
-  and reviews are already in the clients' hands, so they're not tracked here.
+- **Off-site work for the user** (done 2026-10-12): the site is added to
+  Google Search Console and Bing Webmaster Tools, with
+  https://hairdesigns.hair/sitemap.xml submitted to both. The business
+  listings (the Google Business Profile, Apple, Bing Places, Yelp) and
+  reviews are in the clients' hands, so they're not tracked here.
 
 ## Contact form
 Decided 2026-10-12. The salon doesn't want to answer messages, so the
@@ -363,8 +363,9 @@ with unchanged screenshots unless the step is meant to change the page.
        fit from 320px to 900px in all three engines.
      - **Motion**: every row fades and slides in one stagger step (about
        68ms) after the one before, off under reduced motion.
-     - **Tests**: still to come, an interaction suite checking the open
-       menu and each way out, as the-bernie-bears' `menu.spec.ts` does.
+     - **Tests**: `tests/interaction/menu.spec.ts`, added in the interaction
+       feedback pass, checks the open menu and each way out, as
+       the-bernie-bears' does.
 9. **Wrap-up**: every suite passing in every engine, this file and the
    README updated, and the user's live checks of the deploy (the preview
    card through a checker such as opengraph.xyz). Done 2026-10-12: the
@@ -373,11 +374,13 @@ with unchanged screenshots unless the step is meant to change the page.
    needs-review items are explained: the Contact section's text on striped
    navy, which axe can't measure (hand-checked, lowest 5.30:1), and
    "bypass" with the phone menu open, since the page it would skip to is
-   deliberately inert then. Left for the user after the branch deploys:
-   checking the preview card in opengraph.xyz, and adding the site to
-   Google Search Console and Bing Webmaster Tools with the sitemap (a
-   Safari check of the section links was dropped, since the user can't
-   test a different rendering engine; WebKit is covered by the suites).
+   deliberately inert then. The branch was merged and deployed as version
+   1.0.0, and the user's post-deploy checks all passed: the security
+   headers, the preview card in opengraph.xyz, and the sitemap submitted to
+   Google Search Console and Bing Webmaster Tools (a Safari check of the
+   section links was dropped, since the user can't test a different
+   rendering engine; WebKit is covered by the suites). The cleanup plan is
+   complete.
 
 ## Test suites
 Added 2026-10-12, adapted from seal-and-shield's. Playwright suites live in
