@@ -65,7 +65,7 @@ const MEN_MAX_NUM = 900; // What: Menu Maximum Number. Why: The phone menu exist
 
 
 
-const WID_LIS_ARR = [ 320, 360, 390, 414, 480, 600, 601, 768, 900, 901, 1024, 1025, 1280, 1440, 1920 ]; // What: Width List Array. Why: Layouts crowd at the narrowest widths and switch at the breakpoints. How: This lists common screen widths plus each breakpoint (600px, 900px, and the 1,024px root font size switch) and the pixel past it, 480px and 768px staying as common phone and tablet widths.
+const WID_LIS_ARR = [ 320, 360, 390, 414, 480, 600, 601, 768, 900, 901, 1024, 1025, 1280, 1440, 1920 ]; // What: Width List Array. Why: Layouts crowd at the narrowest widths and switch at the breakpoints. How: This lists common screen widths plus each breakpoint (600px and 900px) and the pixel past it, 1,024 and 1,025px staying from the template's old root font size switch as a common tablet width, and 480px and 768px as common phone and tablet widths.
 
 // #endregion Constants
 

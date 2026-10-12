@@ -211,8 +211,9 @@ replacing the old `netlify.toml`.
   named in the hash on arrival, from a shared address or another page, and
   clears it. Adapted from tonys-toppers' version, with `useSecCliFun` added
   so every link shares one click handler; the phone menu closes only when a
-  click was handled. Checked in all three engines: every link lands 71px
-  down, below the bar, with a clean address (a modified click opens a new tab
+  click was handled. Checked in all three engines: every link lands just
+  below the bar (63px down since the type scale, after a WebKit fix in
+  step 8), with a clean address (a modified click opens a new tab
   in Chromium and Firefox; headless WebKit doesn't open tabs on modified
   clicks, so that case is unchecked there).
 - **A page's main file is named after its folder** (`pages/home/home.tsx`),
@@ -366,7 +367,17 @@ with unchanged screenshots unless the step is meant to change the page.
        menu and each way out, as the-bernie-bears' `menu.spec.ts` does.
 9. **Wrap-up**: every suite passing in every engine, this file and the
    README updated, and the user's live checks of the deploy (the preview
-   card through a checker such as opengraph.xyz).
+   card through a checker such as opengraph.xyz). Done 2026-10-12: the
+   final run passed lint, the type check, the build, and all 306 tests in
+   all three engines on its first pass, with no axe violations. axe's two
+   needs-review items are explained: the Contact section's text on striped
+   navy, which axe can't measure (hand-checked, lowest 5.30:1), and
+   "bypass" with the phone menu open, since the page it would skip to is
+   deliberately inert then. Left for the user after the branch deploys:
+   checking the preview card in opengraph.xyz, and adding the site to
+   Google Search Console and Bing Webmaster Tools with the sitemap (a
+   Safari check of the section links was dropped, since the user can't
+   test a different rendering engine; WebKit is covered by the suites).
 
 ## Test suites
 Added 2026-10-12, adapted from seal-and-shield's. Playwright suites live in
@@ -402,7 +413,8 @@ be scrolled into view.
     parallel runs with retries off all passed, so the retry was removed.
 - `npm run test:responsive`: measures the home page and the 404 page at 15
   widths from 320 to 1,920px (a pixel either side of the 600px and 900px
-  breakpoints and of `index.css`'s 1,024px root font size switch included), and
+  breakpoints included, plus 1,024 and 1,025px, where the template's root
+  font size used to switch), and
   the open phone menu at every one of those up to 900px, failing on sideways
   scrolling, an unclipped element past either edge, text spilling its box, or
   two reachable controls overlapping.
@@ -449,9 +461,10 @@ passes (126 tests) in all three.
   opacity and transform, inert while closed, closing when a link is chosen.
   Its visibility turns on at once when opening, so a quick Tab reaches its
   links, and turns off only after the fade when closing.
-- **Bar clearance** (`d338c2c`): `html` gets a `scroll-padding-top` of 71px
-  (the bar's 68px plus its 3px border), so section links and keyboard focus
-  stop below the fixed bar instead of under it.
+- **Bar clearance** (`d338c2c`): `html` gets a `scroll-padding-top` of the
+  bar's height plus its rose border (71px then, 63px since the type scale,
+  written in `em` since a WebKit fix in step 8), so section links and
+  keyboard focus stop below the fixed bar instead of under it.
 - **Disabled form** (`90d30fb`): see "## Contact form". Disabled fields
   leave the Tab order, which removed their missing-focus failures.
 - **Contrast** (`e19478f`): only two colors failed. The warm gray
