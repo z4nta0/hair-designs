@@ -1,11 +1,44 @@
-    /* ── Footer ── */
-    .footbarFooter {
-      background: #1d2235;
-      border-top: 3px solid var(--rose);
-      padding: 28px 5%;
-      text-align: center;
-      color: rgba(245,240,232,0.5);
-      font-size: 0.8rem;
-      letter-spacing: 0.06em;
-    }
-    .footerSpan { color: var(--rose-lt); }
+
+
+
+/**
+ * footer.module.css = Footer Module
+ *
+ * @summary
+ * Styles for SitFooCom, the dark footer under every page: a centered, quiet
+ * copyright line in faded cream on the darkest navy, below a rose rule, with
+ * the salon's name and phone number picked out in light rose.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region sitFooFoo */
+
+.sitFooFoo { /* What: Site Footer Footer. Why: The page ends on a quiet dark band below a rose rule. How: This sets a centered line of small spaced faded cream text on the darkest navy. */
+
+
+	background     : #1d2235;
+	border-top     : 3px solid var( --rose );
+	color          : rgba( 245, 240, 232, 0.5 );
+	font-size      : 0.8rem;
+	letter-spacing : 0.06em;
+	padding        : 28px 5%;
+	text-align     : center;
+
+
+}
+
+.copAccSpa { /* What: Copyright Accent Span. Why: The salon's name and number should stand out in the line. How: This colors them light rose. */
+
+
+	color : var( --rose-lt );
+
+
+}
+
+/* #endregion sitFooFoo */
+
+
