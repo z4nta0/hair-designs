@@ -1,0 +1,535 @@
+
+
+
+/**
+ * contact.module.css = Contact Module
+ *
+ * @summary
+ * Styles for ConSecCom, the home page's Contact section on striped navy: the
+ * eyebrow, heading, and rose rule, then the phone number, hours, and a quote
+ * from the stylists beside a cream card holding the contact form, the two
+ * stacking at 900px and narrower. The form is turned off: its fields sit in a
+ * disabled fieldset, faded slightly, inside a wrapper that catches the pointer
+ * and the keyboard for them and anchors the tooltip that explains why, which
+ * fades in through forTipDivOpenFadeIn. The fieldset's legend carries the same
+ * message for screen readers, hidden visually.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region homConSec */
+
+.homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws 30px navy stripes with cream text. */
+
+
+	background-image : repeating-linear-gradient( 90deg, var( --navy ) 0, var( --navy ) 30px, #232a3d 30px, #232a3d 60px );
+	color            : var( --cream );
+	padding          : 90px 5%;
+
+
+}
+@media ( max-width : 600px ) { /* What: Phone Home Contact Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.homConSec { /* What: Phone Home Contact Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
+
+
+		padding : 64px 6%;
+
+
+	}
+
+
+}
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in light rose Dancing Script at 25.572px, the font size scale's p03 step, matching the other sections' eyebrows. */
+
+
+	color         : var( --rose-lt );
+	font-family   : 'Dancing Script', cursive;
+	font-size     : 25.572px;
+	margin-bottom : 8px;
+
+
+}
+
+.secTitHea { /* What: Section Title Heading. Why: The section's heading invites a visitor to get in touch. How: This sets it in cream Playfair Display that grows with the screen. */
+
+
+	color         : var( --cream );
+	font-family   : 'Playfair Display', serif;
+	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
+	margin-bottom : 16px;
+
+
+}
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+
+
+	color         : var( --rose );
+	height        : 2px;
+	margin-bottom : 28px;
+	width         : 48px;
+
+
+}
+
+
+
+/* #region conLayDiv */
+
+.conLayDiv { /* What: Contact Layout Div. Why: The details and the form card sit side by side. How: This splits the space with the form a little wider, both aligned to the top. */
+
+
+	align-items           : start;
+	display               : grid;
+	gap                   : 60px;
+	grid-template-columns : 1fr 1.4fr;
+	margin-top            : 48px;
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Contact Layout Div. Why: The details and the form need the full width each on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.conLayDiv { /* What: Narrow Contact Layout Div. Why: The details and the form need the full width each on tablets and phones. How: This stacks them. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+
+
+/* #region conDetDiv */
+
+.conDetDiv { /* What: Contact Details Div. Why: The details read in cream on the navy. How: This sets their text color. */
+
+
+	color : var( --cream );
+
+
+}
+
+
+/* #region detRowDiv */
+
+.detRowDiv { /* What: Detail Row Div. Why: Each detail pairs an icon with its label and value. How: This lines them up from the top, spaced from the next row. */
+
+
+	align-items   : flex-start;
+	display       : flex;
+	gap           : 18px;
+	margin-bottom : 30px;
+
+
+}
+
+.detIcoSvg { /* What: Detail Icon SVG. Why: Each detail opens with a small line icon. How: This draws it as a 22px light rose outline that never shrinks, nudged down to meet the label. */
+
+
+	fill        : none;
+	flex-shrink : 0;
+	height      : 22px;
+	margin-top  : 2px;
+	stroke      : var( --rose-lt );
+	width       : 22px;
+
+
+}
+
+.detLabStr { /* What: Detail Label Strong. Why: Each detail is named above its value. How: This sets the name in small spaced light rose capitals on its own line. */
+
+
+	color          : var( --rose-lt );
+	display        : block;
+	font-size      : 0.75rem;
+	letter-spacing : 0.14em;
+	margin-bottom  : 4px;
+	text-transform : uppercase;
+
+
+}
+
+.detValAnc { /* What: Detail Value Anchor. Why: The phone number can be tapped to call. How: This sets it as plain slightly faded cream text. */
+
+
+	color           : var( --cream );
+	font-size       : 0.95rem;
+	opacity         : 0.9;
+	text-decoration : none;
+
+
+}
+
+.detValSpa { /* What: Detail Value Span. Why: The hours read like the phone number beside them. How: This sets them the same size and fade. */
+
+
+	font-size : 0.95rem;
+	opacity   : 0.9;
+
+
+}
+
+/* #endregion detRowDiv */
+
+
+/* #region conQuoDiv */
+
+.conQuoDiv { /* What: Contact Quote Div. Why: A word from the stylists closes the details. How: This sets it on a faint light panel with a rose edge. */
+
+
+	background  : rgba( 255, 255, 255, 0.06 );
+	border-left : 3px solid var( --rose );
+	margin-top  : 16px;
+	padding     : 20px;
+
+
+}
+
+.quoBodPar { /* What: Quote Body Paragraph. Why: The quote reads as a personal aside. How: This sets it small, italic, and slightly faded. */
+
+
+	font-size   : 0.88rem;
+	font-style  : italic;
+	line-height : 1.7;
+	opacity     : 0.8;
+
+
+}
+
+.quoSigPar { /* What: Quote Signature Paragraph. Why: The quote is signed by the stylists. How: This sets the signature in light rose script. */
+
+
+	color       : var( --rose-lt );
+	font-family : 'Dancing Script', cursive;
+	font-size   : 1.1rem;
+	margin-top  : 10px;
+
+
+}
+
+/* #endregion conQuoDiv */
+
+/* #endregion conDetDiv */
+
+
+
+/* #region forCarDiv */
+
+.forCarDiv { /* What: Form Card Div. Why: The form sits on a light card against the navy. How: This sets a cream card with a heavier rose top edge. */
+
+
+	background : var( --cream );
+	border-top : 4px solid var( --rose );
+	padding    : 44px 40px;
+
+
+}
+
+.forTitHea { /* What: Form Title Heading. Why: The card names the form. How: This sets its heading in navy Playfair Display. */
+
+
+	color         : var( --navy );
+	font-family   : 'Playfair Display', serif;
+	font-size     : 1.4rem;
+	margin-bottom : 24px;
+
+
+}
+
+
+/* #region forWraDiv */
+
+.forWraDiv { /* What: Form Wrapper Div. Why: The turned-off fields need one element to catch the pointer and the keyboard for them. How: This holds the tooltip's position and shows a not-allowed cursor over the fields. */
+
+
+	cursor   : not-allowed;
+	position : relative;
+
+
+}
+.forWraDiv:focus-visible { /* What: Focused Form Wrapper Div. Why: Keyboard users have to see that the form took focus. How: This rings it in the brand's rose, clear of the fields. */
+
+
+	outline        : 2px solid var( --rose );
+	outline-offset : 6px;
+
+
+}
+
+
+/* #region forDisFie */
+
+.forDisFie { /* What: Form Disabled Fieldset. Why: A fieldset brings its own border, padding, and minimum width, which the form's layout never had. How: This clears them and lets the pointer pass through to the wrapper. */
+
+
+	border         : none;
+	margin         : 0;
+	min-width      : 0;
+	padding        : 0;
+	pointer-events : none;
+
+
+}
+
+.forNotLeg { /* What: Form Note Legend. Why: Screen readers read the form's message from this, while sighted visitors get the tooltip. How: This hides it visually with the standard clip technique, leaving it in the accessibility tree, in navy so checkers that measure hidden text don't find cream on the cream card. */
+
+
+	clip        : rect( 0 0 0 0 );
+	color       : var( --navy );
+	height      : 1px;
+	margin      : -1px;
+	overflow    : hidden;
+	position    : absolute;
+	white-space : nowrap;
+	width       : 1px;
+
+
+}
+
+.forRowDiv { /* What: Form Row Div. Why: The first and last name fields share a row. How: This splits it into two columns, spaced like the other fields. */
+
+
+	display               : grid;
+	gap                   : 16px;
+	grid-template-columns : 1fr 1fr;
+	margin-bottom         : 18px;
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Form Row Div. Why: The name fields are too narrow side by side on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.forRowDiv { /* What: Narrow Form Row Div. Why: The name fields are too narrow side by side on tablets and phones. How: This stacks them. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+
+.forFieDiv { /* What: Form Field Div. Why: Each field and its label form one group. How: This spaces it from the next. */
+
+
+	margin-bottom : 18px;
+
+
+}
+
+.forFieLab { /* What: Form Field Label. Why: Each field is named above it. How: This sets the name in small spaced bold warm gray capitals on its own line. */
+
+
+	color          : var( --warm-gray );
+	display        : block;
+	font-size      : 0.75rem;
+	font-weight    : 700;
+	letter-spacing : 0.12em;
+	margin-bottom  : 6px;
+	text-transform : uppercase;
+
+
+}
+
+.forFieInp,
+.forFieSel,
+.forFieTex { /* What: Form Field Controls. Why: The inputs, the select, and the textarea share one look. How: This sets full-width ivory boxes with a soft border and the browser's own styling removed. */
+
+
+	appearance  : none;
+	background  : var( --ivory );
+	border      : 1.5px solid var( --border );
+	color       : var( --charcoal );
+	font-family : 'Lato', sans-serif;
+	font-size   : 0.9rem;
+	outline     : none; /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
+	padding     : 12px 16px;
+	transition  : border-color 0.2s;
+	width       : 100%;
+
+
+}
+.forFieInp:focus,
+.forFieSel:focus,
+.forFieTex:focus { /* What: Focused Form Field Controls. Why: A focused field should show it. How: This turns its border rose. */
+
+
+	border-color : var( --rose );
+
+
+}
+.forFieInp:disabled,
+.forFieSel:disabled,
+.forFieTex:disabled { /* What: Disabled Form Field Controls. Why: The fields should look turned off without changing the form's design. How: This fades them a little. */
+
+
+	opacity : 0.6;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Field Controls. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.forFieInp,
+	.forFieSel,
+	.forFieTex { /* What: Motionless Form Field Controls. Why: The change should simply happen. How: This turns the transition off, so the focus border simply switches. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+.forFieTex { /* What: Form Field Textarea. Why: The message needs more room than a single line. How: This starts it 110px tall and lets it grow only downward. */
+
+
+	min-height : 110px;
+	resize     : vertical;
+
+
+}
+
+.forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card. */
+
+
+	background      : var( --rose );
+	border          : none;
+	color           : #fff;
+	cursor          : pointer;
+	display         : inline-block;
+	font-family     : 'Lato', sans-serif;
+	font-size       : 0.78rem;
+	font-weight     : 700;
+	letter-spacing  : 0.16em;
+	margin-top      : 8px;
+	padding         : 15px;
+	text-decoration : none;
+	text-transform  : uppercase;
+	transition      : background 0.25s, transform 0.25s;
+	width           : 100%;
+
+
+}
+.forSubBut:hover { /* What: Hovered Form Submit Button. Why: The button should respond to the pointer. How: This deepens the rose and lifts it 2px. */
+
+
+	background : #c2705a;
+	transform  : translateY( -2px );
+
+
+}
+.forSubBut:disabled { /* What: Disabled Form Submit Button. Why: The button should look turned off with the fields. How: This fades it a little. */
+
+
+	opacity : 0.6;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Submit Button. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.forSubBut { /* What: Motionless Form Submit Button. Why: The change should simply happen. How: This turns the transition off, so the hover changes simply happen. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion forDisFie */
+
+
+/* #region forTipDiv */
+
+.forTipDiv { /* What: Form Tooltip Div. Why: The message has to read clearly above whatever it covers. How: This floats a narrow navy card with a rose top edge just above its point, centered on it. */
+
+
+	animation   : forTipDivOpenFadeIn 0.2s ease;
+	background  : var( --navy );
+	border-top  : 3px solid var( --rose );
+	box-shadow  : 0 8px 24px rgba( 0, 0, 0, 0.25 );
+	color       : var( --cream );
+	cursor      : default;
+	font-size   : 0.85rem;
+	line-height : 1.5;
+	padding     : 12px 16px;
+	position    : absolute;
+	text-align  : center;
+	transform   : translate( -50%, calc( -100% - 12px ) );
+	width       : 260px;
+	z-index     : 1; /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Tooltip Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.forTipDiv { /* What: Motionless Form Tooltip Div. Why: The change should simply happen. How: This turns the fade off, so the tooltip simply appears. */
+
+
+		animation : none;
+
+
+	}
+
+
+}
+@keyframes forTipDivOpenFadeIn { /* What: Form Tooltip Div Open Fade In. Why: The tooltip should ease in rather than snap. How: This fades it up from transparent. */
+
+
+	from {
+
+
+		opacity : 0;
+
+
+	}
+
+	to {
+
+
+		opacity : 1;
+
+
+	}
+
+
+}
+
+.tipTelAnc { /* What: Tip Telephone Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in light rose, underlined as a link, and keeps it on one line. */
+
+
+	color           : var( --rose-lt );
+	text-decoration : underline;
+	white-space     : nowrap;
+
+
+}
+
+/* #endregion forTipDiv */
+
+/* #endregion forWraDiv */
+
+/* #endregion forCarDiv */
+
+/* #endregion conLayDiv */
+
+/* #endregion homConSec */
+
+
