@@ -40,13 +40,33 @@ treatment. The `author` meta names the business itself.
   Content-Security-Policy and the usual hardening headers, checked against
   the built site in all three engines; WebKit reports one harmless
   violation from its own styling of the form's select, which draws
-  identically either way). The social preview tags, `theme-color`, and the
-  icons come with the social preview card.
-- **Off-site work for the business** (to hand over once the SEO pass is
-  done): a Google Business Profile with the street address, Google Search
-  Console with the sitemap submitted, Bing Webmaster Tools, and listings
-  (Apple Business Connect, Bing Places, Yelp, the Facebook page's own
-  details) with the identical name, address, and phone, plus Google reviews.
+  identically either way).
+- **Social preview and icons** (done 2026-10-12): `public/og-image.png`, a
+  1,200x630 PNG of about 42 KB, rendered from `design/og-image/card.html` by
+  `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
+  Designs" in Playfair Display with Designs in light rose italic, and
+  "Carson's Corner, Missouri" in light rose script, all inside the center
+  630px square, with the bar's rose line along the foot. A PNG rather than a
+  JPEG, since the card is flat stripes, line art, and text. `index.html`
+  carries every Open Graph and Twitter tag (no `twitter:site`, since there's
+  no X account), `theme-color` in the bar's navy, and the full icon set:
+  `favicon.svg`, `favicon.ico`, PNGs at 16, 32, 192, and 512px, and a 180px
+  `apple-touch-icon.png`. `npm run icons` (`design/icons/render.mts`)
+  rebuilds all of them, `favicon.svg` included, from `src/assets/logo.svg`
+  set on the bar's navy (read from `--bac-inv-col`): a rounded square for the
+  favicons and a full square, the logo a little smaller, for iOS. The old
+  hand-made `favicon.svg`, which predated the logo, is gone. Known limit: at
+  16 and 32px the logo's thin arrows fade into the navy, leaving a faint X,
+  since the logo's detail is finer than a tab icon can show; a simplified mark
+  would fix it if the user ever wants one. The structured data names the
+  512px icon as the salon's `logo` and the card as its `image`. After each
+  deploy, the user checks the card in a preview checker such as
+  opengraph.xyz.
+- **Off-site work for the user, once the branch is deployed** (updated
+  2026-10-12): add the site to Google Search Console and Bing Webmaster
+  Tools and submit the sitemap, as on the user's other projects. The
+  business listings (the Google Business Profile, Apple, Bing Places, Yelp)
+  and reviews are already in the clients' hands, so they're not tracked here.
 
 ## Contact form
 Decided 2026-10-12. The salon doesn't want to answer messages, so the
