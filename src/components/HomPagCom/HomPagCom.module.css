@@ -15,7 +15,14 @@
  
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and the fixed bar would cover whatever they scroll to. How: This scrolls smoothly and stops every scroll 71px short, the bar's 68px plus its 3px rose border. */
+
+
+	scroll-behavior    : smooth;
+	scroll-padding-top : 71px;
+
+
+}
 @media ( prefers-reduced-motion : reduce ) { /* What: HTML Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
 
 
