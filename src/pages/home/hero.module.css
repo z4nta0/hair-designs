@@ -1,0 +1,469 @@
+
+
+
+/**
+ * hero.module.css = Hero Module
+ *
+ * @summary
+ * Styles for HerSecCom, the home page's opening section: a full-height two-
+ * column grid with the logo on a striped navy panel beside the cream welcome
+ * panel, which stack at 900px and narrower, and the navy bar of contact
+ * details beneath them. Both panels' contents rise into place on load through
+ * blockEnterFadeIn, the logo's a little sooner, and stay put under reduced
+ * motion. The primary and outline buttons are modifiers of one butBasAnc
+ * class.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region homHerSec */
+
+.homHerSec { /* What: Home Hero Section. Why: The hero fills the first screen below the fixed bar. How: This stacks the panel grid over the details bar in a column at least a screen tall. */
+
+
+	display        : flex;
+	flex-direction : column;
+	min-height     : 100vh;
+	padding        : 68px 0 0; /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's 68px height. */
+
+
+}
+
+
+/* #region herGriDiv */
+
+.herGriDiv { /* What: Hero Grid Div. Why: The logo panel and the welcome panel share the screen side by side. How: This grows to fill the section and splits it into two equal columns. */
+
+
+	align-items           : stretch;
+	display               : grid;
+	flex                  : 1;
+	grid-template-columns : 1fr 1fr;
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Hero Grid Div. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.herGriDiv { /* What: Narrow Hero Grid Div. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones. How: This stacks them in one column. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+
+
+/* #region herLefDiv */
+
+.herLefDiv { /* What: Hero Left Div. Why: The logo sits on the brand's striped navy. How: This centers its contents on 30px navy stripes, positioned so its rose divider can sit on its edge. */
+
+
+	align-items      : center;
+	background-image : repeating-linear-gradient( 90deg, var( --navy ) 0, var( --navy ) 30px, #232a3d 30px, #232a3d 60px );
+	display          : flex;
+	justify-content  : center;
+	padding          : 80px 60px;
+	position         : relative;
+	text-align       : center;
+
+
+}
+.herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a 3px rose bar down the panel's right edge, a pixel over the seam. */
+
+
+	background : var( --rose );
+	bottom     : 0;
+	content    : '';
+	position   : absolute;
+	right      : -1px;
+	top        : 0;
+	width      : 3px;
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Hero Left Div. Why: The logo panel needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
+
+
+	.herLefDiv { /* What: Narrow Hero Left Div. Why: The logo panel needs less room once it spans the screen alone. How: This tightens its padding. */
+
+
+		padding : 60px 40px;
+
+
+	}
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Hero Left Div Divider. Why: The divider runs down the seam between the panels, which no longer exists once they stack. How: This applies at 900px and narrower. */
+
+
+	.herLefDiv::after { /* What: Narrow Hero Left Div Divider. Why: The divider runs down the seam between the panels, which no longer exists once they stack. How: This hides it. */
+
+
+		display : none;
+
+
+	}
+
+
+}
+
+
+/* #region herLogDiv */
+
+.herLogDiv { /* What: Hero Logo Div. Why: The logo should rise into place as the page opens. How: This plays blockEnterFadeIn after a short 0.1s delay, holding its start until then. */
+
+
+	animation : blockEnterFadeIn 0.9s ease 0.1s both;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Hero Logo Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.herLogDiv { /* What: Motionless Hero Logo Div. Why: The change should simply happen. How: This turns the entrance off, so the logo shows in place at once. */
+
+
+		animation : none;
+
+
+	}
+
+
+}
+@keyframes blockEnterFadeIn { /* What: Block Enter Fade In. Why: The hero's two blocks rise into place as the page opens. How: This fades a block in from transparent while it slides up 28px. */
+
+
+	from {
+
+
+		opacity   : 0;
+		transform : translateY( 28px );
+
+
+	}
+
+	to {
+
+
+		opacity   : 1;
+		transform : translateY( 0 );
+
+
+	}
+
+
+}
+
+.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it to 220px square and lifts it off the stripes with a soft drop shadow. */
+
+
+	filter : drop-shadow( 0 6px 24px rgba( 0, 0, 0, 0.4 ) );
+	height : 220px;
+	width  : 220px;
+
+
+}
+
+/* #endregion herLogDiv */
+
+/* #endregion herLefDiv */
+
+
+
+/* #region herRigDiv */
+
+.herRigDiv { /* What: Hero Right Div. Why: The welcome sits on a warm light panel beside the logo. How: This centers its contents on cream. */
+
+
+	align-items     : center;
+	background      : var( --cream );
+	display         : flex;
+	justify-content : center;
+	padding         : 80px 60px;
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Hero Right Div. Why: The welcome panel needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
+
+
+	.herRigDiv { /* What: Narrow Hero Right Div. Why: The welcome panel needs less room once it spans the screen alone. How: This tightens its padding. */
+
+
+		padding : 60px 40px;
+
+
+	}
+
+
+}
+
+
+/* #region herConDiv */
+
+.herConDiv { /* What: Hero Content Div. Why: The welcome should rise into place just after the logo. How: This plays blockEnterFadeIn after a 0.3s delay, holding its start until then. */
+
+
+	animation : blockEnterFadeIn 0.9s ease 0.3s both;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Hero Content Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.herConDiv { /* What: Motionless Hero Content Div. Why: The change should simply happen. How: This turns the entrance off, so the welcome shows in place at once. */
+
+
+		animation : none;
+
+
+	}
+
+
+}
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
+
+
+	color          : var( --rose-dk );
+	font-family    : 'Dancing Script', cursive;
+	font-size      : 25.572px;
+	letter-spacing : 0.06em;
+	margin-bottom  : 10px;
+
+
+}
+
+/* #region herTitHea */
+
+.herTitHea { /* What: Hero Title Heading. Why: The salon's name is the page's main heading. How: This sets it in large navy Playfair Display that grows with the screen, its two lines set close. */
+
+
+	color         : var( --navy );
+	font-family   : 'Playfair Display', serif;
+	font-size     : clamp( 3rem, 6vw, 5.2rem );
+	font-weight   : 600;
+	line-height   : 1.08;
+	margin-bottom : 14px;
+
+
+}
+
+.titAccEmp { /* What: Title Accent Emphasis. Why: The heading's second word is set apart. How: This sets Designs in dark rose italic. */
+
+
+	color      : var( --rose-dk );
+	font-style : italic;
+
+
+}
+
+/* #endregion herTitHea */
+
+.herSubPar { /* What: Hero Subheading Paragraph. Why: The trade and the town follow the name. How: This sets them in light, widely spaced warm gray capitals. */
+
+
+	color          : var( --warm-gray );
+	font-family    : 'Lato', sans-serif;
+	font-size      : 0.95rem;
+	font-weight    : 300;
+	letter-spacing : 0.18em;
+	margin-bottom  : 28px;
+	text-transform : uppercase;
+
+
+}
+
+.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a 56px by 2px box. */
+
+
+	color         : var( --rose );
+	height        : 2px;
+	margin-bottom : 28px;
+	width         : 56px;
+
+
+}
+
+/* #region styNamDiv */
+
+.styNamDiv { /* What: Stylist Names Div. Why: The two stylists' names are set like a signature. How: This sets them in dark rose Dancing Script. */
+
+
+	color       : var( --rose-dk );
+	font-family : 'Dancing Script', cursive;
+	font-size   : 1.5rem;
+	line-height : 1.6;
+
+
+}
+
+.styNamSpa { /* What: Stylist Name Span. Why: Each name and the ampersand take a line of their own. How: This makes each a block. */
+
+
+	display : block;
+
+
+}
+
+/* #endregion styNamDiv */
+
+.herCapPar { /* What: Hero Caption Paragraph. Why: The stylists' title sits under their names. How: This sets it in warm gray Playfair Display italic. */
+
+
+	color       : var( --warm-gray );
+	font-family : 'Playfair Display', serif;
+	font-size   : 1rem;
+	font-style  : italic;
+	margin-top  : 8px;
+
+
+}
+
+/* #region herActDiv */
+
+.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up 16px apart, wrapping on narrow screens. */
+
+
+	display    : flex;
+	flex-wrap  : wrap;
+	gap        : 16px;
+	margin-top : 36px;
+
+
+}
+
+.butBasAnc { /* What: Button Base Anchor. Why: Both calls to action share one button shape. How: This sets small spaced bold capitals in a padded block, with a transition for the hover changes. */
+
+
+	border          : none;
+	cursor          : pointer;
+	display         : inline-block;
+	font-family     : 'Lato', sans-serif;
+	font-size       : 0.78rem;
+	font-weight     : 700;
+	letter-spacing  : 0.16em;
+	padding         : 13px 32px;
+	text-decoration : none;
+	text-transform  : uppercase;
+	transition      : background 0.25s, color 0.25s, transform 0.25s;
+
+
+}
+.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The main call to action stands out. How: This fills it navy with cream text. */
+
+
+	background : var( --navy );
+	color      : var( --cream );
+
+
+}
+.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+
+
+	background : var( --navy-mid );
+	transform  : translateY( -2px );
+
+
+}
+.butBasAnc--outline { /* What: Outline Button Base Anchor. Why: The second call to action stays quieter. How: This outlines it in navy. */
+
+
+	background : transparent;
+	border     : 2px solid var( --navy );
+	color      : var( --navy );
+
+
+}
+.butBasAnc--outline:hover { /* What: Hovered Outline Button Base Anchor. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
+
+
+	background : var( --navy );
+	color      : var( --cream );
+	transform  : translateY( -2px );
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Button Base Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.butBasAnc { /* What: Motionless Button Base Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover changes simply happen. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion herActDiv */
+
+/* #endregion herConDiv */
+
+/* #endregion herRigDiv */
+
+/* #endregion herGriDiv */
+
+
+
+/* #region herBarDiv */
+
+.herBarDiv { /* What: Hero Bar Div. Why: The phone number and address sit in a band under the panels. How: This centers them on navy below a rose rule, wrapping on narrow screens. */
+
+
+	align-items     : center;
+	background      : var( --navy );
+	border-top      : 3px solid var( --rose );
+	display         : flex;
+	flex-wrap       : wrap;
+	gap             : 40px;
+	justify-content : center;
+	padding         : 16px 5%;
+
+
+}
+
+
+/* #region barIteDiv */
+
+.barIteDiv { /* What: Bar Item Div. Why: Each detail pairs an icon with its text. How: This lines them up in slightly faded cream. */
+
+
+	align-items    : center;
+	color          : var( --cream );
+	display        : flex;
+	font-size      : 0.85rem;
+	gap            : 10px;
+	letter-spacing : 0.04em;
+	opacity        : 0.9;
+
+
+}
+
+.barIcoSvg { /* What: Bar Icon SVG. Why: Each detail opens with a small line icon. How: This draws it as an 18px light rose outline. */
+
+
+	fill   : none;
+	height : 18px;
+	stroke : var( --rose-lt );
+	width  : 18px;
+
+
+}
+
+/* #endregion barIteDiv */
+
+/* #endregion herBarDiv */
+
+/* #endregion homHerSec */
+
+

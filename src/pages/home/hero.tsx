@@ -3,8 +3,8 @@
 
 // #region Imports
 
-import logoSvg from '../../assets/logo.svg'; // What: Logo SVG. Why: The section shows the Hair Designs logo. How: Vite resolves this to the image's fingerprinted URL.
-import styles  from './home.module.css';     // What: Styles. Why: The home page's sections still share one stylesheet until the CSS module pass splits it. How: Each element reads its hashed class from this.
+import cssModObj from './hero.module.css';      // What: CSS Module Object. Why: The hero is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The hero's centerpiece is the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 // #endregion Imports
 
@@ -14,11 +14,11 @@ import styles  from './home.module.css';     // What: Styles. Why: The home page
  * hero.tsx = Hero
  *
  * @summary
- * The home page's opening section: the striped logo panel, the welcome heading
- * with both stylists' names and the buttons to the Services and Contact
- * sections, and the bar beneath them with the phone number and address. Split
- * out of the home page component during the directory move; its markup is
- * unchanged until the formatting pass.
+ * The home page's opening section: the logo on a striped navy panel beside
+ * the welcome, with the salon's name, its trade and town, both stylists,
+ * and buttons to the Services and Contact sections, then a navy bar with the
+ * phone number and address. Both panels' contents rise into place as the
+ * page opens.
  *
  * Sections:
  *  - Components
@@ -38,9 +38,10 @@ import styles  from './home.module.css';     // What: Styles. Why: The home page
  * HerSecCom = Hero Section Component
  *
  * @summary
- * Renders the hero section, the first thing a visitor sees, with the logo, the
- * salon's name and stylists, its two calls to action, and the phone and
- * address bar.
+ * Renders the hero section, the first thing a visitor sees: the logo panel
+ * and the welcome panel side by side (stacked on narrow screens), then the
+ * bar with the phone number and address. Its id, home, is the target of the
+ * bar's brand and Home links.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -58,194 +59,156 @@ import styles  from './home.module.css';     // What: Styles. Why: The home page
 function HerSecCom () : React.JSX.Element {
 
 
-    return (
+	return (
 
 
-        <  section id='home' className={ styles.homeSection } > { /* Home Section Element = This custom section HTML element contains the hero banner consisting of a striped background with the Hair designs logo on the left and a cream panel with welcoming text containg the Hair Designs and cosmetologists names along with a services and contact button on the right. */ }
+		<section
+			id='home'
 
+			className={ cssModObj.homHerSec }
+		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its id, home, is kept as a readable word since in-page links put it in the address bar. */ }
 
-            {/* ══ Start herDivEle ══ */}
 
-            <  div id='herDivEle' className={ styles.heroDiv } > { /* Hero Div Element = This custom div HTML element contains the hero banner consisting of a striped background with the Hair designs logo on the left and a cream panel with welcoming text containg the Hair Designs and cosmetologists names along with a services and contact button on the right. */ }
+			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked on narrow screens. */ }
 
 
-                {/* ══ Start helDivEle ══ */}
+				<div className={ cssModObj.herLefDiv }>{ /* What: Hero Left Div Element. Why: The logo sits on the brand's stripes. How: This centers it on striped navy with a rose divider at its edge. */ }
 
-                <  div id='helDivEle' className={ styles.heroLeftDiv } > { /* Hero Left Div Element = This custom div HTML element contains the left side of the hero banner with the Hair Designs logo on a striped background. */ }
 
+					<div className={ cssModObj.herLogDiv }>{ /* What: Hero Logo Div Element. Why: The logo should rise into place as the page opens. How: This plays the entrance for it. */ }
 
-                    {/* ══ Start fuaDivEle_helDivEle ══ */}
 
-                    <  div id='fuaDivEle_helDivEle' className={ ` ${ styles.fadeUpInAnimation }   ${ styles.fadeUpInAnimation_helDivEle } ` } > { /* Fade Up In Animation Div Element for Hero Left Div Element = This custom div HTML element is a container for the SVG logo on the left side of the hero banner, which is used to animate the logo to fade up and in on page load. */ }
+						<img
+							className={ cssModObj.herLogIma }
 
+							src={ logSvgUrl }
 
-                        < img id='logImgEle_helDivEle' className={ ` ${ styles.logoImage }   ${ styles.logoImage_homeSection } ` } src={ logoSvg } alt='Hair Designs logo of a BOHO arrow and flower arrangement' /> { /* Logo Image Element for Hero Left Div Element = This custom img HTML element contains the brand's SVG logo for the Home section of the page. */ }
+							alt='Hair Designs logo of a BOHO arrow and flower arrangement'
+						/>{ /* What: Hero Logo Image Element. Why: The logo is the hero's centerpiece. How: This shows it large on the stripes. */ }
 
 
-                    </div>
+					</div>
 
-                    {/* ══ End fuaDivEle_helDivEle ══ */}
 
+				</div>
 
-                </ div >
 
-                {/* ══ End helDivEle ══ */}
 
+				<div className={ cssModObj.herRigDiv }>{ /* What: Hero Right Div Element. Why: The welcome sits on a warm light panel. How: This centers it on cream. */ }
 
 
-                {/* ══ Start hriDivEle ══ */}
+					<div className={ cssModObj.herConDiv }>{ /* What: Hero Content Div Element. Why: The welcome should rise into place just after the logo. How: This plays the entrance for it. */ }
 
-                <  div id='hriDivEle' className={ styles.heroRightDiv } > { /* Hero Right Div Element = This custom div HTML element contains the right side of the hero banner with a cream background and welcoming text containing the Hair Designs and cosmetologists names along with a services and contact button on the right. */ }
 
+						<p className={ cssModObj.eyeLabPar }>Welcome to</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the salon's name. How: This shows it above the heading. */ }
 
-                    {/* ══ Start fuaDivEle_hriDivEle ══ */}
+						<h1 className={ cssModObj.herTitHea }>Hair<br /><em className={ cssModObj.titAccEmp }>Designs</em></h1>{ /* What: Hero Title Heading Element. Why: The salon's name is the page's main heading. How: This breaks it over two lines, the second set apart in italic. */ }
 
-                    <  div id='fuaDivEle_hriDivEle' className={ ` ${ styles.fadeUpInAnimation }   ${ styles.fadeUpInAnimation_hriDivEle } ` } > { /* Fade Up In Animation Div Element for Hero Right Div Element = This custom div HTML element is a container for the text content on the right side of the hero banner, which is used to animate the text to fade up and in on page load. */ }
+						<p className={ cssModObj.herSubPar }>Cosmetology · Carson's Corner, Mo.</p>{ /* What: Hero Subheading Paragraph Element. Why: The trade and the town follow the name. How: This shows them in spaced capitals. */ }
 
+						<hr className={ cssModObj.herRulHor } />{ /* What: Hero Rule Horizontal Rule Element. Why: A short rose rule divides the name from the stylists. How: This draws it. */ }
 
-                        < p id='tagParEle' className={ styles.heroTaglineParagraph } >Welcome to</ p > { /* Tagline Paragraph Element = This custom p HTML element contains the 'Welcome to' text for the hero banner on the Home section of the page. */ }
+						<div className={ cssModObj.styNamDiv }>{ /* What: Stylist Names Div Element. Why: The two stylists sign the welcome. How: This stacks their names around an ampersand. */ }
 
 
+							<span className={ cssModObj.styNamSpa }>Juli Wilkerson</span>{ /* What: Stylist Name Span Element. Why: The first stylist is named. How: This shows her name on its own line. */ }
 
-                        < h1 id='herHe1Ele' className={ styles.heroHeading1 } >Hair< br id='he1BreEle' className={ styles.heading1Break } />< em id='he1EmpEle' className={ styles.heading1Emphasis } >Designs</ em ></ h1 > { /* Hero Heading 1 Element + Heading 1 Break Element + Heading 1 Emphasis Element = This custom h1 HTML element contains the main heading for the hero banner on the Home section of the page, with the brand name split into two lines and with the second line emphasized. */ }
+							<span className={ cssModObj.styNamSpa }>&amp;</span>{ /* What: Stylist Name Span Element. Why: The names are joined like a signature. How: This shows the ampersand on its own line. */ }
 
+							<span className={ cssModObj.styNamSpa }>Keeli Bryan</span>{ /* What: Stylist Name Span Element. Why: The second stylist is named. How: This shows her name on its own line. */ }
 
 
-                        < p id='suhParEle' className={ styles.heroSubheadingParagraph } >Cosmetology · Carson's Corner, Mo.</ p > { /* Subheading Paragraph Element = This custom p HTML element contains the city and state information for the hero banner on the Home section of the page. */ }
+						</div>
 
+						<p className={ cssModObj.herCapPar }>Licensed Cosmetologists</p>{ /* What: Hero Caption Paragraph Element. Why: The stylists' title follows their names. How: This shows it in italic. */ }
 
+						<div className={ cssModObj.herActDiv }>{ /* What: Hero Actions Div Element. Why: The welcome ends with two ways onward. How: This sets the buttons in a row. */ }
 
-                        < hr id='herHorEle' className={ styles.heroHorizontalRule } /> { /* Hero Horizontal Rule Element = This custom hr HTML element is a simple horizontal divider used to separate the tagline from the rest of the content in the right side of the hero banner on the Home section of the page. */ }
 
+							<a
+								className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncPrimary } `}
 
+								href='#services'
+							>Our Services</a>{ /* What: Primary Button Base Anchor Element. Why: Seeing the services is the main next step. How: This jumps to the Services section. */ }
 
-                        {/* ══ Start namDivEle ══ */}
+							<a
+								className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncOutline } `}
 
-                        <  div id='namDivEle' className={ styles.namesDiv } > { /* Names Div Element = This custom div HTML element is a container for the names of the cosmetologists in the hero banner on the Home section of the page, which are styled to look like a signature. */ }
+								href='#contact'
+							>Get in Touch</a>{ /* What: Outline Button Base Anchor Element. Why: Reaching the salon is the other next step. How: This jumps to the Contact section. */ }
 
 
-                            < span id='julSpaEle' className={ ` ${ styles.nameSpans }   ${ styles.nameSpans_juli      } ` } >Juli Wilkerson</ span > { /* Juli Span Element      = This custom span HTML element contains the name of the cosmetologist Juli Wilkerson in the hero banner on the Home section of the page. */ }
+						</div>
 
 
+					</div>
 
-                            < span id='ampSpaEle' className={ ` ${ styles.nameSpans }   ${ styles.nameSpans_ampersand } ` } >&amp;</ span >          { /* Ampersand Span Element = This custom span HTML element contains the ampersand symbol '&' used to separate the names of the cosmetologists in the hero banner on the Home section of the page. */ }
 
+				</div>
 
 
-                            < span id='keeSpaEle' className={ ` ${ styles.nameSpans }   ${ styles.nameSpans_keeli     } ` } >Keeli Bryan</ span >    { /* Keeli Span Element     = This custom span HTML element contains the name of the cosmetologist Keeli Bryan in the hero banner on the Home section of the page. */ }
+			</div>
 
 
-                        </ div >
 
-                        {/* ══ End namDivEle ══ */}
+			<div className={ cssModObj.herBarDiv }>{ /* What: Hero Bar Div Element. Why: The phone number and address belong right under the welcome. How: This sets them in a navy band below the panels. */ }
 
 
+				<div className={ cssModObj.barIteDiv }>{ /* What: Bar Item Div Element. Why: The phone number pairs with its icon. How: This lines them up. */ }
 
-                        < p id='desParEle' className={ styles.heroDescriptionParagraph } >Licensed Cosmetologists</ p > { /* Description Paragraph Element = This custom p HTML element contains the 'Licensed Cosmetologists' text in the hero banner on the Home section of the page, which is used to indicate that the cosmetologists are licensed professionals. */ }
 
+					<svg
+						className={ cssModObj.barIcoSvg }
 
+						strokeWidth='1.8'
+						viewBox='0 0 24 24'
 
-                        {/* ══ Start ctaDivEle ══ */}
+						aria-hidden='true'
+					>{ /* What: Bar Icon SVG Element. Why: A phone icon marks the number. How: This draws it, hidden from screen readers since the number beside it says what it is. */ }
 
-                        < div id='ctaDivEle' className={ styles.ctaDiv } > { /* Call to Action Div Element = This custom div HTML element is a container for the call to action buttons in the hero banner on the Home section of the page. */ }
 
+						<path d='M3 5h2l1 5-2 2a16 16 0 006 6l2-2 5 1v2a2 2 0 01-2 2C8 21 3 16 3 7a2 2 0 012-2z' />{ /* What: Phone Path Element. Why: The phone icon is one shape. How: This draws its outline. */ }
 
-                            < a id='serAncEle_ctaDivEle' className={ ` ${ styles.ctaAnchors }   ${ styles.buttonAnchors }   ${ styles.buttonAnchors_primary } ` } href='#services'>Our Services</ a > { /* Services Anchor Element for Call to Action Div Element = This custom a HTML element is a call to action anchor that is styled as button that links to the Services section of the page. */ }
 
+					</svg>
 
-                            < a id='conAncEle_ctaDivEle' className={ ` ${ styles.ctaAnchors }   ${ styles.buttonAnchors }   ${ styles.buttonAnchors_outline } ` } href='#contact'>Get in Touch</ a > { /* Contact  Anchor Element for Call to Action Div Element = This custom a HTML element is a call to action anchor that is styled as button that links to the Contact section of the page. */ }
+					<span>417-988-6239</span>{ /* What: Phone Number Span Element. Why: The salon's number is the main way to reach it. How: This shows it. */ }
 
 
-                        </ div >
+				</div>
 
-                        {/* ══ End ctaDivEle ══ */}
 
+				<div className={ cssModObj.barIteDiv }>{ /* What: Bar Item Div Element. Why: The address pairs with its icon. How: This lines them up. */ }
 
-                    </ div >
 
-                    {/* ══ End fuaDivEle_hriDivEle ══ */}
+					<svg
+						className={ cssModObj.barIcoSvg }
 
+						strokeWidth='1.8'
+						viewBox='0 0 24 24'
 
-                </ div >
+						aria-hidden='true'
+					>{ /* What: Bar Icon SVG Element. Why: A map pin marks the address. How: This draws it, hidden from screen readers since the address beside it says what it is. */ }
 
-                {/* ══ End hriDivEle ══ */}
 
+						<path d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z' />{ /* What: Pin Path Element. Why: The map pin is one shape. How: This draws its outline. */ }
 
-            </div>
 
-            {/* ══ End herDivEle ══ */}
+					</svg>
 
+					<span>24579 State Hwy 254 · Carson's Corner, Mo. 65668</span>{ /* What: Address Span Element. Why: The salon's address tells visitors where to find it. How: This shows it. */ }
 
 
-            {/* ══ Start hbbDivEle ══ */}
+				</div>
 
-            <  div id='hbbDivEle' className={ styles.heroBottomBarDiv } > { /* Hero Bottom Bar Div Element = This custom div HTML element is a container for the phone number and address inside of the bottom bar in the hero banner on the Home section of the page. */ }
 
+			</div>
 
-                {/* ══ Start phoDivEle_hbbDivEle ══ */}
 
-                <  div id='phoDivEle_hbbDivEle' className={ ` ${ styles.infoDivs }   ${ styles.infoDivs_hbbDivEle }   ${ styles.infoDivs_phone } ` } > { /* Phone Div Element for Hero Bottom Bar Div Element = This custom div HTML element is a container for the phone SVG and number inside of the bottom bar in the hero banner on the Home section of the page. */ }
+		</section>
 
 
-                    {/* ══ Start phoSvgEle_hbbDivEle ══ */}
-
-                    <  svg id='phoSvgEle_hbbDivEle' className={ ` ${ styles.heroBottomBarSvgs }   ${ styles.phoneSvg }   ${ styles.phoneSvg_hbbDivEle } ` } viewBox='0 0 24 24' strokeWidth='1.8' > { /* Phone SVG Element for Hero Bottom Bar Div Element = This custom svg HTML element is used to display the phone icon inside of the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                        < path id='phoPatEle_hbbDivEle' className={ ` ${ styles.phonePath }   ${ styles.phonePath_hbbDivEle } ` } d='M3 5h2l1 5-2 2a16 16 0 006 6l2-2 5 1v2a2 2 0 01-2 2C8 21 3 16 3 7a2 2 0 012-2z' /> { /* Phone Path Element for Hero Bottom Bar Div Element = This custom path SVG element is used to define the shape of the phone icon inside of the svg element for the phone icon in the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                    </ svg >
-
-                    {/* ══ End phoSvgEle_hbbDivEle ══ */}
-
-
-
-                    < span id='phoSpaEle' className={ styles.phoneSpan } >417-988-6239</ span > { /* Phone Span Element = This custom span HTML element is used to display the phone number inside of the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                </ div >
-
-                {/* ══ End phoDivEle_hbbDivEle ══ */}
-
-
-
-                {/* ══ Start addDivEle_hbbDivEle ══ */}
-
-                <  div id='addDivEle_hbbDivEle' className={ ` ${ styles.infoDivs }   ${ styles.infoDivs_hbbDivEle }   ${ styles.infoDivs_address } ` } > { /* Address Div Element for Hero Bottom Bar Div Element = This custom div HTML element is a container for the address SVG and text inside of the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                    {/* ══ Start addSvgEle ══ */}
-
-                    <  svg id='addSvgEle' className={ ` ${ styles.heroBottomBarSvgs }   ${ styles.addressSvg } ` } viewBox='0 0 24 24' strokeWidth='1.8' > { /* Address SVG Element = This custom svg HTML element is used to display the address icon inside of the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                        < path id='addPatEle' className={ styles.addressPath } d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z' /> { /* Address Path Element = This custom path SVG element is used to define the shape of the address icon inside of the svg element for the address icon in the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                    </ svg >
-
-                    {/* ══ End addSvgEle ══ */}
-
-
-
-                    < span id='addSpaEle' className={ styles.addressSpan } >24579 State Hwy 254 · Carson's Corner, Mo. 65668</ span > { /* Address Span Element = This custom span HTML element is used to display the address inside of the bottom bar in the hero banner on the Home section of the page. */ }
-
-
-                </ div >
-
-                {/* ══ End addDivEle_hbbDivEle ══ */}
-
-
-            </ div >
-
-            {/* ══ End hbbDivEle ══ */}
-
-
-        </ section >
-
-
-    );
+	);
 
 
 }
@@ -258,7 +221,7 @@ function HerSecCom () : React.JSX.Element {
 
 // #region Exports
 
-export { HerSecCom }; // What: Named Export. Why: The home page renders this section. How: This exports HerSecCom.
+export { HerSecCom }; // What: Named Exports. Why: The home page renders the hero first. How: This exports HerSecCom.
 
 // #endregion Exports
 

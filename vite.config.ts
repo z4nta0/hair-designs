@@ -25,8 +25,9 @@ import type { Plugin } from 'vite'; // What: Plugin. Why: The page minifier is a
  * what visitors download. Every other setting stays at Vite's default,
  * including copying the files in public/ (the favicon and Netlify's
  * _redirects) into the build untouched. Adapted from seal-and-shield's own
- * config; its camelCase-only CSS module keys join once the CSS module pass
- * renames the classes they'd otherwise break.
+ * config. CSS module classes are exposed under both their own names and
+ * camelCase keys while the module pass converts them, and switch to
+ * camelCase keys only once every class is renamed.
  *
  * Sections:
  *  - Helpers
@@ -109,7 +110,8 @@ const minHtmFun = () : Plugin => ({ // What: Minify HTML Function. Why: index.ht
 const VIT_CON_OBJ = defineConfig({ // What: Vite Config Object. Why: Vite reads its whole configuration from this file's default export. How: This builds the config, including the minHtmFun plugin above.
 
 
-	plugins : [ react(), minHtmFun() ] // What: Plugins. Why: Vite builds the site through these plugins, in this order. How: This lists React and the page minifier.
+	css     : { modules : { localsConvention : 'camelCase' } }, // What: CSS. Why: A modifier class such as .butBasAnc--primary is read as the camelCase key cssModObj.butBasAncPrimary, per the CSS modules rules, while sections not yet converted still read their old underscore names. How: This exposes each class under both its own name and its camelCase key, until the last module's renames switch it to camelCaseOnly.
+	plugins : [ react(), minHtmFun() ]                         // What: Plugins. Why: Vite builds the site through these plugins, in this order. How: This lists React and the page minifier.
 
 
 });

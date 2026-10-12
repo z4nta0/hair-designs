@@ -1,167 +1,4 @@
- 
-    
- 
-    /* ── Stripe texture helper - ????????? ── */
-    .stripeBg {
-      background-image: repeating-linear-gradient(
-        90deg,
-        var(--navy) 0px,
-        var(--navy) 28px,
-        var(--navy-mid) 28px,
-        var(--navy-mid) 56px
-      );
-    }
- 
-    /* ── HERO ── */
-    .homeSection {
-      min-height: 100vh;
-      display: flex; flex-direction: column;
-      padding: 0;
-      padding-top: 68px;
-    }
-    .heroDiv {
-      flex: 1;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      align-items: stretch;
-    }
-@media ( max-width : 900px ) { /* What: Hero Div Narrow Screen Query. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones, so they stack. How: This applies at 900px and narrower. */
 
-
-	.heroDiv { /* What: Hero Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
-
-
-		grid-template-columns : 1fr;
-
-
-	}
-
-
-}
-    .heroLeftDiv {
-      background-image: repeating-linear-gradient(
-        90deg,
-        var(--navy) 0px,
-        var(--navy) 30px,
-        #232a3d 30px,
-        #232a3d 60px
-      );
-      display: flex; align-items: center; justify-content: center;
-      padding: 80px 60px;
-      position: relative;
-      text-align: center;
-    }
-    .heroLeftDiv::after {
-      content: '';
-      position: absolute; right: -1px; top: 0; bottom: 0; width: 3px;
-      background: var(--rose);
-    }
-@media ( max-width : 900px ) { /* What: Hero Left Div Narrow Screen Query. Why: The logo half needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
-
-
-	.heroLeftDiv { /* What: Hero Left Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
-
-
-		padding : 60px 40px;
-
-
-	}
-
-
-}
-@media ( max-width : 900px ) { /* What: Hero Left Div Divider Narrow Screen Query. Why: The rose divider runs down the seam between the halves, which no longer exists once they stack. How: This applies at 900px and narrower. */
-
-
-	.heroLeftDiv::after { /* What: Hero Left Div Divider Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
-
-
-		display : none;
-
-
-	}
-
-
-}
-    /* SVG arrow/floral emblem */
-    .logoImage_homeSection {
-      width: 220px; height: 220px;
-      filter: drop-shadow(0 6px 24px rgba(0,0,0,0.4));
-    }
-    .heroRightDiv {
-      background: var(--cream);
-      display: flex; align-items: center; justify-content: center;
-      padding: 80px 60px;
-    }
-@media ( max-width : 900px ) { /* What: Hero Right Div Narrow Screen Query. Why: The heading half needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
-
-
-	.heroRightDiv { /* What: Hero Right Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
-
-
-		padding : 60px 40px;
-
-
-	}
-
-
-}
-    .heroTaglineParagraph {
-      font-family: 'Dancing Script', cursive;
-      font-size: 25.572px;
-      color: var(--rose-dk);
-      letter-spacing: 0.06em;
-      margin-bottom: 10px;
-    }
-    .heroHeading1 {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 6vw, 5.2rem);
-      font-weight: 600;
-      color: var(--navy);
-      line-height: 1.08;
-      margin-bottom: 14px;
-    }
-    .heading1Emphasis {
-      font-style: italic;
-      color: var(--rose-dk);
-    }
-    .heroSubheadingParagraph {
-      font-family: 'Lato', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 300;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--warm-gray);
-      margin-bottom: 28px;
-    }
-    .heroHorizontalRule {
-      width: 56px; height: 2px;
-      color: var(--rose);
-      margin-bottom: 28px;
-    }
-    .namesDiv {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.5rem;
-      color: var(--rose-dk);
-      line-height: 1.6;
-    }
-    .nameSpans { display: block; }
-    .ampersandSpan {
-
-        font-size: 1.1rem;
-        color: var(--mauve)
-
-    }
-    .heroDescriptionParagraph {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 1rem;
-      color: var(--warm-gray);
-      margin-top: 8px;
-    }
-    .ctaDiv {
-      margin-top: 36px;
-      display: flex; gap: 16px; flex-wrap: wrap;
-    }
     .buttonAnchors {
       display: inline-block;
       padding: 13px 32px;
@@ -179,12 +16,6 @@
       color: var(--cream);
     }
     .buttonAnchors_primary:hover { background: var(--navy-mid); transform: translateY(-2px); }
-    .buttonAnchors_outline {
-      background: transparent;
-      color: var(--navy);
-      border: 2px solid var(--navy);
-    }
-    .buttonAnchors_outline:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); }
 @media ( prefers-reduced-motion : reduce ) { /* What: Button Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
 
 
@@ -198,24 +29,6 @@
 
 
 }
-
- 
-    /* ── Bottom strip ── */
-    .heroBottomBarDiv {
-      background: var(--navy);
-      border-top: 3px solid var(--rose);
-      padding: 16px 5%;
-      display: flex; align-items: center; justify-content: center; gap: 40px;
-      flex-wrap: wrap;
-    }
-    .infoDivs_hbbDivEle {
-      display: flex; align-items: center; gap: 10px;
-      color: var(--cream);
-      font-size: 0.85rem;
-      letter-spacing: 0.04em;
-      opacity: 0.9;
-    }
-    .heroBottomBarSvgs { width:18px; height:18px; stroke: var(--rose-lt); fill:none; }
  
     
 
@@ -621,31 +434,6 @@
 	position    : absolute;
 	white-space : nowrap;
 	width       : 1px;
-
-
-}
-
-/* #endregion formDisabledDiv */
- 
- 
-    /* ── Fade-in animation ── */
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(28px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .heroLeftDiv  .fadeUpInAnimation  { animation: fadeUp 0.9s ease both; animation-delay: 0.1s; }
-    .heroRightDiv .fadeUpInAnimation  { animation: fadeUp 0.9s ease both; animation-delay: 0.3s; }
-@media ( prefers-reduced-motion : reduce ) { /* What: Fade Up In Animation Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
-
-
-	.heroLeftDiv .fadeUpInAnimation,
-	.heroRightDiv .fadeUpInAnimation { /* What: Fade Up In Animation Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets both halves' entrances with the same two-class selectors as their base rules, so it outranks them. */
-
-
-		animation : none;
-
-
-	}
 
 
 }
