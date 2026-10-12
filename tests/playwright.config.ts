@@ -77,10 +77,9 @@ const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playw
 	projects : SUI_NAM_ARR.flatMap( ( suiNamStr ) => ENG_NAM_ARR.map( ( engNamStr ) => ({ // What: Projects. Why: Each suite runs on its own in each engine. How: This crosses every suite with every engine into a project named after both, runnable alone with --project.
 
 
-		name      : `${ suiNamStr }-${ engNamStr }`,                              // What: Name. Why: A failure has to say which suite and engine it came from. How: This names the project after both.
-		retries   : suiNamStr === 'rendering' && engNamStr === 'firefox' ? 1 : 0, // What: Retries. Why: Under three parallel workers, Firefox draws a few dozen pixels of the Google-hosted Playfair Display headings differently about one run in four, while a single worker passes every time. How: This gives only Firefox's rendering tests one retry, so a real change still fails twice; it's temporary, removed once the fonts are self-hosted in step 6 and the flake is checked gone.
-		testMatch : `${ suiNamStr }/**/*.spec.ts`,                                // What: Test Match. Why: Each suite lives in its own folder. How: This runs every spec in the suite's folder under tests/.
-		use       : { browserName : engNamStr }                                   // What: Use. Why: The project has to launch its own engine. How: This sets the browser it runs in.
+		name      : `${ suiNamStr }-${ engNamStr }`, // What: Name. Why: A failure has to say which suite and engine it came from. How: This names the project after both.
+		testMatch : `${ suiNamStr }/**/*.spec.ts`,   // What: Test Match. Why: Each suite lives in its own folder. How: This runs every spec in the suite's folder under tests/.
+		use       : { browserName : engNamStr }      // What: Use. Why: The project has to launch its own engine. How: This sets the browser it runs in.
 
 
 	}))),

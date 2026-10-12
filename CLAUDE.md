@@ -200,16 +200,11 @@ the features they check.
   intended visual change, refresh with `npm run test:rendering --
   --update-snapshots` and commit the baselines with it. Baselines are captured
   on Linux.
-  - **Temporary Firefox retry**: under three parallel workers, Firefox draws a
-    few dozen pixels of the Google-hosted Playfair Display headings ("Perms &
-    Texture", "Town") differently about one run in four, while six runs with a
-    single worker all passed. Firefox's rendering tests get one retry, so a
-    real change still fails twice. Remove it once the fonts are self-hosted in
-    step 6, after checking the flake is gone. Until then, refresh Firefox's
-    baselines with a single worker (`npx playwright test --config
-    tests/playwright.config.ts --project rendering-firefox --workers=1
-    --update-snapshots`), since a baseline captured under parallel load can
-    bake the odd rendering in and then fail every run.
+  - **The Firefox font flake is gone**: while the fonts came from Google,
+    Firefox drew a few dozen pixels of the Playfair Display headings
+    differently about one run in four under three parallel workers, covered by
+    a temporary retry. Self-hosting the fonts (`f22a2ba`) ended it: eight
+    parallel runs with retries off all passed, so the retry was removed.
 - `npm run test:responsive`: measures the home page at 15 widths from 320 to
   1,920px (a pixel either side of the 600px and 900px breakpoints and of
   `index.css`'s 1,024px root font size switch included), and the open phone
