@@ -1,0 +1,328 @@
+
+
+
+/**
+ * services.module.css = Services Module
+ *
+ * @summary
+ * Styles for SerSecCom, the home page's Services section on ivory: its header
+ * (a script eyebrow, the heading, a short rose rule, and an intro) above a
+ * grid of six cream cards, each with a line icon, a title, and a description,
+ * lifting slightly on hover. Each icon's SVG takes a color modifier and its
+ * shapes draw in currentColor, so one class per shape serves every card, with
+ * modifiers only where a card's shape differs.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region homSerSec */
+
+.homSerSec { /* What: Home Services Section. Why: The services sit on the page's lightest surface. How: This stacks the header over the card grid on ivory. */
+
+
+	background-color : var( --bac-pag-col );                                                                          /* Background Page Color = #faf7f2 */
+	display          : grid;
+	padding          : var( --spa-ver-p06 ) max( var( --gut-sid-pad ), calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Gutter Side Padding, about 19.304px - 44.876px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is the gutter until half the space beyond the cap is larger, then that half. */
+
+
+}
+@container app ( max-width : 600px ) { /* What: Phone Home Services Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.homSerSec { /* What: Phone Home Services Section. Why: The desktop's top and bottom padding wastes too much of a phone screen. How: This tightens it, leaving the sides to the gutter. */
+
+
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
+
+
+	}
+
+
+}
+
+
+/* #region serHeaHed */
+
+.serHeaHed { /* What: Services Header Header. Why: The section opens with its eyebrow, heading, rule, and intro in a column. How: This stacks them as grid rows, which keeps their margins from collapsing. */
+
+
+	display : grid;
+
+
+}
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
+
+
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
+
+
+}
+
+.secTitHea { /* What: Section Title Heading. Why: The section's heading names it. How: This sets it in navy Playfair Display that grows with the screen. */
+
+
+	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
+
+
+}
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+
+
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+
+
+}
+
+.serIntPar { /* What: Services Intro Paragraph. Why: A short intro sums up the services. How: This sets it in warm gray, capped in width and spaced from the cards. */
+
+
+	color         : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	font-size     : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	margin-bottom : var( --spa-ver-p04 ); /* Spacing Vertical Base Plus 4 ~= 44.876px */
+	max-width     : var( --tex-wid-bas ); /* Text Width Base Maximum ~= 29.207em */
+
+
+}
+
+/* #endregion serHeaHed */
+
+
+
+/* #region serGriDiv */
+
+.serGriDiv { /* What: Services Grid Div. Why: The six cards should always fill even rows, never leaving a short last row. How: This sets three equal columns, two rows of three, dropping to two and then one column on narrower screens. */
+
+
+	display               : grid;
+	gap                   : var( --spa-ver-p02 ) var( --spa-hor-p02 ); /* Spacing Vertical Base Plus 2 ~= 25.572px, Spacing Horizontal Base Plus 2 ~= 25.572px */
+	grid-template-columns : repeat( 3, 1fr );
+
+
+}
+@container app ( max-width : 900px ) { /* What: Narrow Services Grid Div. Why: Three columns grow too narrow for the cards' text on tablets. How: This applies at 900px and narrower. */
+
+
+	.serGriDiv { /* What: Narrow Services Grid Div. Why: Three columns grow too narrow for the cards' text on tablets. How: This sets two columns, three rows of two. */
+
+
+		grid-template-columns : repeat( 2, 1fr );
+
+
+	}
+
+
+}
+@container app ( max-width : 600px ) { /* What: Phone Services Grid Div. Why: Two columns grow too narrow for the cards' text on phones. How: This applies at 600px and narrower. */
+
+
+	.serGriDiv { /* What: Phone Services Grid Div. Why: Two columns grow too narrow for the cards' text on phones. How: This stacks the cards in one column. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+
+
+
+/* #region serCarDiv */
+
+.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge. */
+
+
+	background-color : var( --bac-sur-col );                                                                                      /* Background Surface Color = #f5f0e8 */
+	border           : var( --bor-wid-bas ) solid var( --bor-mai-col );                                                           /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
+	border-top       : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                           /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	padding          : var( --spa-ver-p03 ) var( --spa-hor-p02 );                                                                 /* Spacing Vertical Base Plus 3 ~= 33.876px, Spacing Horizontal Base Plus 2 ~= 25.572px */
+	transition       : transform var( --dur-tra-p02 ) var( --mot-sta-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
+
+
+}
+.serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
+
+
+	box-shadow : var( --ele-med-sha );                            /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
+	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) ); /* Spacing Vertical Base Minus 4 ~= -4.732px */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Services Card Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.serCarDiv { /* What: Motionless Services Card Div. Why: The change should simply happen. How: This turns the transition off, so the lift simply happens. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+
+/* #region carIcoSvg */
+
+.carIcoSvg { /* What: Card Icon SVG. Why: Each card opens with a small line icon. How: This sizes it to 44px with no fill by default, so only the shapes that ask for one are filled. */
+
+
+	fill          : none;
+	height        : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+	margin-bottom : var( --spa-ver-p01 );                /* Spacing Vertical Base Plus 1 ~= 19.304px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+
+
+}
+.carIcoSvg--rose { /* What: Rose Card Icon SVG. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
+
+
+	color : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+
+
+}
+.carIcoSvg--sage { /* What: Sage Card Icon SVG. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
+
+
+	color : var( --acc-sec-col ); /* Accent Secondary Color = #8ea89a */
+
+
+}
+.carIcoSvg--mauve { /* What: Mauve Card Icon SVG. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
+
+
+	color : var( --acc-ter-col ); /* Accent Tertiary Color = #c9a0a0 */
+
+
+}
+
+.icoRinCir { /* What: Icon Ring Circle. Why: Every icon sits in a faint ring. How: This strokes the circle thinly in the icon's color at low opacity. */
+
+
+	opacity      : var( --cdn-pow-004-rec ); /* Core-Design-Number to the Power of 4 Reciprocal ~= 0.325 */
+	stroke       : currentColor;
+	stroke-width : 1.5;
+
+
+}
+
+.icoFilPat { /* What: Icon Fill Path. Why: Most icons' main shape is a soft filled form. How: This fills it in the icon's color, slightly faded. */
+
+
+	fill    : currentColor;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
+
+
+}
+.icoFilPat--soft { /* What: Soft Icon Fill Path. Why: The men's cut icon's shape is a little fainter. How: This lowers its opacity. */
+
+
+	opacity : 0.65;
+
+
+}
+
+.icoStrLin { /* What: Icon Stroke Line. Why: Handles and pins are drawn as lines. How: This strokes them in the icon's color with round ends. */
+
+
+	stroke         : currentColor;
+	stroke-linecap : round;
+	stroke-width   : 2;
+
+
+}
+.icoStrLin--bold { /* What: Bold Icon Stroke Line. Why: The men's cut icon's line is a little heavier. How: This thickens it. */
+
+
+	stroke-width : 2.2;
+
+
+}
+
+.icoFilRec { /* What: Icon Fill Rectangle. Why: The special occasions icon's card is a small filled rectangle. How: This sizes and fills it in the icon's color, faded. */
+
+
+	fill    : currentColor;
+	height  : 12px;
+	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
+	width   : 16px;
+
+
+}
+
+.icoDotCir { /* What: Icon Dot Circle. Why: Two icons center a small filled dot. How: This fills it in the icon's color, faded. */
+
+
+	fill    : currentColor;
+	opacity : 0.65;
+
+
+}
+.icoDotCir--plum { /* What: Plum Icon Dot Circle. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
+
+
+	fill    : #b08898;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
+
+
+}
+
+.icoStrPat { /* What: Icon Stroke Path. Why: The treatments icon's wave is a drawn line rather than a filled shape. How: This strokes it in the icon's color with round ends. */
+
+
+	fill           : none;
+	stroke         : currentColor;
+	stroke-linecap : round;
+	stroke-width   : 2.5;
+
+
+}
+
+/* #endregion carIcoSvg */
+
+
+.carTitHea { /* What: Card Title Heading. Why: Each card names its service. How: This sets it in navy Playfair Display. */
+
+
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	margin-bottom : var( --spa-ver-m01 ); /* Spacing Vertical Base Minus 1 = 11px */
+
+
+}
+
+.carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it small in warm gray. */
+
+
+	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	font-size   : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	line-height : var( --ver-rhy-p01 ); /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	max-width   : var( --tex-wid-sma ); /* Text Width Small Maximum ~= 22.047em */
+
+
+}
+
+/* #endregion serCarDiv */
+
+/* #endregion serGriDiv */
+
+/* #endregion homSerSec */
+
+

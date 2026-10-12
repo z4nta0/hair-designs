@@ -1,0 +1,184 @@
+
+
+
+/**
+ * not-found.module.css = Not Found Module
+ *
+ * @summary
+ * Styles for NotFouCom: the 404 page's centered message, filling the space
+ * between the bar and the footer, with its script eyebrow, its heading and
+ * rose accent, the short rose rule, a short note, and its two buttons, home
+ * and a call, side by side in a row that wraps. The eyebrow, heading, rule,
+ * and button rules are copied from the home page's sections, centered here,
+ * and the buttons' transition stops for anyone who asked for less motion.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region nofPagSec */
+
+.nofPagSec { /* What: Not-Found Page Section. Why: The page's short message should sit in the middle of the screen, clear of the fixed bar. How: This grows to fill the main element's leftover height, centers its column of content there, and pads the top by the bar's height and border on top of the usual section spacing. */
+
+
+	align-content : center;
+	display       : grid;
+	flex          : 1;
+	justify-items : center;
+	padding       : calc( var( --nav-bar-hei ) + var( --bor-wid-xla ) + var( --spa-ver-p05 ) ) var( --gut-sid-pad ) var( --spa-ver-p05 ); /* Navigation Bar Height ~= 59.447px, Border Width Extra Large ~= 3.572px, Spacing Vertical Base Plus 5 ~= 59.447px, Gutter Side Padding, about 19.304px - 44.876px */
+	text-align    : center;
+
+
+}
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line says what happened before the heading. How: This sets it in dark rose Dancing Script at 25.572px, large enough to count as large text for contrast, copied from the home page's sections. */
+
+
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
+
+
+}
+
+
+/* #region secTitHea */
+
+.secTitHea { /* What: Section Title Heading. Why: The page's one heading says the page wasn't found. How: This sets it in navy Playfair Display that grows with the screen, copied from the home page's sections. */
+
+
+	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
+
+
+}
+
+.titAccEmp { /* What: Title Accent Emphasis. Why: The heading's last word is set apart, as the hero sets apart Designs. How: This sets it in dark rose italic. */
+
+
+	color      : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-style : italic;
+
+
+}
+
+/* #endregion secTitHea */
+
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading, as on every section. How: This keeps the browser's inset border, colored rose through the color property, in a 45px by 2px box. */
+
+
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+
+
+}
+
+.nofLedPar { /* What: Not-Found Lede Paragraph. Why: The note points the visitor back to the salon without competing with the heading. How: This sets it in charcoal at the paragraph measure. */
+
+
+	color     : var( --tex-sec-col ); /* Text Secondary Color = #4a4a4a */
+	max-width : var( --tex-wid-bas ); /* Text Width Base Maximum ~= 29.207em */
+
+
+}
+
+
+/* #region nofActDiv */
+
+.nofActDiv { /* What: Not-Found Actions Div. Why: The two ways onward sit side by side under the note. How: This centers them in a row that wraps when it runs out of room. */
+
+
+	display         : flex;
+	flex-wrap       : wrap;
+	gap             : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
+	justify-content : center;
+	margin-top      : var( --spa-ver-p03 );                      /* Spacing Vertical Base Plus 3 ~= 33.876px */
+
+
+}
+
+.butBasAnc { /* What: Button Base Anchor. Why: Both ways onward share the site's button shape. How: This sets small spaced bold capitals in a padded block, with a transition for the hover changes, copied from the hero's buttons. */
+
+
+	border          : none;
+	cursor          : pointer;
+	display         : inline-block;
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
+	font-weight     : 700;
+	letter-spacing  : 0.16em;
+	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
+	text-decoration : none;
+	text-transform  : uppercase;
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), color var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+
+
+}
+.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: Going home is the page's main way onward. How: This fills it navy with cream text. */
+
+
+	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+
+
+}
+.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+
+
+	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
+
+
+}
+.butBasAnc--outline { /* What: Outline Button Base Anchor. Why: The call stays quieter beside the way home. How: This outlines it in navy. */
+
+
+	background : transparent;
+	border     : var( --bor-wid-lar ) solid var( --tex-mai-col ); /* Border Width Large ~= 2.035px, Text Main Color = #2b3245 */
+	color      : var( --tex-mai-col );                            /* Text Main Color = #2b3245 */
+
+
+}
+.butBasAnc--outline:hover { /* What: Hovered Outline Button Base Anchor. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
+
+
+	background : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
+
+
+}
+.butBasAnc:active { /* What: Pressed Button Base Anchor. Why: A tap should register before anything else happens. How: This presses the button in slightly, which also undoes its hover lift. */
+
+
+	transform : scale( 0.97 ); /* What: Press Scale. Why: A press should register before anything else happens. How: This shrinks the control by 3%, a literal since no scale step lands within 10%. */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Button Base Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.butBasAnc { /* What: Motionless Button Base Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover changes, the press, and the focus ring simply apply. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion nofActDiv */
+
+/* #endregion nofPagSec */
+
+

@@ -1,0 +1,44 @@
+
+
+
+/**
+ * footer.module.css = Footer Module
+ *
+ * @summary
+ * Styles for SitFooCom, the dark footer under every page: a centered, quiet
+ * copyright line in faded cream on the darkest navy, below a rose rule, with
+ * the salon's name and phone number picked out in light rose.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region sitFooFoo */
+
+.sitFooFoo { /* What: Site Footer Footer. Why: The page ends on a quiet dark band below a rose rule. How: This sets a centered line of small spaced faded cream text on the darkest navy. */
+
+
+	background     : var( --bac-ivd-col );                            /* Background Inverse Deepest Color = #1d2235 */
+	border-top     : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	color          : rgb( from var( --tex-inv-col ) r g b / 0.5 );    /* Text Inverse Color = #f5f0e8 @ 0.5 opacity */
+	font-size      : var( --fon-siz-p01 );                            /* Font Size Base Plus 1 ~= 14.572px */
+	letter-spacing : calc( var( --cdn-pow-010-rec ) * 1em );          /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060em */
+	padding        : var( --spa-ver-p02 ) var( --gut-sid-pad );       /* Spacing Vertical Base Plus 2 ~= 25.572px, Gutter Side Padding, about 19.304px - 44.876px */
+	text-align     : center;
+
+
+}
+
+.copAccSpa { /* What: Copyright Accent Span. Why: The salon's name and number should stand out in the line. How: This colors them light rose. */
+
+
+	color : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+
+
+}
+
+/* #endregion sitFooFoo */
+
+

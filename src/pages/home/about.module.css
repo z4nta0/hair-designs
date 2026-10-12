@@ -1,0 +1,248 @@
+
+
+
+/**
+ * about.module.css = About Module
+ *
+ * @summary
+ * Styles for AboSecCom, the home page's About section on cream: a striped navy
+ * panel holding a card with the logo, both stylists' names, and their title,
+ * beside the salon's story under a script eyebrow, the heading, and a short
+ * rose rule, ending in a navy button to the Contact section. The two columns
+ * stack at 900px and narrower.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region homAboSec */
+
+.homAboSec { /* What: Home About Section. Why: The stylists' card and the salon's story sit side by side on cream. How: This splits the section into two vertically centered columns. */
+
+
+	align-items           : center;
+	background            : var( --bac-sur-col );                                                                           /* Background Surface Color = #f5f0e8 */
+	display               : grid;
+	gap                   : var( --spa-ver-p06 ) clamp( var( --spa-hor-p04 ), var( --hor-rhy-017 ), var( --spa-hor-p06 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 4 ~= 44.876px, Horizontal Rhythm 17, Spacing Horizontal Base Plus 6 ~= 78.751px, about 44.876px - 78.751px */
+	grid-template-columns : 1fr 1fr;
+	padding               : var( --spa-ver-p06 ) max( var( --gut-sid-pad ), calc( ( 100% - var( --con-max-wid ) ) / 2 ) );  /* Spacing Vertical Base Plus 6 ~= 78.751px, Gutter Side Padding, about 19.304px - 44.876px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is the gutter until half the space beyond the cap is larger, then that half. */
+
+
+}
+@container app ( max-width : 900px ) { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.homAboSec { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This stacks them. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+@container app ( max-width : 600px ) { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.homAboSec { /* What: Phone Home About Section. Why: The desktop's top and bottom padding wastes too much of a phone screen. How: This tightens it, leaving the sides to the gutter. */
+
+
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
+
+
+	}
+
+
+}
+
+
+/* #region aboVisDiv */
+
+.aboVisDiv { /* What: About Visual Div. Why: The card's panel is the section's visual half. How: This sets a positioning context for it. */
+
+
+	position : relative;
+
+
+}
+
+
+/* #region logBacDiv */
+
+.logBacDiv { /* What: Logo Backdrop Div. Why: The card sits on the brand's stripes. How: This draws a 4:5 panel of 24px navy stripes and centers the card on it. */
+
+
+	align-items      : center;
+	aspect-ratio     : 4 / 5;
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p02 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p02 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p02 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 2 ~= 25.572px and ~= 51.144px doubled, Background Inverse Dark Color = #232a3d */
+	display          : flex;
+	justify-content  : center;
+	position         : relative;
+	width            : 100%;
+
+
+}
+
+
+/* #region aboCarDiv */
+
+.aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset 28px from the panel's edges. */
+
+
+	background : var( --bac-sur-col );                            /* Background Surface Color = #f5f0e8 */
+	border     : var( --bor-wid-lar ) solid var( --acc-lig-col ); /* Border Width Large ~= 2.035px, Accent Light Color = #e8a898 */
+	margin     : var( --spa-ver-p02 ) var( --spa-hor-p02 );       /* Spacing Vertical Base Plus 2 ~= 25.572px, Spacing Horizontal Base Plus 2 ~= 25.572px */
+	padding    : var( --spa-ver-p04 ) var( --spa-hor-p03 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 3 ~= 33.876px */
+	text-align : center;
+	width      : calc( 100% - var( --spa-hor-p02 ) * 2 );         /* Spacing Horizontal Base Plus 2 ~= 25.572px */
+
+
+}
+
+.aboLogIma { /* What: About Logo Image. Why: The card opens with the logo. How: This sizes it square between two rhythm steps, growing with the screen. */
+
+
+	height        : auto;                                                                                                    /* What: Height Note. Why: The logo's width shrinks a step on narrower screens. How: This keeps the square logo's height following its width. */
+	margin-bottom : var( --spa-ver-p02 );                                                                                    /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : clamp( calc( var( --ver-rhy-p07 ) * 1rem ), var( --hor-rhy-019 ), calc( var( --ver-rhy-p08 ) * 1rem ) ); /* Vertical Rhythm Base Plus 7 ~= 104.323px, Horizontal Rhythm 19, Vertical Rhythm Base Plus 8 ~= 138.199px, about 104.323px - 138.199px */
+
+
+}
+
+.styNamDiv { /* What: Stylist Names Div. Why: The stylists' names are set like a signature. How: This sets them in large dark rose Dancing Script. */
+
+
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	line-height   : var( --ver-rhy-p01 ); /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
+
+
+}
+
+.aboCapPar { /* What: About Caption Paragraph. Why: The stylists' title follows their names. How: This sets it in warm gray Playfair Display italic. */
+
+
+	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	font-family : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
+	font-size   : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	font-style  : italic;
+
+
+}
+
+/* #endregion aboCarDiv */
+
+/* #endregion logBacDiv */
+
+/* #endregion aboVisDiv */
+
+
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
+
+
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
+
+
+}
+
+.secTitHea { /* What: Section Title Heading. Why: The section's heading sums up the salon. How: This sets it in navy Playfair Display that grows with the screen. */
+
+
+	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
+
+
+}
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+
+
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+
+
+}
+
+.aboBodPar { /* What: About Body Paragraph. Why: The salon's story reads as three easy paragraphs. How: This sets them in charcoal with airy lines, spaced apart. */
+
+
+	color         : var( --tex-sec-col ); /* Text Secondary Color = #4a4a4a */
+	font-size     : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	line-height   : var( --ver-rhy-p01 ); /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	margin-bottom : var( --spa-ver-p01 ); /* Spacing Vertical Base Plus 1 ~= 19.304px */
+	max-width     : var( --tex-wid-bas ); /* Text Width Base Maximum ~= 29.207em */
+
+
+}
+
+.butBasAnc { /* What: Button Base Anchor. Why: The story ends with a way to reach the salon, in the hero's button shape. How: This sets small spaced bold capitals in a padded block a little below the last paragraph, with a transition for the hover changes. */
+
+
+	border          : none;
+	cursor          : pointer;
+	display         : inline-block;
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
+	font-weight     : 700;
+	letter-spacing  : 0.16em;
+	margin-top      : var( --spa-ver-m02 );                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
+	text-decoration : none;
+	text-transform  : uppercase;
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+
+
+}
+.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The call to action stands out. How: This fills it navy with cream text. */
+
+
+	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+
+
+}
+.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+
+
+	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
+
+
+}
+.butBasAnc:active { /* What: Pressed Button Base Anchor. Why: A tap should register before anything else happens. How: This presses the button in slightly, which also undoes its hover lift. */
+
+
+	transform : scale( 0.97 ); /* What: Press Scale. Why: A press should register before anything else happens. How: This shrinks the control by 3%, a literal since no scale step lands within 10%. */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Button Base Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.butBasAnc { /* What: Motionless Button Base Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover changes, the press, and the focus ring simply apply. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion homAboSec */
+
+

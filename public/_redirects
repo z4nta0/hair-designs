@@ -1,0 +1,2 @@
+# What: Single-Page App Fallback Rule. Why: React Router handles every address in the browser, so Netlify has to answer any path it has no file for with the app itself. How: This serves index.html with a 200 status for every path, after Netlify's own files, which it always serves first.
+/*	/index.html	200

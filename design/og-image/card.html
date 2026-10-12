@@ -1,0 +1,165 @@
+<!doctype html><!-- What: Document Type Declaration. Why: Browsers render the page in standards mode only with a doctype. How: This declares HTML5. -->
+
+
+
+<html lang='en'><!-- What: Root HTML Element. Why: The card is set in English text. How: This marks the document as English. -->
+
+
+	<head><!-- What: Document Head Element. Why: The card's fonts and layout load before it's captured. How: This holds them in the sections below. -->
+
+
+		<!-- #region Document -->
+
+		<meta charset='UTF-8' />                        <!-- What: Character Set Meta. Why: The card's text has to decode as UTF-8. How: This sits first in the head. -->
+		<title>Hair Designs Social Preview Card</title> <!-- What: Page Title Element. Why: The file should say what it is when opened in a browser. How: This names the card. -->
+
+		<!-- #endregion Document -->
+
+
+		<!-- #region Card Styles -->
+
+		<style>/* What: Card Style Element. Why: The card is one fixed-size image, styled here from the site's own fonts and tokens. How: This imports the site's font faces and global stylesheet, then lays the card out on the site's scale, keeping literal pixels only for the image's fixed size. */
+
+
+			@import url( '../../src/styles/fonts.css' );  /* What: Site Fonts Import. Why: The card should be set in the site's own typefaces. How: This loads the site's font faces, whose file paths resolve from fonts.css itself. */
+			@import url( '../../src/styles/styles.css' ); /* What: Site Styles Import. Why: The card should read the site's colors and scale rather than copies of them. How: This loads the global tokens and base element styles, which also make 1rem the site's 11px base. */
+
+
+
+			/* #region carBodBod */
+
+			.carBodBod { /* What: Card Body Body. Why: The card fills the whole 1,200x630 capture on the hero logo panel's navy stripes, with the bar's rose line along its foot. How: This sizes it in literal pixels, the image's own fixed size, paints the hero's two-navy stripes and a rose bottom border, and centers its single column. */
+
+
+				align-items      : center;
+				background-color : var( --bac-inv-col );                                           /* Background Inverse Color = #2b3245 */
+				background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
+				border-bottom    : calc( var( --ver-rhy-m02 ) * 1rem ) solid var( --acc-mai-col ); /* Vertical Rhythm Base Minus 2 ~= 8.304px, Accent Main Color = #d4806a */ /* What: Rose Foot Note. Why: The bar's rose line is part of the site's look, and at its own 3.57px it would vanish in a thumbnail. How: This draws it a rhythm step thicker. */
+				display          : flex;
+				height           : 630px;
+				justify-content  : center;
+				overflow         : hidden;
+				width            : 1200px;
+
+
+			}
+
+
+			/* #region carColDiv */
+
+			.carColDiv { /* What: Card Column Div. Why: Some apps crop the card to its center square, so everything that matters sits inside the middle 630px. How: This stacks the logo and the three lines in one centered column. */
+
+
+				align-items    : center;
+				display        : flex;
+				flex-direction : column;
+				text-align     : center;
+
+
+			}
+
+			.carLogIma { /* What: Card Logo Image. Why: The logo leads the card, the way it leads the hero. How: This sets it at a rhythm step tall enough to read at thumbnail size, while leaving room for the three lines below it. */
+
+
+				display : block;
+				height  : calc( var( --ver-rhy-p09 ) * 1rem ); /* Vertical Rhythm Base Plus 9 ~= 183.075px */
+				width   : calc( var( --ver-rhy-p09 ) * 1rem ); /* Vertical Rhythm Base Plus 9 ~= 183.075px */
+
+
+			}
+
+
+			/* #region carNamPar */
+
+			.carNamPar { /* What: Card Name Paragraph. Why: The salon's name is the card's main line, large enough to read at thumbnail size. How: This sets it in the hero title's cream Playfair Display at its largest step. */
+
+
+				color       : var( --tex-inv-col );     /* Text Inverse Color = #f5f0e8 */
+				font-family : var( --fon-fam-br1 );     /* Font Family Brand 1 = 'Playfair Display' */
+				font-size   : var( --fon-siz-p07 );     /* Font Size Base Plus 7 ~= 78.751px */
+				font-weight : 600;
+				line-height : var( --ver-rhy-m01 );     /* Vertical Rhythm Base Minus 1 = 1 */
+				margin      : var( --spa-ver-p02 ) 0 0; /* Spacing Vertical Base Plus 2 ~= 25.572px */
+
+
+			}
+
+			.titAccEmp { /* What: Title Accent Emphasis. Why: The name's second word is set apart, as in the hero. How: This sets Designs in light rose italic, the shade that holds up on navy. */
+
+
+				color      : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+				font-style : italic;
+
+
+			}
+
+			/* #endregion carNamPar */
+
+
+			.carStyPar { /* What: Card Stylists Paragraph. Why: The two stylists sign the card, the way they sign the hero. How: This sets their names in light rose Dancing Script, two steps smaller than the name. */
+
+
+				color       : var( --acc-lig-col );     /* Accent Light Color = #e8a898 */
+				font-family : var( --fon-fam-br2 );     /* Font Family Brand 2 = 'Dancing Script' */
+				font-size   : var( --fon-siz-p05 );     /* Font Size Base Plus 5 ~= 44.876px */
+				line-height : var( --ver-rhy-m01 );     /* Vertical Rhythm Base Minus 1 = 1 */
+				margin      : var( --spa-ver-p01 ) 0 0; /* Spacing Vertical Base Plus 1 ~= 19.304px */
+
+
+			}
+
+			.carTagPar { /* What: Card Tagline Paragraph. Why: The last line says where the salon is, plainly enough to read at thumbnail size. How: This sets the town in cream Lato, slightly spaced. */
+
+
+				color          : var( --tex-inv-col );     /* Text Inverse Color = #f5f0e8 */
+				font-family    : var( --fon-fam-mai );     /* Font Family Main = 'Lato', sans-serif */
+				font-size      : 40px;                     /* What: Thumbnail Text Size. Why: The social preview rule keeps card text at about 40px or larger, and the scale has no step within 10% of it, p04 being about 33.9px and p05 about 44.9px, which runs the town nearly as wide as the names. How: This stays a literal, as reese-roofing's 40px lines do. */
+				letter-spacing : 0.04em;                   /* What: Town Letter Spacing. Why: A touch of spacing keeps the plain line from reading crowded beside the script. How: This stays a literal, since no reciprocal power of the core design number lands within 10% of it. */
+				line-height    : var( --ver-rhy-m01 );     /* Vertical Rhythm Base Minus 1 = 1 */
+				margin         : var( --spa-ver-p02 ) 0 0; /* Spacing Vertical Base Plus 2 ~= 25.572px */
+
+
+			}
+
+			/* #endregion carColDiv */
+
+			/* #endregion carBodBod */
+
+
+		</style>
+
+		<!-- #endregion Card Styles -->
+
+
+	</head>
+
+
+
+	<body class='carBodBod'><!-- What: Card Body Body Element. Why: This is the card itself. How: Its single column holds everything the image shows. -->
+
+
+		<div class='carColDiv'><!-- What: Card Column Div Element. Why: The card's content sits in one centered column. How: This stacks the logo, the name, the stylists, and the tagline. -->
+
+
+			<img
+				class='carLogIma'
+
+				src='../../src/assets/logo.svg'
+
+				alt='Hair Designs logo of a BOHO arrow and flower arrangement'
+			/><!-- What: Card Logo Image Element. Why: The logo makes the card recognizable at a glance. How: This loads the same logo the site's hero shows. -->
+
+			<p class='carNamPar'>Hair <em class='titAccEmp'>Designs</em></p><!-- What: Card Name Paragraph Element. Why: The main line names the salon. How: This shows it in Playfair Display, the second word in light rose italic. -->
+
+			<p class='carStyPar'>Juli Wilkerson &amp; Keeli Bryan</p><!-- What: Card Stylists Paragraph Element. Why: The card names the two stylists who run the salon. How: This signs their names in light rose script. -->
+
+			<p class='carTagPar'>Carson's Corner, Missouri</p><!-- What: Card Tagline Paragraph Element. Why: The last line says where the salon is. How: This shows the town in plain cream text. -->
+
+
+		</div>
+
+
+	</body>
+
+
+</html>

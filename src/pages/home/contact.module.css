@@ -1,0 +1,647 @@
+
+
+
+/**
+ * contact.module.css = Contact Module
+ *
+ * @summary
+ * Styles for ConSecCom, the home page's Contact section on striped navy: the
+ * eyebrow, heading, and rose rule, then the phone number, hours, and a quote
+ * from the stylists beside a cream card holding the contact form, the two
+ * stacking at 900px and narrower. The form is turned off: its fields sit in a
+ * disabled fieldset, faded slightly, inside a wrapper that catches the pointer
+ * and the keyboard for them and anchors the tooltip that explains why, which
+ * fades in through forTipDivOpenFadeIn. The fieldset's legend carries the same
+ * message for screen readers, hidden visually.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region homConSec */
+
+.homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws 30px navy stripes with cream text. */
+
+
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
+	color            : var( --tex-inv-col );                                                                          /* Text Inverse Color = #f5f0e8 */
+	padding          : var( --spa-ver-p06 ) max( var( --gut-sid-pad ), calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Gutter Side Padding, about 19.304px - 44.876px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is the gutter until half the space beyond the cap is larger, then that half. */
+
+
+}
+@container app ( max-width : 600px ) { /* What: Phone Home Contact Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.homConSec { /* What: Phone Home Contact Section. Why: The desktop's top and bottom padding wastes too much of a phone screen. How: This tightens it, leaving the sides to the gutter. */
+
+
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
+
+
+	}
+
+
+}
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in light rose Dancing Script at 25.572px, the font size scale's p03 step, matching the other sections' eyebrows. */
+
+
+	color         : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
+
+
+}
+
+.secTitHea { /* What: Section Title Heading. Why: The section's heading invites a visitor to get in touch. How: This sets it in cream Playfair Display that grows with the screen. */
+
+
+	color         : var( --tex-inv-col );                                     /* Text Inverse Color = #f5f0e8 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
+
+
+}
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+
+
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+
+
+}
+
+
+
+/* #region conLayDiv */
+
+.conLayDiv { /* What: Contact Layout Div. Why: The details and the form card sit side by side. How: This splits the space with the form a little wider, both aligned to the top. */
+
+
+	align-items           : start;
+	display               : grid;
+	gap                   : var( --spa-ver-p05 ) clamp( var( --spa-hor-p03 ), var( --hor-rhy-016 ), var( --spa-hor-p05 ) ); /* Spacing Vertical Base Plus 5 ~= 59.447px, Spacing Horizontal Base Plus 3 ~= 33.876px, Horizontal Rhythm 16, Spacing Horizontal Base Plus 5 ~= 59.447px, about 33.876px - 59.447px */
+	grid-template-columns : 1fr 1.4fr;
+	margin-top            : var( --spa-ver-p04 );                                                                           /* Spacing Vertical Base Plus 4 ~= 44.876px */
+
+
+}
+@container app ( max-width : 900px ) { /* What: Narrow Contact Layout Div. Why: The details and the form need the full width each on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.conLayDiv { /* What: Narrow Contact Layout Div. Why: The details and the form need the full width each on tablets and phones. How: This stacks them. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+
+
+/* #region conDetDiv */
+
+.conDetDiv { /* What: Contact Details Div. Why: The details read in cream on the navy. How: This sets their text color. */
+
+
+	color : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+
+
+}
+
+
+/* #region detRowDiv */
+
+.detRowDiv { /* What: Detail Row Div. Why: Each detail pairs an icon with its label and value. How: This lines them up from the top, spaced from the next row. */
+
+
+	align-items   : flex-start;
+	display       : flex;
+	gap           : var( --spa-hor-p01 ); /* Spacing Horizontal Base Plus 1 ~= 19.304px */
+	margin-bottom : var( --spa-ver-p03 ); /* Spacing Vertical Base Plus 3 ~= 33.876px */
+
+
+}
+
+.detIcoSvg { /* What: Detail Icon SVG. Why: Each detail opens with a small line icon. How: This draws it as a 22px light rose outline that never shrinks, nudged down to meet the label. */
+
+
+	fill        : none;
+	flex-shrink : 0;
+	height      : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+	margin-top  : var( --spa-ver-m07 );                /* Spacing Vertical Base Minus 7 ~= 2.035px */
+	stroke      : var( --acc-lig-col );                /* Accent Light Color = #e8a898 */
+	width       : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+
+
+}
+
+.detLabStr { /* What: Detail Label Strong. Why: Each detail is named above its value. How: This sets the name in small spaced light rose capitals on its own line. */
+
+
+	color          : var( --acc-lig-col );                   /* Accent Light Color = #e8a898 */
+	display        : block;
+	font-size      : var( --fon-siz-bas );                   /* Font Size Base = 11px */
+	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em ); /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
+	margin-bottom  : var( --spa-ver-m05 );                   /* Spacing Vertical Base Minus 5 ~= 3.572px */
+	text-transform : uppercase;
+
+
+}
+
+.detValAnc { /* What: Detail Value Anchor. Why: The phone number can be tapped to call. How: This sets it as plain slightly faded cream text. */
+
+
+	color           : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+	font-size       : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	opacity         : 0.9;
+	text-decoration : none;
+	transition      : color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+
+
+}
+.detValAnc:hover { /* What: Hovered Detail Value Anchor. Why: The number should respond to the pointer like the site's other links. How: This turns it light rose at full strength. */
+
+
+	color   : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	opacity : 1;
+
+
+}
+.detValAnc:active { /* What: Pressed Detail Value Anchor. Why: A tap should register before the call starts. How: This dims the number slightly, the way every text link presses. */
+
+
+	opacity : 0.7;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Detail Value Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.detValAnc { /* What: Motionless Detail Value Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color, the press, and the focus ring simply apply. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+.detValSpa { /* What: Detail Value Span. Why: The hours read like the phone number beside them. How: This sets them the same size and fade. */
+
+
+	font-size : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	opacity   : 0.9;
+
+
+}
+
+/* #endregion detRowDiv */
+
+
+/* #region conQuoDiv */
+
+.conQuoDiv { /* What: Contact Quote Div. Why: A word from the stylists closes the details. How: This sets it on a faint light panel with a rose edge, only as wide as the quote's lines. */
+
+
+	background  : rgb( 255 255 255 / var( --cdn-pow-010-rec ) );                                                         /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060 */
+	border-left : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                       /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	margin-top  : var( --spa-ver-bas );                                                                                  /* Spacing Vertical Base ~= 14.572px */
+	max-width   : calc( var( --cdn-pow-011 ) * var( --fon-siz-p01 ) + var( --spa-hor-p01 ) * 2 + var( --bor-wid-xla ) ); /* Core-Design-Number to the Power of 11 ~= 22.047, Font Size Base Plus 1 ~= 14.572px, Spacing Horizontal Base Plus 1 ~= 19.304px, Border Width Extra Large ~= 3.572px, about 363px in all */ /* What: Panel Width Note. Why: The panel exists to hold the quote, so its translucent background should end where the quote's capped lines do rather than run on empty. How: This adds the quote's small text width at its font size to the panel's side padding and rose left border. */
+	padding     : var( --spa-ver-p01 ) var( --spa-hor-p01 );                                                             /* Spacing Vertical Base Plus 1 ~= 19.304px, Spacing Horizontal Base Plus 1 ~= 19.304px */
+
+
+}
+
+.quoBodPar { /* What: Quote Body Paragraph. Why: The quote reads as a personal aside. How: This sets it small, italic, and slightly faded. */
+
+
+	font-size   : var( --fon-siz-p01 );     /* Font Size Base Plus 1 ~= 14.572px */
+	font-style  : italic;
+	line-height : var( --ver-rhy-p01 );     /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	max-width   : var( --tex-wid-sma );     /* Text Width Small Maximum ~= 22.047em */
+	opacity     : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
+
+
+}
+
+.quoSigPar { /* What: Quote Signature Paragraph. Why: The quote is signed by the stylists. How: This sets the signature in light rose script. */
+
+
+	color       : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	font-family : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
+	font-size   : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	margin-top  : var( --spa-ver-m01 ); /* Spacing Vertical Base Minus 1 = 11px */
+
+
+}
+
+/* #endregion conQuoDiv */
+
+/* #endregion conDetDiv */
+
+
+
+/* #region forCarDiv */
+
+.forCarDiv { /* What: Form Card Div. Why: The form sits on a light card against the navy. How: This sets a cream card with a heavier rose top edge. */
+
+
+	background : var( --bac-sur-col );                            /* Background Surface Color = #f5f0e8 */
+	border-top : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	padding    : var( --spa-ver-p04 ) var( --spa-hor-p04 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 4 ~= 44.876px */
+
+
+}
+
+.forTitHea { /* What: Form Title Heading. Why: The card names the form. How: This sets its heading in navy Playfair Display. */
+
+
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	margin-bottom : var( --spa-ver-p02 ); /* Spacing Vertical Base Plus 2 ~= 25.572px */
+
+
+}
+
+
+/* #region forWraDiv */
+
+.forWraDiv { /* What: Form Wrapper Div. Why: The turned-off fields need one element to catch the pointer and the keyboard for them, and its focus ring should ease in like every control's. How: This holds the tooltip's position, shows a not-allowed cursor over the fields, and holds a zero-width ring a little farther out, ready to grow in on focus. */
+
+
+	cursor         : not-allowed;
+	outline        : 0 solid var( --foc-rin-col );                                                                                      /* Focus Ring Color = #c7745f */ /* What: Zero Width Outline. Why: A zero width stays invisible, even in forced colors mode, until the form is focused. How: The focused rule below grows it. */
+	outline-offset : var( --spa-ver-m01 );                                                                                              /* Spacing Vertical Base Minus 1 = 11px */
+	position       : relative;
+	transition     : outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+
+
+}
+.forWraDiv:focus-visible { /* What: Focused Form Wrapper Div. Why: Keyboard users have to see that the form took focus. How: This grows the dark rose ring to full width and draws it in, clear of the fields. */
+
+
+	outline-offset : calc( var( --ver-rhy-m03 ) * 1rem ); /* Vertical Rhythm Base Minus 3 ~= 6.268px */
+	outline-width  : var( --bor-wid-lar );                /* Border Width Large ~= 2.035px */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Wrapper Div. Why: Someone who asked for less motion should see the ring appear at once. How: This applies under the reduced-motion preference. */
+
+
+	.forWraDiv { /* What: Motionless Form Wrapper Div. Why: The ring should simply appear. How: This turns the transition off. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+
+/* #region forDisFie */
+
+.forDisFie { /* What: Form Disabled Fieldset. Why: A fieldset brings its own border, padding, and minimum width, which the form's layout never had. How: This clears them and lets the pointer pass through to the wrapper. */
+
+
+	border         : none;
+	margin         : 0;
+	min-width      : 0;
+	padding        : 0;
+	pointer-events : none;
+
+
+}
+
+.forNotLeg { /* What: Form Note Legend. Why: Screen readers read the form's message from this, while sighted visitors get the tooltip. How: This hides it visually with the standard clip technique, leaving it in the accessibility tree, in navy so checkers that measure hidden text don't find cream on the cream card. */
+
+
+	clip        : rect( 0 0 0 0 );
+	color       : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	height      : 1px;
+	margin      : -1px;
+	overflow    : hidden;
+	position    : absolute;
+	white-space : nowrap;
+	width       : 1px;
+
+
+}
+
+.forRowDiv { /* What: Form Row Div. Why: The first and last name fields share a row. How: This splits it into two columns, spaced like the other fields. */
+
+
+	display               : grid;
+	gap                   : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
+	grid-template-columns : 1fr 1fr;
+	margin-bottom         : var( --spa-ver-p01 );                      /* Spacing Vertical Base Plus 1 ~= 19.304px */
+
+
+}
+@container app ( max-width : 900px ) { /* What: Narrow Form Row Div. Why: The name fields are too narrow side by side on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.forRowDiv { /* What: Narrow Form Row Div. Why: The name fields are too narrow side by side on tablets and phones. How: This stacks them. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+
+.forFieDiv { /* What: Form Field Div. Why: Each field and its label form one group. How: This spaces it from the next. */
+
+
+	margin-bottom : var( --spa-ver-p01 ); /* Spacing Vertical Base Plus 1 ~= 19.304px */
+
+
+}
+
+.forFieLab { /* What: Form Field Label. Why: Each field is named above it. How: This sets the name in small spaced bold warm gray capitals on its own line. */
+
+
+	color          : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	display        : block;
+	font-size      : var( --fon-siz-bas ); /* Font Size Base = 11px */
+	font-weight    : 700;
+	letter-spacing : 0.12em;
+	margin-bottom  : var( --spa-ver-m03 ); /* Spacing Vertical Base Minus 3 ~= 6.268px */
+	text-transform : uppercase;
+
+
+}
+
+.forFieInp,
+.forFieSel,
+.forFieTex { /* What: Form Field Controls. Why: The inputs, the select, and the textarea share one look. How: This sets full-width ivory boxes with a soft border and the browser's own styling removed. */
+
+
+	appearance  : none;
+	background  : var( --bac-pag-col );                                   /* Background Page Color = #faf7f2 */
+	border      : var( --bor-wid-bas ) solid var( --bor-mai-col );        /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
+	color       : var( --tex-sec-col );                                   /* Text Secondary Color = #4a4a4a */
+	font-family : var( --fon-fam-mai );                                   /* Font Family Main = 'Lato', sans-serif */
+	font-size   : var( --fon-siz-p01 );                                   /* Font Size Base Plus 1 ~= 14.572px */
+	outline     : none;                                                   /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
+	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );              /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
+	transition  : border-color var( --dur-tra-p01 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+	width       : 100%;
+
+
+}
+.forFieInp:focus,
+.forFieSel:focus,
+.forFieTex:focus { /* What: Focused Form Field Controls. Why: A focused field should show it. How: This turns its border rose. */
+
+
+	border-color : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+
+
+}
+.forFieInp:disabled,
+.forFieSel:disabled,
+.forFieTex:disabled { /* What: Disabled Form Field Controls. Why: The fields should look turned off without changing the form's design. How: This fades them a little. */
+
+
+	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Field Controls. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.forFieInp,
+	.forFieSel,
+	.forFieTex { /* What: Motionless Form Field Controls. Why: The change should simply happen. How: This turns the transition off, so the focus border simply switches. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+.forFieTex { /* What: Form Field Textarea. Why: The message needs more room than a single line. How: This starts it 110px tall and lets it grow only downward. */
+
+
+	min-height : calc( var( --ver-rhy-p07 ) * 1rem ); /* Vertical Rhythm Base Plus 7 ~= 104.323px */
+	resize     : vertical;
+
+
+}
+
+.forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card. */
+
+
+	background      : var( --acc-mai-col );                                                                                      /* Accent Main Color = #d4806a */
+	border          : none;
+	color           : var( --tex-acc-col );                                                                                      /* Text Accent Color = #ffffff */
+	cursor          : pointer;
+	display         : inline-block;
+	font-family     : var( --fon-fam-mai );                                                                                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                                                                                      /* Font Size Base = 11px */
+	font-weight     : 700;
+	letter-spacing  : 0.16em;
+	margin-top      : var( --spa-ver-m02 );                                                                                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-bas );                                                                 /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
+	text-decoration : none;
+	text-transform  : uppercase;
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
+	width           : 100%;
+
+
+}
+.forSubBut:hover { /* What: Hovered Form Submit Button. Why: The button should respond to the pointer. How: This deepens the rose and lifts it 2px. */
+
+
+	background : #c2705a;
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
+
+
+}
+.forSubBut:disabled { /* What: Disabled Form Submit Button. Why: The button should look turned off with the fields. How: This fades it a little. */
+
+
+	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Submit Button. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.forSubBut { /* What: Motionless Form Submit Button. Why: The change should simply happen. How: This turns the transition off, so the hover changes simply happen. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion forDisFie */
+
+
+/* #region forTipDiv */
+
+.forTipDiv { /* What: Form Tooltip Div. Why: The message has to read clearly above whatever it covers. How: This floats a narrow navy card with a rose top edge just above its point, centered on it. */
+
+
+	animation   : forTipDivOpenFadeIn var( --dur-ani-p01 ) var( --mot-dec-eas ); /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	background  : var( --bac-inv-col );                                          /* Background Inverse Color = #2b3245 */
+	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );               /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	box-shadow  : var( --ele-med-sha );                                          /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
+	color       : var( --tex-inv-col );                                          /* Text Inverse Color = #f5f0e8 */
+	cursor      : default;
+	font-size   : var( --fon-siz-p01 );                                          /* Font Size Base Plus 1 ~= 14.572px */
+	line-height : var( --ver-rhy-bas );                                          /* Vertical Rhythm Base ~= 1.325 */
+	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );                     /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
+	position    : absolute;
+	text-align  : center;
+	transform   : translate( -50%, calc( -100% - var( --spa-ver-m01 ) ) );       /* Spacing Vertical Base Minus 1 = 11px */
+	width       : calc( var( --ver-rhy-p10 ) * 1rem );                           /* Vertical Rhythm Base Plus 10 ~= 242.522px */
+	z-index     : 1;                                                             /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
+
+
+}
+.forTipDiv[data-tooltip-close-active] { /* What: Closing Form Tooltip Div. Why: The tooltip should fade away rather than vanish, and a press shouldn't land on it while it goes. How: This fades it out on the accelerate easing, holds the last frame until React removes it at the fade's end, and lets presses pass through. */
+
+
+	animation      : forTipDivCloseFadeOut var( --dur-ani-p01 ) var( --mot-acc-eas ) forwards; /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Accelerate Easing = cubic-bezier( .4, 0, 1, 1 ) */
+	pointer-events : none;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Tooltip Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.forTipDiv { /* What: Motionless Form Tooltip Div. Why: The change should simply happen. How: This turns the fade off, so the tooltip simply appears. */
+
+
+		animation : none;
+
+
+	}
+
+	.forTipDiv[data-tooltip-close-active] { /* What: Instant Closing Form Tooltip Div. Why: React waits for the fade-out's end to remove the tooltip, and a turned-off animation never ends. How: This shortens the fade to a hundredth of a millisecond, so the tooltip simply goes. */
+
+
+		animation-duration : .01ms;
+
+
+	}
+
+
+}
+@keyframes forTipDivOpenFadeIn { /* What: Form Tooltip Div Open Fade In. Why: The tooltip should ease in rather than snap. How: This fades it up from transparent. */
+
+
+	from {
+
+
+		opacity : 0;
+
+
+	}
+
+	to {
+
+
+		opacity : 1;
+
+
+	}
+
+
+}
+@keyframes forTipDivCloseFadeOut { /* What: Form Tooltip Div Close Fade Out. Why: The tooltip should ease away rather than vanish. How: This fades it down to transparent. */
+
+
+	from {
+
+
+		opacity : 1;
+
+
+	}
+
+	to {
+
+
+		opacity : 0;
+
+
+	}
+
+
+}
+
+.tipTelAnc { /* What: Tip Telephone Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in light rose, underlined as a link, and keeps it on one line. */
+
+
+	color           : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	text-decoration : underline;
+	transition      : color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	white-space     : nowrap;
+
+
+}
+.tipTelAnc:hover { /* What: Hovered Tip Telephone Anchor. Why: The number should respond to the pointer. How: This turns it the tooltip's cream. */
+
+
+	color : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+
+
+}
+.tipTelAnc:active { /* What: Pressed Tip Telephone Anchor. Why: A tap should register before the call starts. How: This dims the number slightly, the way every text link presses. */
+
+
+	opacity : 0.7;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Tip Telephone Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.tipTelAnc { /* What: Motionless Tip Telephone Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color, the press, and the focus ring simply apply. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion forTipDiv */
+
+/* #endregion forWraDiv */
+
+/* #endregion forCarDiv */
+
+/* #endregion conLayDiv */
+
+/* #endregion homConSec */
+
+

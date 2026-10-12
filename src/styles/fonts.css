@@ -1,0 +1,117 @@
+
+
+
+/**
+ * fonts.css = Fonts
+ *
+ * @summary
+ * The site's self-hosted fonts: Playfair Display for the display text,
+ * Lato for the body text, and Dancing Script for the brand's script lines,
+ * replacing the Google Fonts stylesheet and preconnect link index.html used
+ * to load, so a visit makes no requests to a third party. Each file is the
+ * latin subset Google served for exactly the faces that stylesheet asked
+ * for, with the same swap behavior, so fallback text shows until a file
+ * arrives: Playfair Display at 400 and 600 (one variable file Google served
+ * for both) and in italic at 400, Lato at 300, 400, and 700, and Dancing
+ * Script at 500. The bold headings keep drawing at Playfair's 600, the
+ * nearest loaded weight, since styles.css turns font synthesis off. The
+ * files live in src/assets/fonts/ and are pulled in through url(), so Vite
+ * fingerprints them.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+@font-face { /* What: Dancing Script Medium Font Face. Why: Dancing Script is the brand's script face, setting the taglines, the stylists' names, and the quote's sign-off at its medium weight. How: This loads its latin file at weight 500, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Dancing Script';
+	font-style   : normal;
+	font-weight  : 500;
+	src          : url( '../assets/fonts/dancing-script-latin-500-normal.woff2' ) format( 'woff2' );
+
+
+}
+
+
+@font-face { /* What: Lato Light Font Face. Why: Lato's light weight sets the hero's spaced subheading. How: This loads its latin file at weight 300, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Lato';
+	font-style   : normal;
+	font-weight  : 300;
+	src          : url( '../assets/fonts/lato-latin-300-normal.woff2' ) format( 'woff2' );
+
+
+}
+
+
+@font-face { /* What: Lato Regular Font Face. Why: Lato is the body font, setting paragraphs, form fields, and the rest of the running text at its regular weight. How: This loads its latin file at weight 400, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Lato';
+	font-style   : normal;
+	font-weight  : 400;
+	src          : url( '../assets/fonts/lato-latin-400-normal.woff2' ) format( 'woff2' );
+
+
+}
+
+
+@font-face { /* What: Lato Bold Font Face. Why: Lato's bold weight sets the bar's links, the buttons, and the form's labels. How: This loads its latin file at weight 700, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Lato';
+	font-style   : normal;
+	font-weight  : 700;
+	src          : url( '../assets/fonts/lato-latin-700-normal.woff2' ) format( 'woff2' );
+
+
+}
+
+
+@font-face { /* What: Playfair Display Regular Font Face. Why: Playfair Display is the display face, setting the bar's name at its regular weight. How: This loads its latin file at weight 400 from the variable file it shares with the semibold, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Playfair Display';
+	font-style   : normal;
+	font-weight  : 400;
+	src          : url( '../assets/fonts/playfair-display-latin-400-600-normal.woff2' ) format( 'woff2' );
+
+
+}
+
+
+@font-face { /* What: Playfair Display Semibold Font Face. Why: Playfair Display's semibold sets the hero's heading and, as the heaviest weight loaded, the section and card headings too. How: This loads its latin file at weight 600 from the same variable file as the regular, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Playfair Display';
+	font-style   : normal;
+	font-weight  : 600;
+	src          : url( '../assets/fonts/playfair-display-latin-400-600-normal.woff2' ) format( 'woff2' );
+
+
+}
+
+
+@font-face { /* What: Playfair Display Italic Font Face. Why: Playfair Display's italic sets the hero's Designs, the Licensed Cosmetologists captions, and the descriptions under them. How: This loads its latin file at italic weight 400, showing fallback text until it arrives. */
+
+
+	font-display : swap;
+	font-family  : 'Playfair Display';
+	font-style   : italic;
+	font-weight  : 400;
+	src          : url( '../assets/fonts/playfair-display-latin-400-italic.woff2' ) format( 'woff2' );
+
+
+}
+
+
