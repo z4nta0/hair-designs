@@ -11,11 +11,6 @@
       border: none; cursor: pointer;
       transition: all 0.25s;
     }
-    .buttonAnchors_primary {
-      background: var(--navy);
-      color: var(--cream);
-    }
-    .buttonAnchors_primary:hover { background: var(--navy-mid); transform: translateY(-2px); }
 @media ( prefers-reduced-motion : reduce ) { /* What: Button Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
 
 
@@ -29,113 +24,6 @@
 
 
 }
- 
-    
-
- 
-
- 
-    /* ── About ── */
-    .aboutSection {
-      background: var(--cream);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      padding: 90px 5%;
-    }
-@media ( max-width : 900px ) { /* What: About Section Narrow Screen Query. Why: The logo card and the story need the full width each on tablets and phones, so they stack. How: This applies at 900px and narrower. */
-
-
-	.aboutSection { /* What: About Section Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
-
-
-		grid-template-columns : 1fr;
-
-
-	}
-
-
-}
-@media ( max-width : 600px ) { /* What: About Section Phone Screen Query. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
-
-
-	.aboutSection { /* What: About Section Phone Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
-
-
-		padding : 64px 6%;
-
-
-	}
-
-
-}
-    .aboutVisualDiv {
-      position: relative;
-    }
-    .stripedBackgroundDiv {
-      width: 100%;
-      aspect-ratio: 4/5;
-      background-image: repeating-linear-gradient(
-        90deg,
-        var(--navy) 0px,
-        var(--navy) 24px,
-        #232a3d 24px,
-        #232a3d 48px
-      );
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
-    }
-    .aboutCardDiv {
-      background: var(--cream);
-      margin: 28px;
-      padding: 48px 36px;
-      text-align: center;
-      border: 2px solid var(--rose-lt);
-      width: calc(100% - 56px);
-    }
-    .logoImage_aboutSection {
-      width: 130px; height: 130px; margin-bottom: 24px;
-    }
-    .aboutNamesDiv {
-      font-family: 'Dancing Script', cursive;
-      font-size: 1.8rem;
-      color: var(--rose-dk);
-      line-height: 1.6;
-      margin-bottom: 8px;
-    }
-    .aboutDescriptionParagraph {
-      font-family: 'Playfair Display', serif;
-      font-style: italic;
-      font-size: 0.95rem;
-      color: var(--warm-gray);
-    }
-    .aboutTaglineParagraph {
-        font-family: 'Dancing Script', cursive;
-      font-size: 25.572px;
-      color: var(--rose-dk);
-      margin-bottom: 8px;
-    }
-    .aboutHeading2 {
-        font-family: 'Playfair Display', serif;
-      font-size: clamp(1.8rem, 4vw, 2.8rem);
-      color: var(--navy);
-      margin-bottom: 16px;
-    }
-    .aboutHorizontalRule {
-        width: 48px; height: 2px;
-      color: var(--rose);
-      margin-bottom: 28px;
-    }
-    .aboutTextParagraphs {
-      color: var(--charcoal);
-      font-size: 0.95rem;
-      margin-bottom: 18px;
-      line-height: 1.8;
-    }
-    .aboutTextDiv .buttonAnchors {
-        margin-top: 8px;
-    }
  
     /* ── Contact ── */
     .contactSection {

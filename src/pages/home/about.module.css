@@ -1,0 +1,240 @@
+
+
+
+/**
+ * about.module.css = About Module
+ *
+ * @summary
+ * Styles for AboSecCom, the home page's About section on cream: a striped navy
+ * panel holding a card with the logo, both stylists' names, and their title,
+ * beside the salon's story under a script eyebrow, the heading, and a short
+ * rose rule, ending in a navy button to the Contact section. The two columns
+ * stack at 900px and narrower.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+/* #region homAboSec */
+
+.homAboSec { /* What: Home About Section. Why: The stylists' card and the salon's story sit side by side on cream. How: This splits the section into two vertically centered columns. */
+
+
+	align-items           : center;
+	background            : var( --cream );
+	display               : grid;
+	gap                   : 80px;
+	grid-template-columns : 1fr 1fr;
+	padding               : 90px 5%;
+
+
+}
+@media ( max-width : 900px ) { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This applies at 900px and narrower. */
+
+
+	.homAboSec { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This stacks them. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+@media ( max-width : 600px ) { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.homAboSec { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
+
+
+		padding : 64px 6%;
+
+
+	}
+
+
+}
+
+
+/* #region aboVisDiv */
+
+.aboVisDiv { /* What: About Visual Div. Why: The card's panel is the section's visual half. How: This sets a positioning context for it. */
+
+
+	position : relative;
+
+
+}
+
+
+/* #region logBacDiv */
+
+.logBacDiv { /* What: Logo Backdrop Div. Why: The card sits on the brand's stripes. How: This draws a 4:5 panel of 24px navy stripes and centers the card on it. */
+
+
+	align-items      : center;
+	aspect-ratio     : 4 / 5;
+	background-image : repeating-linear-gradient( 90deg, var( --navy ) 0, var( --navy ) 24px, #232a3d 24px, #232a3d 48px );
+	display          : flex;
+	justify-content  : center;
+	position         : relative;
+	width            : 100%;
+
+
+}
+
+
+/* #region aboCarDiv */
+
+.aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset 28px from the panel's edges. */
+
+
+	background : var( --cream );
+	border     : 2px solid var( --rose-lt );
+	margin     : 28px;
+	padding    : 48px 36px;
+	text-align : center;
+	width      : calc( 100% - 56px );
+
+
+}
+
+.aboLogIma { /* What: About Logo Image. Why: The card opens with the logo. How: This sizes it to 130px square. */
+
+
+	height        : 130px;
+	margin-bottom : 24px;
+	width         : 130px;
+
+
+}
+
+.styNamDiv { /* What: Stylist Names Div. Why: The stylists' names are set like a signature. How: This sets them in large dark rose Dancing Script. */
+
+
+	color         : var( --rose-dk );
+	font-family   : 'Dancing Script', cursive;
+	font-size     : 1.8rem;
+	line-height   : 1.6;
+	margin-bottom : 8px;
+
+
+}
+
+.aboCapPar { /* What: About Caption Paragraph. Why: The stylists' title follows their names. How: This sets it in warm gray Playfair Display italic. */
+
+
+	color       : var( --warm-gray );
+	font-family : 'Playfair Display', serif;
+	font-size   : 0.95rem;
+	font-style  : italic;
+
+
+}
+
+/* #endregion aboCarDiv */
+
+/* #endregion logBacDiv */
+
+/* #endregion aboVisDiv */
+
+
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
+
+
+	color         : var( --rose-dk );
+	font-family   : 'Dancing Script', cursive;
+	font-size     : 25.572px;
+	margin-bottom : 8px;
+
+
+}
+
+.secTitHea { /* What: Section Title Heading. Why: The section's heading sums up the salon. How: This sets it in navy Playfair Display that grows with the screen. */
+
+
+	color         : var( --navy );
+	font-family   : 'Playfair Display', serif;
+	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
+	margin-bottom : 16px;
+
+
+}
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+
+
+	color         : var( --rose );
+	height        : 2px;
+	margin-bottom : 28px;
+	width         : 48px;
+
+
+}
+
+.aboBodPar { /* What: About Body Paragraph. Why: The salon's story reads as three easy paragraphs. How: This sets them in charcoal with airy lines, spaced apart. */
+
+
+	color         : var( --charcoal );
+	font-size     : 0.95rem;
+	line-height   : 1.8;
+	margin-bottom : 18px;
+
+
+}
+
+.butBasAnc { /* What: Button Base Anchor. Why: The story ends with a way to reach the salon, in the hero's button shape. How: This sets small spaced bold capitals in a padded block a little below the last paragraph, with a transition for the hover changes. */
+
+
+	border          : none;
+	cursor          : pointer;
+	display         : inline-block;
+	font-family     : 'Lato', sans-serif;
+	font-size       : 0.78rem;
+	font-weight     : 700;
+	letter-spacing  : 0.16em;
+	margin-top      : 8px;
+	padding         : 13px 32px;
+	text-decoration : none;
+	text-transform  : uppercase;
+	transition      : background 0.25s, transform 0.25s;
+
+
+}
+.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The call to action stands out. How: This fills it navy with cream text. */
+
+
+	background : var( --navy );
+	color      : var( --cream );
+
+
+}
+.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+
+
+	background : var( --navy-mid );
+	transform  : translateY( -2px );
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Button Base Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.butBasAnc { /* What: Motionless Button Base Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover changes simply happen. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion homAboSec */
+
+
