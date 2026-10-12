@@ -124,7 +124,7 @@ function ConSecCom () : React.JSX.Element {
     return (
 
 
-        <  section id='conSecEle' className={ styles.contactSection } > { /* What : Contact Section Element. Why : A semantic element was required to act as a container and provide the grid structure for the contact section. How : Using a standard HTML <section> element. */ }
+        <  section id='contact' className={ styles.contactSection } > { /* What : Contact Section Element. Why : A semantic element was required to act as a container and provide the grid structure for the contact section. How : Using a standard HTML <section> element. */ }
 
 
             < p id='cotParEle' className={ styles.contactTaglineParagraph } >Find Us</ p > { /* What : Contact Tagline Paragraph Element. Why : A text element was required to display a stylistic (smaller, cursive, colored) tagline for the contact section. How : Using a standard HTML <p> element. */ }

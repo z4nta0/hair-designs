@@ -52,7 +52,7 @@ function SerSecCom () : React.ReactElement {
 
             /* ══ Start Services Section ══ */
 
-            <  section id='serSecEle' className={ styles.servicesSection } > { /* What : Services Section Element. Why : A semantic container element was required in order to contain, group and provide the grid structure for the Services section, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <section> element. */ }
+            <  section id='services' className={ styles.servicesSection } > { /* What : Services Section Element. Why : A semantic container element was required in order to contain, group and provide the grid structure for the Services section, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <section> element. */ }
 
 
                 {/* ══ Start Services Header ══ */}

@@ -61,7 +61,7 @@ function HerSecCom () : React.JSX.Element {
     return (
 
 
-        <  section id='homSecEle' className={ styles.homeSection } > { /* Home Section Element = This custom section HTML element contains the hero banner consisting of a striped background with the Hair designs logo on the left and a cream panel with welcoming text containg the Hair Designs and cosmetologists names along with a services and contact button on the right. */ }
+        <  section id='home' className={ styles.homeSection } > { /* Home Section Element = This custom section HTML element contains the hero banner consisting of a striped background with the Hair designs logo on the left and a cream panel with welcoming text containg the Hair Designs and cosmetologists names along with a services and contact button on the right. */ }
 
 
             {/* ══ Start herDivEle ══ */}
@@ -150,10 +150,10 @@ function HerSecCom () : React.JSX.Element {
                         < div id='ctaDivEle' className={ styles.ctaDiv } > { /* Call to Action Div Element = This custom div HTML element is a container for the call to action buttons in the hero banner on the Home section of the page. */ }
 
 
-                            < a id='serAncEle_ctaDivEle' className={ ` ${ styles.ctaAnchors }   ${ styles.buttonAnchors }   ${ styles.buttonAnchors_primary } ` } href='#serSecEle'>Our Services</ a > { /* Services Anchor Element for Call to Action Div Element = This custom a HTML element is a call to action anchor that is styled as button that links to the Services section of the page. */ }
+                            < a id='serAncEle_ctaDivEle' className={ ` ${ styles.ctaAnchors }   ${ styles.buttonAnchors }   ${ styles.buttonAnchors_primary } ` } href='#services'>Our Services</ a > { /* Services Anchor Element for Call to Action Div Element = This custom a HTML element is a call to action anchor that is styled as button that links to the Services section of the page. */ }
 
 
-                            < a id='conAncEle_ctaDivEle' className={ ` ${ styles.ctaAnchors }   ${ styles.buttonAnchors }   ${ styles.buttonAnchors_outline } ` } href='#conSecEle'>Get in Touch</ a > { /* Contact  Anchor Element for Call to Action Div Element = This custom a HTML element is a call to action anchor that is styled as button that links to the Contact section of the page. */ }
+                            < a id='conAncEle_ctaDivEle' className={ ` ${ styles.ctaAnchors }   ${ styles.buttonAnchors }   ${ styles.buttonAnchors_outline } ` } href='#contact'>Get in Touch</ a > { /* Contact  Anchor Element for Call to Action Div Element = This custom a HTML element is a call to action anchor that is styled as button that links to the Contact section of the page. */ }
 
 
                         </ div >

@@ -58,7 +58,7 @@ function NavBarCom () : React.ReactElement {
 
                 { /* <!-- ══ Start Logo Anchor ══ --> */ }
 
-                < a id='logAncEle' className={ styles.logoAnchor } href='#homSecEle' > { /* What : Logo Anchor Element. Why : A semantic link element was required in order to contain, group and provide the grid structure for the brand's logo image and name text for the application and to act as a link to the Home section of the page. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+                < a id='logAncEle' className={ styles.logoAnchor } href='#home' > { /* What : Logo Anchor Element. Why : A semantic link element was required in order to contain, group and provide the grid structure for the brand's logo image and name text for the application and to act as a link to the Home section of the page. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
 
                     < img id='nblImaEle' className={ styles.logoImage } src={ logoSvg } alt='Hair Designs logo of a BOLO that is used as a link to the Home page' /> { /* What : Navbar Logo Image Element. Why : A semantic image element adhering to standard accessibility guidelines was required in order to display the brand's SVG logo to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <img> element with an appropriate alt text attribute. */ }
@@ -99,7 +99,7 @@ function NavBarCom () : React.ReactElement {
 
                             { /* <!-- ══ Start Home Anchor ══ --> */ }
 
-                            < a id='nbhAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_home } ` } href='#homSecEle' > { /* What : Navbar Home Anchor Element. Why : A semantic link element was required in order to contain the link to the Home section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+                            < a id='nbhAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_home } ` } href='#home' > { /* What : Navbar Home Anchor Element. Why : A semantic link element was required in order to contain the link to the Home section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
                                 Home
 
@@ -121,7 +121,7 @@ function NavBarCom () : React.ReactElement {
 
                             { /* <!-- ══ Start Services Anchor ══ --> */ }
 
-                            < a id='nbsAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_services } ` } href='#serSecEle' > { /* What : Navbar Services Anchor Element. Why : A semantic link element was required in order to contain the link to the Services section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+                            < a id='nbsAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_services } ` } href='#services' > { /* What : Navbar Services Anchor Element. Why : A semantic link element was required in order to contain the link to the Services section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
                                 Services
 
@@ -143,7 +143,7 @@ function NavBarCom () : React.ReactElement {
 
                             { /* <!-- ══ Start About Anchor ══ --> */ }
 
-                            < a id='nbaAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_about } ` } href='#aboSecEle' > { /* What : Navbar About Anchor Element. Why : A semantic link element was required in order to contain the link to the About section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+                            < a id='nbaAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_about } ` } href='#about' > { /* What : Navbar About Anchor Element. Why : A semantic link element was required in order to contain the link to the About section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
                                 About
 
@@ -165,7 +165,7 @@ function NavBarCom () : React.ReactElement {
 
                             { /* <!-- ══ Start Contact Anchor ══ */ }
 
-                            < a id='nbcAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_contact } ` } href='#conSecEle' > { /* What : Navbar Contact Anchor Element. Why : A semantic link element was required in order to contain the link to the Contact section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+                            < a id='nbcAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_contact } ` } href='#contact' > { /* What : Navbar Contact Anchor Element. Why : A semantic link element was required in order to contain the link to the Contact section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
 
                                 Contact
 
@@ -224,28 +224,28 @@ function NavBarCom () : React.ReactElement {
 
                     <a
                         className={ styles.menuAnchors }
-                        href='#homSecEle'
+                        href='#home'
                         onClick={ () => setMenOpeBoo( false ) }
                     >Home</a>{ /* What: Menu Home Anchor Element. Why: Phones reach the Home section from the menu. How: This jumps to the section and closes the menu behind it. */ }
 
 
                     <a
                         className={ styles.menuAnchors }
-                        href='#serSecEle'
+                        href='#services'
                         onClick={ () => setMenOpeBoo( false ) }
                     >Services</a>{ /* What: Menu Services Anchor Element. Why: Phones reach the Services section from the menu. How: This jumps to the section and closes the menu behind it. */ }
 
 
                     <a
                         className={ styles.menuAnchors }
-                        href='#aboSecEle'
+                        href='#about'
                         onClick={ () => setMenOpeBoo( false ) }
                     >About</a>{ /* What: Menu About Anchor Element. Why: Phones reach the About section from the menu. How: This jumps to the section and closes the menu behind it. */ }
 
 
                     <a
                         className={ styles.menuAnchors }
-                        href='#conSecEle'
+                        href='#contact'
                         onClick={ () => setMenOpeBoo( false ) }
                     >Contact</a>{ /* What: Menu Contact Anchor Element. Why: Phones reach the Contact section from the menu. How: This jumps to the section and closes the menu behind it. */ }
 

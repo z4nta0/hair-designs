@@ -59,7 +59,7 @@ function AboSecCom () : React.JSX.Element {
     return (
 
 
-        <  section id='aboSecEle' className={ styles.aboutSection } > { /* About Section Element = This custom section HTML element is used to display the About section of the page, which includes information about the salon and its owners. */ }
+        <  section id='about' className={ styles.aboutSection } > { /* About Section Element = This custom section HTML element is used to display the About section of the page, which includes information about the salon and its owners. */ }
 
 
             {/* ══ Start abvDivEle ══ */}
@@ -167,7 +167,7 @@ function AboSecCom () : React.JSX.Element {
 
 
 
-                < a id='conAncEle_abtDivEle' className={ ` ${ styles.buttonAnchors }   ${ styles.buttonAnchors_primary } ` } href='#conSecEle' >Reach Out</ a > { /* Contact Anchor Element for About Text Div Element = This custom a HTML element is styled as a button and is used as a call to action in the About section of the page, which encourages users to reach out and contact the salon by linking to the Contact section of the page. */ }
+                < a id='conAncEle_abtDivEle' className={ ` ${ styles.buttonAnchors }   ${ styles.buttonAnchors_primary } ` } href='#contact' >Reach Out</ a > { /* Contact Anchor Element for About Text Div Element = This custom a HTML element is styled as a button and is used as a call to action in the About section of the page, which encourages users to reach out and contact the salon by linking to the Contact section of the page. */ }
 
 
             </ div >
