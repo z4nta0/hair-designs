@@ -1,94 +1,142 @@
-:root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
-}
+/**
+ * styles.css = Styles
+ *
+ * @summary
+ * The site's only global stylesheet: the design tokens every module reads,
+ * and the base element styles no single component owns (the page root, the
+ * reset, the body's type and colors, lists, and links). Everything that
+ * belongs to one component lives in that component's own module. The root
+ * still sets the 18px base (16px below 1,024px) the existing rem values were
+ * written against, until the token pass moves the site onto the 11px base
+ * and its scale.
+ *
+ * Sections:
+ *  - Tokens
+ *  - Base Elements
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
 
-/* #region HTML */
+/* #region Tokens */
 
-html { /** HTML = This standard selector contains all elements except for :root and is marginally more semantic (vs. the :root selector) for controlling the box model of the entire document. */
+:root { /* What: Root Tokens. Why: Every module reads the site's colors from one place. How: This defines them as custom properties on the root element. */
 
-    box-sizing : border-box; /** This value was chosen to be used to enforce consistent border box sizing, with the idea behind this being to prevent padding and borders from increasing a total element's size.  */
+
+	/* #region Color Tokens */
+
+	--border    : #e0d5c8; /* What: Border. Why: Cards and fields need a soft beige edge. How: Modules read it for their borders. */
+	--charcoal  : #4a4a4a; /* What: Charcoal. Why: Body text needs a soft near-black. How: The body sets it as the text color. */
+	--cream     : #f5f0e8; /* What: Cream. Why: The hero's right half, the About card, and the form card share one warm light surface. How: Modules read it for those backgrounds, and for light text on navy. */
+	--ivory     : #faf7f2; /* What: Ivory. Why: The page and the Services section need the lightest warm surface. How: The body and the Services section read it as their background. */
+	--mauve     : #c9a0a0; /* What: Mauve. Why: One of the service icons needs a muted pink. How: The Services module reads it for that icon. */
+	--navy      : #2b3245; /* What: Navy. Why: The brand's dark color draws the bar, the striped panels, the headings, and the primary buttons. How: Modules read it for those. */
+	--navy-mid  : #3c4562; /* What: Navy Mid. Why: Hovered navy buttons need a lighter navy. How: Modules read it for those hover states. */
+	--rose      : #d4806a; /* What: Rose. Why: The brand's accent draws the borders, rules, focus rings, and the rose buttons. How: Modules read it for those, never for text on light backgrounds, which it doesn't contrast enough with. */
+	--rose-dk   : #c7745f; /* What: Rose Dark. Why: Large rose text (the names, the italic Designs, and the script taglines) has to reach 3:1 on the cream and ivory backgrounds, which the brand rose misses at 2.6:1. How: This is the rose darkened one small step in OKLCH lightness, 3.04:1 on cream, while borders, rules, and buttons keep the brand rose. */
+	--rose-lt   : #e8a898; /* What: Rose Light. Why: Rose accents on the navy sections need a lighter rose to read. How: Modules read it for text and icons on navy. */
+	--sage      : #8ea89a; /* What: Sage. Why: One of the service icons needs a muted green. How: The Services module reads it for that icon. */
+	--warm-gray : #716c67; /* What: Warm Gray. Why: Body and caption text in this gray has to reach 4.5:1 on the cream and ivory backgrounds. How: This is the original #7a7570 darkened one small step in OKLCH lightness, 4.58:1 on cream. */
+
+	/* #endregion Color Tokens */
+
 
 }
 
-/* #endregion HTML */
+/* #endregion Tokens */
 
 
 
-/* #region Universal + Pseudo */
+/* #region Base Elements */
 
-*, *::before, *::after { /** Universal + Pseudo = These standard selectors contain all elements and are the universal selectors of any type in the HTML document along with their ::before and ::after pseudo elements. */
+html { /* What: HTML. Why: The page root sets the base every rem is measured from and the text settings every element inherits, and section links and keyboard focus scroll the page under a fixed bar. How: This sets an 18px root, the inherited spacing and rendering, smooth scrolling, and a scroll stop 71px short, the bar's 68px plus its 3px rose border. */
 
-    box-sizing : inherit; /** This value was chosen to be used to ensure all HTML elements and their ::before and ::after pseudo elements inherit the box sizing property from their parent, with the idea behind this being to prevent padding and borders from increasing a total element's size.  */
+
+	-moz-osx-font-smoothing : grayscale;
+	-webkit-font-smoothing  : antialiased;
+	font-size               : 18px;
+	font-synthesis          : none; /* What: Font Synthesis Note. Why: Without it, browsers fake a bold italic for faces the site doesn't load, such as the heading's italic Designs at weight 600. How: This draws the loaded faces as they are. */
+	letter-spacing          : 0.18px;
+	line-height             : 145%;
+	scroll-behavior         : smooth;
+	scroll-padding-top      : 71px;
+	text-rendering          : optimizeLegibility;
+
+
+}
+@media ( max-width : 1024px ) { /* What: HTML Narrow Screen Query. Why: The rem values were written against a smaller root on tablets and phones. How: This applies at 1,024px and narrower. */
+
+
+	html { /* What: HTML Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This sets the root to 16px. */
+
+
+		font-size : 16px;
+
+
+	}
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: HTML Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+
+	html { /* What: HTML Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This makes section links jump instead of glide. */
+
+
+		scroll-behavior : auto;
+
+
+	}
+
 
 }
 
-/* #endregion Universal + Pseudo */
+*,
+*::before,
+*::after { /* What: Universal Reset. Why: Every element should size its padding and border inside its width, and start without browser margins or padding. How: This sets border-box sizing and clears margins and padding on every element and pseudo-element. */
 
 
-a{ 
+	box-sizing : border-box;
+	margin     : 0;
+	padding    : 0;
 
-    text-decoration: none;
 
 }
 
+body { /* What: Body. Why: The page's text and background start from one place. How: This sets Lato at 16px with an airy line height in charcoal on ivory, which also paints the page canvas, and clips anything sideways so nothing can scroll the page horizontally. */
 
 
-/* #region UL */
+	background  : var( --ivory );
+	color       : var( --charcoal );
+	font-family : 'Lato', sans-serif;
+	font-size   : 16px;
+	line-height : 1.7;
+	overflow-x  : hidden;
 
-ul { /** Unordered List = This standard selector contains only itself and is used to setup basic styling for all unordered list selectors while also leaving room for more specialized styling from custom classes via a component's CSS module file. */
-
-    list-style : none; /** This value was chosen to be used to remove its defaults. */
-    margin     : 0;    /** This value was chosen to be used to remove its defaults. */
-    padding    : 0;    /** This value was chosen to be used to remove its defaults. */
 
 }
 
-/* #endregion UL */
+ul { /* What: Unordered List. Why: The site's lists are navigation, not bulleted text. How: This removes the bullets, with the reset clearing the indent. */
+
+
+	list-style : none;
+
+
+}
+
+a { /* What: Anchor. Why: Links on this site are styled as buttons or plain text, never underlined by default. How: This removes the underline, and a link that wants one sets it in its own module. */
+
+
+	text-decoration : none;
+
+
+}
+
+/* #endregion Base Elements */
+
+
