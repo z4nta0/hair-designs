@@ -1,34 +1,38 @@
 
-/* #region servicesSection */
-
-.servicesSection { /* What : Services Section. Why : A semantic container element was required in order to contain, group and provide the grid structure for the Services section, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <section> element. */
 
 
-    /* #region Selector Scoped Custom Properties */
+/**
+ * services.module.css = Services Module
+ *
+ * @summary
+ * Styles for SerSecCom, the home page's Services section on ivory: its header
+ * (a script eyebrow, the heading, a short rose rule, and an intro) above a
+ * grid of six cream cards, each with a line icon, a title, and a description,
+ * lifting slightly on hover. Each icon's SVG takes a color modifier and its
+ * shapes draw in currentColor, so one class per shape serves every card, with
+ * modifiers only where a card's shape differs.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
 
-    --ser-sec-gta :               
-        '  servicesHeader'
-        'cardsContainerDiv'; /** What : Services Section Grid Template Areas. Why : A custom variable was required in order to clearly and precisely place this selector's children elements within its grid layout structure. How : Using a CSS custom property to store the value that will be used for this selector's grid-template-areas property. */
-
-    /* #endregion Selector Scoped Custom Properties */
 
 
+/* #region homSerSec */
 
-    background-color    : var( --ivory );       /* What : Self Styling.              Why : A property value was required in order to style this selector by alternating the different section's background colors while also aligning with the brand's color scheme.                                                                                                                                             How : Using a global scoped CSS custom property value. */
-    display             : grid;                 /* What : Children Layout Structure. Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                                                                                                                                    How : Using a standard CSS value of grid. */
-    grid-template-areas : var( --ser-sec-gta ); /* What : Children Grid Placement.   Why : A property value was required in order to clearly and precisely place the grid children within this selector's grid layout structure.                                                                                                                                                                                 How : Using a selector scoped CSS custom property value. */
-    grid-template-rows  : repeat( 2, auto );    /* What : Children Grid Sizing.      Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content.                                                                                                                 How : Using a standard CSS repeat function with standad auto values. */
-    padding             : 90px 5%;              /* What : Self Internal Whitespace.  Why : A property value was required in order to provide horizontal spacing within this selector so that its content does not touch the edges of the viewport and provides separation space between the adjacent page <section>s while maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
+.homSerSec { /* What: Home Services Section. Why: The services sit on the page's lightest surface. How: This stacks the header over the card grid on ivory. */
+
+
+	background-color : var( --ivory );
+	display          : grid;
+	padding          : 90px 5%;
 
 
 }
+@media ( max-width : 600px ) { /* What: Phone Home Services Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
 
 
-
-@media ( max-width : 600px ) { /* What: Services Section Phone Screen Query. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
-
-
-	.servicesSection { /* What: Services Section Phone Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.homSerSec { /* What: Phone Home Services Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
 
 
 		padding : 64px 6%;
@@ -40,149 +44,102 @@
 }
 
 
+/* #region serHeaHed */
 
-/* #region servicesHeader */
-
-.servicesHeader { /* What : Services Header. Why : A semantic container element was required in order to contain, group and provide the grid structure for the Services section's introductory content. How : Using a standard HTML <header> element. */
-
-
-    /* #region Selector Scoped Custom Properties */
-
-    --ser-hea-gta :               
-        '  taglineParagraph'
-        '   headerHeading2'
-        'headerHorizontalRule'
-        'descriptionParagraph'; /** What : Services Header Grid Template Areas. Why : A custom variable was required in order to clearly and precisely place this selector's children elements within its grid layout structure. How : Using a CSS custom property to store the value that will be used for this selector's grid-template-areas property. */
-
-    /* #endregion Selector Scoped Custom Properties */
+.serHeaHed { /* What: Services Header Header. Why: The section opens with its eyebrow, heading, rule, and intro in a column. How: This stacks them as grid rows, which keeps their margins from collapsing. */
 
 
-    display             : grid;                 /* What : Children Layout Structure. Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                    How : Using a standard CSS value of grid. */
-    grid-template-areas : var( --ser-hea-gta ); /* What : Children Grid Placement.   Why : A property value was required in order to clearly and precisely place the grid children within this selector's grid layout structure.                                                                 How : Using a selector scoped CSS custom property value. */
-    grid-template-rows  : repeat( 4, auto );    /* What : Children Grid Sizing.      Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content. How : Using a standard CSS repeat function with standad auto values. */
+	display : grid;
+
+
+}
+
+.eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
+
+
+	color         : var( --rose-dk );
+	font-family   : 'Dancing Script', cursive;
+	font-size     : 25.572px;
+	margin-bottom : 8px;
+
+
+}
+
+.secTitHea { /* What: Section Title Heading. Why: The section's heading names it. How: This sets it in navy Playfair Display that grows with the screen. */
+
+
+	color         : var( --navy );
+	font-family   : 'Playfair Display', serif;
+	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
+	margin-bottom : 16px;
+
+
+}
+
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+
+
+	color         : var( --rose );
+	height        : 2px;
+	margin-bottom : 28px;
+	width         : 48px;
+
+
+}
+
+.serIntPar { /* What: Services Intro Paragraph. Why: A short intro sums up the services. How: This sets it in warm gray, capped in width and spaced from the cards. */
+
+
+	color         : var( --warm-gray );
+	font-size     : 0.95rem;
+	margin-bottom : 48px;
+	max-width     : 560px;
+
+
+}
+
+/* #endregion serHeaHed */
+
+
+
+/* #region serGriDiv */
+
+.serGriDiv { /* What: Services Grid Div. Why: The cards fill rows that adapt to the screen. How: This fits as many 220px-or-wider columns as the width allows. */
+
+
+	display               : grid;
+	gap                   : 28px;
+	grid-template-columns : repeat( auto-fit, minmax( 220px, 1fr ) );
 
 
 }
 
 
+/* #region serCarDiv */
 
-/* #region taglineParagraph */
-
-.taglineParagraph { /* What : Tagline Paragraph. Why : A semantic, block level text element was required in order to contain the text that is used as a sort of subheading or tagline for the Services header. How : Using a standard HTML <p> element. */
-
-
-    color         : var( --rose-dk );          /* What : Self Styling.             Why : A property value was required in order to color this selector's text exactly the same as all of the different sections' taglines while also aligning with the brand's color scheme.                                                                                   How : Using a global scoped CSS custom property value. */
-    font-family   : 'Dancing Script', cursive; /* What : Self Styling.             Why : A property value was required in order to change this selector's text to a cursive type family to add a bit of stylistic flair to all of the different sections' taglines.                                                                                            How : Using a custom imported Google Fonts value. */
-    font-size     : 25.572px;                  /* What : Self Styling.             Why : A property value was required in order to make this selector's text slightly larger than the normal text but still much smaller than the adjacent <h2> text.                                                                                                          How : Using a custom value. */
-    margin-bottom : 8px;                       /* What : Self External Whitespace. Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box to provides separation space from the adjacent <h2> while maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
+.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge. */
 
 
-}
-
-/* #endregion taglineParagraph */
-
-
-
-/* #region headerHeading2 */
-
-.headerHeading2 { /* What : Header Heading 2. Why : A semantic heading element was required in order to contain an appropriate hierarchically leveled heading for the Services header. How : Using a standard HTML <h2> element. */
-
-
-    color         : var( --navy );                /* What : Self Styling.             Why : A property value was required in order to color this selector's text exactly the same as all of the different sections' <h2>s while also aligning with the brand's color scheme.                                                                                      How : Using a global scoped CSS custom property value. */
-    font-family   : 'Playfair Display', serif;    /* What : Self Styling.             Why : A property value was required in order to change this selector's text to a serif type family to better align with this brand's more classical, elegant aesthetic.                                                                                                     How : Using a custom imported Google Fonts value. */
-    font-size     : clamp( 1.8rem, 4vw, 2.8rem ); /* What : Self Styling.             Why : A property value was required in order to make this selector's text appropriately sized relative to its placement in the <h1>-<h6> hierarchy in a responsive manner that will allow the text to adapt is size while also not growing either too large or too small.   How : Using a standard CSS clamp function with custom values. */
-    margin-bottom : 16px;                         /* What : Self External Whitespace. Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box to provides separation space from the adjacent <hr> while maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
+	background-color : var( --cream );
+	border           : 1px solid var( --border );
+	border-top       : 4px solid var( --rose );
+	padding          : 36px 28px;
+	transition       : transform 0.25s, box-shadow 0.25s;
 
 
 }
-
-/* #endregion headerHeading2 */
-
+.serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
 
 
-/* #region headerHorizontalRule */
-
-.headerHorizontalRule { /* What : Header Horizontal Rule. Why : A generic style element was required in order to provide a visual separator between the heading and the description text for the Services header. How : Using a standard HTML <hr> element. */
-
-
-    color         : var( --rose ); /* What : Self Styling.             Why : A property value was required in order to color this selector exactly the same as all of the different sections' <hr>s while also aligning with the brand's color scheme.                                                                                            How : Using a global scoped CSS custom property value. */
-    height        : 2px;           /* What : Self Sizing.              Why : A property value was required in order to ensure that this selector has enough vertical space to fulfill its purpose of prodiving a stylistic flair while also maintaining a visually appealing proportion relative to the rest of the page content.                 How : Using a custom value. */
-    margin-bottom : 28px;          /* What : Self External Whitespace. Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box to provides separation space from the adjacent <p> while maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
-    width         : 48px;          /* What : Self Sizing.              Why : A property value was required in order to ensure that this selector has enough horizontal space to fulfill its purpose of prodiving a stylistic flair while also maintaining a visually appealing proportion relative to the rest of the page content.               How : Using a custom value. */
+	box-shadow : 0 12px 32px rgba( 43, 50, 69, 0.12 );
+	transform  : translateY( -5px );
 
 
 }
-
-/* #endregion headerHorizontalRule */
-
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Services Card Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-/* #region descriptionParagraph */
-
-.descriptionParagraph { /* What : Description Paragraph. Why : A semantic, block level text element was required in order to contain the description text for the Services header. How : Using a standard HTML <p> element. */
-
-
-    color         : var( --warm-gray ); /* What : Self Styling.             Why : A property value was required in order to color this selector's text exactly the same as all of the different sections' <p>s while also providing a comfortable color for users reading the text and sufficient contrast with the background.                          How : Using a global scoped CSS custom property value. */
-    font-size     : 0.95rem;            /* What : Self Styling.             Why : A property value was required in order to make this selector's text slightly smaller than the normal text but still sufficiently sized for users reading the text.                                                                                                     How : Using a custom value. */
-    max-width     : 560px;              /* What : Self Sizing.              Why : A property value was required in order to ensure that this selector has enough horizontal space to contain the text at comfortable reading width while also maintaining a visually appealing proportion relative to the rest of the page content.                      How : Using a custom value. */
-    margin-bottom : 48px;               /* What : Self External Whitespace. Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box to provides separation space from the adjacent <div> while maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
-
-
-
-}
-
-/* #endregion descriptionParagraph */
-
-
-/* #endregion servicesHeader */
-
-
-
-/* #region cardsContainerDiv */
-
-.cardsContainerDiv { /* What : Cards Container Div. Why : A generic container element was required in order to contain, group and provide the grid structure for all of the Services section's service cards content. How : Using a standard HTML <div>. */
-
-
-    display               : grid;                                     /* What : Children Layout Structure.   Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                                                                                       How : Using a standard CSS value of grid. */
-    gap                   : 28px;                                     /* What : Self Grid Layout Whitespace. Why : A property value was required in order to provide vertical and horiztonal spacing between the grid children so that they remain visually separated while also maintaining a visually appealing proportion relative to the rest of the page content.                      How : Using a custom value. */
-    grid-template-columns : repeat( auto-fit, minmax( 220px, 1fr ) ); /* What : Children Grid Sizing.        Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves in a responsive manner that will allow the service cards to adapt their size while also allowing the grid to create new rows as needed. How : Using a standard CSS repeat function with a standad auto-fit value combined with a standard CSS minmax function with custom values. */    
-
-
-}
-
-
-
-/* #region cardDivs */
-
-.cardDivs { /* What : Card Divs. Why : A custom selector was required in order to share the styling of all the generic container elements that were required to contain the service card's content. How : Using standard HTML <div> elements with a shared custom class name selector. */
-
-
-    background-color : var( --cream );                    /* What : Self Styling.             Why : A property value was required in order to style these selectors by differentiating their background colors from their <section>'s background color to visually distinguish them as individual pieces of content (i.e. cards). How : Using a global scoped CSS custom property value. */
-    border           : 1px solid var( --border );         /* What : Self Styling.             Why : A property value was required in order to style these selectors by creating a delineating border to visually distinguish them as individual pieces of content (i.e. cards).                                                   How : Using a custom value, a standard CSS value of solid and a global scoped CSS custom property value. */
-    border-top       : 4px solid var( --rose );           /* What : Self Styling.             Why : A property value was required in order to add a bit of stylistic flair to the top of the cards while also aligning with the brand's color scheme.                                                                             How : Using a custom value, a standard CSS value of solid and a global scoped CSS custom property value. */
-    padding          : 36px 28px;                         /* What : Self Internal Whitespace. Why : A property value was required in order to provide vertical and horizontal whitespace within these selector's content box so that they have enough breathing room for their content and remain visually balanced.              How : Using a custom value. */
-    transition       : transform 0.25s, box-shadow 0.25s; /* What : Self Styling.             Why : A property value was required in order to smoothly transition the y position and box-shadow changes on hover for a better user experience by providing visual feedback that the element is being interacted with.             How : Using a standard CSS transform and box-shadow values combined with custom values. */
-
-
-}
-
-
-
-.cardDivs:hover { /* What : Card Divs. Why : A custom selector was required in order to share the styling of all the generic container elements that were required to contain the service card's content. How : Using standard HTML <div> elements with a shared custom class name selector. */
-
-
-    box-shadow : 0 12px 32px rgba( 43,50,69,0.12 ); /* What : Self Styling. Why : A property value was required in order to create a shadow underneath and to the sides of these selectors so that they appear to pop out from the surround content and provide a visual confirmation to the user that the item is being interacted with. How : Using a custom value. */
-    transform  : translateY( -5px );                  /* What : Self Styling. Why : A property value was required in order to shift the vertical position of these selectors so that they appear to pop out from the surround content and provide a visual confirmation to the user that the item is being interacted with.                 How : Using a standard CSS translateY function with a custom value. */
-
-
-}
-
-
-
-@media ( prefers-reduced-motion : reduce ) { /* What: Card Divs Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
-
-
-	.cardDivs { /* What: Card Divs Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.serCarDiv { /* What: Motionless Services Card Div. Why: The change should simply happen. How: This turns the transition off, so the lift simply happens. */
 
 
 		transition : none;
@@ -194,367 +151,150 @@
 }
 
 
+/* #region carIcoSvg */
 
-/* #region cardSvgs */
-
-.cardSvgs { /* What : Card SVGs. Why : A custom selector was required in order to share the styling of all the semantic image elements that were required to contain the service card's lightweight, scalable SVG icons. How : Using standard HTML <svg> elements with a shared custom class name selector. */
+.carIcoSvg { /* What: Card Icon SVG. Why: Each card opens with a small line icon. How: This sizes it to 44px with no fill by default, so only the shapes that ask for one are filled. */
 
 
-    fill          : none; /* What : Self Styling.             Why : A property value was required in order to remove the default fill color of these selectors so the icons appear mostly transparent.                                                                                                                                        How : Using a standard CSS value of none. */
-    height        : 44px; /* What : Self Sizing.              Why : A property value was required in order to ensure that these selectors have enough vertical space to comfortably fit their content while also maintaining a visually appealing proportion relative to the rest of the page content.                                        How : Using a custom value. */
-    margin-bottom : 20px; /* What : Self External Whitespace. Why : A property value was required in order to provide vertical whitespace along the bottom of these selectors' content box to provides separation space from their adjacent <h3>s while maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
-    width         : 44px; /* What : Self Sizing.              Why : A property value was required in order to ensure that these selectors have enough horizontal space to comfortably fit their content while also maintaining a visually appealing proportion relative to the rest of the page content.                                      How : Using a custom value. */
+	fill          : none;
+	height        : 44px;
+	margin-bottom : 20px;
+	width         : 44px;
+
+
+}
+.carIcoSvg--rose { /* What: Rose Card Icon SVG. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
+
+
+	color : var( --rose );
+
+
+}
+.carIcoSvg--sage { /* What: Sage Card Icon SVG. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
+
+
+	color : var( --sage );
+
+
+}
+.carIcoSvg--mauve { /* What: Mauve Card Icon SVG. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
+
+
+	color : var( --mauve );
 
 
 }
 
+.icoRinCir { /* What: Icon Ring Circle. Why: Every icon sits in a faint ring. How: This strokes the circle thinly in the icon's color at low opacity. */
 
 
-/* #region cutsAndStyling SVG */
-
-
-/* #region cutsAndStyling SVG Circle */
-
-.svgCircles_cutsAndStyling { /* What : Cuts and Styling SVG Circle. Why : A custom SVG element was required in order to display the circle border for the Cuts and Styling SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    opacity      : 0.3;           /* What : Self Styling. Why : A property value was required in order to lighten the color of the circle border to make it more subtle so that the main shape of the icon is allowed to stand out more. How : Using a custom value. */
-    stroke       : var( --rose ); /* What : Self Styling. Why : A property value was required in order to color the circle border while also aligning with the brand's color scheme.                                                     How : Using a global scoped CSS custom property value. */
-    stroke-width : 1.5;           /* What : Self Sizing.  Why : A property value was required in order to give the circle border just enough thickness while also not overwhelming the main shape of the icon.                           How : Using a custom value. */
+	opacity      : 0.3;
+	stroke       : currentColor;
+	stroke-width : 1.5;
 
 
 }
 
-/* #endregion cutsAndStyling SVG Circle */
+.icoFilPat { /* What: Icon Fill Path. Why: Most icons' main shape is a soft filled form. How: This fills it in the icon's color, slightly faded. */
 
 
-
-/* #region cutsAndStyling SVG Path */
-
-.svgPaths_cutsAndStyling { /* What : Cuts and Styling SVG Path. Why : A custom SVG element was required in order to display the main shape for the Cuts and Styling SVG icon. How : Using a standard SVG <path> element. */
+	fill    : currentColor;
+	opacity : 0.7;
 
 
-    fill    : var( --rose ); /* What : Self Styling. Why : A property value was required in order to color the main shape while also aligning with the brand's color scheme.                                                                     How : Using a global scoped CSS custom property value. */
-    opacity : 0.7;           /* What : Self Styling. Why : A property value was required in order to lighten the color of the main shape to make it slightly more subtle so that it does not stand out too starkly from the surrounding content. How : Using a custom value. */
+}
+.icoFilPat--soft { /* What: Soft Icon Fill Path. Why: The men's cut icon's shape is a little fainter. How: This lowers its opacity. */
+
+
+	opacity : 0.65;
 
 
 }
 
-/* #endregion cutsAndStyling SVG Path */
+.icoStrLin { /* What: Icon Stroke Line. Why: Handles and pins are drawn as lines. How: This strokes them in the icon's color with round ends. */
 
 
+	stroke         : currentColor;
+	stroke-linecap : round;
+	stroke-width   : 2;
 
-/* #region cutsAndStyling SVG Line */
 
-.svgLines_cutsAndStyling { /* What : Cuts and Styling SVG Line. Why : A custom SVG element was required in order to display the line that is used as a handle for the Cuts and Styling SVG icon. How : Using a standard SVG <line> element. */
+}
+.icoStrLin--bold { /* What: Bold Icon Stroke Line. Why: The men's cut icon's line is a little heavier. How: This thickens it. */
 
 
-    stroke         : var( --rose );
-    stroke-linecap : round;
-    stroke-width   : 2;
+	stroke-width : 2.2;
 
 
 }
 
-/* #endregion cutsAndStyling SVG Line */
+.icoFilRec { /* What: Icon Fill Rectangle. Why: The special occasions icon's card is a small filled rectangle. How: This sizes and fills it in the icon's color, faded. */
 
 
-/* #endregion cutsAndStyling SVG */
-
-
-
-/* #region colorAndHighlights SVG */
-
-
-/* #region colorAndHighlights SVG Circle */
-
-.svgCircles_colorAndHighlights { /* What : Color and Highlights SVG Circle. Why : A custom SVG element was required in order to display the circle border for the Color and Highlights SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    opacity      : 0.3;
-    stroke       : var( --sage );
-    stroke-width : 1.5;
+	fill    : currentColor;
+	height  : 12px;
+	opacity : 0.6;
+	width   : 16px;
 
 
 }
 
-/* #endregion colorAndHighlights SVG Circle */
+.icoDotCir { /* What: Icon Dot Circle. Why: Two icons center a small filled dot. How: This fills it in the icon's color, faded. */
 
 
-
-/* #region colorAndHighlights SVG Path */
-
-.svgPaths_colorAndHighlights { /* What : Color and Highlights SVG Path. Why : A custom SVG element was required in order to display the main shape for the Color and Highlights SVG icon. How : Using a standard SVG <path> element. */
+	fill    : currentColor;
+	opacity : 0.65;
 
 
-    fill    : var( --sage );
-    opacity : 0.7;
+}
+.icoDotCir--plum { /* What: Plum Icon Dot Circle. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
+
+
+	fill    : #b08898;
+	opacity : 0.8;
 
 
 }
 
-/* #endregion colorAndHighlights SVG Path */
+.icoStrPat { /* What: Icon Stroke Path. Why: The treatments icon's wave is a drawn line rather than a filled shape. How: This strokes it in the icon's color with round ends. */
 
 
-/* #endregion colorAndHighlights SVG */
-
-
-
-/* #region permsAndTexture SVG */
-
-
-/* #region permsAndTexture SVG Circle 1 */
-
-.svgCircles_permsAndTexture1 { /* What : Perms and Texture SVG Circle 1. Why : A custom SVG element was required in order to display the circle border for the Perms and Texture SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    opacity      : 0.3;
-    stroke       : var( --mauve );
-    stroke-width : 1.5;
+	fill           : none;
+	stroke         : currentColor;
+	stroke-linecap : round;
+	stroke-width   : 2.5;
 
 
 }
 
-/* #endregion permsAndTexture SVG Circle 1 */
+/* #endregion carIcoSvg */
 
 
-
-/* #region permsAndTexture SVG Path */
-
-.svgPaths_permsAndTexture { /* What : Perms and Texture SVG Path. Why : A custom SVG element was required in order to display the main shape for the Perms and Texture SVG icon. How : Using a standard SVG <path> element. */
+.carTitHea { /* What: Card Title Heading. Why: Each card names its service. How: This sets it in navy Playfair Display. */
 
 
-    fill    : var( --mauve );
-    opacity : 0.7;
-
-
-}
-
-/* #endregion permsAndTexture SVG Path */
-
-
-
-/* #region permsAndTexture SVG Circle 2 */
-
-.svgCircles_permsAndTexture2 { /* What : Perms and Texture SVG Circle 2. Why : A custom SVG element was required in order to display the inner, smaller circle for the Perms and Texture SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    fill    : #b08898;
-    opacity : 0.8;
+	color         : var( --navy );
+	font-family   : 'Playfair Display', serif;
+	font-size     : 1.15rem;
+	margin-bottom : 10px;
 
 
 }
 
-/* #endregion permsAndTexture SVG Circle 2 */
+.carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it small in warm gray. */
 
 
-/* #endregion permsAndTexture SVG */
-
-
-
-/* #region specialOccasions SVG */
-
-
-/* #region specialOccasions SVG Circle */
-
-.svgCircles_specialOccasions { /* What : Special Occasions SVG Circle. Why : A custom SVG element was required in order to display the circle border for the Special Occasions SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    opacity      : 0.3;
-    stroke       : var( --rose );
-    stroke-width : 1.5;
+	color       : var( --warm-gray );
+	font-size   : 0.88rem;
+	line-height : 1.65;
 
 
 }
 
-/* #endregion specialOccasions SVG Circle */
+/* #endregion serCarDiv */
 
+/* #endregion serGriDiv */
 
-
-/* #region specialOccasions SVG Rect */
-
-.svgRectangles_specialOccasions { /* What : Special Occasions SVG Rect. Why : A custom SVG element was required in order to display the main rectable shape for the Special Occasions SVG icon. How : Using a standard SVG <rect> element. */
-
-
-    fill    : var( --rose );
-    height  : 12px;
-    opacity : 0.6;
-    width   : 16px;
-
-
-}
-
-/* #endregion specialOccasions SVG Rect */
-
-
-
-/* #region specialOccasions SVG Lines */
-
-.svgLines_specialOccasions { /* What : Special Occasions SVG Lines. Why : A custom selector was required in order to share the styling of both SVG elements that represent the top binder lines for the Special Occasions SVG icon. How : Using standard SVG <line> elements with a shared custom class name selector. */
-
-
-    stroke         : var( --rose );
-    stroke-linecap : round;
-    stroke-width   : 2;
-
-
-}
-
-/* #endregion specialOccasions SVG Lines */
-
-
-/* #endregion specialOccasions SVG */
-
-
-
-/* #region mensCuts SVG */
-
-
-/* #region mensCuts SVG Circle */
-
-.svgCircles_mensCuts { /* What : Men's Cuts SVG Circle. Why : A custom SVG element was required in order to display the circle border for the Men's Cuts SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    opacity      : 0.3;
-    stroke       : var( --sage );
-    stroke-width : 1.5;
-
-
-}
-
-/* #endregion mensCuts SVG Circle */
-
-
-
-/* #region mensCuts SVG Path */
-
-.svgPaths_mensCuts { /* What : Men's Cuts SVG Path. Why : A custom SVG element was required in order to display the main shape for the Men's Cuts SVG icon. How : Using a standard SVG <path> element. */
-
-
-    fill    : var( --sage );
-    opacity : 0.65;
-
-
-}
-
-/* #endregion mensCuts SVG Path */
-
-
-
-/* #region mensCuts SVG Line */
-
-.svgLines_mensCuts { /* What : Men's Cuts SVG Line. Why : A custom SVG element was required in order to display the line for the Men's Cuts SVG icon. How : Using a standard SVG <line> element. */
-
-
-    stroke         : var( --sage );
-    stroke-linecap : round;
-    stroke-width   : 2.2;
-
-
-}
-
-/* #endregion mensCuts SVG Line */
-
-
-/* #endregion mensCuts SVG */
-
-
-
-/* #region hairTreatments SVG */
-
-
-/* #region hairTreatments SVG Circle 1 */
-
-.svgCircles_hairTreatments1 { /* What : Hair Treatments SVG Circle 1. Why : A custom SVG element was required in order to display the circle border for the Hair Treatments SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    opacity      : 0.3;
-    stroke       : var( --mauve );
-    stroke-width : 1.5;
-
-
-}
-
-/* #endregion hairTreatments SVG Circle 1 */
-
-
-
-/* #region hairTreatments SVG Path */
-
-.svgPaths_hairTreatments { /* What : Hair Treatments SVG Path. Why : A custom SVG element was required in order to display the main shape for the Hair Treatments SVG icon. How : Using a standard SVG <path> element. */
-
-
-    fill           : none;
-    stroke         : var( --mauve );
-    stroke-linecap : round;
-    stroke-width   : 2.5;
-
-
-}
-
-/* #endregion hairTreatments SVG Path */
-
-
-
-/* #region hairTreatments SVG Circle 2 */
-
-.svgCircles_hairTreatments2 { /* What : Hair Treatments SVG Circle 2. Why : A custom SVG element was required in order to display the inner, smaller circle for the Hair Treatments SVG icon. How : Using a standard SVG <circle> element. */
-
-
-    fill    : var( --mauve );
-    opacity : 0.65;
-
-
-}
-
-/* #endregion hairTreatments SVG Circle 2 */
-
-
-/* #endregion hairTreatments SVG */
-
-
-/* #endregion cardSvgs */
-
-
-
-/* #region cardHeading3s */
-
-.cardHeading3s { /* What : Card Heading 3s. Why : A custom selector was required in order to share the styling of all the semantic heading elements that were required to contain the appropriate hierarchically leveled headings for the service cards. How : Using standard HTML <h3> elements with a shared custom class name selector. */
-
-
-    color         : var( --navy );
-    font-family   : 'Playfair Display', serif;
-    font-size     : 1.15rem;
-    margin-bottom : 10px;
-
-
-}
-
-/* #endregion cardHeading3s */
-
-
-
-/* #region cardParagraphs */
-
-.cardParagraphs { /* What : Card Paragraphs. Why : A custom selector was required in order to share the styling of all the semantic, block level text elements that were required to contain the description text for the service cards. How : Using standard HTML <p> elements with a shared custom class name selector. */
-
-
-    color       : var( --warm-gray );
-    font-size   : 0.88rem;
-    line-height : 1.65;
-
-
-}
-
-/* #endregion cardParagraphs */
-
-
-/* #endregion cardDivs */
-
-
-/* #endregion cardsContainerDiv */
-
-
-/* #endregion servicesSection */
+/* #endregion homSerSec */
 
 

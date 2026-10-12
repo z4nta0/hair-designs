@@ -3,12 +3,10 @@
 
 // #region Imports
 
-import Services from './services.tsx'; // What: Services. Why: The page's second section lists the salon's services. How: This renders it.
-
-
-import { AboSecCom } from './about.tsx';   // What: About Section Component. Why: The page's third section tells the salon's story. How: This renders it.
-import { ConSecCom } from './contact.tsx'; // What: Contact Section Component. Why: The page's last section holds the contact details and the turned-off form. How: This renders it.
-import { HerSecCom } from './hero.tsx';    // What: Hero Section Component. Why: The page opens with the hero. How: This renders it.
+import { AboSecCom } from './about.tsx';    // What: About Section Component. Why: The page's third section tells the salon's story. How: This renders it.
+import { ConSecCom } from './contact.tsx';  // What: Contact Section Component. Why: The page's last section holds the contact details and the turned-off form. How: This renders it.
+import { HerSecCom } from './hero.tsx';     // What: Hero Section Component. Why: The page opens with the hero. How: This renders it.
+import { SerSecCom } from './services.tsx'; // What: Services Section Component. Why: The page's second section lists the salon's services. How: This renders it.
 
 // #endregion Imports
 
@@ -71,7 +69,7 @@ function HomPagCom () : React.JSX.Element {
 
 
 
-            <Services />{ /* What: Services. Why: The services follow the hero. How: This renders them. */ }
+            <SerSecCom />{ /* What: Services Section Component. Why: The services follow the hero. How: This renders them. */ }
 
 
 
