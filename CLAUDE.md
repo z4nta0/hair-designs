@@ -61,6 +61,22 @@ Built 2026-10-12 (`90d30fb`).
 - Copy elsewhere that invites a message (the contact quote, the form's
   heading) is reworded to point to a call instead in step 7.
 
+## Type scale
+Decided 2026-10-12: the root is 68.75% (11px) on every viewport, as in the
+user's other sites, and no font size changes by viewport (large headings
+grow with `clamp()` instead). The Vite template had set the root to 18px,
+16px below 1,024px; the old `rem` values were read at the browser's 16px
+default when snapping to steps, matching how the sibling sites converted
+theirs, so paragraphs sit at `--fon-siz-p01` (14.572px) and buttons and
+labels at the 11px base. The user approved the before and after.
+
+## Card grids
+Decided 2026-10-12, as in the user's other sites (not in the user-level
+rules): a grid of cards always has an equal number of cards in every row.
+The six service cards go three columns above 900px, two from 600px to
+900px, and one at 600px and narrower, never an `auto-fit` that leaves a
+short last row.
+
 ## Horizontal layout
 Decided 2026-10-12: the horizontal rhythm, the way reese-roofing and
 seal-and-shield use it. Layout values (the page gutter, margins, padding,
