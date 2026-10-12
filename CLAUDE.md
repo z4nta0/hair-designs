@@ -34,18 +34,28 @@ treatment. The `author` meta names the business itself.
 ## Contact form
 Decided 2026-10-12. The salon doesn't want to answer messages, so the
 contact form stays on the page, looking as designed, but is turned off.
-- Every field and the submit button sit in a `<fieldset disabled>`, styled
-  as disabled, and the form never submits (no Netlify Forms).
-- Hovering or tapping anywhere on the fields shows a tooltip: "The form is
+Built 2026-10-12 (`90d30fb`).
+- Every field and the submit button sit in a `<fieldset disabled>`, faded
+  to 0.6 opacity, and the form never submits (no Netlify Forms).
+- The fieldset ignores the pointer, so a wrapper around it catches hover and
+  taps reliably in every engine and shows a not-allowed cursor. Hovering
+  with a mouse or tapping opens a tooltip at that point: "The form is
   disabled at this time. Please call us at 417-988-6239. We apologize for
-  any inconvenience.", with the number as a `tel:` link. A wrapper catches
-  the pointer, since browsers don't reliably send mouse events from
-  disabled controls, and the behavior is checked in all three engines.
-- Keyboard and screen reader users, whom Tab never brings to a disabled
-  field, get the same message as a note tied to the form through
-  `aria-describedby`.
+  any inconvenience.", with the number as a `tel:` link. It closes when the
+  mouse leaves, on a tap outside the form, or on Escape, and a press on the
+  tooltip itself doesn't move it, so its link can be tapped.
+- The wrapper is one Tab stop (`role='group'`, labeled "Contact form, turned
+  off", with a rose focus ring). Focusing it opens the tooltip at the form's
+  top edge, and the next Tab reaches its phone link. On blur it waits a frame
+  and closes only if focus settled outside the wrapper, which also survives
+  the test suite blurring and refocusing each stop.
+- Screen readers hear the same message from a visually hidden note tied to
+  the wrapper through `aria-describedby`.
+- Known quirk: Tab past the tooltip's link, the page's last stop, sends
+  Firefox's focus to its own toolbar without a blur the page can see, so the
+  tooltip stays up until focus or the pointer returns.
 - Copy elsewhere that invites a message (the contact quote, the form's
-  heading) is reworded to point to a call instead.
+  heading) is reworded to point to a call instead in step 7.
 
 ## Horizontal layout
 Decided 2026-10-12: the horizontal rhythm, the way reese-roofing and
@@ -86,6 +96,10 @@ with unchanged screenshots unless the step is meant to change the page.
    seal-and-shield's suites, with baseline screenshots taken before
    anything moves. Done 2026-10-12, as described under "## Test suites",
    with the failures they found in the existing site listed there.
+   - **Accessibility pass: done 2026-10-12**, before the directory move, so
+     steps 5 and 6 run against a clean scan. It brought forward the phone
+     menu, reduced motion, and the disabled form from step 8, as described
+     under "### Accessibility pass".
 5. **Directory structure**, matching seal-and-shield's: `app.tsx`,
    `pages/home/` (hero, services, about, contact, `home.tsx`),
    `pages/not-found/`, `ui/` (nav, footer), `styles/` (`fonts.css`,
@@ -102,13 +116,17 @@ with unchanged screenshots unless the step is meant to change the page.
    global rules hiding in `HomPagCom.module.css` (`:root`, the reset,
    `body`) move to `styles.css`, and Lato, Playfair Display, and Dancing
    Script become self-hosted. Then the design tokens, and the horizontal
-   layout above in its own commit.
+   layout above in its own commit. The accessibility pass's colors fold
+   into the tokens then: `--rose-dk` (`#c7745f`, large rose text on light
+   backgrounds) and the darkened `--warm-gray` (`#716c67`) become role
+   colors, and the script taglines' literal 25.572px is already the font
+   size scale's `--fon-siz-p03`, so they take that step without moving.
 7. **Copy**: every em dash reworded (the service select's placeholder, the
    contact quote, and its sign-off), and the message wording above.
-8. **New features**: a phone menu for the nav, the 404 page, SEO and local
-   SEO, the social preview card and favicon set (the current `favicon.svg`
-   predates the new logo), interaction feedback, reduced motion, and the
-   disabled contact form above.
+8. **New features**: the 404 page, SEO and local SEO, the social preview
+   card and favicon set (the current `favicon.svg` predates the new logo),
+   and interaction feedback. The phone menu, reduced motion, and the
+   disabled contact form were done early, in the accessibility pass.
 9. **Wrap-up**: every suite passing in every engine, this file and the
    README updated, and the user's live checks of the deploy (the preview
    card through a checker such as opengraph.xyz).
@@ -120,12 +138,13 @@ which starts its own dev server on port 5191 (never the usual 5173) and stops
 it afterwards. Every suite runs in Chromium, Firefox, and WebKit. Results,
 screenshots, and traces go to `tests/output/` (git-ignored); `npx playwright
 show-report tests/output/report` opens the HTML report. The states the suites
-visit (the home page at 390px and 1,440px for now; the 404 page and the phone
-menu join once they exist) are listed in `tests/support/states.ts`, whose
-`opeStaFun` waits for the fonts, the images, and the hero's entrance fade
-before anything is checked. Unlike seal-and-shield's, it has no scroll pass,
-since nothing on this site waits to be scrolled into view. The interaction and
-SEO suites arrive in step 8 with the features they check.
+visit (the home page at 390px and 1,440px, and the phone menu open at 390px;
+the 404 page joins once it exists) are listed in
+`tests/support/states.ts`, whose `opeStaFun` waits for the fonts, the images,
+and the hero's entrance fade before anything is checked. Unlike
+seal-and-shield's, it has no scroll pass, since nothing on this site waits to
+be scrolled into view. The interaction and SEO suites arrive in step 8 with
+the features they check.
 - `npm run test:accessibility`: the pre-commit accessibility scan. axe-core
   checks each state against WCAG 2.2 A and AA plus best practices
   (`axe.spec.ts`), and scripted checks (`scripted.spec.ts`) cover link and
@@ -146,32 +165,54 @@ SEO suites arrive in step 8 with the features they check.
     Texture", "Town") differently about one run in four, while six runs with a
     single worker all passed. Firefox's rendering tests get one retry, so a
     real change still fails twice. Remove it once the fonts are self-hosted in
-    step 6, after checking the flake is gone.
+    step 6, after checking the flake is gone. Until then, refresh Firefox's
+    baselines with a single worker (`npx playwright test --config
+    tests/playwright.config.ts --project rendering-firefox --workers=1
+    --update-snapshots`), since a baseline captured under parallel load can
+    bake the odd rendering in and then fail every run.
 - `npm run test:responsive`: measures the home page at 15 widths from 320 to
   1,920px (a pixel either side of the 600px and 900px breakpoints and of
-  `index.css`'s 1,024px root font size switch included), failing on sideways
+  `index.css`'s 1,024px root font size switch included), and the open phone
+  menu at every one of those up to 900px, failing on sideways
   scrolling, an unclipped element past either edge, text spilling its box, or
   two reachable controls overlapping.
 - `npm test` runs every suite.
 
-### Failures found in the existing site
-The first run, before anything moved, had 45 failing tests, the same in all
-three engines, all left for the steps that fix them:
-- **Contrast** (axe, both widths): about 40 text elements across every
-  section fall short of 4.5:1: the bar's title and links, the hero's tagline,
-  italic "Designs", subheading, names, and description, the service cards'
-  text, the About heading, names, and paragraphs, the contact section's
-  heading, tagline, labels, hours, phone link, and quote, and the form's
-  labels and submit button.
-- **Form focus** (Tab walk, both widths): the contact form's six fields show
-  no visible focus indicator. They become disabled in step 8, which takes
-  them out of the Tab order.
-- **No phone layout for the nav**: the page scrolls sideways at every width
-  up to 601px (298px too wide at 320px, 17px at 601px), failing reflow and
-  the responsive suite, and on phones the Tab walk finds the Contact link off
-  screen and the contact section's phone link hidden under the fixed bar. The
-  phone menu in step 8 fixes these.
-- **Reduced motion**: the hero's `fadeUp` entrance still plays.
-- **React warning**: the service select sets `selected` on its placeholder
-  option, which React asks to replace with the select's `defaultValue`. It
-  shows in the dev server's console during every run.
+### Accessibility pass
+Done 2026-10-12, one commit per problem. The first run, before anything
+moved, had 45 failing tests, the same in all three engines; every suite now
+passes (126 tests) in all three.
+- **React warning** (`d597e06`): the service select's placeholder option
+  set `selected`; the select now takes `defaultValue=''`.
+- **Reduced motion** (`0450421`): the hero's entrance fade, the smooth
+  section scrolling, and every hover transition get a reduced-motion
+  variant. This also cleared the desktop form-focus failures, which were the
+  test catching the fields' rose focus border mid-transition.
+- **Phone layout** (`f5bafdb`): the 900px and 600px media queries targeted
+  class names from an earlier mockup (`.heroStripe`, `.heroLeft`,
+  `.contactGrid`, `.formRow`, `.navLinks`), so nothing stacked on phones and
+  the page scrolled sideways by up to 298px. They now target the real
+  classes; the 600px section padding applies to the Services, About, and
+  Contact sections only, since the hero keeps its own bar clearance.
+- **Phone menu** (`b34d98f`): at 900px and narrower (the bar's links stop
+  fitting at about 700 to 750px, and 900px is the next breakpoint up) a menu
+  button replaces the links and opens a panel below the bar, eased in with
+  opacity and transform, inert while closed, closing when a link is chosen.
+  Its visibility turns on at once when opening, so a quick Tab reaches its
+  links, and turns off only after the fade when closing.
+- **Bar clearance** (`d338c2c`): `html` gets a `scroll-padding-top` of 71px
+  (the bar's 68px plus its 3px border), so section links and keyboard focus
+  stop below the fixed bar instead of under it.
+- **Disabled form** (`90d30fb`): see "## Contact form". Disabled fields
+  leave the Tab order, which removed their missing-focus failures.
+- **Contrast** (`e19478f`): only two colors failed. The warm gray
+  (`#7a7570`, 4.01:1 on cream) darkened to `#716c67` (4.58:1). Rose text on
+  the cream and ivory backgrounds (`#d4806a`, about 2.6:1) now uses
+  `--rose-dk` (`#c7745f`, 3.04:1), which is enough for large text, and the
+  four script taglines grew from 1.1rem to 25.572px (the scale's `p03`) so
+  they count as large text, the user's choice over keeping their size in a
+  darker `#a75743`. The brand rose stays on borders, rules, and buttons.
+- **Checked by hand**: axe can't measure text over the contact section's
+  striped navy, so it lists those items as needing review. Measured against
+  both stripes (and the quote box's 6% white overlay), the lowest is 5.30:1
+  (the quote's sign-off), so all pass.
