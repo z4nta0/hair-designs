@@ -412,9 +412,9 @@ html { /* What: HTML. Why: One rem should equal the 11px base font size, the sit
 	-moz-osx-font-smoothing : grayscale;
 	-webkit-font-smoothing  : antialiased;
 	font-size               : 68.75%;
-	font-synthesis          : none;                                                   /* What: Font Synthesis Note. Why: Without it, browsers fake a bold italic for faces the site doesn't load, such as the heading's italic Designs at weight 600. How: This draws the loaded faces as they are. */
+	font-synthesis          : none;                                                          /* What: Font Synthesis Note. Why: Without it, browsers fake a bold italic for faces the site doesn't load, such as the heading's italic Designs at weight 600. How: This draws the loaded faces as they are. */
 	scroll-behavior         : smooth;
-	scroll-padding-top      : calc( var( --nav-bar-hei ) + var( --bor-wid-xla ) ); /* Navigation Bar Height ~= 59.447px, Border Width Extra Large ~= 3.572px */ /* What: Scroll Stop Note. Why: The fixed bar would cover whatever a scroll lands on. How: This stops each scroll below the bar's height and its rose bottom border. */
+	scroll-padding-top      : calc( ( var( --ver-rhy-p05 ) + var( --ver-rhy-m05 ) ) * 1em ); /* Vertical Rhythm Base Plus 5 ~= 5.404, Vertical Rhythm Base Minus 5 ~= 0.325, together ~= 63.019px */ /* What: Scroll Stop Note. Why: The fixed bar would cover whatever a scroll lands on. How: This stops each scroll below the bar's height and its rose bottom border, the same rhythm steps --nav-bar-hei and --bor-wid-xla read. */ /* What: Root Em Note. Why: WebKit resolves rem in the root element's own scroll padding against the browser's 16px default rather than the 11px root, which stopped Safari's section links about 29px short (checked 2026-10-12). How: An em on the root's own properties reads the root's 11px font size in every engine, so this multiplies the same steps by 1em instead of reading the rem-based tokens. */
 	text-rendering          : optimizeLegibility;
 
 
