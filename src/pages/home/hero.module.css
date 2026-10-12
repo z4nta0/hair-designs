@@ -165,10 +165,10 @@
 .herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it to the p10 rhythm step, square, never wider than its panel on the narrowest phones, and lifts it off the stripes with a soft drop shadow. */
 
 
-	filter    : drop-shadow( 0 6px 24px rgba( 0, 0, 0, 0.4 ) );
-	height    : auto;                                /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
+	filter    : drop-shadow( 0 calc( var( --ver-rhy-m03 ) * 1rem ) calc( var( --ver-rhy-p02 ) * 1rem ) rgb( 0 0 0 / var( --cdn-pow-003-rec ) ) ); /* Vertical Rhythm Base Minus 3 ~= 6.268px, Vertical Rhythm Base Plus 2 ~= 25.572px, black @ 0.430 opacity */
+	height    : auto; /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
 	max-width : 100%;
-	width     : calc( var( --ver-rhy-p10 ) * 1rem ); /* Vertical Rhythm Base Plus 10 ~= 242.522px */
+	width     : calc( var( --ver-rhy-p10 ) * 1rem );                                                                                              /* Vertical Rhythm Base Plus 10 ~= 242.522px */
 
 
 }

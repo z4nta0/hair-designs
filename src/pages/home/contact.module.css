@@ -465,7 +465,7 @@
 	animation   : forTipDivOpenFadeIn var( --dur-ani-p01 ) var( --mot-sta-eas ); /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 	background  : var( --bac-inv-col );                                          /* Background Inverse Color = #2b3245 */
 	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );               /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
-	box-shadow  : 0 8px 24px rgba( 0, 0, 0, 0.25 );
+	box-shadow  : var( --ele-med-sha );                                          /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
 	color       : var( --tex-inv-col );                                          /* Text Inverse Color = #f5f0e8 */
 	cursor      : default;
 	font-size   : var( --fon-siz-p01 );                                          /* Font Size Base Plus 1 ~= 14.572px */

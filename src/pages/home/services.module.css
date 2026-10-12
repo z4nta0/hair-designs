@@ -158,8 +158,8 @@
 .serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
 
 
-	box-shadow : 0 12px 32px rgb( from var( --sha-mai-col ) r g b / 0.12 ); /* Shadow Main Color = #2b3245 @ 0.12 opacity */
-	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) );           /* Spacing Vertical Base Minus 4 ~= -4.732px */
+	box-shadow : var( --ele-med-sha );                            /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
+	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) ); /* Spacing Vertical Base Minus 4 ~= -4.732px */
 
 
 }
