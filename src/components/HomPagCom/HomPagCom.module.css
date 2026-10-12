@@ -5,11 +5,12 @@
       --cream:     #f5f0e8;
       --ivory:     #faf7f2;
       --rose:      #d4806a;
+      --rose-dk:   #c7745f; /* What: Rose Dark. Why: Large rose text (the names, the italic Designs, and the script taglines) has to reach 3:1 on the cream and ivory backgrounds, which the brand rose misses at 2.6:1. How: This is the rose darkened one small step in OKLCH lightness, 3.04:1 on cream, while borders, rules, and buttons keep the brand rose. */
       --rose-lt:   #e8a898;
       --mauve:     #c9a0a0;
       --sage:      #8ea89a;
       --charcoal:  #4a4a4a;
-      --warm-gray: #7a7570;
+      --warm-gray: #716c67; /* What: Warm Gray. Why: Body and caption text in this gray has to reach 4.5:1 on the cream and ivory backgrounds. How: This is the original #7a7570 darkened one small step in OKLCH lightness, 4.58:1 on cream. */
       --border:    #e0d5c8;
     }
  
@@ -154,8 +155,8 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
 }
     .heroTaglineParagraph {
       font-family: 'Dancing Script', cursive;
-      font-size: 1.1rem;
-      color: var(--rose);
+      font-size: 25.572px;
+      color: var(--rose-dk);
       letter-spacing: 0.06em;
       margin-bottom: 10px;
     }
@@ -169,7 +170,7 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
     }
     .heading1Emphasis {
       font-style: italic;
-      color: var(--rose);
+      color: var(--rose-dk);
     }
     .heroSubheadingParagraph {
       font-family: 'Lato', sans-serif;
@@ -188,7 +189,7 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
     .namesDiv {
       font-family: 'Dancing Script', cursive;
       font-size: 1.5rem;
-      color: var(--rose);
+      color: var(--rose-dk);
       line-height: 1.6;
     }
     .nameSpans { display: block; }
@@ -334,7 +335,7 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
     .aboutNamesDiv {
       font-family: 'Dancing Script', cursive;
       font-size: 1.8rem;
-      color: var(--rose);
+      color: var(--rose-dk);
       line-height: 1.6;
       margin-bottom: 8px;
     }
@@ -346,8 +347,8 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
     }
     .aboutTaglineParagraph {
         font-family: 'Dancing Script', cursive;
-      font-size: 1.1rem;
-      color: var(--rose);
+      font-size: 25.572px;
+      color: var(--rose-dk);
       margin-bottom: 8px;
     }
     .aboutHeading2 {
@@ -398,7 +399,7 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
 }
     .contactTaglineParagraph {
         font-family: 'Dancing Script', cursive;
-      font-size: 1.1rem;
+      font-size: 25.572px;
       color: var(--rose);
       margin-bottom: 8px;
         color: var(--rose-lt);
