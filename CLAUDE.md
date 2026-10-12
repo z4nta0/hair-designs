@@ -41,12 +41,17 @@ treatment. The `author` meta names the business itself.
   the built site in all three engines; WebKit reports one harmless
   violation from its own styling of the form's select, which draws
   identically either way).
-- **Social preview and icons** (done 2026-10-12): `public/og-image.png`, a
-  1,200x630 PNG of about 42 KB, rendered from `design/og-image/card.html` by
+- **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
+  1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
-  Designs" in Playfair Display with Designs in light rose italic, and
-  "Carson's Corner, Missouri" in light rose script, all inside the center
-  630px square, with the bar's rose line along the foot. A PNG rather than a
+  Designs" in Playfair Display with Designs in light rose italic, "Juli
+  Wilkerson & Keeli Bryan" signed in light rose script as in the hero, and
+  "Carson's Corner, Missouri" in cream Lato at a literal 40px (no scale step
+  lands within 10%), all inside the center 630px square, with the bar's rose
+  line along the foot. The stylists' line was added at the user's request
+  (their choice of two mockups), which took the logo down one rhythm step to
+  about 183px; the first card was `og-image.png`, and the new name keeps apps
+  from showing their cached copy of it. A PNG rather than a
   JPEG, since the card is flat stripes, line art, and text. `index.html`
   carries every Open Graph and Twitter tag (no `twitter:site`, since there's
   no X account), `theme-color` in the bar's navy, and the full icon set:
