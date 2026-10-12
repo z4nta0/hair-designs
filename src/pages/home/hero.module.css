@@ -66,7 +66,7 @@
 
 
 	align-items      : center;
-	background-image : repeating-linear-gradient( 90deg, var( --navy ) 0, var( --navy ) 30px, #232a3d 30px, #232a3d 60px );
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) 30px, var( --bac-ind-col ) 30px, var( --bac-ind-col ) 60px ); /* Background Inverse Color = #2b3245, Background Inverse Dark Color = #232a3d */
 	display          : flex;
 	justify-content  : center;
 	padding          : 80px 60px;
@@ -78,7 +78,7 @@
 .herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a 3px rose bar down the panel's right edge, a pixel over the seam. */
 
 
-	background : var( --rose );
+	background : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	bottom     : 0;
 	content    : '';
 	position   : absolute;
@@ -184,7 +184,7 @@
 
 
 	align-items     : center;
-	background      : var( --cream );
+	background      : var( --bac-sur-col ); /* Background Surface Color = #f5f0e8 */
 	display         : flex;
 	justify-content : center;
 	padding         : 80px 60px;
@@ -232,8 +232,8 @@
 .eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
 
 
-	color          : var( --rose-dk );
-	font-family    : 'Dancing Script', cursive;
+	color          : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family    : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size      : 25.572px;
 	letter-spacing : 0.06em;
 	margin-bottom  : 10px;
@@ -246,8 +246,8 @@
 .herTitHea { /* What: Hero Title Heading. Why: The salon's name is the page's main heading. How: This sets it in large navy Playfair Display that grows with the screen, its two lines set close. */
 
 
-	color         : var( --navy );
-	font-family   : 'Playfair Display', serif;
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( 3rem, 6vw, 5.2rem );
 	font-weight   : 600;
 	line-height   : 1.08;
@@ -259,7 +259,7 @@
 .titAccEmp { /* What: Title Accent Emphasis. Why: The heading's second word is set apart. How: This sets Designs in dark rose italic. */
 
 
-	color      : var( --rose-dk );
+	color      : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
 	font-style : italic;
 
 
@@ -270,8 +270,8 @@
 .herSubPar { /* What: Hero Subheading Paragraph. Why: The trade and the town follow the name. How: This sets them in light, widely spaced warm gray capitals. */
 
 
-	color          : var( --warm-gray );
-	font-family    : 'Lato', sans-serif;
+	color          : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	font-family    : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
 	font-size      : 0.95rem;
 	font-weight    : 300;
 	letter-spacing : 0.18em;
@@ -284,7 +284,7 @@
 .herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a 56px by 2px box. */
 
 
-	color         : var( --rose );
+	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	height        : 2px;
 	margin-bottom : 28px;
 	width         : 56px;
@@ -297,8 +297,8 @@
 .styNamDiv { /* What: Stylist Names Div. Why: The two stylists' names are set like a signature. How: This sets them in dark rose Dancing Script. */
 
 
-	color       : var( --rose-dk );
-	font-family : 'Dancing Script', cursive;
+	color       : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size   : 1.5rem;
 	line-height : 1.6;
 
@@ -318,8 +318,8 @@
 .herCapPar { /* What: Hero Caption Paragraph. Why: The stylists' title sits under their names. How: This sets it in warm gray Playfair Display italic. */
 
 
-	color       : var( --warm-gray );
-	font-family : 'Playfair Display', serif;
+	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	font-family : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size   : 1rem;
 	font-style  : italic;
 	margin-top  : 8px;
@@ -346,7 +346,7 @@
 	border          : none;
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : 'Lato', sans-serif;
+	font-family     : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
 	font-size       : 0.78rem;
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
@@ -360,15 +360,15 @@
 .butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The main call to action stands out. How: This fills it navy with cream text. */
 
 
-	background : var( --navy );
-	color      : var( --cream );
+	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 
 
 }
 .butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
 
 
-	background : var( --navy-mid );
+	background : var( --bac-inr-col ); /* Background Inverse Raised Color = #3c4562 */
 	transform  : translateY( -2px );
 
 
@@ -377,16 +377,16 @@
 
 
 	background : transparent;
-	border     : 2px solid var( --navy );
-	color      : var( --navy );
+	border     : 2px solid var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	color      : var( --tex-mai-col );           /* Text Main Color = #2b3245 */
 
 
 }
 .butBasAnc--outline:hover { /* What: Hovered Outline Button Base Anchor. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
 
 
-	background : var( --navy );
-	color      : var( --cream );
+	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 	transform  : translateY( -2px );
 
 
@@ -421,8 +421,8 @@
 
 
 	align-items     : center;
-	background      : var( --navy );
-	border-top      : 3px solid var( --rose );
+	background      : var( --bac-inv-col );           /* Background Inverse Color = #2b3245 */
+	border-top      : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	display         : flex;
 	flex-wrap       : wrap;
 	gap             : 40px;
@@ -439,7 +439,7 @@
 
 
 	align-items    : center;
-	color          : var( --cream );
+	color          : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 	display        : flex;
 	font-size      : 0.85rem;
 	gap            : 10px;
@@ -454,7 +454,7 @@
 
 	fill   : none;
 	height : 18px;
-	stroke : var( --rose-lt );
+	stroke : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	width  : 18px;
 
 

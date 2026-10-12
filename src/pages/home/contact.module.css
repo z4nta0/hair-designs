@@ -25,8 +25,8 @@
 .homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws 30px navy stripes with cream text. */
 
 
-	background-image : repeating-linear-gradient( 90deg, var( --navy ) 0, var( --navy ) 30px, #232a3d 30px, #232a3d 60px );
-	color            : var( --cream );
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) 30px, var( --bac-ind-col ) 30px, var( --bac-ind-col ) 60px ); /* Background Inverse Color = #2b3245, Background Inverse Dark Color = #232a3d */
+	color            : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 	padding          : 90px 5%;
 
 
@@ -48,8 +48,8 @@
 .eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in light rose Dancing Script at 25.572px, the font size scale's p03 step, matching the other sections' eyebrows. */
 
 
-	color         : var( --rose-lt );
-	font-family   : 'Dancing Script', cursive;
+	color         : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size     : 25.572px;
 	margin-bottom : 8px;
 
@@ -59,8 +59,8 @@
 .secTitHea { /* What: Section Title Heading. Why: The section's heading invites a visitor to get in touch. How: This sets it in cream Playfair Display that grows with the screen. */
 
 
-	color         : var( --cream );
-	font-family   : 'Playfair Display', serif;
+	color         : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
 	margin-bottom : 16px;
 
@@ -70,7 +70,7 @@
 .secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
 
 
-	color         : var( --rose );
+	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	height        : 2px;
 	margin-bottom : 28px;
 	width         : 48px;
@@ -113,7 +113,7 @@
 .conDetDiv { /* What: Contact Details Div. Why: The details read in cream on the navy. How: This sets their text color. */
 
 
-	color : var( --cream );
+	color : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 
 
 }
@@ -139,7 +139,7 @@
 	flex-shrink : 0;
 	height      : 22px;
 	margin-top  : 2px;
-	stroke      : var( --rose-lt );
+	stroke      : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	width       : 22px;
 
 
@@ -148,7 +148,7 @@
 .detLabStr { /* What: Detail Label Strong. Why: Each detail is named above its value. How: This sets the name in small spaced light rose capitals on its own line. */
 
 
-	color          : var( --rose-lt );
+	color          : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	display        : block;
 	font-size      : 0.75rem;
 	letter-spacing : 0.14em;
@@ -161,7 +161,7 @@
 .detValAnc { /* What: Detail Value Anchor. Why: The phone number can be tapped to call. How: This sets it as plain slightly faded cream text. */
 
 
-	color           : var( --cream );
+	color           : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 	font-size       : 0.95rem;
 	opacity         : 0.9;
 	text-decoration : none;
@@ -187,7 +187,7 @@
 
 
 	background  : rgba( 255, 255, 255, 0.06 );
-	border-left : 3px solid var( --rose );
+	border-left : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	margin-top  : 16px;
 	padding     : 20px;
 
@@ -208,8 +208,8 @@
 .quoSigPar { /* What: Quote Signature Paragraph. Why: The quote is signed by the stylists. How: This sets the signature in light rose script. */
 
 
-	color       : var( --rose-lt );
-	font-family : 'Dancing Script', cursive;
+	color       : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	font-family : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size   : 1.1rem;
 	margin-top  : 10px;
 
@@ -227,8 +227,8 @@
 .forCarDiv { /* What: Form Card Div. Why: The form sits on a light card against the navy. How: This sets a cream card with a heavier rose top edge. */
 
 
-	background : var( --cream );
-	border-top : 4px solid var( --rose );
+	background : var( --bac-sur-col );           /* Background Surface Color = #f5f0e8 */
+	border-top : 4px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	padding    : 44px 40px;
 
 
@@ -237,8 +237,8 @@
 .forTitHea { /* What: Form Title Heading. Why: The card names the form. How: This sets its heading in navy Playfair Display. */
 
 
-	color         : var( --navy );
-	font-family   : 'Playfair Display', serif;
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : 1.4rem;
 	margin-bottom : 24px;
 
@@ -259,7 +259,7 @@
 .forWraDiv:focus-visible { /* What: Focused Form Wrapper Div. Why: Keyboard users have to see that the form took focus. How: This rings it in the brand's rose, clear of the fields. */
 
 
-	outline        : 2px solid var( --rose );
+	outline        : 2px solid var( --foc-rin-col ); /* Focus Ring Color = #d4806a */
 	outline-offset : 6px;
 
 
@@ -284,7 +284,7 @@
 
 
 	clip        : rect( 0 0 0 0 );
-	color       : var( --navy );
+	color       : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
 	height      : 1px;
 	margin      : -1px;
 	overflow    : hidden;
@@ -330,7 +330,7 @@
 .forFieLab { /* What: Form Field Label. Why: Each field is named above it. How: This sets the name in small spaced bold warm gray capitals on its own line. */
 
 
-	color          : var( --warm-gray );
+	color          : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
 	display        : block;
 	font-size      : 0.75rem;
 	font-weight    : 700;
@@ -347,12 +347,12 @@
 
 
 	appearance  : none;
-	background  : var( --ivory );
-	border      : 1.5px solid var( --border );
-	color       : var( --charcoal );
-	font-family : 'Lato', sans-serif;
+	background  : var( --bac-pag-col );             /* Background Page Color = #faf7f2 */
+	border      : 1.5px solid var( --bor-mai-col ); /* Border Main Color = #e0d5c8 */
+	color       : var( --tex-sec-col );             /* Text Secondary Color = #4a4a4a */
+	font-family : var( --fon-fam-mai );             /* Font Family Main = 'Lato', sans-serif */
 	font-size   : 0.9rem;
-	outline     : none; /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
+	outline     : none;                             /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
 	padding     : 12px 16px;
 	transition  : border-color 0.2s;
 	width       : 100%;
@@ -364,7 +364,7 @@
 .forFieTex:focus { /* What: Focused Form Field Controls. Why: A focused field should show it. How: This turns its border rose. */
 
 
-	border-color : var( --rose );
+	border-color : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 
 
 }
@@ -405,12 +405,12 @@
 .forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card. */
 
 
-	background      : var( --rose );
+	background      : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	border          : none;
-	color           : #fff;
+	color           : var( --tex-acc-col ); /* Text Accent Color = #ffffff */
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : 'Lato', sans-serif;
+	font-family     : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
 	font-size       : 0.78rem;
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
@@ -461,10 +461,10 @@
 
 
 	animation   : forTipDivOpenFadeIn 0.2s ease;
-	background  : var( --navy );
-	border-top  : 3px solid var( --rose );
+	background  : var( --bac-inv-col );           /* Background Inverse Color = #2b3245 */
+	border-top  : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	box-shadow  : 0 8px 24px rgba( 0, 0, 0, 0.25 );
-	color       : var( --cream );
+	color       : var( --tex-inv-col );           /* Text Inverse Color = #f5f0e8 */
 	cursor      : default;
 	font-size   : 0.85rem;
 	line-height : 1.5;
@@ -473,7 +473,7 @@
 	text-align  : center;
 	transform   : translate( -50%, calc( -100% - 12px ) );
 	width       : 260px;
-	z-index     : 1; /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
+	z-index     : 1;                              /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
 
 
 }
@@ -515,7 +515,7 @@
 .tipTelAnc { /* What: Tip Telephone Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in light rose, underlined as a link, and keeps it on one line. */
 
 
-	color           : var( --rose-lt );
+	color           : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	text-decoration : underline;
 	white-space     : nowrap;
 

@@ -23,7 +23,7 @@
 
 
 	align-items           : center;
-	background            : var( --cream );
+	background            : var( --bac-sur-col ); /* Background Surface Color = #f5f0e8 */
 	display               : grid;
 	gap                   : 80px;
 	grid-template-columns : 1fr 1fr;
@@ -77,7 +77,7 @@
 
 	align-items      : center;
 	aspect-ratio     : 4 / 5;
-	background-image : repeating-linear-gradient( 90deg, var( --navy ) 0, var( --navy ) 24px, #232a3d 24px, #232a3d 48px );
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) 24px, var( --bac-ind-col ) 24px, var( --bac-ind-col ) 48px ); /* Background Inverse Color = #2b3245, Background Inverse Dark Color = #232a3d */
 	display          : flex;
 	justify-content  : center;
 	position         : relative;
@@ -92,8 +92,8 @@
 .aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset 28px from the panel's edges. */
 
 
-	background : var( --cream );
-	border     : 2px solid var( --rose-lt );
+	background : var( --bac-sur-col );           /* Background Surface Color = #f5f0e8 */
+	border     : 2px solid var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	margin     : 28px;
 	padding    : 48px 36px;
 	text-align : center;
@@ -115,8 +115,8 @@
 .styNamDiv { /* What: Stylist Names Div. Why: The stylists' names are set like a signature. How: This sets them in large dark rose Dancing Script. */
 
 
-	color         : var( --rose-dk );
-	font-family   : 'Dancing Script', cursive;
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size     : 1.8rem;
 	line-height   : 1.6;
 	margin-bottom : 8px;
@@ -127,8 +127,8 @@
 .aboCapPar { /* What: About Caption Paragraph. Why: The stylists' title follows their names. How: This sets it in warm gray Playfair Display italic. */
 
 
-	color       : var( --warm-gray );
-	font-family : 'Playfair Display', serif;
+	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
+	font-family : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size   : 0.95rem;
 	font-style  : italic;
 
@@ -146,8 +146,8 @@
 .eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
 
 
-	color         : var( --rose-dk );
-	font-family   : 'Dancing Script', cursive;
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size     : 25.572px;
 	margin-bottom : 8px;
 
@@ -157,8 +157,8 @@
 .secTitHea { /* What: Section Title Heading. Why: The section's heading sums up the salon. How: This sets it in navy Playfair Display that grows with the screen. */
 
 
-	color         : var( --navy );
-	font-family   : 'Playfair Display', serif;
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
 	margin-bottom : 16px;
 
@@ -168,7 +168,7 @@
 .secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
 
 
-	color         : var( --rose );
+	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	height        : 2px;
 	margin-bottom : 28px;
 	width         : 48px;
@@ -179,7 +179,7 @@
 .aboBodPar { /* What: About Body Paragraph. Why: The salon's story reads as three easy paragraphs. How: This sets them in charcoal with airy lines, spaced apart. */
 
 
-	color         : var( --charcoal );
+	color         : var( --tex-sec-col ); /* Text Secondary Color = #4a4a4a */
 	font-size     : 0.95rem;
 	line-height   : 1.8;
 	margin-bottom : 18px;
@@ -193,7 +193,7 @@
 	border          : none;
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : 'Lato', sans-serif;
+	font-family     : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
 	font-size       : 0.78rem;
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
@@ -208,15 +208,15 @@
 .butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The call to action stands out. How: This fills it navy with cream text. */
 
 
-	background : var( --navy );
-	color      : var( --cream );
+	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 
 
 }
 .butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
 
 
-	background : var( --navy-mid );
+	background : var( --bac-inr-col ); /* Background Inverse Raised Color = #3c4562 */
 	transform  : translateY( -2px );
 
 

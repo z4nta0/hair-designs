@@ -23,7 +23,7 @@
 .homSerSec { /* What: Home Services Section. Why: The services sit on the page's lightest surface. How: This stacks the header over the card grid on ivory. */
 
 
-	background-color : var( --ivory );
+	background-color : var( --bac-pag-col ); /* Background Page Color = #faf7f2 */
 	display          : grid;
 	padding          : 90px 5%;
 
@@ -57,8 +57,8 @@
 .eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
 
 
-	color         : var( --rose-dk );
-	font-family   : 'Dancing Script', cursive;
+	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
+	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
 	font-size     : 25.572px;
 	margin-bottom : 8px;
 
@@ -68,8 +68,8 @@
 .secTitHea { /* What: Section Title Heading. Why: The section's heading names it. How: This sets it in navy Playfair Display that grows with the screen. */
 
 
-	color         : var( --navy );
-	font-family   : 'Playfair Display', serif;
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
 	margin-bottom : 16px;
 
@@ -79,7 +79,7 @@
 .secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
 
 
-	color         : var( --rose );
+	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	height        : 2px;
 	margin-bottom : 28px;
 	width         : 48px;
@@ -90,7 +90,7 @@
 .serIntPar { /* What: Services Intro Paragraph. Why: A short intro sums up the services. How: This sets it in warm gray, capped in width and spaced from the cards. */
 
 
-	color         : var( --warm-gray );
+	color         : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
 	font-size     : 0.95rem;
 	margin-bottom : 48px;
 	max-width     : 560px;
@@ -120,9 +120,9 @@
 .serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge. */
 
 
-	background-color : var( --cream );
-	border           : 1px solid var( --border );
-	border-top       : 4px solid var( --rose );
+	background-color : var( --bac-sur-col );           /* Background Surface Color = #f5f0e8 */
+	border           : 1px solid var( --bor-mai-col ); /* Border Main Color = #e0d5c8 */
+	border-top       : 4px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 	padding          : 36px 28px;
 	transition       : transform 0.25s, box-shadow 0.25s;
 
@@ -131,7 +131,7 @@
 .serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
 
 
-	box-shadow : 0 12px 32px rgba( 43, 50, 69, 0.12 );
+	box-shadow : 0 12px 32px rgb( from var( --sha-mai-col ) r g b / 0.12 ); /* Shadow Main Color = #2b3245 @ 0.12 opacity */
 	transform  : translateY( -5px );
 
 
@@ -166,21 +166,21 @@
 .carIcoSvg--rose { /* What: Rose Card Icon SVG. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
 
 
-	color : var( --rose );
+	color : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 
 
 }
 .carIcoSvg--sage { /* What: Sage Card Icon SVG. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
 
 
-	color : var( --sage );
+	color : var( --acc-sec-col ); /* Accent Secondary Color = #8ea89a */
 
 
 }
 .carIcoSvg--mauve { /* What: Mauve Card Icon SVG. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
 
 
-	color : var( --mauve );
+	color : var( --acc-ter-col ); /* Accent Tertiary Color = #c9a0a0 */
 
 
 }
@@ -273,8 +273,8 @@
 .carTitHea { /* What: Card Title Heading. Why: Each card names its service. How: This sets it in navy Playfair Display. */
 
 
-	color         : var( --navy );
-	font-family   : 'Playfair Display', serif;
+	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : 1.15rem;
 	margin-bottom : 10px;
 
@@ -284,7 +284,7 @@
 .carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it small in warm gray. */
 
 
-	color       : var( --warm-gray );
+	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
 	font-size   : 0.88rem;
 	line-height : 1.65;
 
