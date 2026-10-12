@@ -426,7 +426,7 @@
 	border-top      : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display         : flex;
 	flex-wrap       : wrap;
-	gap             : var( --spa-ver-p04 ) var( --spa-hor-p04 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 4 ~= 44.876px */
+	gap             : var( --spa-ver-bas ) var( --spa-hor-p04 );       /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 4 ~= 44.876px */ /* What: Row Gap Note. Why: Once the phone number and address wrap onto two rows, a gap larger than the bar's padding pushed them toward its top and bottom edges. How: The row gap matches the bar's top and bottom padding, so the space above, between, and below them is equal, while the wider column gap separates them when they share a row. */
 	justify-content : center;
 	padding         : var( --spa-ver-bas ) var( --gut-sid-pad );       /* Spacing Vertical Base ~= 14.572px, Gutter Side Padding, about 19.304px - 44.876px */
 
