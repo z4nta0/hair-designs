@@ -84,7 +84,8 @@ with unchanged screenshots unless the step is meant to change the page.
    file proved `react/jsx-no-undef` and the typescript-eslint rules fire.
 4. **Playwright and axe** in all three engines, adapted from
    seal-and-shield's suites, with baseline screenshots taken before
-   anything moves.
+   anything moves. Done 2026-10-12, as described under "## Test suites",
+   with the failures they found in the existing site listed there.
 5. **Directory structure**, matching seal-and-shield's: `app.tsx`,
    `pages/home/` (hero, services, about, contact, `home.tsx`),
    `pages/not-found/`, `ui/` (nav, footer), `styles/` (`fonts.css`,
@@ -111,3 +112,66 @@ with unchanged screenshots unless the step is meant to change the page.
 9. **Wrap-up**: every suite passing in every engine, this file and the
    README updated, and the user's live checks of the deploy (the preview
    card through a checker such as opengraph.xyz).
+
+## Test suites
+Added 2026-10-12, adapted from seal-and-shield's. Playwright suites live in
+`tests/`, one project per suite and engine in `tests/playwright.config.ts`,
+which starts its own dev server on port 5191 (never the usual 5173) and stops
+it afterwards. Every suite runs in Chromium, Firefox, and WebKit. Results,
+screenshots, and traces go to `tests/output/` (git-ignored); `npx playwright
+show-report tests/output/report` opens the HTML report. The states the suites
+visit (the home page at 390px and 1,440px for now; the 404 page and the phone
+menu join once they exist) are listed in `tests/support/states.ts`, whose
+`opeStaFun` waits for the fonts, the images, and the hero's entrance fade
+before anything is checked. Unlike seal-and-shield's, it has no scroll pass,
+since nothing on this site waits to be scrolled into view. The interaction and
+SEO suites arrive in step 8 with the features they check.
+- `npm run test:accessibility`: the pre-commit accessibility scan. axe-core
+  checks each state against WCAG 2.2 A and AA plus best practices
+  (`axe.spec.ts`), and scripted checks (`scripted.spec.ts`) cover link and
+  button names, a Tab walk (order, traps, focus on screen, uncovered, and
+  visible), reflow at 320px, and motion under reduced motion. axe's "needs
+  review" results are printed and attached to the report rather than failing
+  the run.
+- `npm run test:rendering`: compares a full-page screenshot of every state
+  with its baseline in `tests/rendering/baselines/`, with zero tolerance (no
+  pixel may differ, and the per-pixel color threshold is 0 too). The footer's
+  copyright line is masked, found through the `footer` element, since today's
+  footer sits inside `main` and isn't the `contentinfo` landmark yet. After an
+  intended visual change, refresh with `npm run test:rendering --
+  --update-snapshots` and commit the baselines with it. Baselines are captured
+  on Linux.
+  - **Temporary Firefox retry**: under three parallel workers, Firefox draws a
+    few dozen pixels of the Google-hosted Playfair Display headings ("Perms &
+    Texture", "Town") differently about one run in four, while six runs with a
+    single worker all passed. Firefox's rendering tests get one retry, so a
+    real change still fails twice. Remove it once the fonts are self-hosted in
+    step 6, after checking the flake is gone.
+- `npm run test:responsive`: measures the home page at 15 widths from 320 to
+  1,920px (a pixel either side of the 600px and 900px breakpoints and of
+  `index.css`'s 1,024px root font size switch included), failing on sideways
+  scrolling, an unclipped element past either edge, text spilling its box, or
+  two reachable controls overlapping.
+- `npm test` runs every suite.
+
+### Failures found in the existing site
+The first run, before anything moved, had 45 failing tests, the same in all
+three engines, all left for the steps that fix them:
+- **Contrast** (axe, both widths): about 40 text elements across every
+  section fall short of 4.5:1: the bar's title and links, the hero's tagline,
+  italic "Designs", subheading, names, and description, the service cards'
+  text, the About heading, names, and paragraphs, the contact section's
+  heading, tagline, labels, hours, phone link, and quote, and the form's
+  labels and submit button.
+- **Form focus** (Tab walk, both widths): the contact form's six fields show
+  no visible focus indicator. They become disabled in step 8, which takes
+  them out of the Tab order.
+- **No phone layout for the nav**: the page scrolls sideways at every width
+  up to 601px (298px too wide at 320px, 17px at 601px), failing reflow and
+  the responsive suite, and on phones the Tab walk finds the Contact link off
+  screen and the contact section's phone link hidden under the fixed bar. The
+  phone menu in step 8 fixes these.
+- **Reduced motion**: the hero's `fadeUp` entrance still plays.
+- **React warning**: the service select sets `selected` on its placeholder
+  option, which React asks to replace with the select's `defaultValue`. It
+  shows in the dev server's console during every run.
