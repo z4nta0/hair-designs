@@ -436,27 +436,27 @@
 
 /* #region barIteDiv */
 
-.barIteDiv { /* What: Bar Item Div. Why: Each detail pairs an icon with its text. How: This lines them up in slightly faded cream. */
+.barIteDiv { /* What: Bar Item Div. Why: Each detail reads as one centered line of text that opens with its icon, even when it wraps on a narrow screen. How: This sets slightly faded cream text, centered, with the icon inline before its first word. */
 
 
-	align-items    : center;
 	color          : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	display        : flex;
 	font-size      : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
-	gap            : var( --spa-hor-m01 ); /* Spacing Horizontal Base Minus 1 = 11px */
 	letter-spacing : 0.04em;
 	opacity        : 0.9;
+	text-align     : center;
 
 
 }
 
-.barIcoSvg { /* What: Bar Icon SVG. Why: Each detail opens with a small line icon. How: This draws it as an 18px light rose outline. */
+.barIcoSvg { /* What: Bar Icon SVG. Why: Each detail opens with a small line icon that stays with the text's first line when it wraps. How: This draws it inline as a light rose outline one rhythm step tall, centered on the line, with a small space before the text. */
 
 
-	fill   : none;
-	height : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
-	stroke : var( --acc-lig-col );                /* Accent Light Color = #e8a898 */
-	width  : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+	fill           : none;
+	height         : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+	margin-right   : var( --spa-hor-m01 );                /* Spacing Horizontal Base Minus 1 = 11px */
+	stroke         : var( --acc-lig-col );                /* Accent Light Color = #e8a898 */
+	vertical-align : middle;
+	width          : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
 
 
 }

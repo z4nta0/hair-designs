@@ -165,7 +165,7 @@ function HerSecCom () : React.JSX.Element {
 			<div className={ cssModObj.herBarDiv }>{ /* What: Hero Bar Div Element. Why: The phone number and address belong right under the welcome. How: This sets them in a navy band below the panels. */ }
 
 
-				<div className={ cssModObj.barIteDiv }>{ /* What: Bar Item Div Element. Why: The phone number pairs with its icon. How: This lines them up. */ }
+				<div className={ cssModObj.barIteDiv }>{ /* What: Bar Item Div Element. Why: The phone number pairs with its icon. How: This centers them as one line of text, the icon inline before the number. */ }
 
 
 					<svg
@@ -189,7 +189,7 @@ function HerSecCom () : React.JSX.Element {
 				</div>
 
 
-				<div className={ cssModObj.barIteDiv }>{ /* What: Bar Item Div Element. Why: The address pairs with its icon. How: This lines them up. */ }
+				<div className={ cssModObj.barIteDiv }>{ /* What: Bar Item Div Element. Why: The address pairs with its icon. How: This centers them as one line of text, the icon inline before the address so it stays with the first line when the address wraps. */ }
 
 
 					<svg
