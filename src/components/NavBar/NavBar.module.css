@@ -269,7 +269,7 @@
 
 /* #region menuPanelDiv */
 
-.menuPanelDiv { /* What: Menu Panel Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility keeping it out of the way until it opens. */
+.menuPanelDiv { /* What: Menu Panel Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */
 
 
 	background-color : var( --navy );
@@ -283,16 +283,17 @@
 	right            : 0;
 	top              : calc( 100% + 3px );
 	transform        : translateY( -8px );
-	transition       : opacity 0.2s, transform 0.2s, visibility 0.2s;
+	transition       : opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
 	visibility       : hidden;
 
 
 }
-.menuPanelDiv[data-mobile-menu-open] { /* What: Open Menu Panel Div. Why: The panel should show its links once the button opens it. How: This fades it in and settles it into place. */
+.menuPanelDiv[data-mobile-menu-open] { /* What: Open Menu Panel Div. Why: The panel should show its links once the button opens it, and they should take focus from the first moment. How: This fades it in and settles it into place, turning visibility on at once rather than at the end of a transition. */
 
 
 	opacity    : 1;
 	transform  : none;
+	transition : opacity 0.2s, transform 0.2s, visibility 0s;
 	visibility : visible;
 
 
@@ -313,7 +314,8 @@
 @media ( prefers-reduced-motion : reduce ) { /* What: Menu Panel Div Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
 
 
-	.menuPanelDiv { /* What: Menu Panel Div Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.menuPanelDiv,
+	.menuPanelDiv[data-mobile-menu-open] { /* What: Menu Panel Div Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the panel closed and open, matching the open rule's own selector so it outranks its transition. */
 
 
 		transition : none;

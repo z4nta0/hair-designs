@@ -5,6 +5,11 @@ import logoSvg from '../../assets/logo.svg';  /** This import is the SVG version
 import Services from '../Services/Services.tsx'; /** This import is the custom Services component, which contains the logic and JSX for the Services section of the Home page. */
 import styles  from './HomPagCom.module.css'; /** This import is the custom CSS file that contains all of the styling declarations for this component. */
 
+
+import { useEffect } from 'react'; // What: Use Effect. Why: An open form tooltip closes when a tap lands anywhere else. How: This adds and removes that page-wide listener while the tooltip is open.
+import { useRef    } from 'react'; // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds that wrapper element.
+import { useState  } from 'react'; // What: Use State. Why: The form tooltip opens at a position. How: This holds that position, or null while it's closed.
+
 // #endregion Imports
 
 
@@ -28,7 +33,9 @@ import styles  from './HomPagCom.module.css'; /** This import is the custom CSS 
  * instead of this one, without having to change any of the internal structure
  * of this custom Home page component. For now though this is the only page,
  * and it is rendered by the custom AppRooCom component when navigated to '/'
- * via React Router.
+ * via React Router. The contact form is shown but turned off, since the salon
+ * doesn't take messages: its fields sit in a disabled fieldset, and hovering,
+ * tapping, or tabbing to them opens a tooltip pointing to the phone number.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  * 
@@ -48,6 +55,64 @@ function HomPagCom () : React.ReactElement {
 
 
     /** Home Page Component Javascript XML  = This custom variable stores the HTML like code that this component will render when called by its parent component, with the idea behind this being that I prefer to store this in a variable before being returned so that it can be referenced inside of comments in the other sections of this component. */
+    // #region Form Tooltip
+
+    const tipDivRef = useRef< HTMLDivElement >( null ); // What: Tip Div Reference. Why: A press on the tooltip itself, such as on its phone link, shouldn't move it. How: This holds the tooltip element while it's open.
+    const forWraRef = useRef< HTMLDivElement >( null ); // What: Form Wrapper Reference. Why: The tooltip is placed inside the disabled form's wrapper and closes when a tap lands outside it. How: This holds the wrapper element.
+
+    const [ tipPosObj, setTipPosObj ] = useState< { lefNum : number, topNum : number } | null >( null ); // What: Tip Position Object And Setter. Why: The tooltip opens where the visitor pointed, or at the top of the form for the keyboard. How: This holds its left and top in pixels within the wrapper, or null while it's closed.
+
+
+
+    const plaTipFun = ( cliXcoNum : number, cliYcoNum : number ) => { // What: Place Tip Function. Why: The tooltip should open where the visitor pointed without spilling past the form's sides. How: This turns a viewport point into a position within the wrapper, keeping the tooltip's center at least 130px, half its width, from either side.
+
+
+        const wraRecObj = forWraRef.current!.getBoundingClientRect(); // What: Wrapper Rectangle Object. Why: The point has to be measured from the wrapper's corner. How: This reads the wrapper's box in viewport pixels. // What: Non-Null Note. Why: Only the wrapper's own events call this function. How: Those events can't fire before the ref is attached.
+
+        const lefMaxNum = Math.max( 130, wraRecObj.width - 130 ); // What: Left Maximum Number. Why: The tooltip's center has to stay 130px inside the right side. How: This is the wrapper's width less half the tooltip's, never below the left limit.
+
+
+        setTipPosObj({ // What: Tip Position Update. Why: The tooltip opens at the measured point. How: This stores its left and top within the wrapper.
+
+
+            lefNum : Math.min( Math.max( cliXcoNum - wraRecObj.left, 130 ), lefMaxNum ), // What: Left Number. Why: The tooltip centers on the point across, inside the side limits. How: This measures the point from the wrapper's left edge and clamps it between 130px and the right limit.
+            topNum : cliYcoNum - wraRecObj.top                                          // What: Top Number. Why: The tooltip rises from the point. How: This measures the point from the wrapper's top edge.
+
+
+        });
+
+
+    };
+
+
+
+    const bluCloFun = () => requestAnimationFrame( () => { if ( !forWraRef.current?.contains( document.activeElement ) ) setTipPosObj( null ); } ); // What: Blur Close Function. Why: The tooltip should close once focus leaves the form, but not when Tab moves into its own phone link, or when focus leaves and returns at once. How: This waits a frame, then closes the tooltip only if focus has settled outside the wrapper.
+
+
+
+    useEffect( () => { // What: Outside Tap Effect. Why: On a touchscreen there's no pointer leaving the form, so an open tooltip closes when a tap lands anywhere else. How: This listens for pointer presses on the page while the tooltip is open and closes it for one outside the wrapper.
+
+
+        if ( !tipPosObj ) return; // What: Closed Tooltip Guard. Why: A closed tooltip has nothing to close. How: This skips the listener.
+
+
+
+        const outPreFun = ( preEveObj : PointerEvent ) => { if ( !forWraRef.current!.contains( preEveObj.target as Node ) ) setTipPosObj( null ); }; // What: Outside Press Function. Why: Only a press outside the form should close the tooltip. How: This closes it when the press's target isn't inside the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
+
+
+        document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the handler.
+
+
+
+        return () => document.removeEventListener( 'pointerdown', outPreFun ); // What: Listener Cleanup Return. Why: The listener should only run while the tooltip is open. How: This removes it when the tooltip closes or the page unmounts.
+
+
+    }, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listener is added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to a position and back as it does.
+
+    // #endregion Form Tooltip
+
+
+
     const homPagComJsx : React.ReactElement = (
 
 
@@ -529,7 +594,35 @@ function HomPagCom () : React.ReactElement {
 
                         {/* ══ Start conForEle ══ */}
 
-                        <  form id='conForEle' className={ styles.contactForm } > { /* What : Contact Form Element. Why : A semantic container was required to group and provide the grid structure for the various labels and inputs div containers for the form within the contact section. How : Using a standard HTML <form> element. */ }
+                        <  form id='conForEle' className={ styles.contactForm } onSubmit={ ( subEveObj ) => subEveObj.preventDefault() } > { /* What : Contact Form Element. Why : A semantic container was required to group and provide the grid structure for the various labels and inputs div containers for the form within the contact section. How : Using a standard HTML <form> element. */ }
+
+
+
+                            <div
+                                ref={ forWraRef }
+
+                                className={ styles.formDisabledDiv }
+
+                                tabIndex={ 0 }
+                                aria-describedby='forNotSpa'
+                                aria-label='Contact form, turned off'
+                                role='group'
+
+                                onBlur={ bluCloFun }
+                                onFocus={ ( focEveObj ) => { if ( focEveObj.target === focEveObj.currentTarget ) setTipPosObj( { lefNum : focEveObj.currentTarget.offsetWidth / 2, topNum : 0 } ); } } // What: Focus Open Handler. Why: Keyboard users reach the form as one stop and need the same message. How: This opens the tooltip centered at the form's top edge when the wrapper itself takes focus.
+                                onKeyDown={ ( keyEveObj ) => { if ( keyEveObj.key === 'Escape' ) setTipPosObj( null ); } } // What: Escape Close Handler. Why: A tooltip should close on Escape. How: This closes it for the Escape key.
+                                onPointerDown={ ( preEveObj ) => { if ( !tipDivRef.current?.contains( preEveObj.target as Node ) ) plaTipFun( preEveObj.clientX, preEveObj.clientY ); } } // What: Press Open Handler. Why: A tap on a touchscreen has no hover to open the tooltip, but a tap on the open tooltip, such as on its phone link, mustn't move it out from under the finger. How: This opens it where the finger landed, unless the press was inside the tooltip. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
+                                onPointerEnter={ ( entEveObj ) => { if ( entEveObj.pointerType === 'mouse' ) plaTipFun( entEveObj.clientX, entEveObj.clientY ); } } // What: Mouse Enter Handler. Why: A mouse hovering the form should learn why it's turned off. How: This opens the tooltip where the pointer entered, for a mouse only, since a touch also fires enter before its press.
+                                onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( null ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.
+                            >{ /* What: Form Disabled Div Element. Why: Disabled fields don't reliably pass the pointer on in every browser, and the keyboard skips them entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and describing the form through forNotSpa. */ }
+
+
+                                <fieldset
+                                    className={ styles.formFieldset }
+
+                                    disabled
+                                >{ /* What: Form Fieldset Element. Why: The salon doesn't take messages, so every field and the button are turned off at once. How: This disables everything inside it. */ }
+
 
 
                             {/* ══ Start fonDivEle ══ */}
@@ -750,6 +843,42 @@ function HomPagCom () : React.ReactElement {
 
 
                             < button id='fosButEle' className={ ` ${ styles.buttonAnchors }   ${ styles.btnRose } ` } type='submit' >Send Message</ button > { /* What : Form Submit Button Element. Why : A semantic element was required to allow users to submit the form within the contact section. How : Using a standard HTML <button> element with the appropriate attributes (type submit). */ }
+
+
+
+                                </fieldset>
+
+
+
+                                { tipPosObj && ( // What: Form Tooltip Check. Why: The tooltip shows only while it's open. How: This renders it at its stored position.
+
+
+                                    <div
+                                        ref={ tipDivRef }
+
+                                        className={ styles.formTooltipDiv }
+
+                                        style={{
+                                            left : `${ tipPosObj.lefNum }px`,
+                                            top  : `${ tipPosObj.topNum }px`
+                                        }}
+                                    >{ /* What: Form Tooltip Div Element. Why: A visitor trying the form needs to know it's off and how to reach the salon instead. How: This floats above the point they tried, with the phone number as a link. */ }
+
+                                        The form is disabled at this time. Please call us at <a className={ styles.formTooltipAnchor } href='tel:+1-417-988-6239'>417-988-6239</a>. We apologize for any inconvenience.
+
+                                    </div>
+
+                                ) }
+
+
+
+                                <span
+                                    id='forNotSpa'
+                                    className={ styles.formNoteSpan }
+                                >The form is disabled at this time. Please call us at 417-988-6239. We apologize for any inconvenience.</span>{ /* What: Form Note Span Element. Why: Screen readers should hear why the form is off without needing the tooltip. How: This holds the same message, hidden visually, and describes the wrapper through aria-describedby. */ }
+
+
+                            </div>
 
 
                         </ form >

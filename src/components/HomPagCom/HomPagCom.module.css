@@ -552,6 +552,126 @@ html { /* What: HTML. Why: Section links and keyboard focus scroll the page, and
       padding: 15px;
     }
     .btnRose:hover { background: #c2705a; transform: translateY(-2px); }
+
+/* #region formDisabledDiv */
+
+.formDisabledDiv { /* What: Form Disabled Div. Why: The turned-off fields need one element to catch the pointer and the keyboard for them. How: This holds the tooltip's position and shows a not-allowed cursor over the fields. */
+
+
+	cursor   : not-allowed;
+	position : relative;
+
+
+}
+.formDisabledDiv:focus-visible { /* What: Focused Form Disabled Div. Why: Keyboard users have to see that the form took focus. How: This rings it in the brand's rose, clear of the fields. */
+
+
+	outline        : 2px solid var( --rose );
+	outline-offset : 6px;
+
+
+}
+
+.formFieldset { /* What: Form Fieldset. Why: A fieldset brings its own border, padding, and minimum width, which the form's layout never had. How: This clears them and lets the pointer pass through to the wrapper. */
+
+
+	border         : none;
+	margin         : 0;
+	min-width      : 0;
+	padding        : 0;
+	pointer-events : none;
+
+
+}
+.formFieldset .formInputs:disabled,
+.formFieldset .btnRose:disabled { /* What: Disabled Form Controls. Why: The fields and button should look turned off without changing the form's design. How: This fades them a little. */
+
+
+	opacity : 0.6;
+
+
+}
+
+.formTooltipDiv { /* What: Form Tooltip Div. Why: The message has to read clearly above whatever it covers. How: This floats a narrow navy card with a rose top edge just above its point, centered on it. */
+
+
+	animation   : formTooltipFadeIn 0.2s ease;
+	background  : var( --navy );
+	border-top  : 3px solid var( --rose );
+	box-shadow  : 0 8px 24px rgba( 0, 0, 0, 0.25 );
+	color       : var( --cream );
+	cursor      : default;
+	font-size   : 0.85rem;
+	line-height : 1.5;
+	padding     : 12px 16px;
+	position    : absolute;
+	text-align  : center;
+	transform   : translate( -50%, calc( -100% - 12px ) );
+	width       : 260px;
+	z-index     : 1;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Form Tooltip Div Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it fade. How: This shows the tooltip at once. */
+
+
+	.formTooltipDiv { /* What: Form Tooltip Div Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		animation : none;
+
+
+	}
+
+
+}
+@keyframes formTooltipFadeIn { /* What: Form Tooltip Fade In Keyframes. Why: The tooltip should ease in rather than snap. How: This fades it up from transparent. */
+
+
+	from {
+
+
+		opacity : 0;
+
+
+	}
+
+	to {
+
+
+		opacity : 1;
+
+
+	}
+
+
+}
+
+.formTooltipAnchor { /* What: Form Tooltip Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in the light rose the dark sections use for accents, underlined as a link, and keeps it on one line. */
+
+
+	color           : var( --rose-lt );
+	text-decoration : underline;
+	white-space     : nowrap;
+
+
+}
+
+.formNoteSpan { /* What: Form Note Span. Why: Screen readers read the form's message from this, while sighted visitors get the tooltip. How: This hides it visually with the standard clip technique, leaving it in the accessibility tree. */
+
+
+	clip        : rect( 0 0 0 0 );
+	height      : 1px;
+	margin      : -1px;
+	overflow    : hidden;
+	position    : absolute;
+	white-space : nowrap;
+	width       : 1px;
+
+
+}
+
+/* #endregion formDisabledDiv */
  
     /* ── Footer ── */
     .footbarFooter {
