@@ -119,9 +119,18 @@ it doesn't suit this design.
   already centers its line, is unchanged.
 
 ## Scroll position
-Decided 2026-10-12: the 404 page makes this a two-route site, but it's
-expected to fit one screen without scrolling, so `useScrTopFun` is left out
-for now. Revisit once the 404 page is built; if it scrolls, add the hook.
+Decided 2026-10-12: the 404 page makes this a two-route site, but
+`useScrTopFun` is left out, pending the user's confirmation. The 404 page
+fits one screen at every size checked except the smallest phone (320 by
+568, about 140px of scroll), and every link on it (the bar's brand and
+section links, the phone menu's, and its own Back Home button) goes through
+`secCliFun` with a section hash, which the home page scrolls to on arrival.
+So no navigation opens a page without a hash, the one case the hook covers.
+the-bernie-bears' hook would also fight this site's hash clearing: the home
+page clears the hash with a REPLACE that has no hash, which the hook would
+answer by jumping back to the top. If a hashless link between pages is ever
+added, the hook comes in with a guard that skips that hash-clearing
+REPLACE.
 
 ## Directory structure
 Decided 2026-10-12, matching seal-and-shield's adaptation of the user-level
@@ -145,7 +154,7 @@ Outside `src/`: `tests/` holds the Playwright suites (see "## Test
 suites"), and `public/_redirects` holds Netlify's single-page app fallback,
 replacing the old `netlify.toml`.
 - **`pages/` takes the place of `tabs/`.** Each route gets its own folder, and
-  a component only that page uses lives in it. The 404 page will be
+  a component only that page uses lives in it. The 404 page is
   `pages/not-found/`.
 - **Section links leave no hash in the address** (decided 2026-10-12, as in
   the user's other sites except reese-roofing). Every link to a home page
@@ -254,6 +263,18 @@ with unchanged screenshots unless the step is meant to change the page.
    card and favicon set (the current `favicon.svg` predates the new logo),
    and interaction feedback. The phone menu, reduced motion, and the
    disabled contact form were done early, in the accessibility pass.
+   - **404 page** (done 2026-10-12): `pages/not-found/`, rendered by a
+     catch-all route for every path no other route matches. In the salon's
+     own style (a script eyebrow, "Page not found" with a rose italic accent,
+     the short rose rule, and one line pointing back to Carson's Corner),
+     with two ways onward: Back Home, through `secCliFun` to the home page's
+     top, and a Call button, since the salon books by phone. Its own title is
+     "Page Not Found | Hair Designs" and it carries `noindex`; it keeps
+     `index.html`'s description. The app root became a column at least a
+     screen tall whose main element grows, so the footer sits at the bottom
+     of a short page and the message centers in the space between (the home
+     page's screenshots were unchanged). The accessibility, rendering, and
+     responsive suites cover it.
    - **Phone menu extras and scrim** (done; asked for by the user
      2026-10-12, after the sibling sites' menus, and modeled on the-bernie-
      bears' and tonys-toppers'):
@@ -285,8 +306,8 @@ which starts its own dev server on port 5191 (never the usual 5173) and stops
 it afterwards. Every suite runs in Chromium, Firefox, and WebKit. Results,
 screenshots, and traces go to `tests/output/` (git-ignored); `npx playwright
 show-report tests/output/report` opens the HTML report. The states the suites
-visit (the home page at 390px and 1,440px, and the phone menu open at 390px;
-the 404 page joins once it exists) are listed in
+visit (the home page and the 404 page at 390px and 1,440px, and the phone
+menu open at 390px) are listed in
 `tests/support/states.ts`, whose `opeStaFun` waits for the fonts, the images,
 and the hero's entrance fade before anything is checked. Unlike
 seal-and-shield's, it has no scroll pass, since nothing on this site waits to
@@ -311,8 +332,8 @@ the features they check.
     differently about one run in four under three parallel workers, covered by
     a temporary retry. Self-hosting the fonts (`f22a2ba`) ended it: eight
     parallel runs with retries off all passed, so the retry was removed.
-- `npm run test:responsive`: measures the home page at 15 widths from 320 to
-  1,920px (a pixel either side of the 600px and 900px breakpoints and of
+- `npm run test:responsive`: measures the home page and the 404 page at 15
+  widths from 320 to 1,920px (a pixel either side of the 600px and 900px breakpoints and of
   `index.css`'s 1,024px root font size switch included), and the open phone
   menu at every one of those up to 900px, failing on sideways
   scrolling, an unclipped element past either edge, text spilling its box, or

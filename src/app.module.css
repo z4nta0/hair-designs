@@ -8,7 +8,9 @@
  * Styles for AppRooCom: the root wrapper around the bar, the page, and the
  * footer, named as the app container so each module's layout queries measure
  * the site's own width rather than the viewport's, as in the user's other
- * sites.
+ * sites. The wrapper is at least a screen tall and stacks its children in a
+ * column whose main element grows, so a short page like the 404 page keeps
+ * the footer at the bottom of the screen.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -16,12 +18,29 @@
 
 
 
-.appRooDiv { /* What: App Root Div. Why: Every module's layout breakpoints should measure the site itself, so they keep working if the site is ever embedded or framed. How: This names the wrapper the app container, queried by its inline size. */
+/* #region appRooDiv */
+
+.appRooDiv { /* What: App Root Div. Why: Every module's layout breakpoints should measure the site itself, so they keep working if the site is ever embedded or framed, and a short page should still end at the bottom of the screen. How: This names the wrapper the app container, queried by its inline size, and makes it a column at least as tall as the screen. */
 
 
-	container : app / inline-size;
+	container      : app / inline-size;
+	display        : flex;
+	flex-direction : column;
+	min-height     : 100svh;
 
 
 }
+
+.appConMai { /* What: App Content Main. Why: A short page should push the footer to the bottom of the screen, and the 404 page centers its message in the space it takes. How: This grows to fill the column's leftover height and stacks the page's sections in a column of its own. */
+
+
+	display        : flex;
+	flex           : 1 0 auto;
+	flex-direction : column;
+
+
+}
+
+/* #endregion appRooDiv */
 
 
