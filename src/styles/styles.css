@@ -158,7 +158,7 @@
 	--err-mai-col : ;                     /* What: Error Main Color. Why: The standard role set includes the error family. How: The form is turned off and shows no errors, so it stays empty. */
 	--err-tin-col : ;                     /* What: Error Tint Color. Why: The standard role set includes the error family. How: The form is turned off and shows no errors, so it stays empty. */
 	--foc-rin-col : var( --acc-mai-col ); /* What: Focus Ring Color. Why: Keyboard focus needs one ring color that stands out, kept apart from the accent so it can change on its own. How: This reads the main rose, which the form's focus ring draws in. */
-	--scr-mai-col : ;                     /* What: Scrim Main Color. Why: The standard role set includes a scrim. How: Nothing dims the page yet, so it stays empty until the phone menu's scrim in step 8. */
+	--scr-mai-col : var( --bac-ivd-col ); /* What: Scrim Main Color. Why: The page behind the open phone menu dims in the brand's navy rather than black. How: This reads the deepest navy, which the menu's scrim shows at partial opacity. */
 	--sha-mai-col : var( --bac-inv-col ); /* What: Shadow Main Color. Why: Shadows on the light sections cast a soft navy rather than black. How: The hovered service card's shadow reads it with its own alpha. */
 	--suc-dar-col : ;                     /* What: Success Dark Color. Why: The standard role set includes the success family. How: This site shows no success states, so it stays empty. */
 	--suc-mai-col : ;                     /* What: Success Main Color. Why: The standard role set includes the success family. How: This site shows no success states, so it stays empty. */
@@ -217,9 +217,9 @@
 
 	/* #region Easing Tokens */
 
-	--mot-acc-eas : cubic-bezier( .4, 0, 1, 1 );      /* What: Motion Accelerate Easing. Why: Things leaving the screen should speed up as they go. How: Transitions and animations of something closing or leaving read it, which nothing on this site does yet; the interaction pass in step 8 brings it in. */
+	--mot-acc-eas : cubic-bezier( .4, 0, 1, 1 );      /* What: Motion Accelerate Easing. Why: Things leaving the screen should speed up as they go. How: Transitions and animations of something closing or leaving read it, such as the phone menu's scrim fading out. */
 	--mot-bou-eas : cubic-bezier( .34, 1.56, .5, 1 ); /* What: Motion Bounce Easing. Why: The easing set includes a strong spring past the target for rare celebrations. How: Nothing on this site uses it, and it's kept so the set matches the user's other sites. */
-	--mot-dec-eas : cubic-bezier( .2, .7, .3, 1 );    /* What: Motion Decelerate Easing. Why: Things arriving should start fast and land softly. How: Transitions and animations of something opening or arriving read it, which the interaction pass in step 8 brings in. */
+	--mot-dec-eas : cubic-bezier( .2, .7, .3, 1 );    /* What: Motion Decelerate Easing. Why: Things arriving should start fast and land softly. How: Transitions and animations of something opening or arriving read it, such as the phone menu's scrim and rows easing in. */
 	--mot-ove-eas : cubic-bezier( .34, 1.2, .5, 1 );  /* What: Motion Overshoot Easing. Why: The easing set includes a gentle overshoot past the target for a touch of flair. How: Nothing on this site uses it yet. */
 	--mot-sta-eas : ease;                             /* What: Motion Standard Easing. Why: The hover changes, the menu's fade, the hero's entrance, and the tooltip's fade share one ordinary, smooth curve. How: Every transition and animation reads it, matching the browser's default ease they used before. */
 

@@ -10,11 +10,71 @@
  * the row of section links on wide screens, and, at 900px and narrower, the
  * menu button and the panel it opens below the bar. The open panel is marked
  * by data-mobile-menu-open and the button's state by aria-expanded, so no
- * state lives in a class. Every transition has a reduced-motion variant.
+ * state lives in a class. Below its links the panel holds a Call button and
+ * a Facebook link, every row fading in just after the one before, and a navy
+ * scrim dims the page behind it. Every transition and animation has a
+ * reduced-motion variant.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
 */
+
+
+
+/* #region navScrDiv */
+
+.navScrDiv { /* What: Navigation Scrim Div. Why: The open phone menu should stand apart from the page, and the dimmed page gives a large target for closing it. How: This covers the screen in translucent navy, faded out and hidden until the menu opens, and exists only at 900px and narrower. */
+
+
+	background-color : rgb( from var( --scr-mai-col ) r g b / var( --cdn-pow-002-rec ) );                    /* Scrim Main Color = #1d2235 @ 0.570 opacity */
+	display          : none;
+	inset            : 0;
+	opacity          : 0;
+	position         : fixed;
+	transition       : opacity var( --dur-tra-p01 ) var( --mot-acc-eas ), visibility 0s var( --dur-tra-p01 ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Accelerate Easing = cubic-bezier( .4, 0, 1, 1 ) */
+	visibility       : hidden;
+	z-index          : 1;                                                                                    /* What: Z-Index Note. Why: The scrim has to cover the page but stay under the bar and its menu. How: It shares the bar's single layer and comes first in the page, so the bar paints over it. */
+
+
+}
+.navScrDiv[data-mobile-menu-open] { /* What: Open Navigation Scrim Div. Why: The page dims as the menu opens. How: This fades the scrim in, turning visibility on at once. */
+
+
+	opacity    : 1;
+	transition : opacity var( --dur-tra-p01 ) var( --mot-dec-eas ), visibility 0s; /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	visibility : visible;
+
+
+}
+@container app ( max-width : 900px ) { /* What: Narrow Navigation Scrim Div. Why: The scrim exists only where the menu does. How: This applies at 900px and narrower. */
+
+
+	.navScrDiv { /* What: Narrow Navigation Scrim Div. Why: The scrim exists only where the menu does. How: This renders it, still hidden until the menu opens. */
+
+
+		display : block;
+
+
+	}
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Navigation Scrim Div. Why: Someone who asked for less motion shouldn't see it fade. How: This applies under the reduced-motion preference. */
+
+
+	.navScrDiv,
+	.navScrDiv[data-mobile-menu-open] { /* What: Motionless Navigation Scrim Div. Why: The change should simply happen. How: This turns the transition off, closed and open, matching the open rule's own selector so it outranks its transition. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion navScrDiv */
 
 
 
@@ -320,13 +380,6 @@
 
 
 }
-.menLinAnc:last-child { /* What: Last Menu Link Anchor. Why: Its divider would sit right above the panel's rose border and read as a doubled line. How: This drops the divider from the final link. */
-
-
-	border-bottom : none;
-
-
-}
 @media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Menu Link Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
@@ -340,6 +393,160 @@
 
 
 }
+
+.navMenDiv[data-mobile-menu-open] :is( .menLinAnc, .menCalAnc, .menFacAnc ) { /* What: Open Menu Rows. Why: The rows should arrive one after another as the menu opens, a small touch of flair. How: Each row fades and slides down into place, delayed by one stagger step per place before it, read from the --men-ite-ind index its markup sets, and holds its starting frame during the delay. */
+
+
+	animation : menuItemOpenFadeIn var( --dur-ani-p01 ) var( --mot-dec-eas ) calc( var( --dur-ani-m03 ) * ( var( --men-ite-ind ) + 1 ) ) backwards; /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Duration Animation Base Minus 3 ~= 67.9ms, Menu Item Index set by its markup */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Open Menu Rows. Why: Someone who asked for less motion shouldn't see the rows move. How: This applies under the reduced-motion preference. */
+
+
+	.navMenDiv[data-mobile-menu-open] :is( .menLinAnc, .menCalAnc, .menFacAnc ) { /* What: Motionless Open Menu Rows. Why: The rows should simply be there. How: This turns the entrance off. */
+
+
+		animation : none;
+
+
+	}
+
+
+}
+
+@keyframes menuItemOpenFadeIn { /* What: Menu Item Open Fade In. Why: The menu's rows ease in as it opens. How: Each row starts transparent and a little high, then settles. */
+
+
+	from {
+
+
+		opacity   : 0;
+		transform : translateY( calc( var( --spa-ver-m02 ) * -1 ) ); /* Spacing Vertical Base Minus 2 ~= -8.304px */
+
+
+	}
+
+
+}
+
+
+
+/* #region menExtDiv */
+
+.menExtDiv { /* What: Menu Extras Div. Why: The quickest ways to reach the salon follow the links. How: This centers the Call button above the Facebook link, with room above them. */
+
+
+	display       : grid;
+	justify-items : center;
+	padding-top   : var( --spa-ver-p01 ); /* Spacing Vertical Base Plus 1 ~= 19.304px */
+	row-gap       : var( --spa-ver-bas ); /* Spacing Vertical Base ~= 14.572px */
+
+
+}
+
+.menCalAnc { /* What: Menu Call Anchor. Why: A call is how the salon books, so the button stands out on the navy panel. How: This sets the bar's spaced capitals in navy on a light rose button, which reads at 6.37:1 and stands out from the panel at 6.37:1. */
+
+
+	background-color : var( --acc-lig-col );                                                                                         /* Accent Light Color = #e8a898 */
+	color            : var( --tex-mai-col );                                                                                         /* Text Main Color = #2b3245 */
+	font-family      : var( --fon-fam-mai );                                                                                         /* Font Family Main = 'Lato', sans-serif */
+	font-size        : var( --fon-siz-p01 );                                                                                         /* Font Size Base Plus 1 ~= 14.572px */
+	font-weight      : 700;
+	letter-spacing   : calc( var( --cdn-pow-007-rec ) * 1em );                                                                       /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
+	padding          : var( --spa-ver-bas ) var( --spa-hor-p03 );                                                                    /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
+	text-align       : center;
+	text-transform   : uppercase;
+	transition       : background-color var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+
+
+}
+.menCalAnc:hover { /* What: Hovered Menu Call Anchor. Why: The button should respond to the pointer. How: This brightens it to cream and lifts it 2px. */
+
+
+	background-color : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
+	transform        : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
+
+
+}
+.menCalAnc:active { /* What: Pressed Menu Call Anchor. Why: A tap should register before the call starts. How: This presses the button in slightly, undoing the hover lift. */
+
+
+	transform : scale( 0.97 );
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Menu Call Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.menCalAnc { /* What: Motionless Menu Call Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover and press simply apply. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+
+/* #region menFacAnc */
+
+.menFacAnc { /* What: Menu Facebook Anchor. Why: The salon's Facebook page is a quieter second way to keep up with it. How: This sets a cream text link with the platform's mark before it. */
+
+
+	align-items : center;
+	color       : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
+	column-gap  : var( --spa-hor-m02 );                            /* Spacing Horizontal Base Minus 2 ~= 8.304px */
+	display     : flex;
+	font-size   : var( --fon-siz-p01 );                            /* Font Size Base Plus 1 ~= 14.572px */
+	padding     : var( --spa-ver-m03 ) 0;                          /* Spacing Vertical Base Minus 3 ~= 6.268px */
+	transition  : color var( --dur-tra-p01 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+
+
+}
+.menFacAnc:hover { /* What: Hovered Menu Facebook Anchor. Why: The link should respond to the pointer. How: This turns it the light rose the bar's links use. */
+
+
+	color : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+
+
+}
+.menFacAnc:active { /* What: Pressed Menu Facebook Anchor. Why: A tap should register before the page opens. How: This dims the link slightly, the way every text link presses. */
+
+
+	opacity : 0.7;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Menu Facebook Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.menFacAnc { /* What: Motionless Menu Facebook Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color simply switches. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+.menFacSvg { /* What: Menu Facebook SVG. Why: The mark should match the text beside it. How: This sizes it to the line and fills it with the link's own color. */
+
+
+	fill   : currentColor;
+	height : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+	width  : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+
+
+}
+
+/* #endregion menFacAnc */
+
+/* #endregion menExtDiv */
 
 /* #endregion navMenDiv */
 

@@ -254,24 +254,26 @@ with unchanged screenshots unless the step is meant to change the page.
    card and favicon set (the current `favicon.svg` predates the new logo),
    and interaction feedback. The phone menu, reduced motion, and the
    disabled contact form were done early, in the accessibility pass.
-   - **Phone menu extras and scrim** (asked for by the user 2026-10-12,
-     after the sibling sites' menus; built here rather than now so its new
-     styles start on the design tokens). Modeled on the-bernie-bears' and
-     tonys-toppers' menus:
-     - **Scrim**: a dimmer over the page while the menu is open, in the
-       scrim role color at partial opacity, so the menu stands apart from
-       the page and a tap anywhere outside it closes it. The bar sits one
-       layer above the scrim.
+   - **Phone menu extras and scrim** (done; asked for by the user
+     2026-10-12, after the sibling sites' menus, and modeled on the-bernie-
+     bears' and tonys-toppers'):
+     - **Scrim**: the deepest navy (`--scr-mai-col`, `#1d2235`) at 0.570
+       opacity covers the page while the menu is open, fading in on the
+       decelerate easing and out on the accelerate one. It shares the bar's
+       single layer and comes first in the page, so the bar paints over it.
      - **Ways out**: tapping the scrim, pressing Escape (which returns focus
-       to the toggle), choosing a link, and widening the screen past 900px
-       all close it, and the page behind is inert while it's open.
-     - **Extras under the links**: likely a Call button for 417-988-6239 and
-       a link to the Facebook page, perhaps with the town or "By
-       appointment", to be proposed to the user before building.
-     - **Motion**: the rows fade in one after another as it opens, under the
-       usual reduced-motion variant.
-     - **Tests**: an interaction suite checks the open menu and each way out,
-       as the-bernie-bears' `menu.spec.ts` does.
+       to the toggle), choosing a link, and widening the screen until the
+       toggle is hidden all close it, and the bar's siblings (the main
+       content and footer) are inert while it's open.
+     - **Extras under the links**: a Call button for 417-988-6239 in navy
+       on the light rose (6.37:1, since white on the main rose fails at
+       2.96:1), then "Find us on Facebook" with the platform's mark, opening
+       in a new tab. The user wanted both if they fit and looked good; they
+       fit from 320px to 900px in all three engines.
+     - **Motion**: every row fades and slides in one stagger step (about
+       68ms) after the one before, off under reduced motion.
+     - **Tests**: still to come, an interaction suite checking the open
+       menu and each way out, as the-bernie-bears' `menu.spec.ts` does.
 9. **Wrap-up**: every suite passing in every engine, this file and the
    README updated, and the user's live checks of the deploy (the preview
    card through a checker such as opengraph.xyz).
