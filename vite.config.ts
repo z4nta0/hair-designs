@@ -24,10 +24,8 @@ import type { Plugin } from 'vite'; // What: Plugin. Why: The page minifier is a
  * so the page's comments, indentation, and any JSON-LD whitespace stay out of
  * what visitors download. Every other setting stays at Vite's default,
  * including copying the files in public/ (the favicon and Netlify's
- * _redirects) into the build untouched. Adapted from seal-and-shield's own
- * config. CSS module classes are exposed under both their own names and
- * camelCase keys while the module pass converts them, and switch to
- * camelCase keys only once every class is renamed.
+ * _redirects) into the build untouched. It also reads CSS module class
+ * names as camelCase keys only. Adapted from seal-and-shield's own config.
  *
  * Sections:
  *  - Helpers
@@ -110,7 +108,7 @@ const minHtmFun = () : Plugin => ({ // What: Minify HTML Function. Why: index.ht
 const VIT_CON_OBJ = defineConfig({ // What: Vite Config Object. Why: Vite reads its whole configuration from this file's default export. How: This builds the config, including the minHtmFun plugin above.
 
 
-	css     : { modules : { localsConvention : 'camelCase' } }, // What: CSS. Why: A modifier class such as .butBasAnc--primary is read as the camelCase key cssModObj.butBasAncPrimary, per the CSS modules rules, while sections not yet converted still read their old underscore names. How: This exposes each class under both its own name and its camelCase key, until the last module's renames switch it to camelCaseOnly.
+	css     : { modules : { localsConvention : 'camelCaseOnly' } }, // What: CSS. Why: CSS modules expose each class name as a camelCase key only, so a modifier class such as .butBasAnc--primary is read as cssModObj.butBasAncPrimary, per the CSS modules rules. How: This sets the locals convention.
 	plugins : [ react(), minHtmFun() ]                         // What: Plugins. Why: Vite builds the site through these plugins, in this order. How: This lists React and the page minifier.
 
 
