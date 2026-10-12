@@ -6,9 +6,9 @@ import NavBarCom from './components/NavBar/NavBar.tsx';       /** This import is
 import styles    from './AppRooCom.module.css';               /** This import is the custom CSS file that contains all of the styling declarations for this component. */
 
 
-import { BrowserRouter } from 'react-router-dom'; /** This import is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */
-import { Route         } from 'react-router-dom'; /** This import is the standard React Router component that is used to declaratively render specific UI components when the application's current URL matches this component's custom defined path, acting as a bridge between the URL and the user interface. */
-import { Routes        } from 'react-router-dom'; /** This import is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */
+import { BrowserRouter } from 'react-router';     /** This import is the standard React Router component that uses the HTML5 history API to keep the UI in sync with the URL, allowing for client side routing in a React application. */
+import { Route         } from 'react-router';     /** This import is the standard React Router component that is used to declaratively render specific UI components when the application's current URL matches this component's custom defined path, acting as a bridge between the URL and the user interface. */
+import { Routes        } from 'react-router';     /** This import is the standard React Router component that acts as a container for all custom Route components, ensuring only one route is rendered at a time. */
 
 // #endregion Imports
 
