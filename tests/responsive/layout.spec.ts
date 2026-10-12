@@ -15,7 +15,7 @@ import { test      } from '@playwright/test';     // What: Test. Why: Each page 
  * layout.spec.ts = Layout Spec
  *
  * @summary
- * Measures every page (for now the home page) across a range of screen
+ * Measures the home page and the open phone menu across a range of screen
  * widths, in whichever engine the project runs, and fails a width whose
  * layout breaks: the page scrolling sideways, a visible element reaching past
  * either edge of the screen (unless an ancestor clips it on purpose), text
@@ -39,22 +39,28 @@ import { test      } from '@playwright/test';     // What: Test. Why: Each page 
 
 // #region Constants
 
-type LayCasTyp = { // What: Layout Case Type. Why: Each test measures one page. How: This names the case and its path.
+type LayCasTyp = { // What: Layout Case Type. Why: Each test measures one page in one state. How: This names the case, its path, and whether it opens the menu.
 
 
-	ideStr : string, // What: Identifier String. Why: Each test names the case it measures. How: This becomes part of the test title.
-	patStr : string  // What: Path String. Why: Each case opens one route. How: This is the path loaded from the dev server.
+	ideStr : string,  // What: Identifier String. Why: Each test names the case it measures. How: This becomes part of the test title.
+	menBoo : boolean, // What: Menu Boolean. Why: The open menu is measured as its own case. How: This is true when the case opens it.
+	patStr : string   // What: Path String. Why: Each case opens one route. How: This is the path loaded from the dev server.
 
 
 };
 
-const LAY_CAS_ARR : LayCasTyp[] = [ // What: Layout Case Array. Why: Every page is measured the same way, and the 404 page and phone menu join as they're built. How: Each row names a case and its path.
+const LAY_CAS_ARR : LayCasTyp[] = [ // What: Layout Case Array. Why: The page and the open menu are measured the same way, and the 404 page joins once it's built. How: Each row names a case, its path, and whether it opens the menu.
 
 
-	{ ideStr : 'home', patStr : '/' } // What: Home Case. Why: The home page holds all of the site's layout. How: This measures it as loaded.
+	{ ideStr : 'home', menBoo : false, patStr : '/' }, // What: Home Case. Why: The home page holds all of the site's layout. How: This measures it as loaded.
+	{ ideStr : 'menu', menBoo : true,  patStr : '/' }  // What: Menu Case. Why: The open menu stacks the links its own way. How: This measures the home page with the menu open.
 
 
 ];
+
+
+
+const MEN_MAX_NUM = 900; // What: Menu Maximum Number. Why: The phone menu exists only up to the site's 900px breakpoint. How: The menu case is measured only at widths up to this.
 
 
 
@@ -229,7 +235,7 @@ function layProFun () : string[] {
 for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is measured. How: This declares each case's tests.
 
 
-	for ( const widCurNum of WID_LIS_ARR ) { // What: Width Loop. Why: Each case is measured at every width. How: This declares one test per width.
+	for ( const widCurNum of WID_LIS_ARR.filter( ( widFilNum ) => !layCasObj.menBoo || widFilNum <= MEN_MAX_NUM ) ) { // What: Width Loop. Why: Each case is measured at every width it exists at. How: This declares one test per width, skipping menu widths past the breakpoint.
 
 
 		test( `${ layCasObj.ideStr } holds its layout at ${ widCurNum }px`, async ( { page : curPagObj } ) => { // What: Layout Test. Why: The layout should hold together at every width. How: This opens the case at the width and lists its layout problems.
@@ -237,7 +243,18 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 
 			await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: Entrance animations don't change the layout, so waiting on them only slows the run. How: This makes the page match prefers-reduced-motion, which turns them off.
 
-			await opeStaFun( curPagObj, { heiNum : 900, ideStr : layCasObj.ideStr, patStr : layCasObj.patStr, widNum : widCurNum } ); // What: Case Open Call. Why: The layout is measured settled. How: This opens the case's path at the loop's width and a fixed 900px height, since only the width changes this layout.
+			await opeStaFun( curPagObj, { // What: Case Open Call. Why: The layout is measured settled. How: This opens the case's path at the width, opening the menu first for the menu case.
+
+
+				heiNum : 900,              // What: Height Number. Why: Only the width changes this layout. How: Every case is measured at the same height.
+				ideStr : layCasObj.ideStr, // What: Identifier String. Why: The state names its case. How: This reuses the case's name.
+				patStr : layCasObj.patStr, // What: Path String. Why: The state opens the case's route. How: This reuses the case's path.
+				widNum : widCurNum,        // What: Width Number. Why: The width is what this test varies. How: This sizes the viewport to the loop's width.
+
+				...( layCasObj.menBoo ? { actFun : async ( actPagObj ) => { await actPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); } } : {} ) // What: Menu Action Spread. Why: Only the menu case opens the menu. How: This adds the toggle click as the state's action for that case.
+
+
+			} );
 
 
 			expect( await curPagObj.evaluate( layProFun ) ).toEqual( [] ); // What: No Layout Problems Assertion. Why: The width passes only with nothing spilling or overlapping. How: This compares the problems with an empty list, so a failure prints each one.

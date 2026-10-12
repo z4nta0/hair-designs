@@ -4,6 +4,9 @@
 import logoSvg from '../../assets/logo.svg'; /** What : Logo SVG. Why : A scalable, lightweight image of the brand's logo was required in the navigation bar to act as a brand identifier and as a link to the Home section.                    How : Using a standard SVG image format placed inside the ./src/assets folder. */
 import styles  from './NavBar.module.css';   /** What : Styles.   Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class naming conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
 
+
+import { useState } from 'react'; // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
+
 // #endregion Imports
 
 
@@ -14,15 +17,12 @@ import styles  from './NavBar.module.css';   /** What : Styles.   Why : A CSS st
  * NavBarCom = Navigation Bar Component
  *
  * @summary
- * What : Navigation Bar Component. Why : A navigation bar was required for the
- * application in order to allow users to easily navigate to the different
- * sections of the Home page and to provide a consistent header across the
- * application regardless of the page being viewed. How : Using a custom React
- * functional component that returns the JSX representing the HTML content of
- * the navigation bar, styled with a CSS module and containing an imported SVG
- * logo image. No extra functionality or logic was required for the navigation
- * bar at this time, so it is just a simple component that renders the JSX for
- * the navbar and does not use any props or state.
+ * The fixed bar at the top of the page: the logo and name, which lead back
+ * to the top, and the links to each section of the Home page. At 900px and
+ * narrower the links no longer fit, so a menu button takes their place and
+ * opens a panel below the bar holding the same links. The panel is inert
+ * while closed, so its links stay out of the keyboard's way, and choosing a
+ * link closes it on the way to its section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  * 
@@ -39,6 +39,10 @@ import styles  from './NavBar.module.css';   /** What : Styles.   Why : A CSS st
 */
 
 function NavBarCom () : React.ReactElement {
+
+
+    const [ menOpeBoo, setMenOpeBoo ] = useState( false ); // What: Menu Open Boolean And Setter. Why: The phone menu opens and closes from its button. How: This holds whether it's open, starting closed.
+
 
 
     // #region navBarComJsx
@@ -183,6 +187,70 @@ function NavBarCom () : React.ReactElement {
                 </ nav >
 
                 { /* <!-- ══ End Navbar Nav ══ --> */ }
+
+
+
+                <button
+                    className={ styles.menuToggleButton }
+
+                    type='button'
+
+                    aria-expanded={ menOpeBoo }
+                    aria-label='Toggle menu'
+
+                    onClick={ () => setMenOpeBoo( ( preOpeBoo ) => !preOpeBoo ) }
+                >{ /* What: Menu Toggle Button Element. Why: At 900px and narrower the links no longer fit in the bar. How: This opens and closes the menu panel, reporting its state through aria-expanded, which also turns its three lines into a cross. */ }
+
+
+                    <span className={ styles.toggleLineSpans } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the first, which tilts down into the cross. */ }
+
+                    <span className={ styles.toggleLineSpans } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the second, which fades out of the cross. */ }
+
+                    <span className={ styles.toggleLineSpans } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the third, which tilts up into the cross. */ }
+
+
+                </button>
+
+
+
+                <div
+                    className={ styles.menuPanelDiv }
+
+                    data-mobile-menu-open={ menOpeBoo || undefined }
+
+                    inert={ !menOpeBoo } // What: Closed Menu Inert Flag. Why: The closed panel is only faded out, so its links would otherwise still take keyboard focus while hidden. How: This makes the panel and its links unfocusable and hidden from screen readers until it opens.
+                >{ /* What: Menu Panel Div Element. Why: Phones need the section links somewhere once the bar hides them. How: This drops below the bar with the same four links, carrying data-mobile-menu-open while it's open. */ }
+
+
+                    <a
+                        className={ styles.menuAnchors }
+                        href='#homSecEle'
+                        onClick={ () => setMenOpeBoo( false ) }
+                    >Home</a>{ /* What: Menu Home Anchor Element. Why: Phones reach the Home section from the menu. How: This jumps to the section and closes the menu behind it. */ }
+
+
+                    <a
+                        className={ styles.menuAnchors }
+                        href='#serSecEle'
+                        onClick={ () => setMenOpeBoo( false ) }
+                    >Services</a>{ /* What: Menu Services Anchor Element. Why: Phones reach the Services section from the menu. How: This jumps to the section and closes the menu behind it. */ }
+
+
+                    <a
+                        className={ styles.menuAnchors }
+                        href='#aboSecEle'
+                        onClick={ () => setMenOpeBoo( false ) }
+                    >About</a>{ /* What: Menu About Anchor Element. Why: Phones reach the About section from the menu. How: This jumps to the section and closes the menu behind it. */ }
+
+
+                    <a
+                        className={ styles.menuAnchors }
+                        href='#conSecEle'
+                        onClick={ () => setMenOpeBoo( false ) }
+                    >Contact</a>{ /* What: Menu Contact Anchor Element. Why: Phones reach the Contact section from the menu. How: This jumps to the section and closes the menu behind it. */ }
+
+
+                </div>
 
 
             </ header >

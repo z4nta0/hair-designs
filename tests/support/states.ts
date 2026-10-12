@@ -16,8 +16,8 @@ import type { Page } from '@playwright/test'; // What: Page. Why: Opening a stat
  * The page states the accessibility and rendering suites visit, and the
  * helper that opens one; the responsive suite opens its own widths through
  * the same helper. A state is a page at a width, sometimes with something
- * opened on it; for now that's the home page at a phone width and a desktop
- * width, with the 404 page and the phone menu joining once they exist.
+ * opened on it: the home page at a phone width and a desktop width, and the
+ * phone menu open on a phone, with the 404 page joining once it exists.
  * opeStaFun sizes the viewport, loads the page, waits for the fonts and
  * images, runs the state's own action if it has one, and then waits for the
  * page to stay still so nothing is measured mid-fade. Adapted from
@@ -56,15 +56,18 @@ type StaRcdTyp = { // What: State Record Type. Why: Every check reads the same d
 
 // #region Constants
 
+// #region STA_RCD_ARR
+
 /**
  * STA_RCD_ARR = State Record Array
  *
  * @summary
  * Every state the checks visit: the home page at a phone width (390px) and a
- * desktop width (1,440px). Every row shares the {@link StaRcdTyp} shape, so
- * its fields carry no comments of their own:
+ * desktop width (1,440px), plus the phone menu open at the phone width, since
+ * the menu is only reachable there. Every row shares the {@link StaRcdTyp}
+ * shape, so its fields carry no comments of their own:
  * - `actFun` (Function): Action Function, run after the page loads to open
- *   something on it, such as a menu. No row has one yet.
+ *   something on it, such as the menu. Only the menu row has one.
  * - `heiNum` (Number): Height Number, the viewport height in CSS pixels.
  * - `ideStr` (String): Identifier String, the state's name in test titles.
  * - `patStr` (String): Path String, the route loaded from the dev server.
@@ -78,10 +81,33 @@ const STA_RCD_ARR : StaRcdTyp[] = [ // What: State Record Array. Why: Every chec
 
 
 	{ heiNum : 900, ideStr : 'home-desktop', patStr : '/', widNum : 1440 }, // What: Home Desktop State. Why: Most visitors on a computer land here. How: This loads the home page at 1,440px.
-	{ heiNum : 844, ideStr : 'home-phone',   patStr : '/', widNum : 390  }  // What: Home Phone State. Why: The phone layout stacks every section. How: This loads the home page at 390px.
+	{ heiNum : 844, ideStr : 'home-phone',   patStr : '/', widNum : 390  }, // What: Home Phone State. Why: The phone layout stacks every section and hides the bar's links behind the menu. How: This loads the home page at 390px.
+
+	{ // What: Menu Phone State. Why: The open menu holds the phone's only copy of the section links. How: This loads the home page at 390px and opens the menu through its toggle button.
+
+
+		heiNum : 844,
+		ideStr : 'menu-phone',
+		patStr : '/',
+		widNum : 390,
+
+		actFun : async ( curPagObj ) => { // What: Menu Open Action. Why: The state shows the menu as a visitor sees it once it's open. How: This taps the toggle, then moves the pointer off it.
+
+
+			await curPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); // What: Toggle Click Call. Why: The menu opens only through its toggle. How: This clicks the button.
+
+			await curPagObj.mouse.move( 0, 0 ); // What: Pointer Move Call. Why: A finger lifts after a tap, but Playwright's mouse stays put and would hold the toggle's hover color in every check of this state. How: This parks the pointer on the bar's top-left corner.
+
+
+		}
+
+
+	}
 
 
 ];
+
+// #endregion STA_RCD_ARR
 
 // #endregion Constants
 

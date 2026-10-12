@@ -95,6 +95,23 @@
 
 
 
+/* #region navbarNav */
+
+@media ( max-width : 900px ) { /* What: Navbar Nav Narrow Screen Query. Why: The four links no longer fit beside the logo and name, so the menu panel holds them instead. How: This applies at 900px and narrower. */
+
+
+	.navbarNav { /* What: Navbar Nav Narrow Screen Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		display : none;
+
+
+	}
+
+
+}
+
+
 /* #region navbarUnorderedList */
 
 .navbarUnorderedList { /* What: Navbar Unordered List. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar's main navigation links and their <li> containers. How : Using a standard HTML <ul> element. */
@@ -159,6 +176,198 @@
 
 
 /* #endregion navbarUnorderedList */
+
+/* #endregion navbarNav */
+
+
+
+/* #region menuToggleButton */
+
+.menuToggleButton { /* What: Menu Toggle Button. Why: The menu needs a button where the links used to be. How: This stacks the three lines of the menu icon in a borderless button, hidden until the narrow screen query shows it. */
+
+
+	background     : none;
+	border         : none;
+	cursor         : pointer;
+	display        : none;
+	flex-direction : column;
+	gap            : 5px;
+	padding        : 8px;
+
+
+}
+@media ( max-width : 900px ) { /* What: Menu Toggle Button Narrow Screen Query. Why: The button appears only where the links have been hidden. How: This applies at 900px and narrower. */
+
+
+	.menuToggleButton { /* What: Menu Toggle Button Narrow Screen Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		display : flex;
+
+
+	}
+
+
+}
+
+.toggleLineSpans { /* What: Toggle Line Spans. Why: Three lines draw the menu icon. How: This draws each as a thin cream line that can turn and fade into a cross. */
+
+
+	background-color : var( --cream );
+	display          : block;
+	height           : 2px;
+	transition       : background-color 0.2s, opacity 0.2s, transform 0.2s;
+	width            : 26px;
+
+
+}
+.menuToggleButton:hover .toggleLineSpans { /* What: Hovered Toggle Line Spans. Why: The button should respond to the pointer. How: This turns the lines the same light rose the bar's links turn on hover. */
+
+
+	background-color : var( --rose-lt );
+
+
+}
+.menuToggleButton[aria-expanded='true'] .toggleLineSpans:nth-child( 1 ) { /* What: Open First Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This drops the top line to the middle, one line plus one gap, and tilts it. */
+
+
+	transform : translateY( 7px ) rotate( 45deg );
+
+
+}
+.menuToggleButton[aria-expanded='true'] .toggleLineSpans:nth-child( 2 ) { /* What: Open Second Toggle Line Span. Why: The cross needs only two lines. How: This fades the middle line out. */
+
+
+	opacity : 0;
+
+
+}
+.menuToggleButton[aria-expanded='true'] .toggleLineSpans:nth-child( 3 ) { /* What: Open Third Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This lifts the bottom line to the middle and tilts it the other way. */
+
+
+	transform : translateY( -7px ) rotate( -45deg );
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Toggle Line Spans Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
+
+
+	.toggleLineSpans { /* What: Toggle Line Spans Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion menuToggleButton */
+
+
+
+/* #region menuPanelDiv */
+
+.menuPanelDiv { /* What: Menu Panel Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility keeping it out of the way until it opens. */
+
+
+	background-color : var( --navy );
+	border-bottom    : 3px solid var( --rose );
+	display          : none;
+	flex-direction   : column;
+	left             : 0;
+	opacity          : 0;
+	padding          : 8px 5% 16px;
+	position         : absolute;
+	right            : 0;
+	top              : calc( 100% + 3px );
+	transform        : translateY( -8px );
+	transition       : opacity 0.2s, transform 0.2s, visibility 0.2s;
+	visibility       : hidden;
+
+
+}
+.menuPanelDiv[data-mobile-menu-open] { /* What: Open Menu Panel Div. Why: The panel should show its links once the button opens it. How: This fades it in and settles it into place. */
+
+
+	opacity    : 1;
+	transform  : none;
+	visibility : visible;
+
+
+}
+@media ( max-width : 900px ) { /* What: Menu Panel Div Narrow Screen Query. Why: The panel exists only where the menu button does. How: This applies at 900px and narrower. */
+
+
+	.menuPanelDiv { /* What: Menu Panel Div Narrow Screen Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		display : flex;
+
+
+	}
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Menu Panel Div Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
+
+
+	.menuPanelDiv { /* What: Menu Panel Div Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+.menuAnchors { /* What: Menu Anchors. Why: Each link fills a row of the panel, easy to tap. How: This sets it in the bar's spaced capitals, larger for a finger, with a faint cream divider below. */
+
+
+	border-bottom  : 1px solid rgba( 245, 240, 232, 0.1 );
+	color          : var( --cream );
+	font-family    : 'Lato', sans-serif;
+	font-size      : 0.95rem;
+	font-weight    : 700;
+	letter-spacing : 0.14em;
+	padding        : 14px 0;
+	text-transform : uppercase;
+	transition     : color 0.2s;
+
+
+}
+.menuAnchors:hover { /* What: Hovered Menu Anchors. Why: The link should respond to the pointer. How: This turns it the light rose the bar's links use. */
+
+
+	color : var( --rose-lt );
+
+
+}
+.menuAnchors:last-child { /* What: Last Menu Anchor. Why: Its divider would sit right above the panel's rose border and read as a doubled line. How: This drops the divider from the final link. */
+
+
+	border-bottom : none;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Menu Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
+
+
+	.menuAnchors { /* What: Menu Anchors Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		transition : none;
+
+
+	}
+
+
+}
+
+/* #endregion menuPanelDiv */
 
 
 /* #endregion navbarHeader */
