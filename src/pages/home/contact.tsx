@@ -294,9 +294,9 @@ function ConSecCom () : React.JSX.Element {
 					<div className={ cssModObj.conQuoDiv }>{ /* What: Contact Quote Div Element. Why: A word from the stylists closes the details. How: This sets it on a faint panel with a rose edge. */ }
 
 
-						<p className={ cssModObj.quoBodPar }>"We're your neighbors — give us a call, stop by, or drop us a message. We'd love to hear from you."</p>{ /* What: Quote Body Paragraph Element. Why: The stylists speak to visitors directly. How: This shows their words. */ }
+						<p className={ cssModObj.quoBodPar }>"We're your neighbors, so give us a call or stop by. We'd love to hear from you."</p>{ /* What: Quote Body Paragraph Element. Why: The stylists speak to visitors directly. How: This shows their words. */ }
 
-						<p className={ cssModObj.quoSigPar }>— Juli &amp; Keeli</p>{ /* What: Quote Signature Paragraph Element. Why: The quote is signed by the stylists. How: This shows their names in script. */ }
+						<p className={ cssModObj.quoSigPar }>— Juli &amp; Keeli</p>{ /* What: Quote Signature Paragraph Element. Why: The quote is signed by the stylists. How: This shows their names in script after an em dash, the copy rules' exception for a quote's attribution. */ }
 
 
 					</div>
@@ -482,7 +482,7 @@ function ConSecCom () : React.JSX.Element {
 										<option
 											disabled
 											value=''
-										>— Select a service —</option>{ /* What: Placeholder Option Element. Why: The select should prompt for a choice rather than preselect a service. How: This shows a prompt that can't be chosen. */ }
+										>Select a service</option>{ /* What: Placeholder Option Element. Why: The select should prompt for a choice rather than preselect a service. How: This shows a prompt that can't be chosen. */ }
 
 										{ SER_OPT_ARR.map( ( optRcdObj ) => ( // What: Service Option Map. Why: Each service is one choice. How: This renders one option per row.
 
