@@ -25,7 +25,7 @@
 	color          : rgb( from var( --tex-inv-col ) r g b / 0.5 );    /* Text Inverse Color = #f5f0e8 @ 0.5 opacity */
 	font-size      : var( --fon-siz-p01 );                            /* Font Size Base Plus 1 ~= 14.572px */
 	letter-spacing : calc( var( --cdn-pow-010-rec ) * 1em );          /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060em */
-	padding        : var( --spa-ver-p02 ) 5%;                         /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	padding        : var( --spa-ver-p02 ) var( --gut-sid-pad );       /* Spacing Vertical Base Plus 2 ~= 25.572px, Gutter Side Padding, about 19.304px - 44.876px */
 	text-align     : center;
 
 

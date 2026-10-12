@@ -23,15 +23,15 @@
 
 
 	align-items           : center;
-	background            : var( --bac-sur-col );                                                        /* Background Surface Color = #f5f0e8 */
+	background            : var( --bac-sur-col );                                                                           /* Background Surface Color = #f5f0e8 */
 	display               : grid;
-	gap                   : var( --spa-ver-p06 ) var( --spa-hor-p06 );                                   /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 6 ~= 78.751px */
+	gap                   : var( --spa-ver-p06 ) clamp( var( --spa-hor-p04 ), var( --hor-rhy-017 ), var( --spa-hor-p06 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 4 ~= 44.876px, Horizontal Rhythm 17, Spacing Horizontal Base Plus 6 ~= 78.751px, about 44.876px - 78.751px */
 	grid-template-columns : 1fr 1fr;
-	padding               : var( --spa-ver-p06 ) max( 5%, calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is 5% until half the space beyond the cap is larger, then that half. */
+	padding               : var( --spa-ver-p06 ) max( var( --gut-sid-pad ), calc( ( 100% - var( --con-max-wid ) ) / 2 ) );  /* Spacing Vertical Base Plus 6 ~= 78.751px, Gutter Side Padding, about 19.304px - 44.876px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is the gutter until half the space beyond the cap is larger, then that half. */
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This applies at 900px and narrower. */
 
 
 	.homAboSec { /* What: Narrow Home About Section. Why: The card and the story need the full width each on tablets and phones. How: This stacks them. */
@@ -44,13 +44,13 @@
 
 
 }
-@media ( max-width : 600px ) { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+@container app ( max-width : 600px ) { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
 
 
-	.homAboSec { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
+	.homAboSec { /* What: Phone Home About Section. Why: The desktop's top and bottom padding wastes too much of a phone screen. How: This tightens it, leaving the sides to the gutter. */
 
 
-		padding : var( --spa-ver-p05 ) 6%; /* Spacing Vertical Base Plus 5 ~= 59.447px */
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
 
 
 	}
@@ -102,12 +102,12 @@
 
 }
 
-.aboLogIma { /* What: About Logo Image. Why: The card opens with the logo. How: This sizes it to 130px square. */
+.aboLogIma { /* What: About Logo Image. Why: The card opens with the logo. How: This sizes it square between two rhythm steps, growing with the screen. */
 
 
-	height        : calc( var( --ver-rhy-p08 ) * 1rem ); /* Vertical Rhythm Base Plus 8 ~= 138.199px */
-	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
-	width         : calc( var( --ver-rhy-p08 ) * 1rem ); /* Vertical Rhythm Base Plus 8 ~= 138.199px */
+	height        : auto;                                                                                                    /* What: Height Note. Why: The logo's width shrinks a step on narrower screens. How: This keeps the square logo's height following its width. */
+	margin-bottom : var( --spa-ver-p02 );                                                                                    /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : clamp( calc( var( --ver-rhy-p07 ) * 1rem ), var( --hor-rhy-019 ), calc( var( --ver-rhy-p08 ) * 1rem ) ); /* Vertical Rhythm Base Plus 7 ~= 104.323px, Horizontal Rhythm 19, Vertical Rhythm Base Plus 8 ~= 138.199px, about 104.323px - 138.199px */
 
 
 }

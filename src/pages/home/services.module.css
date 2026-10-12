@@ -23,19 +23,19 @@
 .homSerSec { /* What: Home Services Section. Why: The services sit on the page's lightest surface. How: This stacks the header over the card grid on ivory. */
 
 
-	background-color : var( --bac-pag-col );                                                        /* Background Page Color = #faf7f2 */
+	background-color : var( --bac-pag-col );                                                                          /* Background Page Color = #faf7f2 */
 	display          : grid;
-	padding          : var( --spa-ver-p06 ) max( 5%, calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is 5% until half the space beyond the cap is larger, then that half. */
+	padding          : var( --spa-ver-p06 ) max( var( --gut-sid-pad ), calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Gutter Side Padding, about 19.304px - 44.876px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is the gutter until half the space beyond the cap is larger, then that half. */
 
 
 }
-@media ( max-width : 600px ) { /* What: Phone Home Services Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+@container app ( max-width : 600px ) { /* What: Phone Home Services Section. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
 
 
-	.homSerSec { /* What: Phone Home Services Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
+	.homSerSec { /* What: Phone Home Services Section. Why: The desktop's top and bottom padding wastes too much of a phone screen. How: This tightens it, leaving the sides to the gutter. */
 
 
-		padding : var( --spa-ver-p05 ) 6%; /* Spacing Vertical Base Plus 5 ~= 59.447px */
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
 
 
 	}
@@ -113,7 +113,7 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Services Grid Div. Why: Three columns grow too narrow for the cards' text on tablets. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Services Grid Div. Why: Three columns grow too narrow for the cards' text on tablets. How: This applies at 900px and narrower. */
 
 
 	.serGriDiv { /* What: Narrow Services Grid Div. Why: Three columns grow too narrow for the cards' text on tablets. How: This sets two columns, three rows of two. */
@@ -126,7 +126,7 @@
 
 
 }
-@media ( max-width : 600px ) { /* What: Phone Services Grid Div. Why: Two columns grow too narrow for the cards' text on phones. How: This applies at 600px and narrower. */
+@container app ( max-width : 600px ) { /* What: Phone Services Grid Div. Why: Two columns grow too narrow for the cards' text on phones. How: This applies at 600px and narrower. */
 
 
 	.serGriDiv { /* What: Phone Services Grid Div. Why: Two columns grow too narrow for the cards' text on phones. How: This stacks the cards in one column. */

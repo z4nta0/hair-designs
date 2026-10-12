@@ -3,6 +3,9 @@
 
 // #region Imports
 
+import cssModObj from './app.module.css'; // What: CSS Module Object. Why: The root wrapper's container styles live in its own module. How: This reads the scoped class name for the root div.
+
+
 import { HomPagCom } from './pages/home/home.tsx'; // What: Home Page Component. Why: The home page holds every section of the site. How: The root path's route renders it.
 import { NavBarCom } from './ui/nav.tsx';          // What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders it above the main element.
 import { Route     } from 'react-router';          // What: Route. Why: Each page is matched to a path. How: This declares one path and the page it renders.
@@ -18,7 +21,8 @@ import { SitFooCom } from './ui/footer.tsx';       // What: Site Footer Componen
  *
  * @summary
  * The site's root component, mounted by main.tsx inside the router. It
- * renders what every page shares around the route table: the fixed bar
+ * renders, inside the app container every module's layout queries
+ * measure, what every page shares around the route table: the fixed bar
  * above the main element, which holds whichever page matches the current
  * path (for now only the home page at the root path), and the footer after
  * it, where it's the page's contentinfo landmark.
@@ -65,7 +69,7 @@ function AppRooCom () : React.JSX.Element {
 	return (
 
 
-		<>
+		<div className={ cssModObj.appRooDiv }>{ /* What: App Root Div Element. Why: Every module's layout queries measure one shared container. How: This wraps the bar, the main element, and the footer in the element named the app container. */ }
 
 
 			<NavBarCom />{ /* What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders the logo, the section links, and the phone menu. */ }
@@ -94,7 +98,7 @@ function AppRooCom () : React.JSX.Element {
 			<SitFooCom />{ /* What: Site Footer Component. Why: Every page ends with the footer, outside the main element so it's the page's contentinfo landmark. How: This renders it after main. */ }
 
 
-		</>
+		</div>
 
 
 	);

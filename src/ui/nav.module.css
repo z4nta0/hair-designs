@@ -24,19 +24,19 @@
 
 
 	align-items           : center;
-	background-color      : var( --bac-inv-col );                                     /* Background Inverse Color = #2b3245 */
-	border-bottom         : var( --bor-wid-xla ) solid var( --acc-mai-col );          /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	background-color      : var( --bac-inv-col );                                                       /* Background Inverse Color = #2b3245 */
+	border-bottom         : var( --bor-wid-xla ) solid var( --acc-mai-col );                            /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display               : grid;
 	grid-template-columns : repeat( 2, auto );
-	height                : var( --nav-bar-hei );                                     /* Navigation Bar Height ~= 59.447px */
+	height                : var( --nav-bar-hei );                                                       /* Navigation Bar Height ~= 59.447px */
 	justify-content       : space-between;
 	justify-items         : center;
 	left                  : 0;
-	padding               : 0 max( 5%, calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The bar's brand and links should line up with the sections' capped content below on larger screens. How: The side padding is 5% until half the space beyond the cap is larger, then that half. */
+	padding               : 0 max( var( --gut-sid-pad ), calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Gutter Side Padding, about 19.304px - 44.876px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The bar's brand and links should line up with the sections' capped content below on larger screens. How: The side padding is the gutter until half the space beyond the cap is larger, then that half. */
 	position              : fixed;
 	right                 : 0;
 	top                   : 0;
-	z-index               : 1;                                                        /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
+	z-index               : 1;                                                                          /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
 
 
 }
@@ -83,7 +83,7 @@
 
 /* #region navLinNav */
 
-@media ( max-width : 900px ) { /* What: Narrow Navigation Links Nav. Why: The four links no longer fit beside the brand, so the menu panel holds them instead. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Navigation Links Nav. Why: The four links no longer fit beside the brand, so the menu panel holds them instead. How: This applies at 900px and narrower. */
 
 
 	.navLinNav { /* What: Narrow Navigation Links Nav. Why: The four links no longer fit beside the brand, so the menu panel holds them instead. How: This hides the row. */
@@ -169,7 +169,7 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Navigation Toggle Button. Why: The button appears only where the links have been hidden. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Navigation Toggle Button. Why: The button appears only where the links have been hidden. How: This applies at 900px and narrower. */
 
 
 	.navTogBut { /* What: Narrow Navigation Toggle Button. Why: The button appears only where the links have been hidden. How: This shows it. */
@@ -244,17 +244,17 @@
 .navMenDiv { /* What: Navigation Menu Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */
 
 
-	background-color : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
-	border-bottom    : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	background-color : var( --bac-inv-col );                                           /* Background Inverse Color = #2b3245 */
+	border-bottom    : var( --bor-wid-xla ) solid var( --acc-mai-col );                /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display          : none;
 	flex-direction   : column;
 	left             : 0;
 	opacity          : 0;
-	padding          : var( --spa-ver-m02 ) 5% var( --spa-ver-bas );    /* Spacing Vertical Base Minus 2 ~= 8.304px, Spacing Vertical Base ~= 14.572px */
+	padding          : var( --spa-ver-m02 ) var( --gut-sid-pad ) var( --spa-ver-bas ); /* Spacing Vertical Base Minus 2 ~= 8.304px, Gutter Side Padding, about 19.304px - 44.876px, Spacing Vertical Base ~= 14.572px */
 	position         : absolute;
 	right            : 0;
-	top              : calc( 100% + var( --bor-wid-xla ) );             /* Border Width Extra Large ~= 3.572px */
-	transform        : translateY( calc( var( --spa-ver-m02 ) * -1 ) ); /* Spacing Vertical Base Minus 2 ~= -8.304px */
+	top              : calc( 100% + var( --bor-wid-xla ) );                            /* Border Width Extra Large ~= 3.572px */
+	transform        : translateY( calc( var( --spa-ver-m02 ) * -1 ) );                /* Spacing Vertical Base Minus 2 ~= -8.304px */
 	transition       : opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), visibility 0s var( --dur-tra-p01 ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
 	visibility       : hidden;
 
@@ -270,7 +270,7 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Navigation Menu Div. Why: The panel exists only where the menu button does. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Navigation Menu Div. Why: The panel exists only where the menu button does. How: This applies at 900px and narrower. */
 
 
 	.navMenDiv { /* What: Narrow Navigation Menu Div. Why: The panel exists only where the menu button does. How: This lays it out as a column, still hidden until opened. */

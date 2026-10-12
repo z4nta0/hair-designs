@@ -45,7 +45,7 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Hero Grid Div. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Hero Grid Div. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones. How: This applies at 900px and narrower. */
 
 
 	.herGriDiv { /* What: Narrow Hero Grid Div. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones. How: This stacks them in one column. */
@@ -69,7 +69,7 @@
 	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
 	display          : flex;
 	justify-content  : center;
-	padding          : var( --spa-ver-p06 ) var( --spa-hor-p05 ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 5 ~= 59.447px */
+	padding          : var( --spa-ver-p06 ) clamp( var( --spa-hor-p03 ), var( --hor-rhy-016 ), var( --spa-hor-p05 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 3 ~= 33.876px, Horizontal Rhythm 16, Spacing Horizontal Base Plus 5 ~= 59.447px, about 33.876px - 59.447px */
 	position         : relative;
 	text-align       : center;
 
@@ -88,20 +88,20 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Hero Left Div. Why: The logo panel needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Hero Left Div. Why: The panel needs less top and bottom room once it spans the screen alone. How: This applies at 900px and narrower. */
 
 
-	.herLefDiv { /* What: Narrow Hero Left Div. Why: The logo panel needs less room once it spans the screen alone. How: This tightens its padding. */
+	.herLefDiv { /* What: Narrow Hero Left Div. Why: The panel needs less top and bottom room once it spans the screen alone. How: This tightens it, leaving the sides to the fluid padding. */
 
 
-		padding : var( --spa-ver-p05 ) var( --spa-hor-p04 ); /* Spacing Vertical Base Plus 5 ~= 59.447px, Spacing Horizontal Base Plus 4 ~= 44.876px */
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
 
 
 	}
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Hero Left Div Divider. Why: The divider runs down the seam between the panels, which no longer exists once they stack. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Hero Left Div Divider. Why: The divider runs down the seam between the panels, which no longer exists once they stack. How: This applies at 900px and narrower. */
 
 
 	.herLefDiv::after { /* What: Narrow Hero Left Div Divider. Why: The divider runs down the seam between the panels, which no longer exists once they stack. How: This hides it. */
@@ -168,7 +168,7 @@
 	filter    : drop-shadow( 0 calc( var( --ver-rhy-m03 ) * 1rem ) calc( var( --ver-rhy-p02 ) * 1rem ) rgb( 0 0 0 / var( --cdn-pow-003-rec ) ) ); /* Vertical Rhythm Base Minus 3 ~= 6.268px, Vertical Rhythm Base Plus 2 ~= 25.572px, black @ 0.430 opacity */
 	height    : auto; /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
 	max-width : 100%;
-	width     : calc( var( --ver-rhy-p10 ) * 1rem );                                                                                              /* Vertical Rhythm Base Plus 10 ~= 242.522px */
+	width     : clamp( calc( var( --ver-rhy-p09 ) * 1rem ), var( --hor-rhy-021 ), calc( var( --ver-rhy-p10 ) * 1rem ) );                          /* Vertical Rhythm Base Plus 9 ~= 183.070px, Horizontal Rhythm 21, Vertical Rhythm Base Plus 10 ~= 242.522px, about 183.070px - 242.522px */
 
 
 }
@@ -185,20 +185,20 @@
 
 
 	align-items     : center;
-	background      : var( --bac-sur-col );                      /* Background Surface Color = #f5f0e8 */
+	background      : var( --bac-sur-col );                                                                           /* Background Surface Color = #f5f0e8 */
 	display         : flex;
 	justify-content : center;
-	padding         : var( --spa-ver-p06 ) var( --spa-hor-p05 ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 5 ~= 59.447px */
+	padding         : var( --spa-ver-p06 ) clamp( var( --spa-hor-p03 ), var( --hor-rhy-016 ), var( --spa-hor-p05 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 3 ~= 33.876px, Horizontal Rhythm 16, Spacing Horizontal Base Plus 5 ~= 59.447px, about 33.876px - 59.447px */
 
 
 }
-@media ( max-width : 900px ) { /* What: Narrow Hero Right Div. Why: The welcome panel needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
+@container app ( max-width : 900px ) { /* What: Narrow Hero Right Div. Why: The panel needs less top and bottom room once it spans the screen alone. How: This applies at 900px and narrower. */
 
 
-	.herRigDiv { /* What: Narrow Hero Right Div. Why: The welcome panel needs less room once it spans the screen alone. How: This tightens its padding. */
+	.herRigDiv { /* What: Narrow Hero Right Div. Why: The panel needs less top and bottom room once it spans the screen alone. How: This tightens it, leaving the sides to the fluid padding. */
 
 
-		padding : var( --spa-ver-p05 ) var( --spa-hor-p04 ); /* Spacing Vertical Base Plus 5 ~= 59.447px, Spacing Horizontal Base Plus 4 ~= 44.876px */
+		padding-block : var( --spa-ver-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px */
 
 
 	}
@@ -428,7 +428,7 @@
 	flex-wrap       : wrap;
 	gap             : var( --spa-ver-p04 ) var( --spa-hor-p04 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 4 ~= 44.876px */
 	justify-content : center;
-	padding         : var( --spa-ver-bas ) 5%;                         /* Spacing Vertical Base ~= 14.572px */
+	padding         : var( --spa-ver-bas ) var( --gut-sid-pad );       /* Spacing Vertical Base ~= 14.572px, Gutter Side Padding, about 19.304px - 44.876px */
 
 
 }
