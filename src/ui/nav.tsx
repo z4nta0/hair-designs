@@ -1,8 +1,10 @@
 
+
+
 // #region Imports
 
-import logoSvg from '../assets/logo.svg';    /** What : Logo SVG. Why : A scalable, lightweight image of the brand's logo was required in the navigation bar to act as a brand identifier and as a link to the Home section.                    How : Using a standard SVG image format placed inside the ./src/assets folder. */
-import styles  from './nav.module.css';      /** What : Styles.   Why : A CSS stylesheet was required for styling this component in a modular format and scoped for this component only so that there are no class naming conflicts or clashes. How : Using a standard React module.css file placed inside of the same folder as this component. */
+import cssModObj from './nav.module.css';    // What: CSS Module Object. Why: The bar is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import logSvgUrl from '../assets/logo.svg'; // What: Logo SVG URL. Why: The bar's brand opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
 import { useState } from 'react'; // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
@@ -11,268 +13,224 @@ import { useState } from 'react'; // What: Use State. Why: The bar tracks whethe
 
 
 
+/**
+ * nav.tsx = Navigation
+ *
+ * @summary
+ * The fixed bar at the top of every page: the logo and name, which lead back
+ * to the top, and the links to each section of the home page. At 900px and
+ * narrower the links no longer fit, so a menu button takes their place and
+ * opens a panel below the bar holding the same links. The panel is inert
+ * while closed, so its links stay out of the keyboard's way, and choosing a
+ * link closes it on the way to its section.
+ *
+ * Sections:
+ *  - Constants
+ *  - Components
+ *  - Exports
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+
+
+// #region Constants
+
+/**
+ * NAV_LIN_ARR = Navigation Link Array
+ *
+ * @summary
+ * The section links the bar and the phone menu both render, in page order.
+ * Every row shares one shape, so its fields carry no comments of their own:
+ * - `hreStr` (String): Href String, the section's id as an in-page link.
+ * - `labStr` (String): Label String, the link's text.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone menu list the same links, so they're defined once. How: Each row pairs a section's link with its label.
+
+
+	{ hreStr : '#home',     labStr : 'Home'     },
+	{ hreStr : '#services', labStr : 'Services' },
+	{ hreStr : '#about',    labStr : 'About'    },
+	{ hreStr : '#contact',  labStr : 'Contact'  }
+
+
+];
+
+// #endregion Constants
+
+
+
+// #region Components
+
 // #region NavBarCom
 
 /**
  * NavBarCom = Navigation Bar Component
  *
  * @summary
- * The fixed bar at the top of the page: the logo and name, which lead back
- * to the top, and the links to each section of the Home page. At 900px and
- * narrower the links no longer fit, so a menu button takes their place and
- * opens a panel below the bar holding the same links. The panel is inert
- * while closed, so its links stay out of the keyboard's way, and choosing a
- * link closes it on the way to its section.
+ * Renders the fixed top bar: the brand linking to the top of the page, the
+ * row of section links on wide screens, and on narrow screens the menu
+ * button and the panel it opens. The panel is inert while closed, so its
+ * links stay out of the focus order, and each of its links closes it on the
+ * way to its section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
- * 
+ *
  * @param props - This component does not use any props.
- * 
- * @returns A React JSX element representing the Navigation Bar component.
- * @see {@link navBarComJsx}
- * 
+ *
+ * @returns The bar's header element, holding the brand, the links, the menu
+ *          button, and the menu panel.
+ *
  * @example
  * ```tsx
- * <NavBarCom /> // => navBarComJsx
+ * NavBarCom() // => <NavBarCom />
  * ```
  *
 */
 
-function NavBarCom () : React.ReactElement {
+function NavBarCom () : React.JSX.Element {
 
 
-    const [ menOpeBoo, setMenOpeBoo ] = useState( false ); // What: Menu Open Boolean And Setter. Why: The phone menu opens and closes from its button. How: This holds whether it's open, starting closed.
+	const [ menOpeBoo, setMenOpeBoo ] = useState( false ); // What: Menu Open Boolean And Setter. Why: The phone menu opens and closes from its button. How: This holds whether it's open, starting closed.
 
 
 
-    // #region navBarComJsx
+	return (
 
-    /** What : Navigation Bar Component Javascript XML. Why : A custom variable was required in order to store the HTML like code that this component will return to its parent component and so that it can be referenced inside of comments in the other sections of this component. How : Using a standard Javascript const variable declaration and its corresponding Typescript type annotation. */
-    const navBarComJsx : React.ReactElement = (
 
+		<header className={ cssModObj.navBarHed }>{ /* What: Navigation Bar Header Element. Why: The bar is the page's banner, shared by every page. How: This holds the brand, the links, the menu button, and the menu panel. */ }
 
-            /* <!-- ══ Start Navbar Header ══ --> */
 
-            <  header id='navHeaEle' className={ styles.navbarHeader } > { /* What : Navbar Header Element. Why : A semantic container element was required in order to contain, group and provide the grid structure for the navigation bar content, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <header> element. */ }
+			<a
+				className={ cssModObj.navBraAnc }
 
+				href='#home'
+			>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This jumps to the home section. */ }
 
-                { /* <!-- ══ Start Logo Anchor ══ --> */ }
 
-                < a id='logAncEle' className={ styles.logoAnchor } href='#home' > { /* What : Logo Anchor Element. Why : A semantic link element was required in order to contain, group and provide the grid structure for the brand's logo image and name text for the application and to act as a link to the Home section of the page. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+				<img
+					className={ cssModObj.navLogIma }
 
+					src={ logSvgUrl }
 
-                    < img id='nblImaEle' className={ styles.logoImage } src={ logoSvg } alt='Hair Designs logo of a BOLO that is used as a link to the Home page' /> { /* What : Navbar Logo Image Element. Why : A semantic image element adhering to standard accessibility guidelines was required in order to display the brand's SVG logo to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <img> element with an appropriate alt text attribute. */ }
+					alt=''
+				/>{ /* What: Navigation Logo Image Element. Why: The bar's brand opens with the logo. How: Its alt text is empty, since the name sits right beside it and already names the link. */ }
 
+				<span className={ cssModObj.braNamSpa }>Hair Designs</span>{ /* What: Brand Name Span Element. Why: The salon's name completes the brand. How: This shows it beside the logo. */ }
 
 
-                    { /* <!-- ══ Start Title Span ══ --> */ }
+			</a>
 
-                    < span id='nbtSpaEle' className={ styles.titleSpan } > { /* What : Navbar Title Span Element. Why : A generic, inline text element was required in order to display the brand's name to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <span> element. */ }
 
-                        Hair Designs
 
-                    </ span >
+			<nav
+				className={ cssModObj.navLinNav }
 
-                    { /* <!-- ══ End Title Span ══ --> */ }
+				aria-label='Main'
+			>{ /* What: Navigation Links Nav Element. Why: Wide screens show the section links in the bar. How: This labels the landmark Main, which screen readers announce as the main navigation. */ }
 
 
-                </ a >
+				<ul className={ cssModObj.navLinUno }>{ /* What: Navigation Links Unordered List Element. Why: The links form one list of the page's sections. How: This holds one item per link. */ }
 
-                { /* <!-- ══ End Logo Anchor ══ --> */ }
 
+					{ NAV_LIN_ARR.map( ( linRcdObj ) => ( // What: Link Item Map. Why: Each section gets a link in the bar. How: This renders one list item per row.
 
 
-                { /* <!-- ══ Start Navbar Nav ══ --> */ }
+						<li key={ linRcdObj.hreStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it. */ }
 
-                <  nav id='navNavEle' className={ styles.navbarNav } aria-label='Main navigation' > { /* What : Navbar Nav Element. Why : A semantic container element adhering to standard accessibility guidelines was required in order to contain the navigation bar's main navigation links <ul> container. How : Using a standard HTML <nav> element with an appropriate aria-label attribute. */ }
 
+							<a
+								className={ cssModObj.navLinAnc }
 
-                    { /* <!-- ══ Start Navbar UL ══ --> */ }
+								href={ linRcdObj.hreStr }
+							>{ linRcdObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link jumps to its section. How: This links to the section's id. */ }
 
-                    < ul id='navUnlEle' className={ styles.navbarUnorderedList } > { /* What: Navbar Unordered List Element. Why : A semantic container element was required in order to contain, group and provide the grid structure for the navigation bar's main navigation links and their <li> containers. How : Using a standard HTML <ul> element. */ }
 
+						</li>
 
-                        { /* <!-- ══ Start Home LI ══ --> */ }
+					))}
 
-                        <  li id='homLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_home } ` } > { /* What : Home List Item Element. Why : A semantic container element was required in order to contain the anchor for the Home section. How : Using a standard HTML <li> element. */ }
 
+				</ul>
 
-                            { /* <!-- ══ Start Home Anchor ══ --> */ }
 
-                            < a id='nbhAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_home } ` } href='#home' > { /* What : Navbar Home Anchor Element. Why : A semantic link element was required in order to contain the link to the Home section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+			</nav>
 
-                                Home
 
-                            </ a >
 
-                            { /* <!-- ══ End Home Anchor ══ --> */ }
+			<button
+				className={ cssModObj.navTogBut }
 
+				type='button'
 
-                        </ li >
+				aria-expanded={ menOpeBoo }
+				aria-label='Toggle menu'
 
-                        { /* <!-- ══ End Home LI ══ --> */ }
+				onClick={ () => setMenOpeBoo( ( preOpeBoo ) => !preOpeBoo ) }
+			>{ /* What: Navigation Toggle Button Element. Why: At 900px and narrower the links no longer fit in the bar. How: This opens and closes the menu panel, reporting its state through aria-expanded, which also turns its three lines into a cross. */ }
 
 
+				<span className={ cssModObj.togLinSpa } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the first, which tilts down into the cross. */ }
 
-                        { /* <!-- ══ Start Services LI ══ --> */ }
+				<span className={ cssModObj.togLinSpa } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the second, which fades out of the cross. */ }
 
-                        <  li id='serLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_services } ` } > { /* What : Services List Item Element. Why : A semantic container element was required in order to contain the anchor for the Services section. How : Using a standard HTML <li> element. */ }
+				<span className={ cssModObj.togLinSpa } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the third, which tilts up into the cross. */ }
 
 
-                            { /* <!-- ══ Start Services Anchor ══ --> */ }
+			</button>
 
-                            < a id='nbsAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_services } ` } href='#services' > { /* What : Navbar Services Anchor Element. Why : A semantic link element was required in order to contain the link to the Services section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+			<div
+				className={ cssModObj.navMenDiv }
 
-                                Services
+				data-mobile-menu-open={ menOpeBoo || undefined }
 
-                            </ a >
+				inert={ !menOpeBoo } // What: Closed Menu Inert Flag. Why: The closed panel is only faded out, so its links would otherwise still take keyboard focus while hidden. How: This makes the panel and its links unfocusable and hidden from screen readers until it opens.
+			>{ /* What: Navigation Menu Div Element. Why: Phones need the section links somewhere once the bar hides them. How: This drops below the bar with the same links, carrying data-mobile-menu-open while it's open. */ }
 
-                            { /* <!-- ══ End Services Anchor ══ --> */ }
 
+				{ NAV_LIN_ARR.map( ( linRcdObj ) => ( // What: Menu Link Map. Why: Each section gets a link in the menu. How: This renders one anchor per row.
 
-                        </ li >
 
-                        { /* <!-- ══ End Services LI ══ --> */ }
+					<a
+						key={ linRcdObj.hreStr }
 
+						className={ cssModObj.menLinAnc }
 
+						href={ linRcdObj.hreStr }
 
-                        { /* <!-- ══ Start About LI ══ --> */ }
+						onClick={ () => setMenOpeBoo( false ) }
+					>{ linRcdObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This jumps to the section and closes the menu behind it.
 
-                        <  li id='aboLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_about } ` } > { /* What : About List Item Element. Why : A semantic container element was required in order to contain the anchor for the About section. How : Using a standard HTML <li> element. */ }
 
+				))}
 
-                            { /* <!-- ══ Start About Anchor ══ --> */ }
 
-                            < a id='nbaAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_about } ` } href='#about' > { /* What : Navbar About Anchor Element. Why : A semantic link element was required in order to contain the link to the About section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
+			</div>
 
-                                About
 
-                            </ a >
+		</header>
 
-                            { /* <!-- ══ End About Anchor ══ --> */ }
 
+	);
 
-                        </ li >
 
-                        { /* <!-- ══ End About LI ══ */ }
-
-
-
-                        { /* <!-- ══ Start Contact LI ══ */ }
-
-                        <  li id='conLiiEle' className={ ` ${ styles.navbarListItems }   ${ styles.navbarListItems_contact } ` } > { /* What : Contact List Item Element. Why : A semantic container element was required in order to contain the anchor for the Contact section. How : Using a standard HTML <li> element. */ }
-
-
-                            { /* <!-- ══ Start Contact Anchor ══ */ }
-
-                            < a id='nbcAncEle' className={ ` ${ styles.navbarAnchors }   ${ styles.navbarAnchors_contact } ` } href='#contact' > { /* What : Navbar Contact Anchor Element. Why : A semantic link element was required in order to contain the link to the Contact section. How : Using a standard HTML <a> element with an appropriate href attribute. */ }
-
-                                Contact
-
-                            </ a >
-
-                            { /* <!-- ══ End Contact Anchor ══ */ }
-
-
-                        </ li >
-
-                        { /* <!-- ══ End Contact LI ══ */ }
-
-
-                    </ ul >
-
-                    { /* <!-- ══ End Navbar UL ══ */ }
-
-
-                </ nav >
-
-                { /* <!-- ══ End Navbar Nav ══ --> */ }
-
-
-
-                <button
-                    className={ styles.menuToggleButton }
-
-                    type='button'
-
-                    aria-expanded={ menOpeBoo }
-                    aria-label='Toggle menu'
-
-                    onClick={ () => setMenOpeBoo( ( preOpeBoo ) => !preOpeBoo ) }
-                >{ /* What: Menu Toggle Button Element. Why: At 900px and narrower the links no longer fit in the bar. How: This opens and closes the menu panel, reporting its state through aria-expanded, which also turns its three lines into a cross. */ }
-
-
-                    <span className={ styles.toggleLineSpans } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the first, which tilts down into the cross. */ }
-
-                    <span className={ styles.toggleLineSpans } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the second, which fades out of the cross. */ }
-
-                    <span className={ styles.toggleLineSpans } />{ /* What: Toggle Line Span Element. Why: Three lines draw the menu icon. How: This is the third, which tilts up into the cross. */ }
-
-
-                </button>
-
-
-
-                <div
-                    className={ styles.menuPanelDiv }
-
-                    data-mobile-menu-open={ menOpeBoo || undefined }
-
-                    inert={ !menOpeBoo } // What: Closed Menu Inert Flag. Why: The closed panel is only faded out, so its links would otherwise still take keyboard focus while hidden. How: This makes the panel and its links unfocusable and hidden from screen readers until it opens.
-                >{ /* What: Menu Panel Div Element. Why: Phones need the section links somewhere once the bar hides them. How: This drops below the bar with the same four links, carrying data-mobile-menu-open while it's open. */ }
-
-
-                    <a
-                        className={ styles.menuAnchors }
-                        href='#home'
-                        onClick={ () => setMenOpeBoo( false ) }
-                    >Home</a>{ /* What: Menu Home Anchor Element. Why: Phones reach the Home section from the menu. How: This jumps to the section and closes the menu behind it. */ }
-
-
-                    <a
-                        className={ styles.menuAnchors }
-                        href='#services'
-                        onClick={ () => setMenOpeBoo( false ) }
-                    >Services</a>{ /* What: Menu Services Anchor Element. Why: Phones reach the Services section from the menu. How: This jumps to the section and closes the menu behind it. */ }
-
-
-                    <a
-                        className={ styles.menuAnchors }
-                        href='#about'
-                        onClick={ () => setMenOpeBoo( false ) }
-                    >About</a>{ /* What: Menu About Anchor Element. Why: Phones reach the About section from the menu. How: This jumps to the section and closes the menu behind it. */ }
-
-
-                    <a
-                        className={ styles.menuAnchors }
-                        href='#contact'
-                        onClick={ () => setMenOpeBoo( false ) }
-                    >Contact</a>{ /* What: Menu Contact Anchor Element. Why: Phones reach the Contact section from the menu. How: This jumps to the section and closes the menu behind it. */ }
-
-
-                </div>
-
-
-            </ header >
-
-            /* <!-- ══ End Navbar Header ══ --> */
-
-
-    );
-
-    // #endregion navBarComJsx
-
-
-
-    return navBarComJsx;
-
-
-};
+}
 
 // #endregion NavBarCom
 
+// #endregion Components
 
 
-export default NavBarCom;
+
+// #region Exports
+
+export { NavBarCom }; // What: Named Exports. Why: The app root renders the bar above every page. How: This exports NavBarCom.
+
+// #endregion Exports
 
 

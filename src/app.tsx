@@ -3,10 +3,8 @@
 
 // #region Imports
 
-import NavBarCom from './ui/nav.tsx'; // What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders it above the main element.
-
-
 import { HomPagCom } from './pages/home/home.tsx'; // What: Home Page Component. Why: The home page holds every section of the site. How: The root path's route renders it.
+import { NavBarCom } from './ui/nav.tsx';          // What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders it above the main element.
 import { Route     } from 'react-router';          // What: Route. Why: Each page is matched to a path. How: This declares one path and the page it renders.
 import { Routes    } from 'react-router';          // What: Routes. Why: Only one page should render for any path. How: This renders the first route whose path matches.
 import { SitFooCom } from './ui/footer.tsx';       // What: Site Footer Component. Why: Every page ends with the footer. How: This renders it after the main element.

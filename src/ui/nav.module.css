@@ -1,106 +1,92 @@
 
-/* #region navbarHeader */
-
-.navbarHeader { /* What : Navbar Header. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar content, as was as a single root element to be returned by this component as required by React. How : Using a standard HTML <header> element. */
 
 
-    /* #region Selector Scoped Custom Properties */
-
-    --nav-hea-gta :               
-        'logoAnchor   navbarNav'; /** What : Navbar Header Grid Template Areas. Why : A custom variable was required in order to clearly and precisely place this selector's children elements within its grid layout structure. How : Using a CSS custom property to store the value that will be used for this selector's grid-template-areas property. */
-
-    /* #endregion Selector Scoped Custom Properties */
-
-
-
-    align-items           : center;                  /* What : Children Vertical Positioning.   Why : A property value was required in order to vertically center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                                                          How : Using a standard CSS value of center. */
-    background-color      : var( --navy );           /* What : Self Styling.                    Why : A property value was required in order to distinguish this selector from the rest of the content (since it is in a fixed position that all page content will scroll beneath) while also aligning with the brand's color scheme.               How : Using a global scoped CSS custom property value. */
-    border-bottom         : 3px solid var( --rose ); /* What : Self Styling.                    Why : A property value was required in order to separate this selector from the content below it and to match the borders used in the hero banner of the Home section while also aligning with the brand's color scheme.                            How : Using a custom value, a standard CSS value of solid and a global scoped CSS custom property value. */
-    display               : grid;                    /* What : Children Layout Structure.       Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                                                            How : Using a standard CSS value of grid. */
-    grid-template-areas   : var( --nav-hea-gta );    /* What : Children Grid Placement.         Why : A property value was required in order to clearly and precisely place the grid children within this selector's grid layout structure.                                                                                                         How : Using a selector scoped CSS custom property value. */
-    grid-template-columns : repeat( 2, auto );       /* What : Children Grid Sizing.            Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content.                                         How : Using a standard CSS repeat function with standad auto values. */
-    height                : 68px;                    /* What : Self Sizing.                     Why : A property value was required in order to ensure that this selector has enough vertical space to comfortably fit its content while also maintaining a visually appealing proportion relative to the rest of the page content.                 How : Using a custom value. */
-    justify-content       : space-between;           /* What : Children Horizontal Positioning. Why : A property value was required in order to equally distribute all horizontal space between the grid children's cells within this selector's grid layout structure so that they would appear balanced and aesthetically pleasing.               How : Using a standard CSS value of space-between. */
-    justify-items         : center;                  /* What : Children Horizontal Positioning. Why : A property value was required in order to horizontally center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                                                        How : Using a standard CSS value of center. */
-    left                  : 0;                       /* What : Self Horizontal Positioning.     Why : A property value was required in order to ensure that this selector is positioned at the left edge of the viewport and stretches across the full width since it is in a fixed position.                                                       How : Using a custom value. */
-    padding               : 0 5%;                    /* What : Self Internal Whitespace.        Why : A property value was required in order to provide horizontal spacing within this selector so that its content does not touch the edges of the viewport.                                                                                       How : Using a custom value. */
-    position              : fixed;                   /* What : Self Positioning.                Why : A property value was required in order to fix this selector to a specific position of the viewport so that it remains visible while scrolling.                                                                                                How : Using a standard CSS value of fixed. */
-    right                 : 0;                       /* What : Self Horizontal Positioning.     Why : A property value was required in order to ensure that this selector is positioned at the right edge of the viewport and stretches across the full width since it is in a fixed position.                                                      How : Using a custom value. */
-    top                   : 0;                       /* What : Self Vertical Positioning.       Why : A property value was required in order to ensure that this selector is positioned at the top edge of the viewport since it is in a fixed position.                                                                                            How : Using a custom value. */
-    z-index               : 1;                       /* What : Self Layering.                   Why : A property value was required in order to ensure that this selector appears above all other content on the current page since it is in a fixed position that all page content will scroll beneath.                                            How : Using a custom value. */
-
-
-}
+/**
+ * nav.module.css = Navigation Module
+ *
+ * @summary
+ * Styles for NavBarCom, the fixed bar at the top of every page: the navy bar
+ * with its rose bottom border, the logo and name that lead back to the top,
+ * the row of section links on wide screens, and, at 900px and narrower, the
+ * menu button and the panel it opens below the bar. The open panel is marked
+ * by data-mobile-menu-open and the button's state by aria-expanded, so no
+ * state lives in a class. Every transition has a reduced-motion variant.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
 
 
 
-/* #region logoAnchor */
+/* #region navBarHed */
 
-.logoAnchor { /* What : Logo Anchor. Why : A semantic element was required in order to contain, group and provide the grid structure for the brand's logo image and name text for the application and to act as a link to the Home section of the page. How : Using a standard HTML <a> element. */
-
-
-    /* #region Selector Scoped Custom Properties */
-
-    --log-anc-gta :               
-        'logoImage   titleSpan'; /** What : Logo Anchor Grid Template Areas. Why : A custom variable was required in order to clearly and precisely place this selector's children elements within its grid layout structure. How : Using a CSS custom property to store the value that will be used for this selector's grid-template-areas property. */
-
-    /* #endregion Selector Scoped Custom Properties */
+.navBarHed { /* What: Navigation Bar Header. Why: Every page opens with a fixed navy bar holding the brand and the links. How: This pins a 68px grid across the top, the brand on the left and the links or menu button on the right, above the content that scrolls under it. */
 
 
-
-    align-items           : center;               /* What : Children Vertical Positioning. Why : A property value was required in order to vertically center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                                                   How : Using a standard CSS value of center. */
-    column-gap            : 14px;                 /* What : Self Grid Layout Whitespace.   Why : A property value was required in order to provide horizontal spacing between the grid children so that they remain visually separated while also maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
-    display               : grid;                 /* What : Children Layout Structure.     Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                                                     How : Using a standard CSS value of grid. */
-    grid-template-areas   : var( --log-anc-gta ); /* What : Children Grid Placement.       Why : A property value was required in order to clearly and precisely place the grid children within this selector's grid layout structure.                                                                                                  How : Using a selector scoped CSS custom property value. */
-    grid-template-columns : repeat( 2, auto );    /* What : Children Grid Sizing.          Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content.                                  How : Using a standard CSS repeat function with standad auto values. */
-    padding-bottom        : 3px;                  /* What : Self Internal Whitespace.      Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box so that its children better align vertically due to the parent's border-bottom.                                  How : Using a custom value. */
-
-}
-
-
-
-/* #region logoImage */
-
-.logoImage { /* What : Logo Image. Why : A semantic element was required in order to display the brand's SVG logo to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <img> element. */
-
-
-    height : 44px; /* What : Self Sizing. Why : A property value was required in order to ensure that this selector's height maintains a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
-    width  : 44px; /* What : Self Sizing. Why : A property value was required in order to ensure that this selector's width maintains a visually appealing proportion relative to the rest of the page content.  How : Using a custom value. */
+	align-items           : center;
+	background-color      : var( --navy );
+	border-bottom         : 3px solid var( --rose );
+	display               : grid;
+	grid-template-columns : repeat( 2, auto );
+	height                : 68px;
+	justify-content       : space-between;
+	justify-items         : center;
+	left                  : 0;
+	padding               : 0 5%;
+	position              : fixed;
+	right                 : 0;
+	top                   : 0;
+	z-index               : 1; /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
 
 
 }
 
-/* #endregion logoImage */
+
+/* #region navBraAnc */
+
+.navBraAnc { /* What: Navigation Brand Anchor. Why: The logo and name together lead back to the top of the page. How: This sets them side by side, nudged up to sit centered against the bar's border. */
 
 
-
-/* #region titleSpan */
-
-.titleSpan { /* What : Title Span. Why : A generic, inline text element was required in order to display the brand's name to act as a visual brand identifier and as a link to the Home section of the page. How : Using a standard HTML <span> element. */
-
-
-    color          : var( --cream );            /* What : Self Styling. Why : A property value was required in order to color this selector's text exactly the same as the .navbarAnchors while also aligning with the brand's color scheme.                                How : Using a global scoped CSS custom property value. */
-    font-family    : 'Playfair Display', serif; /* What : Self Styling. Why : A property value was required in order to change this selector's text to a serif type family to better align with this brand's more classical, elegant aesthetic.                             How : Using a custom imported Google Fonts value. */
-    font-size      : 1.35rem;                   /* What : Self Styling. Why : A property value was required in order to ensure that this selector's text stands out as the brand name and maintains a visually appealing proportion relative to the logo image.             How : Using a custom value. */
-    letter-spacing : 0.04em;                    /* What : Self Styling. Why : A property value was required in order to better visually weight this selector's text with the logo image and to enhance the readability of it.                                               How : Using a custom value. */
-    line-height    : 44px;                      /* What : Self Sizing.  Why : A property value was required in order to ensure that this selector's text is vertically centered within the same height as the logo image so that they appear balanced and visually aligned. How : Using a custom value that matches the .logoImage height. */
+	align-items           : center;
+	column-gap            : 14px;
+	display               : grid;
+	grid-template-columns : repeat( 2, auto );
+	padding-bottom        : 3px;
 
 
 }
 
-/* #endregion titleSpan */
+.navLogIma { /* What: Navigation Logo Image. Why: The bar shows the logo at one fixed size. How: This sizes it to 44px square. */
 
 
-/* #endregion logoAnchor */
+	height : 44px;
+	width  : 44px;
+
+
+}
+
+.braNamSpa { /* What: Brand Name Span. Why: The salon's name sits beside the logo in the display face. How: This sets it in cream Playfair Display, its line as tall as the logo. */
+
+
+	color          : var( --cream );
+	font-family    : 'Playfair Display', serif;
+	font-size      : 1.35rem;
+	letter-spacing : 0.04em;
+	line-height    : 44px;
+
+
+}
+
+/* #endregion navBraAnc */
 
 
 
-/* #region navbarNav */
+/* #region navLinNav */
 
-@media ( max-width : 900px ) { /* What: Navbar Nav Narrow Screen Query. Why: The four links no longer fit beside the logo and name, so the menu panel holds them instead. How: This applies at 900px and narrower. */
+@media ( max-width : 900px ) { /* What: Narrow Navigation Links Nav. Why: The four links no longer fit beside the brand, so the menu panel holds them instead. How: This applies at 900px and narrower. */
 
 
-	.navbarNav { /* What: Navbar Nav Narrow Screen Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.navLinNav { /* What: Narrow Navigation Links Nav. Why: The four links no longer fit beside the brand, so the menu panel holds them instead. How: This hides the row. */
 
 
 		display : none;
@@ -112,56 +98,46 @@
 }
 
 
-/* #region navbarUnorderedList */
+/* #region navLinUno */
 
-.navbarUnorderedList { /* What: Navbar Unordered List. Why : A semantic element was required in order to contain, group and provide the grid structure for the navigation bar's main navigation links and their <li> containers. How : Using a standard HTML <ul> element. */
-
-
-    align-items           : center;            /* What : Children Vertical Positioning. Why : A property value was required in order to vertically center the grid children within their grid cells so that they would appear balanced and aesthetically pleasing.                                                                   How : Using a standard CSS value of center. */
-    column-gap            : 2.4rem;            /* What : Self Grid Layout Whitespace.   Why : A property value was required in order to provide horizontal spacing between the grid children so that they remain visually separated while also maintaining a visually appealing proportion relative to the rest of the page content. How : Using a custom value. */
-    display               : grid;              /* What : Children Layout Structure.     Why : A property value was required in order to define the layout behavior of the children while also having powerful placement and sizing capabilities.                                                                                     How : Using a standard CSS value of grid. */
-    grid-template-columns : repeat( 4, auto ); /* What : Children Grid Sizing.          Why : A property value was required in order to define the number of columns for the grid children and how they should size themselves so that they have the appropriate amount of space for their content.                                  How : Using a standard CSS repeat function with standad auto values.*/
-    padding-bottom        : 3px;               /* What : Self Internal Whitespace.      Why : A property value was required in order to provide vertical whitespace along the bottom of this selector's content box so that its children better align vertically due to the parent's border-bottom.                                  How : Using a custom value. */
+.navLinUno { /* What: Navigation Links Unordered List. Why: The four links sit in one evenly spaced row. How: This lays them out as a four-column grid, nudged up like the brand. */
 
 
-}
-
-
-
-/* #region navbarAnchors */
-
-.navbarAnchors { /* What : Navbar Anchors. Why : A custom selector was required in order to share the styling of all the semantic link elements that were required to contain the links to the different sections of the page. How : Using standard HTML <a> elements with a shared custom class name selector. */
-
-
-    color          : var( --cream );           /* What : Self Styling. Why : A property value was required in order to color this selector's text exactly the same as the .titleSpan while also aligning with the brand's color scheme.                                                How : Using a global scoped CSS custom property value. */
-    font-family    : 'Lato', sans-serif;       /* What : Self Styling. Why : A property value was required in order to change this selector's text to a sans-serif type family to better align the navigation links with their purpose (modern, functional).                           How : Using a custom imported Google Fonts value. */
-    font-size      : 0.82rem;                  /* What : Self Styling. Why : A property value was required in order to ensure that this selector's text maintains a visually appealing proportion relative to the rest of the page content.                                            How : Using a custom value. */
-    font-weight    : 700;                      /* What : Self Styling. Why : A property value was required in order to add more visual weight to the navigation links while also enhancing their readability.                                                                          How : Using a custom value. */
-    letter-spacing : 0.14em;                   /* What : Self Styling. Why : A property value was required in order to better visually weight the navigation links while also enhancing their readability.                                                                             How : Using a custom value. */
-    opacity        : 0.85;                     /* What : Self Styling. Why : A property value was required in order to slightly dim the text to create a subtle visual hierarchy and enhance the navigation link's hover transition style changes.                                     How : Using a custom value. */
-    text-transform : uppercase;                /* What : Self Styling. Why : A property value was required in order to to add more visual weight to the navigation links while also enhancing their readability.                                                                       How : Using a standard CSS value of uppercase. */
-    transition     : opacity 0.2s, color 0.2s; /* What : Self Styling. Why : A property value was required in order to smoothly transition the opacity and color changes on hover for a better user experience by providing visual feedback that the element is being interacted with. How : Using a standard CSS opacity and color values combined with custom values. */
+	align-items           : center;
+	column-gap            : 2.4rem;
+	display               : grid;
+	grid-template-columns : repeat( 4, auto );
+	padding-bottom        : 3px;
 
 
 }
 
+.navLinAnc { /* What: Navigation Link Anchor. Why: Each section link reads as a quiet label until it's pointed at. How: This sets it in small spaced cream capitals, slightly faded. */
 
 
-.navbarAnchors:hover { /* What : Navbar Anchors. Why : A custom selector was required in order to share the styling of all the semantic link elements that were required to contain the links to the different sections of the page. How : Using standard HTML <a> elements with a shared custom class name selector. */
-
-
-    color   : var( --rose-lt ); /* What : Self Styling. Why : A property value was required in order to color this selector's text to a slightly darker color and provide a visual confirmation to the user that the item is being interacted with while also aligning with the brand's color scheme. How : Using a global scoped CSS custom property value. */
-    opacity : 1;                /* What : Self Styling. Why : A property value was required in order to brighten the text and provide a visual confirmation to the user that the item is being interacted with.                                                                                       How : Using a custom value. */
+	color          : var( --cream );
+	font-family    : 'Lato', sans-serif;
+	font-size      : 0.82rem;
+	font-weight    : 700;
+	letter-spacing : 0.14em;
+	opacity        : 0.85;
+	text-transform : uppercase;
+	transition     : opacity 0.2s, color 0.2s;
 
 
 }
+.navLinAnc:hover { /* What: Hovered Navigation Link Anchor. Why: The link should respond to the pointer. How: This turns it light rose at full strength. */
 
 
+	color   : var( --rose-lt );
+	opacity : 1;
 
-@media ( prefers-reduced-motion : reduce ) { /* What: Navbar Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Navigation Link Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.navbarAnchors { /* What: Navbar Anchors Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.navLinAnc { /* What: Motionless Navigation Link Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color simply switches. */
 
 
 		transition : none;
@@ -172,18 +148,15 @@
 
 }
 
-/* #endregion navbarAnchors */
+/* #endregion navLinUno */
 
-
-/* #endregion navbarUnorderedList */
-
-/* #endregion navbarNav */
+/* #endregion navLinNav */
 
 
 
-/* #region menuToggleButton */
+/* #region navTogBut */
 
-.menuToggleButton { /* What: Menu Toggle Button. Why: The menu needs a button where the links used to be. How: This stacks the three lines of the menu icon in a borderless button, hidden until the narrow screen query shows it. */
+.navTogBut { /* What: Navigation Toggle Button. Why: Narrow screens reach the links through a menu. How: This stacks the three lines of the menu icon in a borderless button, hidden until the narrow screen query shows it. */
 
 
 	background     : none;
@@ -196,10 +169,10 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Menu Toggle Button Narrow Screen Query. Why: The button appears only where the links have been hidden. How: This applies at 900px and narrower. */
+@media ( max-width : 900px ) { /* What: Narrow Navigation Toggle Button. Why: The button appears only where the links have been hidden. How: This applies at 900px and narrower. */
 
 
-	.menuToggleButton { /* What: Menu Toggle Button Narrow Screen Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.navTogBut { /* What: Narrow Navigation Toggle Button. Why: The button appears only where the links have been hidden. How: This shows it. */
 
 
 		display : flex;
@@ -210,7 +183,7 @@
 
 }
 
-.toggleLineSpans { /* What: Toggle Line Spans. Why: Three lines draw the menu icon. How: This draws each as a thin cream line that can turn and fade into a cross. */
+.togLinSpa { /* What: Toggle Line Span. Why: Three lines draw the menu icon. How: This draws each as a thin cream line that can turn and fade into a cross. */
 
 
 	background-color : var( --cream );
@@ -221,38 +194,38 @@
 
 
 }
-.menuToggleButton:hover .toggleLineSpans { /* What: Hovered Toggle Line Spans. Why: The button should respond to the pointer. How: This turns the lines the same light rose the bar's links turn on hover. */
+.navTogBut:hover .togLinSpa { /* What: Hovered Toggle Line Span. Why: The button should respond to the pointer. How: This turns the lines the light rose the bar's links turn on hover. */
 
 
 	background-color : var( --rose-lt );
 
 
 }
-.menuToggleButton[aria-expanded='true'] .toggleLineSpans:nth-child( 1 ) { /* What: Open First Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This drops the top line to the middle, one line plus one gap, and tilts it. */
+.navTogBut[aria-expanded='true'] .togLinSpa:nth-child( 1 ) { /* What: Open First Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This drops the top line to the middle, one line plus one gap, and tilts it. */
 
 
 	transform : translateY( 7px ) rotate( 45deg );
 
 
 }
-.menuToggleButton[aria-expanded='true'] .toggleLineSpans:nth-child( 2 ) { /* What: Open Second Toggle Line Span. Why: The cross needs only two lines. How: This fades the middle line out. */
+.navTogBut[aria-expanded='true'] .togLinSpa:nth-child( 2 ) { /* What: Open Second Toggle Line Span. Why: The cross needs only two lines. How: This fades the middle line out. */
 
 
 	opacity : 0;
 
 
 }
-.menuToggleButton[aria-expanded='true'] .toggleLineSpans:nth-child( 3 ) { /* What: Open Third Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This lifts the bottom line to the middle and tilts it the other way. */
+.navTogBut[aria-expanded='true'] .togLinSpa:nth-child( 3 ) { /* What: Open Third Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This lifts the bottom line to the middle and tilts it the other way. */
 
 
 	transform : translateY( -7px ) rotate( -45deg );
 
 
 }
-@media ( prefers-reduced-motion : reduce ) { /* What: Toggle Line Spans Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Toggle Line Span. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.toggleLineSpans { /* What: Toggle Line Spans Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.togLinSpa { /* What: Motionless Toggle Line Span. Why: The change should simply happen. How: This turns the transition off, so the icon simply switches to a cross. */
 
 
 		transition : none;
@@ -263,13 +236,12 @@
 
 }
 
-/* #endregion menuToggleButton */
+/* #endregion navTogBut */
 
 
+/* #region navMenDiv */
 
-/* #region menuPanelDiv */
-
-.menuPanelDiv { /* What: Menu Panel Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */
+.navMenDiv { /* What: Navigation Menu Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */
 
 
 	background-color : var( --navy );
@@ -288,7 +260,7 @@
 
 
 }
-.menuPanelDiv[data-mobile-menu-open] { /* What: Open Menu Panel Div. Why: The panel should show its links once the button opens it, and they should take focus from the first moment. How: This fades it in and settles it into place, turning visibility on at once rather than at the end of a transition. */
+.navMenDiv[data-mobile-menu-open] { /* What: Open Navigation Menu Div. Why: The panel should show its links once the button opens it, and they should take focus from the first moment. How: This fades it in and settles it into place, turning visibility on at once rather than at the end of a transition. */
 
 
 	opacity    : 1;
@@ -298,10 +270,10 @@
 
 
 }
-@media ( max-width : 900px ) { /* What: Menu Panel Div Narrow Screen Query. Why: The panel exists only where the menu button does. How: This applies at 900px and narrower. */
+@media ( max-width : 900px ) { /* What: Narrow Navigation Menu Div. Why: The panel exists only where the menu button does. How: This applies at 900px and narrower. */
 
 
-	.menuPanelDiv { /* What: Menu Panel Div Narrow Screen Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.navMenDiv { /* What: Narrow Navigation Menu Div. Why: The panel exists only where the menu button does. How: This lays it out as a column, still hidden until opened. */
 
 
 		display : flex;
@@ -311,11 +283,11 @@
 
 
 }
-@media ( prefers-reduced-motion : reduce ) { /* What: Menu Panel Div Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Navigation Menu Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.menuPanelDiv,
-	.menuPanelDiv[data-mobile-menu-open] { /* What: Menu Panel Div Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the panel closed and open, matching the open rule's own selector so it outranks its transition. */
+	.navMenDiv,
+	.navMenDiv[data-mobile-menu-open] { /* What: Motionless Navigation Menu Div. Why: The change should simply happen. How: This turns the transition off, closed and open, matching the open rule's own selector so it outranks its transition. */
 
 
 		transition : none;
@@ -326,7 +298,7 @@
 
 }
 
-.menuAnchors { /* What: Menu Anchors. Why: Each link fills a row of the panel, easy to tap. How: This sets it in the bar's spaced capitals, larger for a finger, with a faint cream divider below. */
+.menLinAnc { /* What: Menu Link Anchor. Why: Each link fills a row of the panel, easy to tap. How: This sets it in the bar's spaced capitals, larger for a finger, with a faint cream divider below. */
 
 
 	border-bottom  : 1px solid rgba( 245, 240, 232, 0.1 );
@@ -341,24 +313,24 @@
 
 
 }
-.menuAnchors:hover { /* What: Hovered Menu Anchors. Why: The link should respond to the pointer. How: This turns it the light rose the bar's links use. */
+.menLinAnc:hover { /* What: Hovered Menu Link Anchor. Why: The link should respond to the pointer. How: This turns it the light rose the bar's links use. */
 
 
 	color : var( --rose-lt );
 
 
 }
-.menuAnchors:last-child { /* What: Last Menu Anchor. Why: Its divider would sit right above the panel's rose border and read as a doubled line. How: This drops the divider from the final link. */
+.menLinAnc:last-child { /* What: Last Menu Link Anchor. Why: Its divider would sit right above the panel's rose border and read as a doubled line. How: This drops the divider from the final link. */
 
 
 	border-bottom : none;
 
 
 }
-@media ( prefers-reduced-motion : reduce ) { /* What: Menu Anchors Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the transition off, so the change still happens, just at once. */
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Menu Link Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.menuAnchors { /* What: Menu Anchors Reduced Motion Rule. Why: The override needs a rule to hold it. How: This targets the same element as the base rule. */
+	.menLinAnc { /* What: Motionless Menu Link Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color simply switches. */
 
 
 		transition : none;
@@ -369,9 +341,8 @@
 
 }
 
-/* #endregion menuPanelDiv */
+/* #endregion navMenDiv */
 
-
-/* #endregion navbarHeader */
+/* #endregion navBarHed */
 
 
