@@ -23,11 +23,11 @@
 
 
 	align-items           : center;
-	background            : var( --bac-sur-col );                      /* Background Surface Color = #f5f0e8 */
+	background            : var( --bac-sur-col );                                                        /* Background Surface Color = #f5f0e8 */
 	display               : grid;
-	gap                   : var( --spa-ver-p06 ) var( --spa-hor-p06 ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 6 ~= 78.751px */
+	gap                   : var( --spa-ver-p06 ) var( --spa-hor-p06 );                                   /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 6 ~= 78.751px */
 	grid-template-columns : 1fr 1fr;
-	padding               : var( --spa-ver-p06 ) 5%;                   /* Spacing Vertical Base Plus 6 ~= 78.751px */
+	padding               : var( --spa-ver-p06 ) max( 5%, calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is 5% until half the space beyond the cap is larger, then that half. */
 
 
 }

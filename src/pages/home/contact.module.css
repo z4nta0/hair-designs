@@ -26,8 +26,8 @@
 
 
 	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
-	color            : var( --tex-inv-col );    /* Text Inverse Color = #f5f0e8 */
-	padding          : var( --spa-ver-p06 ) 5%; /* Spacing Vertical Base Plus 6 ~= 78.751px */
+	color            : var( --tex-inv-col );                                                        /* Text Inverse Color = #f5f0e8 */
+	padding          : var( --spa-ver-p06 ) max( 5%, calc( ( 100% - var( --con-max-wid ) ) / 2 ) ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Container Maximum Width ~= 1,094.093px */ /* What: Content Cap Note. Why: The section's background should run the full width while its content stops at the container cap and centers on larger screens. How: The side padding is 5% until half the space beyond the cap is larger, then that half. */
 
 
 }

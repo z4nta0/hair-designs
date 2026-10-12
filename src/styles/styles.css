@@ -205,7 +205,8 @@
 
 	/* #region Layout Tokens */
 
-	--nav-bar-hei : calc( var( --ver-rhy-p05 ) * 1rem ); /* What: Navigation Bar Height ~= 59.447px. Why: The fixed bar's height sets how far the hero and every scroll stop clear it. How: This multiplies the p05 rhythm step by 1rem, which the bar, the hero's top padding, and the page's scroll stop all read. */
+	--con-max-wid : calc( 1920px / var( --cdn-pow-002 ) ); /* What: Container Maximum Width ~= 1,094.093px. Why: The sections' content should fill the screen on phones and tablets but stop widening on larger monitors, where the compact type left wide sections looking sparse. How: This divides a 1,920px screen by the square of the core design number, the same cap tonys-toppers uses, which the Services, About, and Contact sections center their content within. */
+	--nav-bar-hei : calc( var( --ver-rhy-p05 ) * 1rem );   /* What: Navigation Bar Height ~= 59.447px. Why: The fixed bar's height sets how far the hero and every scroll stop clear it. How: This multiplies the p05 rhythm step by 1rem, which the bar, the hero's top padding, and the page's scroll stop all read. */
 
 	/* #endregion Layout Tokens */
 
