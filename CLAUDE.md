@@ -73,11 +73,15 @@ with unchanged screenshots unless the step is meant to change the page.
    clearing 14 advisories (mostly the Vite 8.0 dev server, now 8.3.4),
    React Router 8.4 (checked rendering in all three engines), TypeScript
    6.0.3 with typescript-eslint 8.71.1 (whose peer range accepts it), and
-   the JSON configs formatted. React Router 8 needs Node 22.22 or newer,
-   so Netlify must build with Node 24.x (set in the site's Netlify
-   settings, as seal-and-shield does).
+   the JSON configs formatted. React Router 8 needs Node 22.22 or newer;
+   Netlify builds with Node 24.x.
 3. **ESLint**: `eslint.config.ts` from ease-my-life's, replacing the
-   template's `eslint.config.js`.
+   template's `eslint.config.js`. Done 2026-10-12: seal-and-shield's copy
+   of it, unchanged, with `eslint-plugin-react` and `jiti` added and the
+   template's `@eslint/js`, `globals`, and `eslint-plugin-react-refresh`
+   removed. `tsconfig.node.json` type checks the config too, and `npm run
+   typecheck` runs `tsc -b`. The existing code lints clean, and a probe
+   file proved `react/jsx-no-undef` and the typescript-eslint rules fire.
 4. **Playwright and axe** in all three engines, adapted from
    seal-and-shield's suites, with baseline screenshots taken before
    anything moves.
