@@ -84,6 +84,24 @@ column gaps, and image sizes) are each a `clamp()` of a `--hor-rhy-*` step
 between two `--spa-hor-*` steps, and everything inside a component stays on
 fixed rem steps. It lands in a commit of its own, so it can be reverted if
 it doesn't suit this design.
+- **Applied 2026-10-12 in one commit (`7fe5c6c`)**, so `git revert` restores
+  the previous layout if the user's comparison with the live site says so:
+  - **Fluid (horizontal rhythm)**: the gutter `--gut-sid-pad` (horizontal
+    step 016 clamped between the p01 and p04 spacing steps, about 19.3px to
+    44.9px, the same as reese-roofing and seal-and-shield) pads the sides of
+    every section, the bar, the phone menu, the hero's details bar, and the
+    footer, and feeds the content cap's `max()`. The hero panels' side
+    padding and the Contact column gap take step 016 between p03 and p05,
+    the About column gap step 017 between p04 and p06, the hero logo step
+    021 between rhythm p09 and p10, and the About logo step 019 between
+    rhythm p07 and p08.
+  - **Fixed (rem steps)**: everything inside a component (cards, buttons,
+    form fields, the tooltip, the menu's rows).
+  - **Container queries**: a root `appRooDiv` in `app.tsx` is the `app`
+    container, and the 600px and 900px queries measure it; only the
+    reduced-motion queries stay `@media`. The phone and narrow overrides
+    now set only top and bottom padding, leaving the sides to the fluid
+    values.
 - **Content cap** (decided 2026-10-12, ahead of the horizontal rhythm, after
   the compact type scale left the wide sections looking sparse): content
   stops at `--con-max-wid`, 1,920px over the square of the core design
