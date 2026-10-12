@@ -25,6 +25,23 @@ treatment. The `author` meta names the business itself.
   "Hickory County and surrounding counties", but structured data names real
   places, so the surrounding counties are covered by the towns rather than
   listed as a vague region.
+- **SEO pass** (done 2026-10-12): `index.html` carries the title "Hair
+  Designs | Hair Salon in Carson's Corner, Missouri", the one description
+  (120 characters, naming the services, both stylists, the town, and "By
+  appointment only"), the `author` meta, and the canonical link, since the
+  home page is the only indexed route. Its JSON-LD links a `HairSalon` (live
+  address, phone, street address, service area, the six services as an
+  offer catalog, and the Facebook page as `sameAs`, with no opening hours) to
+  a `Person` for each stylist with the title "Licensed Cosmetologist", and
+  to a `WebSite` it publishes. The service area is the one detail the page
+  doesn't show; it's the user's own answer about who the salon serves, not a
+  claim the page contradicts. `public/` gains `robots.txt` (every crawler
+  allowed), `sitemap.xml` (the home page alone), and `_headers` (a strict
+  Content-Security-Policy and the usual hardening headers, checked against
+  the built site in all three engines; WebKit reports one harmless
+  violation from its own styling of the form's select, which draws
+  identically either way). The social preview tags, `theme-color`, and the
+  icons come with the social preview card.
 - **Off-site work for the business** (to hand over once the SEO pass is
   done): a Google Business Profile with the street address, Google Search
   Console with the sitemap submitted, Bing Webmaster Tools, and listings
@@ -119,8 +136,9 @@ it doesn't suit this design.
   already centers its line, is unchanged.
 
 ## Scroll position
-Decided 2026-10-12: the 404 page makes this a two-route site, but
-`useScrTopFun` is left out, pending the user's confirmation. The 404 page
+Decided 2026-10-12, confirmed by the user once the 404 page was built: the
+404 page makes this a two-route site, but `useScrTopFun` is left out, an
+exception to the user-level rule. The 404 page
 fits one screen at every size checked except the smallest phone (320 by
 568, about 140px of scroll), and every link on it (the bar's brand and
 section links, the phone menu's, and its own Back Home button) goes through
@@ -311,8 +329,8 @@ menu open at 390px) are listed in
 `tests/support/states.ts`, whose `opeStaFun` waits for the fonts, the images,
 and the hero's entrance fade before anything is checked. Unlike
 seal-and-shield's, it has no scroll pass, since nothing on this site waits to
-be scrolled into view. The interaction and SEO suites arrive in step 8 with
-the features they check.
+be scrolled into view. The interaction suite arrives later in step 8 with
+the interaction feedback pass.
 - `npm run test:accessibility`: the pre-commit accessibility scan. axe-core
   checks each state against WCAG 2.2 A and AA plus best practices
   (`axe.spec.ts`), and scripted checks (`scripted.spec.ts`) cover link and
@@ -333,11 +351,17 @@ the features they check.
     a temporary retry. Self-hosting the fonts (`f22a2ba`) ended it: eight
     parallel runs with retries off all passed, so the retry was removed.
 - `npm run test:responsive`: measures the home page and the 404 page at 15
-  widths from 320 to 1,920px (a pixel either side of the 600px and 900px breakpoints and of
-  `index.css`'s 1,024px root font size switch included), and the open phone
-  menu at every one of those up to 900px, failing on sideways
+  widths from 320 to 1,920px (a pixel either side of the 600px and 900px
+  breakpoints and of `index.css`'s 1,024px root font size switch included), and
+  the open phone menu at every one of those up to 900px, failing on sideways
   scrolling, an unclipped element past either edge, text spilling its box, or
   two reachable controls overlapping.
+- `npm run test:seo`: the raw page, fetched without a browser, carries the
+  full title and one description; the home page's title, description,
+  author, canonical, and single h1; the structured data matched against the
+  page's own text and links (phone, street address, stylists, services,
+  Facebook, no hours); the 404 page's noindex, title, single description,
+  and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
 - `npm test` runs every suite.
 
 ### Accessibility pass

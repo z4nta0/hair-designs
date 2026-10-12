@@ -5,16 +5,25 @@
 <html lang='en'><!-- What: Root HTML Element. Why: Screen readers and translation tools need the page's language. How: This marks the document as English. -->
 
 
-	<head><!-- What: Document Head Element. Why: The page's metadata and icons load before the body paints. How: This holds them in the sections below. -->
+	<head><!-- What: Document Head Element. Why: The page's metadata, icons, and structured data load before the body paints. How: This holds them in the sections below. -->
 
 
 		<!-- #region Document -->
 
 		<meta charset='UTF-8' />                                                 <!-- What: Character Set Meta. Why: The browser has to decode the page as UTF-8 before it reads anything else. How: This sits first in the head, inside the first 1,024 bytes the browser checks. -->
 		<meta name='viewport' content='width=device-width, initial-scale=1.0' /> <!-- What: Viewport Meta. Why: Phones should lay the site out at device width instead of a zoomed-out desktop width. How: This sets the layout width to the device's and starts at no zoom. -->
-		<title>Hair Designs – Juli Wilkerson & Keeli Bryan</title>               <!-- What: Page Title Element. Why: The tab, bookmarks, and search listings name the page by its title. How: This names the salon and its two stylists, until the SEO pass rewrites it. -->
+		<title>Hair Designs | Hair Salon in Carson's Corner, Missouri</title>    <!-- What: Page Title Element. Why: The tab, bookmarks, and search listings name the page by its title, and nearby visitors search for a salon by town. How: This names the salon, what it is, and its town, in under 60 characters. -->
 
 		<!-- #endregion Document -->
+
+
+		<!-- #region Search -->
+
+		<meta name='author'      content='Hair Designs' />        <!-- What: Author Meta. Why: Search engines and link preview inspectors look for who a page belongs to, and on a real business's site that's the business itself. How: This names Hair Designs. -->
+		<link href='https://hairdesigns.hair/' rel='canonical' /> <!-- What: Canonical Link. Why: Netlify also serves the site at deploy preview and netlify.app addresses, which should all count as one page. How: This names the live address as the page's own. -->
+		<meta name='description' content="Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only." /> <!-- What: Description Meta. Why: Search listings show a short summary under the title, and it should name the services, the stylists, and the town. How: This sums up the salon in 120 characters, so phones show it whole. -->
+
+		<!-- #endregion Search -->
 
 
 		<!-- #region Icons -->
@@ -22,6 +31,164 @@
 		<link href='/favicon.svg' rel='icon' type='image/svg+xml' /> <!-- What: Favicon Link. Why: Browser tabs and bookmarks show the site's icon. How: This points at the SVG icon in public/, until the social preview pass replaces it with the full icon set. -->
 
 		<!-- #endregion Icons -->
+
+
+		<!-- #region Structured Data -->
+
+		<script type='application/ld+json'>
+			{
+				"@context": "https://schema.org",
+				"@graph": [
+					{
+						"@type": "HairSalon",
+						"@id": "https://hairdesigns.hair/#salon",
+						"name": "Hair Designs",
+						"url": "https://hairdesigns.hair/",
+						"telephone": "+1-417-988-6239",
+						"description": "Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only.",
+						"address": {
+							"@type": "PostalAddress",
+							"streetAddress": "24579 State Hwy 254",
+							"addressLocality": "Carson's Corner",
+							"addressRegion": "MO",
+							"postalCode": "65668",
+							"addressCountry": "US"
+						},
+						"areaServed": [
+							{
+								"@type": "AdministrativeArea",
+								"name": "Hickory County, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Hermitage, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Pittsburg, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Galmey, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Wheatland, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Nemo, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Preston, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Cross Timbers, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Elkton, Missouri"
+							},
+							{
+								"@type": "City",
+								"name": "Urbana, Missouri"
+							}
+						],
+						"employee": [
+							{
+								"@id": "https://hairdesigns.hair/#juli"
+							},
+							{
+								"@id": "https://hairdesigns.hair/#keeli"
+							}
+						],
+						"hasOfferCatalog": {
+							"@type": "OfferCatalog",
+							"name": "Hair Services",
+							"itemListElement": [
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Cuts & Styling"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Color & Highlights"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Perms & Texture"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Special Occasions"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Men's Cuts"
+									}
+								},
+								{
+									"@type": "Offer",
+									"itemOffered": {
+										"@type": "Service",
+										"name": "Hair Treatments"
+									}
+								}
+							]
+						},
+						"sameAs": [
+							"https://www.facebook.com/hairdesignscosmetology"
+						]
+					},
+					{
+						"@type": "Person",
+						"@id": "https://hairdesigns.hair/#juli",
+						"name": "Juli Wilkerson",
+						"jobTitle": "Licensed Cosmetologist",
+						"worksFor": {
+							"@id": "https://hairdesigns.hair/#salon"
+						}
+					},
+					{
+						"@type": "Person",
+						"@id": "https://hairdesigns.hair/#keeli",
+						"name": "Keeli Bryan",
+						"jobTitle": "Licensed Cosmetologist",
+						"worksFor": {
+							"@id": "https://hairdesigns.hair/#salon"
+						}
+					},
+					{
+						"@type": "WebSite",
+						"@id": "https://hairdesigns.hair/#website",
+						"name": "Hair Designs",
+						"url": "https://hairdesigns.hair/",
+						"inLanguage": "en-US",
+						"publisher": {
+							"@id": "https://hairdesigns.hair/#salon"
+						}
+					}
+				]
+			}
+		</script><!-- What: Site Structured Data Script. Why: Search engines read JSON-LD to tell what the business is, where it is, who works there, and what it offers, and every detail has to match the page. How: This links a HairSalon, with its live address, phone, street address, service area, six services, and Facebook page, to a Person for each licensed cosmetologist and to a WebSite it publishes, with no opening hours, since the salon works by appointment. -->
+
+		<!-- #endregion Structured Data -->
 
 
 	</head>
