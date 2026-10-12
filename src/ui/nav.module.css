@@ -24,11 +24,11 @@
 
 
 	align-items           : center;
-	background-color      : var( --bac-inv-col );           /* Background Inverse Color = #2b3245 */
-	border-bottom         : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+	background-color      : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
+	border-bottom         : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display               : grid;
 	grid-template-columns : repeat( 2, auto );
-	height                : 68px;
+	height                : var( --nav-bar-hei );                            /* Navigation Bar Height ~= 59.447px */
 	justify-content       : space-between;
 	justify-items         : center;
 	left                  : 0;
@@ -36,7 +36,7 @@
 	position              : fixed;
 	right                 : 0;
 	top                   : 0;
-	z-index               : 1;                              /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
+	z-index               : 1;                                               /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
 
 
 }
@@ -48,10 +48,10 @@
 
 
 	align-items           : center;
-	column-gap            : 14px;
+	column-gap            : var( --spa-hor-bas ); /* Spacing Horizontal Base ~= 14.572px */
 	display               : grid;
 	grid-template-columns : repeat( 2, auto );
-	padding-bottom        : 3px;
+	padding-bottom        : var( --spa-ver-m06 ); /* Spacing Vertical Base Minus 6 ~= 2.696px */
 
 
 }
@@ -59,8 +59,8 @@
 .navLogIma { /* What: Navigation Logo Image. Why: The bar shows the logo at one fixed size. How: This sizes it to 44px square. */
 
 
-	height : 44px;
-	width  : 44px;
+	height : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
+	width  : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
 
 
 }
@@ -68,11 +68,11 @@
 .braNamSpa { /* What: Brand Name Span. Why: The salon's name sits beside the logo in the display face. How: This sets it in cream Playfair Display, its line as tall as the logo. */
 
 
-	color          : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	font-family    : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size      : 1.35rem;
+	color          : var( --tex-inv-col );                /* Text Inverse Color = #f5f0e8 */
+	font-family    : var( --fon-fam-br1 );                /* Font Family Brand 1 = 'Playfair Display' */
+	font-size      : var( --fon-siz-p02 );                /* Font Size Base Plus 2 ~= 19.304px */
 	letter-spacing : 0.04em;
-	line-height    : 44px;
+	line-height    : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
 
 
 }
@@ -104,10 +104,10 @@
 
 
 	align-items           : center;
-	column-gap            : 2.4rem;
+	column-gap            : var( --spa-hor-p03 ); /* Spacing Horizontal Base Plus 3 ~= 33.876px */
 	display               : grid;
 	grid-template-columns : repeat( 4, auto );
-	padding-bottom        : 3px;
+	padding-bottom        : var( --spa-ver-m06 ); /* Spacing Vertical Base Minus 6 ~= 2.696px */
 
 
 }
@@ -115,11 +115,11 @@
 .navLinAnc { /* What: Navigation Link Anchor. Why: Each section link reads as a quiet label until it's pointed at. How: This sets it in small spaced cream capitals, slightly faded. */
 
 
-	color          : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	font-family    : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
-	font-size      : 0.82rem;
+	color          : var( --tex-inv-col );                   /* Text Inverse Color = #f5f0e8 */
+	font-family    : var( --fon-fam-mai );                   /* Font Family Main = 'Lato', sans-serif */
+	font-size      : var( --fon-siz-p01 );                   /* Font Size Base Plus 1 ~= 14.572px */
 	font-weight    : 700;
-	letter-spacing : 0.14em;
+	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em ); /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
 	opacity        : 0.85;
 	text-transform : uppercase;
 	transition     : opacity 0.2s, color 0.2s;
@@ -164,8 +164,8 @@
 	cursor         : pointer;
 	display        : none;
 	flex-direction : column;
-	gap            : 5px;
-	padding        : 8px;
+	gap            : var( --spa-ver-m04 );                      /* Spacing Vertical Base Minus 4 ~= 4.732px */
+	padding        : var( --spa-ver-m02 ) var( --spa-hor-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px, Spacing Horizontal Base Minus 2 ~= 8.304px */
 
 
 }
@@ -186,11 +186,11 @@
 .togLinSpa { /* What: Toggle Line Span. Why: Three lines draw the menu icon. How: This draws each as a thin cream line that can turn and fade into a cross. */
 
 
-	background-color : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+	background-color : var( --tex-inv-col );                /* Text Inverse Color = #f5f0e8 */
 	display          : block;
-	height           : 2px;
+	height           : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
 	transition       : background-color 0.2s, opacity 0.2s, transform 0.2s;
-	width            : 26px;
+	width            : calc( var( --ver-rhy-p02 ) * 1rem ); /* Vertical Rhythm Base Plus 2 ~= 25.572px */
 
 
 }
@@ -204,7 +204,7 @@
 .navTogBut[aria-expanded='true'] .togLinSpa:nth-child( 1 ) { /* What: Open First Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This drops the top line to the middle, one line plus one gap, and tilts it. */
 
 
-	transform : translateY( 7px ) rotate( 45deg );
+	transform : translateY( calc( var( --ver-rhy-m07 ) * 1rem + var( --spa-ver-m04 ) ) ) rotate( 45deg ); /* Vertical Rhythm Base Minus 7 ~= 2.035px, Spacing Vertical Base Minus 4 ~= 4.732px */
 
 
 }
@@ -218,7 +218,7 @@
 .navTogBut[aria-expanded='true'] .togLinSpa:nth-child( 3 ) { /* What: Open Third Toggle Line Span. Why: The open menu's icon should read as a close cross. How: This lifts the bottom line to the middle and tilts it the other way. */
 
 
-	transform : translateY( -7px ) rotate( -45deg );
+	transform : translateY( calc( ( var( --ver-rhy-m07 ) * 1rem + var( --spa-ver-m04 ) ) * -1 ) ) rotate( -45deg ); /* Vertical Rhythm Base Minus 7 ~= -2.035px, Spacing Vertical Base Minus 4 ~= -4.732px */
 
 
 }
@@ -244,17 +244,17 @@
 .navMenDiv { /* What: Navigation Menu Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */
 
 
-	background-color : var( --bac-inv-col );           /* Background Inverse Color = #2b3245 */
-	border-bottom    : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+	background-color : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
+	border-bottom    : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display          : none;
 	flex-direction   : column;
 	left             : 0;
 	opacity          : 0;
-	padding          : 8px 5% 16px;
+	padding          : var( --spa-ver-m02 ) 5% var( --spa-ver-bas );    /* Spacing Vertical Base Minus 2 ~= 8.304px, Spacing Vertical Base ~= 14.572px */
 	position         : absolute;
 	right            : 0;
-	top              : calc( 100% + 3px );
-	transform        : translateY( -8px );
+	top              : calc( 100% + var( --bor-wid-xla ) );             /* Border Width Extra Large ~= 3.572px */
+	transform        : translateY( calc( var( --spa-ver-m02 ) * -1 ) ); /* Spacing Vertical Base Minus 2 ~= -8.304px */
 	transition       : opacity 0.2s, transform 0.2s, visibility 0s 0.2s;
 	visibility       : hidden;
 
@@ -301,13 +301,13 @@
 .menLinAnc { /* What: Menu Link Anchor. Why: Each link fills a row of the panel, easy to tap. How: This sets it in the bar's spaced capitals, larger for a finger, with a faint cream divider below. */
 
 
-	border-bottom  : 1px solid rgb( from var( --tex-inv-col ) r g b / 0.1 ); /* Text Inverse Color = #f5f0e8 @ 0.1 opacity */
-	color          : var( --tex-inv-col );                                   /* Text Inverse Color = #f5f0e8 */
-	font-family    : var( --fon-fam-mai );                                   /* Font Family Main = 'Lato', sans-serif */
-	font-size      : 0.95rem;
+	border-bottom  : var( --bor-wid-bas ) solid rgb( from var( --tex-inv-col ) r g b / var( --cdn-pow-008-rec ) ); /* Border Width Base ~= 1.160px, Text Inverse Color = #f5f0e8 @ 0.105 opacity */
+	color          : var( --tex-inv-col );                                                                         /* Text Inverse Color = #f5f0e8 */
+	font-family    : var( --fon-fam-mai );                                                                         /* Font Family Main = 'Lato', sans-serif */
+	font-size      : var( --fon-siz-p01 );                                                                         /* Font Size Base Plus 1 ~= 14.572px */
 	font-weight    : 700;
-	letter-spacing : 0.14em;
-	padding        : 14px 0;
+	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em );                                                       /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
+	padding        : var( --spa-ver-bas ) 0;                                                                       /* Spacing Vertical Base ~= 14.572px */
 	text-transform : uppercase;
 	transition     : color 0.2s;
 

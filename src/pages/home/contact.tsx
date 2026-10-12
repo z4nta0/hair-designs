@@ -6,9 +6,10 @@
 import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: The Contact section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
 
 
-import { useEffect } from 'react'; // What: Use Effect. Why: An open form tooltip closes when a tap lands anywhere else. How: This adds and removes that page-wide listener while the tooltip is open.
-import { useRef    } from 'react'; // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds the wrapper and the tooltip.
-import { useState  } from 'react'; // What: Use State. Why: The form tooltip opens at a position. How: This holds that position, or null while it's closed.
+import { rhyPxlFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
+import { useEffect } from 'react';                 // What: Use Effect. Why: An open form tooltip closes when a tap lands anywhere else. How: This adds and removes that page-wide listener while the tooltip is open.
+import { useRef    } from 'react';                 // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds the wrapper and the tooltip.
+import { useState  } from 'react';                 // What: Use State. Why: The form tooltip opens at a position. How: This holds that position, or null while it's closed.
 
 // #endregion Imports
 
@@ -115,8 +116,9 @@ function ConSecCom () : React.JSX.Element {
 	 *
 	 * @summary
 	 * Opens the tooltip at a point on the screen, measured from the form
-	 * wrapper's corner. Its left is clamped so the tooltip, 260px wide and
-	 * centered on the point, never spills past either side of the form.
+	 * wrapper's corner. Its left is clamped so the tooltip, as wide as the
+	 * p10 rhythm step and centered on the point, never spills past either
+	 * side of the form.
 	 *
 	 * @author z4nta0 <https://github.com/z4nta0>
 	 *
@@ -137,15 +139,16 @@ function ConSecCom () : React.JSX.Element {
 	const plaTipFun = ( cliXcoNum : number, cliYcoNum : number ) => { // What: Place Tip Function. Why: The tooltip should open where the visitor pointed without spilling past the form's sides. How: This stores the point's position within the wrapper as the tooltip's position.
 
 
-		const wraRecObj = forWraRef.current!.getBoundingClientRect(); // What: Wrapper Rectangle Object. Why: The point has to be measured from the wrapper's corner. How: This reads the wrapper's box in viewport pixels. // What: Non-Null Note. Why: Only the wrapper's own events call this function. How: Those events can't fire before the ref is attached.
-		const lefMaxNum = Math.max( 130, wraRecObj.width - 130 );     // What: Left Maximum Number. Why: The tooltip's center has to stay 130px, half its width, inside the right side. How: This is the wrapper's width less 130px, never below the left limit.
+		const halWidNum = rhyPxlFun( 'p10' ) / 2;                             // What: Half Width Number. Why: The tooltip's center has to stay half its width inside each side. How: This halves the p10 rhythm step its stylesheet sizes it to. // Vertical Rhythm Base Plus 10 ~= 242.522px
+		const wraRecObj = forWraRef.current!.getBoundingClientRect();         // What: Wrapper Rectangle Object. Why: The point has to be measured from the wrapper's corner. How: This reads the wrapper's box in viewport pixels. // What: Non-Null Note. Why: Only the wrapper's own events call this function. How: Those events can't fire before the ref is attached.
+		const lefMaxNum = Math.max( halWidNum, wraRecObj.width - halWidNum ); // What: Left Maximum Number. Why: The tooltip's center has to stay half its width inside the right side. How: This is the wrapper's width less half the tooltip's, never below the left limit.
 
 
 		setTipPosObj({ // What: Tip Position Update. Why: The tooltip opens at the measured point. How: This stores its left and top within the wrapper.
 
 
-			lefNum : Math.min( Math.max( cliXcoNum - wraRecObj.left, 130 ), lefMaxNum ), // What: Left Number. Why: The tooltip centers on the point across, inside the side limits. How: This measures the point from the wrapper's left edge and clamps it between 130px and the right limit.
-			topNum : cliYcoNum - wraRecObj.top                                          // What: Top Number. Why: The tooltip rises from the point. How: This measures the point from the wrapper's top edge.
+			lefNum : Math.min( Math.max( cliXcoNum - wraRecObj.left, halWidNum ), lefMaxNum ), // What: Left Number. Why: The tooltip centers on the point across, inside the side limits. How: This measures the point from the wrapper's left edge and clamps it between half the tooltip's width and the right limit.
+			topNum : cliYcoNum - wraRecObj.top                                                // What: Top Number. Why: The tooltip rises from the point. How: This measures the point from the wrapper's top edge.
 
 
 		});

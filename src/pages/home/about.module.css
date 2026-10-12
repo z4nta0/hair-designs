@@ -23,11 +23,11 @@
 
 
 	align-items           : center;
-	background            : var( --bac-sur-col ); /* Background Surface Color = #f5f0e8 */
+	background            : var( --bac-sur-col );                      /* Background Surface Color = #f5f0e8 */
 	display               : grid;
-	gap                   : 80px;
+	gap                   : var( --spa-ver-p06 ) var( --spa-hor-p06 ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 6 ~= 78.751px */
 	grid-template-columns : 1fr 1fr;
-	padding               : 90px 5%;
+	padding               : var( --spa-ver-p06 ) 5%;                   /* Spacing Vertical Base Plus 6 ~= 78.751px */
 
 
 }
@@ -50,7 +50,7 @@
 	.homAboSec { /* What: Phone Home About Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
 
 
-		padding : 64px 6%;
+		padding : var( --spa-ver-p05 ) 6%; /* Spacing Vertical Base Plus 5 ~= 59.447px */
 
 
 	}
@@ -77,7 +77,7 @@
 
 	align-items      : center;
 	aspect-ratio     : 4 / 5;
-	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) 24px, var( --bac-ind-col ) 24px, var( --bac-ind-col ) 48px ); /* Background Inverse Color = #2b3245, Background Inverse Dark Color = #232a3d */
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p02 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p02 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p02 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 2 ~= 25.572px and ~= 51.144px doubled, Background Inverse Dark Color = #232a3d */
 	display          : flex;
 	justify-content  : center;
 	position         : relative;
@@ -92,12 +92,12 @@
 .aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset 28px from the panel's edges. */
 
 
-	background : var( --bac-sur-col );           /* Background Surface Color = #f5f0e8 */
-	border     : 2px solid var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
-	margin     : 28px;
-	padding    : 48px 36px;
+	background : var( --bac-sur-col );                            /* Background Surface Color = #f5f0e8 */
+	border     : var( --bor-wid-lar ) solid var( --acc-lig-col ); /* Border Width Large ~= 2.035px, Accent Light Color = #e8a898 */
+	margin     : var( --spa-ver-p02 ) var( --spa-hor-p02 );       /* Spacing Vertical Base Plus 2 ~= 25.572px, Spacing Horizontal Base Plus 2 ~= 25.572px */
+	padding    : var( --spa-ver-p04 ) var( --spa-hor-p03 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-align : center;
-	width      : calc( 100% - 56px );
+	width      : calc( 100% - var( --spa-hor-p02 ) * 2 );         /* Spacing Horizontal Base Plus 2 ~= 25.572px */
 
 
 }
@@ -105,9 +105,9 @@
 .aboLogIma { /* What: About Logo Image. Why: The card opens with the logo. How: This sizes it to 130px square. */
 
 
-	height        : 130px;
-	margin-bottom : 24px;
-	width         : 130px;
+	height        : calc( var( --ver-rhy-p08 ) * 1rem ); /* Vertical Rhythm Base Plus 8 ~= 138.199px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p08 ) * 1rem ); /* Vertical Rhythm Base Plus 8 ~= 138.199px */
 
 
 }
@@ -117,9 +117,9 @@
 
 	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
 	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
-	font-size     : 1.8rem;
-	line-height   : 1.6;
-	margin-bottom : 8px;
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	line-height   : var( --ver-rhy-p01 ); /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
 
 
 }
@@ -129,7 +129,7 @@
 
 	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
 	font-family : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size   : 0.95rem;
+	font-size   : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
 	font-style  : italic;
 
 
@@ -148,8 +148,8 @@
 
 	color         : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
 	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
-	font-size     : 25.572px;
-	margin-bottom : 8px;
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
 
 
 }
@@ -157,10 +157,10 @@
 .secTitHea { /* What: Section Title Heading. Why: The section's heading sums up the salon. How: This sets it in navy Playfair Display that grows with the screen. */
 
 
-	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
-	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
-	margin-bottom : 16px;
+	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
 
 
 }
@@ -168,10 +168,10 @@
 .secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
 
 
-	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
-	height        : 2px;
-	margin-bottom : 28px;
-	width         : 48px;
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
 
 
 }
@@ -180,9 +180,10 @@
 
 
 	color         : var( --tex-sec-col ); /* Text Secondary Color = #4a4a4a */
-	font-size     : 0.95rem;
-	line-height   : 1.8;
-	margin-bottom : 18px;
+	font-size     : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	line-height   : var( --ver-rhy-p01 ); /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	margin-bottom : var( --spa-ver-p01 ); /* Spacing Vertical Base Plus 1 ~= 19.304px */
+	max-width     : var( --tex-wid-bas ); /* Text Width Base Maximum ~= 29.207em */
 
 
 }
@@ -193,12 +194,12 @@
 	border          : none;
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
-	font-size       : 0.78rem;
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
-	margin-top      : 8px;
-	padding         : 13px 32px;
+	margin-top      : var( --spa-ver-m02 );                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-decoration : none;
 	text-transform  : uppercase;
 	transition      : background 0.25s, transform 0.25s;
@@ -216,8 +217,8 @@
 .butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
 
 
-	background : var( --bac-inr-col ); /* Background Inverse Raised Color = #3c4562 */
-	transform  : translateY( -2px );
+	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
 
 
 }

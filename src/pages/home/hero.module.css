@@ -27,7 +27,7 @@
 	display        : flex;
 	flex-direction : column;
 	min-height     : 100vh;
-	padding        : 68px 0 0; /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's 68px height. */
+	padding        : var( --nav-bar-hei ) 0 0; /* Navigation Bar Height ~= 59.447px */ /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's 68px height. */
 
 
 }
@@ -66,10 +66,10 @@
 
 
 	align-items      : center;
-	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) 30px, var( --bac-ind-col ) 30px, var( --bac-ind-col ) 60px ); /* Background Inverse Color = #2b3245, Background Inverse Dark Color = #232a3d */
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
 	display          : flex;
 	justify-content  : center;
-	padding          : 80px 60px;
+	padding          : var( --spa-ver-p06 ) var( --spa-hor-p05 ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 5 ~= 59.447px */
 	position         : relative;
 	text-align       : center;
 
@@ -78,13 +78,13 @@
 .herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a 3px rose bar down the panel's right edge, a pixel over the seam. */
 
 
-	background : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+	background : var( --acc-mai-col );              /* Accent Main Color = #d4806a */
 	bottom     : 0;
 	content    : '';
 	position   : absolute;
-	right      : -1px;
+	right      : calc( var( --bor-wid-bas ) * -1 ); /* Border Width Base ~= -1.160px */
 	top        : 0;
-	width      : 3px;
+	width      : var( --bor-wid-xla );              /* Border Width Extra Large ~= 3.572px */
 
 
 }
@@ -94,7 +94,7 @@
 	.herLefDiv { /* What: Narrow Hero Left Div. Why: The logo panel needs less room once it spans the screen alone. How: This tightens its padding. */
 
 
-		padding : 60px 40px;
+		padding : var( --spa-ver-p05 ) var( --spa-hor-p04 ); /* Spacing Vertical Base Plus 5 ~= 59.447px, Spacing Horizontal Base Plus 4 ~= 44.876px */
 
 
 	}
@@ -145,7 +145,7 @@
 
 
 		opacity   : 0;
-		transform : translateY( 28px );
+		transform : translateY( var( --spa-ver-p02 ) ); /* Spacing Vertical Base Plus 2 ~= 25.572px */
 
 
 	}
@@ -162,12 +162,13 @@
 
 }
 
-.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it to 220px square and lifts it off the stripes with a soft drop shadow. */
+.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it to the p10 rhythm step, square, never wider than its panel on the narrowest phones, and lifts it off the stripes with a soft drop shadow. */
 
 
-	filter : drop-shadow( 0 6px 24px rgba( 0, 0, 0, 0.4 ) );
-	height : 220px;
-	width  : 220px;
+	filter    : drop-shadow( 0 6px 24px rgba( 0, 0, 0, 0.4 ) );
+	height    : auto;                                /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
+	max-width : 100%;
+	width     : calc( var( --ver-rhy-p10 ) * 1rem ); /* Vertical Rhythm Base Plus 10 ~= 242.522px */
 
 
 }
@@ -184,10 +185,10 @@
 
 
 	align-items     : center;
-	background      : var( --bac-sur-col ); /* Background Surface Color = #f5f0e8 */
+	background      : var( --bac-sur-col );                      /* Background Surface Color = #f5f0e8 */
 	display         : flex;
 	justify-content : center;
-	padding         : 80px 60px;
+	padding         : var( --spa-ver-p06 ) var( --spa-hor-p05 ); /* Spacing Vertical Base Plus 6 ~= 78.751px, Spacing Horizontal Base Plus 5 ~= 59.447px */
 
 
 }
@@ -197,7 +198,7 @@
 	.herRigDiv { /* What: Narrow Hero Right Div. Why: The welcome panel needs less room once it spans the screen alone. How: This tightens its padding. */
 
 
-		padding : 60px 40px;
+		padding : var( --spa-ver-p05 ) var( --spa-hor-p04 ); /* Spacing Vertical Base Plus 5 ~= 59.447px, Spacing Horizontal Base Plus 4 ~= 44.876px */
 
 
 	}
@@ -232,11 +233,11 @@
 .eyeLabPar { /* What: Eyebrow Label Paragraph. Why: A script line leads into the heading. How: This sets it in dark rose Dancing Script at 25.572px, the font size scale's p03 step, large enough to count as large text for contrast. */
 
 
-	color          : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
-	font-family    : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
-	font-size      : 25.572px;
-	letter-spacing : 0.06em;
-	margin-bottom  : 10px;
+	color          : var( --acc-dar-col );                   /* Accent Dark Color = #c7745f */
+	font-family    : var( --fon-fam-br2 );                   /* Font Family Brand 2 = 'Dancing Script' */
+	font-size      : var( --fon-siz-p03 );                   /* Font Size Base Plus 3 ~= 25.572px */
+	letter-spacing : calc( var( --cdn-pow-010-rec ) * 1em ); /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060em */
+	margin-bottom  : var( --spa-ver-m01 );                   /* Spacing Vertical Base Minus 1 = 11px */
 
 
 }
@@ -246,12 +247,12 @@
 .herTitHea { /* What: Hero Title Heading. Why: The salon's name is the page's main heading. How: This sets it in large navy Playfair Display that grows with the screen, its two lines set close. */
 
 
-	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
-	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size     : clamp( 3rem, 6vw, 5.2rem );
+	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p05 ), 6vw, var( --fon-siz-p07 ) ); /* Font Size Base Plus 5 ~= 44.876px, Font Size Base Plus 7 ~= 78.751px */
 	font-weight   : 600;
-	line-height   : 1.08;
-	margin-bottom : 14px;
+	line-height   : var( --ver-rhy-m01 );                                     /* Vertical Rhythm Base Minus 1 = 1 */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
 
 
 }
@@ -270,12 +271,12 @@
 .herSubPar { /* What: Hero Subheading Paragraph. Why: The trade and the town follow the name. How: This sets them in light, widely spaced warm gray capitals. */
 
 
-	color          : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
-	font-family    : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
-	font-size      : 0.95rem;
+	color          : var( --tex-mut-col );                   /* Text Muted Color = #716c67 */
+	font-family    : var( --fon-fam-mai );                   /* Font Family Main = 'Lato', sans-serif */
+	font-size      : var( --fon-siz-p01 );                   /* Font Size Base Plus 1 ~= 14.572px */
 	font-weight    : 300;
-	letter-spacing : 0.18em;
-	margin-bottom  : 28px;
+	letter-spacing : calc( var( --cdn-pow-006-rec ) * 1em ); /* Core-Design-Number to the Power of 6 Reciprocal ~= 0.185em */
+	margin-bottom  : var( --spa-ver-p02 );                   /* Spacing Vertical Base Plus 2 ~= 25.572px */
 	text-transform : uppercase;
 
 
@@ -284,10 +285,10 @@
 .herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a 56px by 2px box. */
 
 
-	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
-	height        : 2px;
-	margin-bottom : 28px;
-	width         : 56px;
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p05 ) * 1rem ); /* Vertical Rhythm Base Plus 5 ~= 59.447px */
 
 
 }
@@ -299,8 +300,8 @@
 
 	color       : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
 	font-family : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
-	font-size   : 1.5rem;
-	line-height : 1.6;
+	font-size   : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	line-height : var( --ver-rhy-p01 ); /* Vertical Rhythm Base Plus 1 ~= 1.755 */
 
 
 }
@@ -320,9 +321,9 @@
 
 	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
 	font-family : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size   : 1rem;
+	font-size   : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
 	font-style  : italic;
-	margin-top  : 8px;
+	margin-top  : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
 
 
 }
@@ -334,8 +335,8 @@
 
 	display    : flex;
 	flex-wrap  : wrap;
-	gap        : 16px;
-	margin-top : 36px;
+	gap        : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
+	margin-top : var( --spa-ver-p03 );                      /* Spacing Vertical Base Plus 3 ~= 33.876px */
 
 
 }
@@ -346,11 +347,11 @@
 	border          : none;
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
-	font-size       : 0.78rem;
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
-	padding         : 13px 32px;
+	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-decoration : none;
 	text-transform  : uppercase;
 	transition      : background 0.25s, color 0.25s, transform 0.25s;
@@ -368,8 +369,8 @@
 .butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
 
 
-	background : var( --bac-inr-col ); /* Background Inverse Raised Color = #3c4562 */
-	transform  : translateY( -2px );
+	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
 
 
 }
@@ -377,17 +378,17 @@
 
 
 	background : transparent;
-	border     : 2px solid var( --tex-mai-col ); /* Text Main Color = #2b3245 */
-	color      : var( --tex-mai-col );           /* Text Main Color = #2b3245 */
+	border     : var( --bor-wid-lar ) solid var( --tex-mai-col ); /* Border Width Large ~= 2.035px, Text Main Color = #2b3245 */
+	color      : var( --tex-mai-col );                            /* Text Main Color = #2b3245 */
 
 
 }
 .butBasAnc--outline:hover { /* What: Hovered Outline Button Base Anchor. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
 
 
-	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
-	color      : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	transform  : translateY( -2px );
+	background : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
+	color      : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
 
 
 }
@@ -421,13 +422,13 @@
 
 
 	align-items     : center;
-	background      : var( --bac-inv-col );           /* Background Inverse Color = #2b3245 */
-	border-top      : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+	background      : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
+	border-top      : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	display         : flex;
 	flex-wrap       : wrap;
-	gap             : 40px;
+	gap             : var( --spa-ver-p04 ) var( --spa-hor-p04 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 4 ~= 44.876px */
 	justify-content : center;
-	padding         : 16px 5%;
+	padding         : var( --spa-ver-bas ) 5%;                         /* Spacing Vertical Base ~= 14.572px */
 
 
 }
@@ -441,8 +442,8 @@
 	align-items    : center;
 	color          : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
 	display        : flex;
-	font-size      : 0.85rem;
-	gap            : 10px;
+	font-size      : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
+	gap            : var( --spa-hor-m01 ); /* Spacing Horizontal Base Minus 1 = 11px */
 	letter-spacing : 0.04em;
 	opacity        : 0.9;
 
@@ -453,9 +454,9 @@
 
 
 	fill   : none;
-	height : 18px;
-	stroke : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
-	width  : 18px;
+	height : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+	stroke : var( --acc-lig-col );                /* Accent Light Color = #e8a898 */
+	width  : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
 
 
 }

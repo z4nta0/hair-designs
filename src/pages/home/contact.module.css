@@ -25,9 +25,9 @@
 .homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws 30px navy stripes with cream text. */
 
 
-	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) 30px, var( --bac-ind-col ) 30px, var( --bac-ind-col ) 60px ); /* Background Inverse Color = #2b3245, Background Inverse Dark Color = #232a3d */
-	color            : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	padding          : 90px 5%;
+	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
+	color            : var( --tex-inv-col );    /* Text Inverse Color = #f5f0e8 */
+	padding          : var( --spa-ver-p06 ) 5%; /* Spacing Vertical Base Plus 6 ~= 78.751px */
 
 
 }
@@ -37,7 +37,7 @@
 	.homConSec { /* What: Phone Home Contact Section. Why: The desktop padding wastes too much of a phone screen. How: This tightens it. */
 
 
-		padding : 64px 6%;
+		padding : var( --spa-ver-p05 ) 6%; /* Spacing Vertical Base Plus 5 ~= 59.447px */
 
 
 	}
@@ -50,8 +50,8 @@
 
 	color         : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	font-family   : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
-	font-size     : 25.572px;
-	margin-bottom : 8px;
+	font-size     : var( --fon-siz-p03 ); /* Font Size Base Plus 3 ~= 25.572px */
+	margin-bottom : var( --spa-ver-m02 ); /* Spacing Vertical Base Minus 2 ~= 8.304px */
 
 
 }
@@ -59,10 +59,10 @@
 .secTitHea { /* What: Section Title Heading. Why: The section's heading invites a visitor to get in touch. How: This sets it in cream Playfair Display that grows with the screen. */
 
 
-	color         : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size     : clamp( 1.8rem, 4vw, 2.8rem );
-	margin-bottom : 16px;
+	color         : var( --tex-inv-col );                                     /* Text Inverse Color = #f5f0e8 */
+	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
+	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
 
 
 }
@@ -70,10 +70,10 @@
 .secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
 
 
-	color         : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
-	height        : 2px;
-	margin-bottom : 28px;
-	width         : 48px;
+	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
+	height        : calc( var( --ver-rhy-m07 ) * 1rem ); /* Vertical Rhythm Base Minus 7 ~= 2.035px */
+	margin-bottom : var( --spa-ver-p02 );                /* Spacing Vertical Base Plus 2 ~= 25.572px */
+	width         : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
 
 
 }
@@ -87,9 +87,9 @@
 
 	align-items           : start;
 	display               : grid;
-	gap                   : 60px;
+	gap                   : var( --spa-ver-p05 ) var( --spa-hor-p05 ); /* Spacing Vertical Base Plus 5 ~= 59.447px, Spacing Horizontal Base Plus 5 ~= 59.447px */
 	grid-template-columns : 1fr 1.4fr;
-	margin-top            : 48px;
+	margin-top            : var( --spa-ver-p04 );                      /* Spacing Vertical Base Plus 4 ~= 44.876px */
 
 
 }
@@ -126,8 +126,8 @@
 
 	align-items   : flex-start;
 	display       : flex;
-	gap           : 18px;
-	margin-bottom : 30px;
+	gap           : var( --spa-hor-p01 ); /* Spacing Horizontal Base Plus 1 ~= 19.304px */
+	margin-bottom : var( --spa-ver-p03 ); /* Spacing Vertical Base Plus 3 ~= 33.876px */
 
 
 }
@@ -137,10 +137,10 @@
 
 	fill        : none;
 	flex-shrink : 0;
-	height      : 22px;
-	margin-top  : 2px;
-	stroke      : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
-	width       : 22px;
+	height      : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
+	margin-top  : var( --spa-ver-m07 );                /* Spacing Vertical Base Minus 7 ~= 2.035px */
+	stroke      : var( --acc-lig-col );                /* Accent Light Color = #e8a898 */
+	width       : calc( var( --ver-rhy-p01 ) * 1rem ); /* Vertical Rhythm Base Plus 1 ~= 19.304px */
 
 
 }
@@ -148,11 +148,11 @@
 .detLabStr { /* What: Detail Label Strong. Why: Each detail is named above its value. How: This sets the name in small spaced light rose capitals on its own line. */
 
 
-	color          : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	color          : var( --acc-lig-col );                   /* Accent Light Color = #e8a898 */
 	display        : block;
-	font-size      : 0.75rem;
-	letter-spacing : 0.14em;
-	margin-bottom  : 4px;
+	font-size      : var( --fon-siz-bas );                   /* Font Size Base = 11px */
+	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em ); /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
+	margin-bottom  : var( --spa-ver-m05 );                   /* Spacing Vertical Base Minus 5 ~= 3.572px */
 	text-transform : uppercase;
 
 
@@ -162,7 +162,7 @@
 
 
 	color           : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
-	font-size       : 0.95rem;
+	font-size       : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
 	opacity         : 0.9;
 	text-decoration : none;
 
@@ -172,7 +172,7 @@
 .detValSpa { /* What: Detail Value Span. Why: The hours read like the phone number beside them. How: This sets them the same size and fade. */
 
 
-	font-size : 0.95rem;
+	font-size : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
 	opacity   : 0.9;
 
 
@@ -186,10 +186,10 @@
 .conQuoDiv { /* What: Contact Quote Div. Why: A word from the stylists closes the details. How: This sets it on a faint light panel with a rose edge. */
 
 
-	background  : rgba( 255, 255, 255, 0.06 );
-	border-left : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
-	margin-top  : 16px;
-	padding     : 20px;
+	background  : rgb( 255 255 255 / var( --cdn-pow-010-rec ) );   /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060 */
+	border-left : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	margin-top  : var( --spa-ver-bas );                            /* Spacing Vertical Base ~= 14.572px */
+	padding     : var( --spa-ver-p01 ) var( --spa-hor-p01 );       /* Spacing Vertical Base Plus 1 ~= 19.304px, Spacing Horizontal Base Plus 1 ~= 19.304px */
 
 
 }
@@ -197,10 +197,11 @@
 .quoBodPar { /* What: Quote Body Paragraph. Why: The quote reads as a personal aside. How: This sets it small, italic, and slightly faded. */
 
 
-	font-size   : 0.88rem;
+	font-size   : var( --fon-siz-p01 );     /* Font Size Base Plus 1 ~= 14.572px */
 	font-style  : italic;
-	line-height : 1.7;
-	opacity     : 0.8;
+	line-height : var( --ver-rhy-p01 );     /* Vertical Rhythm Base Plus 1 ~= 1.755 */
+	max-width   : var( --tex-wid-sma );     /* Text Width Small Maximum ~= 22.047em */
+	opacity     : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -210,8 +211,8 @@
 
 	color       : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	font-family : var( --fon-fam-br2 ); /* Font Family Brand 2 = 'Dancing Script' */
-	font-size   : 1.1rem;
-	margin-top  : 10px;
+	font-size   : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	margin-top  : var( --spa-ver-m01 ); /* Spacing Vertical Base Minus 1 = 11px */
 
 
 }
@@ -227,9 +228,9 @@
 .forCarDiv { /* What: Form Card Div. Why: The form sits on a light card against the navy. How: This sets a cream card with a heavier rose top edge. */
 
 
-	background : var( --bac-sur-col );           /* Background Surface Color = #f5f0e8 */
-	border-top : 4px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
-	padding    : 44px 40px;
+	background : var( --bac-sur-col );                            /* Background Surface Color = #f5f0e8 */
+	border-top : var( --bor-wid-xla ) solid var( --acc-mai-col ); /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
+	padding    : var( --spa-ver-p04 ) var( --spa-hor-p04 );       /* Spacing Vertical Base Plus 4 ~= 44.876px, Spacing Horizontal Base Plus 4 ~= 44.876px */
 
 
 }
@@ -239,8 +240,8 @@
 
 	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
 	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
-	font-size     : 1.4rem;
-	margin-bottom : 24px;
+	font-size     : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	margin-bottom : var( --spa-ver-p02 ); /* Spacing Vertical Base Plus 2 ~= 25.572px */
 
 
 }
@@ -259,8 +260,8 @@
 .forWraDiv:focus-visible { /* What: Focused Form Wrapper Div. Why: Keyboard users have to see that the form took focus. How: This rings it in the brand's rose, clear of the fields. */
 
 
-	outline        : 2px solid var( --foc-rin-col ); /* Focus Ring Color = #d4806a */
-	outline-offset : 6px;
+	outline        : var( --bor-wid-lar ) solid var( --foc-rin-col ); /* Border Width Large ~= 2.035px, Focus Ring Color = #d4806a */
+	outline-offset : calc( var( --ver-rhy-m03 ) * 1rem );             /* Vertical Rhythm Base Minus 3 ~= 6.268px */
 
 
 }
@@ -299,9 +300,9 @@
 
 
 	display               : grid;
-	gap                   : 16px;
+	gap                   : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
 	grid-template-columns : 1fr 1fr;
-	margin-bottom         : 18px;
+	margin-bottom         : var( --spa-ver-p01 );                      /* Spacing Vertical Base Plus 1 ~= 19.304px */
 
 
 }
@@ -322,7 +323,7 @@
 .forFieDiv { /* What: Form Field Div. Why: Each field and its label form one group. How: This spaces it from the next. */
 
 
-	margin-bottom : 18px;
+	margin-bottom : var( --spa-ver-p01 ); /* Spacing Vertical Base Plus 1 ~= 19.304px */
 
 
 }
@@ -332,10 +333,10 @@
 
 	color          : var( --tex-mut-col ); /* Text Muted Color = #716c67 */
 	display        : block;
-	font-size      : 0.75rem;
+	font-size      : var( --fon-siz-bas ); /* Font Size Base = 11px */
 	font-weight    : 700;
 	letter-spacing : 0.12em;
-	margin-bottom  : 6px;
+	margin-bottom  : var( --spa-ver-m03 ); /* Spacing Vertical Base Minus 3 ~= 6.268px */
 	text-transform : uppercase;
 
 
@@ -347,13 +348,13 @@
 
 
 	appearance  : none;
-	background  : var( --bac-pag-col );             /* Background Page Color = #faf7f2 */
-	border      : 1.5px solid var( --bor-mai-col ); /* Border Main Color = #e0d5c8 */
-	color       : var( --tex-sec-col );             /* Text Secondary Color = #4a4a4a */
-	font-family : var( --fon-fam-mai );             /* Font Family Main = 'Lato', sans-serif */
-	font-size   : 0.9rem;
-	outline     : none;                             /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
-	padding     : 12px 16px;
+	background  : var( --bac-pag-col );                            /* Background Page Color = #faf7f2 */
+	border      : var( --bor-wid-bas ) solid var( --bor-mai-col ); /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
+	color       : var( --tex-sec-col );                            /* Text Secondary Color = #4a4a4a */
+	font-family : var( --fon-fam-mai );                            /* Font Family Main = 'Lato', sans-serif */
+	font-size   : var( --fon-siz-p01 );                            /* Font Size Base Plus 1 ~= 14.572px */
+	outline     : none;                                            /* What: Outline Note. Why: The fields mark focus with their rose border instead. How: This drops the browser's own ring, which the border replaces. */
+	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );       /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
 	transition  : border-color 0.2s;
 	width       : 100%;
 
@@ -373,7 +374,7 @@
 .forFieTex:disabled { /* What: Disabled Form Field Controls. Why: The fields should look turned off without changing the form's design. How: This fades them a little. */
 
 
-	opacity : 0.6;
+	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
 
 
 }
@@ -396,7 +397,7 @@
 .forFieTex { /* What: Form Field Textarea. Why: The message needs more room than a single line. How: This starts it 110px tall and lets it grow only downward. */
 
 
-	min-height : 110px;
+	min-height : calc( var( --ver-rhy-p07 ) * 1rem ); /* Vertical Rhythm Base Plus 7 ~= 104.323px */
 	resize     : vertical;
 
 
@@ -405,17 +406,17 @@
 .forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card. */
 
 
-	background      : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+	background      : var( --acc-mai-col );                      /* Accent Main Color = #d4806a */
 	border          : none;
-	color           : var( --tex-acc-col ); /* Text Accent Color = #ffffff */
+	color           : var( --tex-acc-col );                      /* Text Accent Color = #ffffff */
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : var( --fon-fam-mai ); /* Font Family Main = 'Lato', sans-serif */
-	font-size       : 0.78rem;
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
-	margin-top      : 8px;
-	padding         : 15px;
+	margin-top      : var( --spa-ver-m02 );                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
 	text-decoration : none;
 	text-transform  : uppercase;
 	transition      : background 0.25s, transform 0.25s;
@@ -427,14 +428,14 @@
 
 
 	background : #c2705a;
-	transform  : translateY( -2px );
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) ); /* Spacing Vertical Base Minus 7 ~= -2.035px */
 
 
 }
 .forSubBut:disabled { /* What: Disabled Form Submit Button. Why: The button should look turned off with the fields. How: This fades it a little. */
 
 
-	opacity : 0.6;
+	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
 
 
 }
@@ -461,19 +462,19 @@
 
 
 	animation   : forTipDivOpenFadeIn 0.2s ease;
-	background  : var( --bac-inv-col );           /* Background Inverse Color = #2b3245 */
-	border-top  : 3px solid var( --acc-mai-col ); /* Accent Main Color = #d4806a */
+	background  : var( --bac-inv-col );                                    /* Background Inverse Color = #2b3245 */
+	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );         /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	box-shadow  : 0 8px 24px rgba( 0, 0, 0, 0.25 );
-	color       : var( --tex-inv-col );           /* Text Inverse Color = #f5f0e8 */
+	color       : var( --tex-inv-col );                                    /* Text Inverse Color = #f5f0e8 */
 	cursor      : default;
-	font-size   : 0.85rem;
-	line-height : 1.5;
-	padding     : 12px 16px;
+	font-size   : var( --fon-siz-p01 );                                    /* Font Size Base Plus 1 ~= 14.572px */
+	line-height : var( --ver-rhy-bas );                                    /* Vertical Rhythm Base ~= 1.325 */
+	padding     : var( --spa-ver-m01 ) var( --spa-hor-bas );               /* Spacing Vertical Base Minus 1 = 11px, Spacing Horizontal Base ~= 14.572px */
 	position    : absolute;
 	text-align  : center;
-	transform   : translate( -50%, calc( -100% - 12px ) );
-	width       : 260px;
-	z-index     : 1;                              /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
+	transform   : translate( -50%, calc( -100% - var( --spa-ver-m01 ) ) ); /* Spacing Vertical Base Minus 1 = 11px */
+	width       : calc( var( --ver-rhy-p10 ) * 1rem );                     /* Vertical Rhythm Base Plus 10 ~= 242.522px */
+	z-index     : 1;                                                       /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
 
 
 }
