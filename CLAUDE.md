@@ -318,6 +318,32 @@ with unchanged screenshots unless the step is meant to change the page.
      of a short page and the message centers in the space between (the home
      page's screenshots were unchanged). The accessibility, rendering, and
      responsive suites cover it.
+   - **Interaction feedback** (done 2026-10-12): every link and button now
+     has a focus ring that eases in, a hover change, and a press.
+     - **Focus ring**: `styles.css` gives every link and button a zero-width
+       outline in `--foc-rin-col`, held 6.3px out, that grows to 2px and
+       draws in to 2px on `:focus-visible` (the form wrapper does the same
+       from 11px to its 6.3px), and every element with its own transition
+       lists the outline properties. The ring color moved to the dark rose
+       (`#c7745f`), the one shade clearing 3:1 on both the cream sections
+       and the navy bands, where the main rose was 2.61:1 on cream.
+     - **Hover and press**: buttons (the hero's, About's, the 404 page's,
+       and the menu's Call button) lift on hover and press in to 0.97;
+       text links (the bar's links and brand, the menu's rows and Facebook
+       link, the Contact phone number, and the tooltip's link) shift color
+       on hover and dim on press, the menu's rows also nudging a few pixels
+       right; the menu toggle turns its lines rose and presses in.
+     - **Tooltip**: it fades in on the decelerate easing and now fades out
+       on the accelerate one before it's removed, marked by
+       `data-tooltip-close-active` until its `animationend`, which reduced
+       motion shortens to .01ms rather than turning off.
+     - **Found along the way**, each its own commit: the bar's brand left
+       the phone menu open, with the page behind it still inert, when
+       tapped from the open menu; and WebKit resolved `rem` in the root's
+       own `scroll-padding-top` against its 16px default, so every section
+       link stopped about 29px short in Safari (the "30px short" WebKit
+       quirk seen earlier). The root's scroll padding now multiplies the
+       same rhythm steps by `1em`, which every engine reads as 11px.
    - **Phone menu extras and scrim** (done; asked for by the user
      2026-10-12, after the sibling sites' menus, and modeled on the-bernie-
      bears' and tonys-toppers'):
@@ -354,8 +380,7 @@ menu open at 390px) are listed in
 `tests/support/states.ts`, whose `opeStaFun` waits for the fonts, the images,
 and the hero's entrance fade before anything is checked. Unlike
 seal-and-shield's, it has no scroll pass, since nothing on this site waits to
-be scrolled into view. The interaction suite arrives later in step 8 with
-the interaction feedback pass.
+be scrolled into view.
 - `npm run test:accessibility`: the pre-commit accessibility scan. axe-core
   checks each state against WCAG 2.2 A and AA plus best practices
   (`axe.spec.ts`), and scripted checks (`scripted.spec.ts`) cover link and
@@ -387,6 +412,19 @@ the interaction feedback pass.
   page's own text and links (phone, street address, stylists, services,
   Facebook, no hours); the 404 page's noindex, title, single description,
   and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
+- `npm run test:interaction`: `feedback.spec.ts`, adapted from
+  tonys-toppers', hovers and presses every reachable link and button in each
+  state (skipping disabled ones and anything inert), failing any that looks
+  the same hovered as at rest or pressed as hovered, or whose transitions
+  leave out the focus ring's outline; it checks the first Tab stop's ring
+  eases in to 2px, and that under reduced motion every control still
+  responds with nothing transitioning. `menu.spec.ts`, adapted from
+  the-bernie-bears', checks the open menu (its links, Call button, Facebook
+  link, and the scrim under a tap) and every way out: the scrim, Escape
+  (focus back on the toggle), a section link (landing about 63px down, below
+  the bar, with a clean address), the brand, and widening the screen.
+  `tooltip.spec.ts` checks the form tooltip fades out before it's removed,
+  closes on Escape after keyboard focus, and still goes under reduced motion.
 - `npm test` runs every suite.
 
 ### Accessibility pass

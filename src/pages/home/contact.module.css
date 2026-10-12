@@ -165,6 +165,35 @@
 	font-size       : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
 	opacity         : 0.9;
 	text-decoration : none;
+	transition      : color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+
+
+}
+.detValAnc:hover { /* What: Hovered Detail Value Anchor. Why: The number should respond to the pointer like the site's other links. How: This turns it light rose at full strength. */
+
+
+	color   : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
+	opacity : 1;
+
+
+}
+.detValAnc:active { /* What: Pressed Detail Value Anchor. Why: A tap should register before the call starts. How: This dims the number slightly, the way every text link presses. */
+
+
+	opacity : 0.7;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Detail Value Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.detValAnc { /* What: Motionless Detail Value Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color, the press, and the focus ring simply apply. */
+
+
+		transition : none;
+
+
+	}
 
 
 }
@@ -250,19 +279,35 @@
 
 /* #region forWraDiv */
 
-.forWraDiv { /* What: Form Wrapper Div. Why: The turned-off fields need one element to catch the pointer and the keyboard for them. How: This holds the tooltip's position and shows a not-allowed cursor over the fields. */
+.forWraDiv { /* What: Form Wrapper Div. Why: The turned-off fields need one element to catch the pointer and the keyboard for them, and its focus ring should ease in like every control's. How: This holds the tooltip's position, shows a not-allowed cursor over the fields, and holds a zero-width ring a little farther out, ready to grow in on focus. */
 
 
-	cursor   : not-allowed;
-	position : relative;
+	cursor         : not-allowed;
+	outline        : 0 solid var( --foc-rin-col );                                                                                      /* Focus Ring Color = #c7745f */ /* What: Zero Width Outline. Why: A zero width stays invisible, even in forced colors mode, until the form is focused. How: The focused rule below grows it. */
+	outline-offset : var( --spa-ver-m01 );                                                                                              /* Spacing Vertical Base Minus 1 = 11px */
+	position       : relative;
+	transition     : outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 
 
 }
-.forWraDiv:focus-visible { /* What: Focused Form Wrapper Div. Why: Keyboard users have to see that the form took focus. How: This rings it in the brand's rose, clear of the fields. */
+.forWraDiv:focus-visible { /* What: Focused Form Wrapper Div. Why: Keyboard users have to see that the form took focus. How: This grows the dark rose ring to full width and draws it in, clear of the fields. */
 
 
-	outline        : var( --bor-wid-lar ) solid var( --foc-rin-col ); /* Border Width Large ~= 2.035px, Focus Ring Color = #d4806a */
-	outline-offset : calc( var( --ver-rhy-m03 ) * 1rem );             /* Vertical Rhythm Base Minus 3 ~= 6.268px */
+	outline-offset : calc( var( --ver-rhy-m03 ) * 1rem ); /* Vertical Rhythm Base Minus 3 ~= 6.268px */
+	outline-width  : var( --bor-wid-lar );                /* Border Width Large ~= 2.035px */
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Wrapper Div. Why: Someone who asked for less motion should see the ring appear at once. How: This applies under the reduced-motion preference. */
+
+
+	.forWraDiv { /* What: Motionless Form Wrapper Div. Why: The ring should simply appear. How: This turns the transition off. */
+
+
+		transition : none;
+
+
+	}
 
 
 }
@@ -462,7 +507,7 @@
 .forTipDiv { /* What: Form Tooltip Div. Why: The message has to read clearly above whatever it covers. How: This floats a narrow navy card with a rose top edge just above its point, centered on it. */
 
 
-	animation   : forTipDivOpenFadeIn var( --dur-ani-p01 ) var( --mot-sta-eas ); /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+	animation   : forTipDivOpenFadeIn var( --dur-ani-p01 ) var( --mot-dec-eas ); /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 	background  : var( --bac-inv-col );                                          /* Background Inverse Color = #2b3245 */
 	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );               /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	box-shadow  : var( --ele-med-sha );                                          /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
@@ -479,6 +524,14 @@
 
 
 }
+.forTipDiv[data-tooltip-close-active] { /* What: Closing Form Tooltip Div. Why: The tooltip should fade away rather than vanish, and a press shouldn't land on it while it goes. How: This fades it out on the accelerate easing, holds the last frame until React removes it at the fade's end, and lets presses pass through. */
+
+
+	animation      : forTipDivCloseFadeOut var( --dur-ani-p01 ) var( --mot-acc-eas ) forwards; /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Accelerate Easing = cubic-bezier( .4, 0, 1, 1 ) */
+	pointer-events : none;
+
+
+}
 @media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Tooltip Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
@@ -486,6 +539,14 @@
 
 
 		animation : none;
+
+
+	}
+
+	.forTipDiv[data-tooltip-close-active] { /* What: Instant Closing Form Tooltip Div. Why: React waits for the fade-out's end to remove the tooltip, and a turned-off animation never ends. How: This shortens the fade to a hundredth of a millisecond, so the tooltip simply goes. */
+
+
+		animation-duration : .01ms;
 
 
 	}
@@ -513,13 +574,62 @@
 
 
 }
+@keyframes forTipDivCloseFadeOut { /* What: Form Tooltip Div Close Fade Out. Why: The tooltip should ease away rather than vanish. How: This fades it down to transparent. */
+
+
+	from {
+
+
+		opacity : 1;
+
+
+	}
+
+	to {
+
+
+		opacity : 0;
+
+
+	}
+
+
+}
 
 .tipTelAnc { /* What: Tip Telephone Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in light rose, underlined as a link, and keeps it on one line. */
 
 
 	color           : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
 	text-decoration : underline;
+	transition      : color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 	white-space     : nowrap;
+
+
+}
+.tipTelAnc:hover { /* What: Hovered Tip Telephone Anchor. Why: The number should respond to the pointer. How: This turns it the tooltip's cream. */
+
+
+	color : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
+
+
+}
+.tipTelAnc:active { /* What: Pressed Tip Telephone Anchor. Why: A tap should register before the call starts. How: This dims the number slightly, the way every text link presses. */
+
+
+	opacity : 0.7;
+
+
+}
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Tip Telephone Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
+
+
+	.tipTelAnc { /* What: Motionless Tip Telephone Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover color, the press, and the focus ring simply apply. */
+
+
+		transition : none;
+
+
+	}
 
 
 }

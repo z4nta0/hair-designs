@@ -194,15 +194,15 @@
 	border          : none;
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : var( --fon-fam-mai );                                                                                      /* Font Family Main = 'Lato', sans-serif */
-	font-size       : var( --fon-siz-bas );                                                                                      /* Font Size Base = 11px */
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
-	margin-top      : var( --spa-ver-m02 );                                                                                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
-	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 );                                                                 /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
+	margin-top      : var( --spa-ver-m02 );                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-decoration : none;
 	text-transform  : uppercase;
-	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 
 
 }
@@ -222,10 +222,17 @@
 
 
 }
+.butBasAnc:active { /* What: Pressed Button Base Anchor. Why: A tap should register before anything else happens. How: This presses the button in slightly, which also undoes its hover lift. */
+
+
+	transform : scale( 0.97 ); /* What: Press Scale. Why: A press should register before anything else happens. How: This shrinks the control by 3%, a literal since no scale step lands within 10%. */
+
+
+}
 @media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Button Base Anchor. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.butBasAnc { /* What: Motionless Button Base Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover changes simply happen. */
+	.butBasAnc { /* What: Motionless Button Base Anchor. Why: The change should simply happen. How: This turns the transition off, so the hover changes, the press, and the focus ring simply apply. */
 
 
 		transition : none;

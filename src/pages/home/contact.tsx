@@ -27,13 +27,31 @@ import { useState  } from 'react';                 // What: Use State. Why: The 
  * same.
  *
  * Sections:
+ *  - Types
  *  - Constants
+ *  - Helpers
  *  - Components
  *  - Exports
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
 */
+
+
+
+// #region Types
+
+type TipPosTyp = { // What: Tip Position Type. Why: The form tooltip's state and the helpers that close it share one shape. How: This holds where the tooltip sits and whether it's on its way out.
+
+
+	leaBoo : boolean, // What: Leaving Boolean. Why: A closing tooltip fades out before it's removed. How: This is true from the moment it's closed until its fade ends.
+	lefNum : number,  // What: Left Number. Why: The tooltip centers on a point across the wrapper. How: This is that point's distance from the wrapper's left edge, in pixels.
+	topNum : number   // What: Top Number. Why: The tooltip rises from a point down the wrapper. How: This is that point's distance from the wrapper's top edge, in pixels.
+
+
+};
+
+// #endregion Types
 
 
 
@@ -67,6 +85,15 @@ const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one c
 ];
 
 // #endregion Constants
+
+
+
+// #region Helpers
+
+const endTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj?.leaBoo ? null : curPosObj;               // What: End Tip Function. Why: A closing tooltip should leave the page once its fade has played, while an opening one's fade ending changes nothing. How: This state updater removes a leaving tooltip and returns any other state unchanged.
+const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosObj, leaBoo : true }; // What: Leave Tip Function. Why: Every way of closing the tooltip should fade it out rather than snap it away. How: This state updater marks an open tooltip as leaving, in place, and leaves a closed one closed.
+
+// #endregion Helpers
 
 
 
@@ -105,7 +132,7 @@ function ConSecCom () : React.JSX.Element {
 	const forWraRef = useRef< HTMLDivElement >( null ); // What: Form Wrapper Reference. Why: The tooltip is placed inside the disabled form's wrapper and closes when a tap lands outside it. How: This holds the wrapper element.
 	const tipDivRef = useRef< HTMLDivElement >( null ); // What: Tip Div Reference. Why: A press on the tooltip itself, such as on its phone link, shouldn't move it. How: This holds the tooltip element while it's open.
 
-	const [ tipPosObj, setTipPosObj ] = useState< { lefNum : number, topNum : number } | null >( null ); // What: Tip Position Object And Setter. Why: The tooltip opens where the visitor pointed, or at the top of the form for the keyboard. How: This holds its left and top in pixels within the wrapper, or null while it's closed.
+	const [ tipPosObj, setTipPosObj ] = useState< TipPosTyp | null >( null ); // What: Tip Position Object And Setter. Why: The tooltip opens where the visitor pointed, or at the top of the form for the keyboard, and fades out before it goes. How: This holds its left and top in pixels within the wrapper and whether it's leaving, or null once it's gone.
 
 
 
@@ -144,11 +171,12 @@ function ConSecCom () : React.JSX.Element {
 		const lefMaxNum = Math.max( halWidNum, wraRecObj.width - halWidNum ); // What: Left Maximum Number. Why: The tooltip's center has to stay half its width inside the right side. How: This is the wrapper's width less half the tooltip's, never below the left limit.
 
 
-		setTipPosObj({ // What: Tip Position Update. Why: The tooltip opens at the measured point. How: This stores its left and top within the wrapper.
+		setTipPosObj({ // What: Tip Position Update. Why: The tooltip opens at the measured point. How: This stores its left and top within the wrapper, open rather than leaving.
 
 
+			leaBoo : false,                                                                    // What: Leaving Boolean. Why: An opened tooltip stays until it's closed, even one that was fading out. How: This marks it open.
 			lefNum : Math.min( Math.max( cliXcoNum - wraRecObj.left, halWidNum ), lefMaxNum ), // What: Left Number. Why: The tooltip centers on the point across, inside the side limits. How: This measures the point from the wrapper's left edge and clamps it between half the tooltip's width and the right limit.
-			topNum : cliYcoNum - wraRecObj.top                                                // What: Top Number. Why: The tooltip rises from the point. How: This measures the point from the wrapper's top edge.
+			topNum : cliYcoNum - wraRecObj.top                                                 // What: Top Number. Why: The tooltip rises from the point. How: This measures the point from the wrapper's top edge.
 
 
 		});
@@ -160,18 +188,18 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-	const bluCloFun = () => requestAnimationFrame( () => { if ( !forWraRef.current?.contains( document.activeElement ) ) setTipPosObj( null ); } ); // What: Blur Close Function. Why: The tooltip should close once focus leaves the form, but not when Tab moves into its own phone link, or when focus leaves and returns at once. How: This waits a frame, then closes the tooltip only if focus has settled outside the wrapper.
+	const bluCloFun = () => requestAnimationFrame( () => { if ( !forWraRef.current?.contains( document.activeElement ) ) setTipPosObj( leaTipFun ); } ); // What: Blur Close Function. Why: The tooltip should close once focus leaves the form, but not when Tab moves into its own phone link, or when focus leaves and returns at once. How: This waits a frame, then fades the tooltip out only if focus has settled outside the wrapper.
 
 
 
 	useEffect( () => { // What: Outside Tap Effect. Why: On a touchscreen there's no pointer leaving the form, so an open tooltip closes when a tap lands anywhere else. How: This listens for presses on the page while the tooltip is open and closes it for one outside the wrapper.
 
 
-		if ( !tipPosObj ) return; // What: Closed Tooltip Guard. Why: A closed tooltip has nothing to close. How: This skips the listener.
+		if ( !tipPosObj || tipPosObj.leaBoo ) return; // What: Closed Tooltip Guard. Why: A closed or closing tooltip has nothing to close. How: This skips the listener.
 
 
 
-		const outPreFun = ( preEveObj : PointerEvent ) => { if ( !forWraRef.current!.contains( preEveObj.target as Node ) ) setTipPosObj( null ); }; // What: Outside Press Function. Why: Only a press outside the form should close the tooltip. How: This closes it when the press's target isn't inside the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
+		const outPreFun = ( preEveObj : PointerEvent ) => { if ( !forWraRef.current!.contains( preEveObj.target as Node ) ) setTipPosObj( leaTipFun ); }; // What: Outside Press Function. Why: Only a press outside the form should close the tooltip. How: This fades it out when the press's target isn't inside the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 
 
 		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the handler.
@@ -181,7 +209,7 @@ function ConSecCom () : React.JSX.Element {
 		return () => document.removeEventListener( 'pointerdown', outPreFun ); // What: Listener Cleanup Return. Why: The listener should only run while the tooltip is open. How: This removes it when the tooltip closes or the page unmounts.
 
 
-	}, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listener is added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to a position and back as it does.
+	}, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listener is added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to an open position, then to a leaving one, as it does.
 
 
 
@@ -328,11 +356,29 @@ function ConSecCom () : React.JSX.Element {
 							role='group'
 
 							onBlur={ bluCloFun }
-							onFocus={ ( focEveObj ) => { if ( focEveObj.target === focEveObj.currentTarget ) setTipPosObj( { lefNum : focEveObj.currentTarget.offsetWidth / 2, topNum : 0 } ); } } // What: Focus Open Handler. Why: Keyboard users reach the form as one stop and need the same message. How: This opens the tooltip centered at the form's top edge when the wrapper itself takes focus.
-							onKeyDown={ ( keyEveObj ) => { if ( keyEveObj.key === 'Escape' ) setTipPosObj( null ); } } // What: Escape Close Handler. Why: A tooltip should close on Escape. How: This closes it for the Escape key.
+							onFocus={ ( focEveObj ) => { // What: Focus Open Handler. Why: Keyboard users reach the form as one stop and need the same message. How: This opens the tooltip centered at the form's top edge when the wrapper itself takes focus.
+
+
+								if ( focEveObj.target !== focEveObj.currentTarget ) return; // What: Own Focus Guard. Why: Focus moving onto the tooltip's own link shouldn't move the tooltip. How: This acts only when the wrapper itself takes focus.
+
+
+
+								setTipPosObj({ // What: Tip Position Update. Why: The tooltip opens at the form's top edge for the keyboard. How: This stores its center and top, open rather than leaving.
+
+
+									leaBoo : false,                                   // What: Leaving Boolean. Why: An opened tooltip stays until it's closed. How: This marks it open.
+									lefNum : focEveObj.currentTarget.offsetWidth / 2, // What: Left Number. Why: The keyboard has no point to open at. How: This centers the tooltip across the wrapper.
+									topNum : 0                                        // What: Top Number. Why: The tooltip rises from the form's top edge. How: This places its point there.
+
+
+								});
+
+
+							} }
+							onKeyDown={ ( keyEveObj ) => { if ( keyEveObj.key === 'Escape' ) setTipPosObj( leaTipFun ); } } // What: Escape Close Handler. Why: A tooltip should close on Escape. How: This closes it for the Escape key.
 							onPointerDown={ ( preEveObj ) => { if ( !tipDivRef.current?.contains( preEveObj.target as Node ) ) plaTipFun( preEveObj.clientX, preEveObj.clientY ); } } // What: Press Open Handler. Why: A tap on a touchscreen has no hover to open the tooltip, but a tap on the open tooltip, such as on its phone link, mustn't move it out from under the finger. How: This opens it where the finger landed, unless the press was inside the tooltip. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 							onPointerEnter={ ( entEveObj ) => { if ( entEveObj.pointerType === 'mouse' ) plaTipFun( entEveObj.clientX, entEveObj.clientY ); } } // What: Mouse Enter Handler. Why: A mouse hovering the form should learn why it's turned off. How: This opens the tooltip where the pointer entered, for a mouse only, since a touch also fires enter before its press.
-							onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( null ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.
+							onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( leaTipFun ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.
 						>{ /* What: Form Wrapper Div Element. Why: Disabled fields don't reliably pass the pointer on in every browser, and the keyboard skips them entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and described by the fieldset's legend. */ }
 
 
@@ -538,7 +584,7 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-							{ tipPosObj && ( // What: Form Tooltip Check. Why: The tooltip shows only while it's open. How: This renders it at its stored position.
+							{ tipPosObj && ( // What: Form Tooltip Check. Why: The tooltip shows while it's open and while it fades out. How: This renders it at its stored position.
 
 
 								<div
@@ -550,6 +596,10 @@ function ConSecCom () : React.JSX.Element {
 										left : `${ tipPosObj.lefNum }px`,
 										top  : `${ tipPosObj.topNum }px`
 									}}
+
+									data-tooltip-close-active={ tipPosObj.leaBoo || undefined }
+
+									onAnimationEnd={ () => setTipPosObj( endTipFun ) } // What: Fade End Handler. Why: A closing tooltip stays on the page until its fade-out has played, which ends in its stylesheet. How: This removes the tooltip once a leaving fade ends, and leaves an opening one alone.
 								>The form is disabled at this time. Please call us at <a className={ cssModObj.tipTelAnc } href='tel:+1-417-988-6239'>417-988-6239</a>. We apologize for any inconvenience.</div> // What: Form Tooltip Div Element. Why: A visitor trying the form needs to know it's off and how to reach the salon instead. How: This floats above the point they tried, with the phone number as a link.
 
 
