@@ -65,6 +65,19 @@
       grid-template-columns: 1fr 1fr;
       align-items: stretch;
     }
+@media ( max-width : 900px ) { /* What: Hero Div Narrow Screen Query. Why: Two side-by-side halves leave too little room for the logo and the heading on tablets and phones, so they stack. How: This applies at 900px and narrower. */
+
+
+	.heroDiv { /* What: Hero Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
     .heroLeftDiv {
       background-image: repeating-linear-gradient(
         90deg,
@@ -83,6 +96,32 @@
       position: absolute; right: -1px; top: 0; bottom: 0; width: 3px;
       background: var(--rose);
     }
+@media ( max-width : 900px ) { /* What: Hero Left Div Narrow Screen Query. Why: The logo half needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
+
+
+	.heroLeftDiv { /* What: Hero Left Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		padding : 60px 40px;
+
+
+	}
+
+
+}
+@media ( max-width : 900px ) { /* What: Hero Left Div Divider Narrow Screen Query. Why: The rose divider runs down the seam between the halves, which no longer exists once they stack. How: This applies at 900px and narrower. */
+
+
+	.heroLeftDiv::after { /* What: Hero Left Div Divider Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		display : none;
+
+
+	}
+
+
+}
     /* SVG arrow/floral emblem */
     .logoImage_homeSection {
       width: 220px; height: 220px;
@@ -93,6 +132,19 @@
       display: flex; align-items: center; justify-content: center;
       padding: 80px 60px;
     }
+@media ( max-width : 900px ) { /* What: Hero Right Div Narrow Screen Query. Why: The heading half needs less room once it spans the screen alone. How: This applies at 900px and narrower. */
+
+
+	.heroRightDiv { /* What: Hero Right Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		padding : 60px 40px;
+
+
+	}
+
+
+}
     .heroTaglineParagraph {
       font-family: 'Dancing Script', cursive;
       font-size: 1.1rem;
@@ -219,6 +271,32 @@
       align-items: center;
       padding: 90px 5%;
     }
+@media ( max-width : 900px ) { /* What: About Section Narrow Screen Query. Why: The logo card and the story need the full width each on tablets and phones, so they stack. How: This applies at 900px and narrower. */
+
+
+	.aboutSection { /* What: About Section Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
+@media ( max-width : 600px ) { /* What: About Section Phone Screen Query. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.aboutSection { /* What: About Section Phone Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		padding : 64px 6%;
+
+
+	}
+
+
+}
     .aboutVisualDiv {
       position: relative;
     }
@@ -298,6 +376,19 @@
       color: var(--cream);
       padding: 90px 5%;
     }
+@media ( max-width : 600px ) { /* What: Contact Section Phone Screen Query. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.contactSection { /* What: Contact Section Phone Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		padding : 64px 6%;
+
+
+	}
+
+
+}
     .contactTaglineParagraph {
         font-family: 'Dancing Script', cursive;
       font-size: 1.1rem;
@@ -324,6 +415,19 @@
       margin-top: 48px;
       align-items: start;
     }
+@media ( max-width : 900px ) { /* What: Contact Div Narrow Screen Query. Why: The contact details and the form need the full width each on tablets and phones, so they stack. How: This applies at 900px and narrower. */
+
+
+	.contactDiv { /* What: Contact Div Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
     .contactInformationDiv { color: var(--cream); }
     .informationDivs {
       display: flex; gap: 18px; align-items: flex-start;
@@ -382,6 +486,19 @@
       margin-bottom: 24px;
     }
     .formDivs_names { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; }
+@media ( max-width : 900px ) { /* What: Form Divs Names Narrow Screen Query. Why: The first and last name fields are too narrow side by side on a phone, so they stack. How: This applies at 900px and narrower. */
+
+
+	.formDivs_names { /* What: Form Divs Names Narrow Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		grid-template-columns : 1fr;
+
+
+	}
+
+
+}
     .formDivs { margin-bottom: 18px; }
     .formLabels {
       display: block;
@@ -462,20 +579,3 @@
 
 
 }
-
- 
-    /* ── Responsive ── */
-    @media (max-width: 900px) {
-      .heroStripe { grid-template-columns: 1fr; }
-      .heroLeft { padding: 60px 40px; }
-      .heroLeft::after { display: none; }
-      .heroRight { padding: 60px 40px; }
-      .about { grid-template-columns: 1fr; }
-      .contactGrid { grid-template-columns: 1fr; }
-      .formRow { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 600px) {
-      nav { padding: 0 4%; }
-      .navLinks { gap: 1.4rem; }
-      section { padding: 64px 6%; }
-    }

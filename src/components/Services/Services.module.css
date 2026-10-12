@@ -25,6 +25,22 @@
 
 
 
+@media ( max-width : 600px ) { /* What: Services Section Phone Screen Query. Why: The desktop padding wastes too much of a phone screen. How: This applies at 600px and narrower. */
+
+
+	.servicesSection { /* What: Services Section Phone Screen Rule. Why: The query's override needs a rule to hold it. How: This targets the same element as the base rule. */
+
+
+		padding : 64px 6%;
+
+
+	}
+
+
+}
+
+
+
 /* #region servicesHeader */
 
 .servicesHeader { /* What : Services Header. Why : A semantic container element was required in order to contain, group and provide the grid structure for the Services section's introductory content. How : Using a standard HTML <header> element. */
