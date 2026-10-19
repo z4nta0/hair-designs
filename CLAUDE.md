@@ -26,25 +26,37 @@ treatment. The `author` meta names the business itself.
   "Hickory County and surrounding counties", but structured data names real
   places, so the surrounding counties are covered by the towns rather than
   listed as a vague region.
-- **SEO pass** (done 2026-10-12): `index.html` carries the title "Hair
-  Designs | Hair Salon in Carson's Corner, Missouri", the one description
-  (120 characters, naming the services, both stylists, the town, and "By
-  appointment only"), the `author` meta, and the canonical link, since the
-  home page is the only indexed route. Its JSON-LD links a `HairSalon` (live
-  address, phone, street address, service area, the six services as an
-  offer catalog, and the Facebook page as `sameAs`, with no opening hours) to
-  a `Person` for each stylist with the title "Licensed Cosmetologist", and
-  to a `WebSite` it publishes. The service area is one of two details the
-  page doesn't show; it's the user's own answer about who the salon serves,
-  not a claim the page contradicts. The other is `priceRange`, `$20-100`
-  (added 2026-10-18, the user's figure, after Google's rich results report
-  flagged it as a missing, non-critical field), written in the range form
-  Google's own examples use. `public/` gains `robots.txt` (every crawler
-  allowed), `sitemap.xml` (the home page alone), and `_headers` (a strict
-  Content-Security-Policy and the usual hardening headers, checked against
-  the built site in all three engines; WebKit reports one harmless
-  violation from its own styling of the form's select, which draws
-  identically either way).
+- **SEO pass** (done 2026-10-12): `index.html` carries the title "Hair Designs
+  | Hair Salon in Carson's Corner, Missouri", the one description (120
+  characters, naming the services, both stylists, the town, and "By appointment
+  only"), the `author` meta, and the canonical link, since the home page is the
+  only indexed route. Its JSON-LD links a `HairSalon` (live address, phone,
+  street address, service area, the six services as an offer catalog, and the
+  Facebook page as `sameAs`, with no opening hours) to a `Person` for each
+  stylist with the title "Licensed Cosmetologist", and to a `WebSite` it
+  publishes. The service area is one of two details the page doesn't show; it's
+  the user's own answer about who the salon serves, not a claim the page
+  contradicts. The other is `priceRange`, `$20-100` (added 2026-10-18, the
+  user's figure, after Google's rich results report flagged it as a missing,
+  non-critical field), written in the range form Google's own examples use.
+  Both are on the to-do list below, to bring the page in line with its
+  structured data. `public/` gains `robots.txt` (every crawler allowed),
+  `sitemap.xml` (the home page alone), and `_headers` (a strict
+  Content-Security-Policy and the usual hardening headers, checked against the
+  built site in all three engines; WebKit reports one harmless violation from
+  its own styling of the form's select, which draws identically either way).
+- **To do: show the service area on the page** (recorded 2026-10-18): the
+  structured data's `areaServed` (Hickory County and its nine towns) appears
+  nowhere on the page. Fix it the way seal-and-shield did: show the areas on
+  the page (seal-and-shield lists them as tags in its Services section), and
+  have the SEO suite pair every `areaServed` name, exactly as `index.html`
+  writes it, with the page element that shows it, rather than checking a
+  hard-coded list (seal-and-shield's `517bf0d`).
+- **To do: show the price range on the page** (recorded 2026-10-18): the
+  structured data's `priceRange` (`$20-100`) appears nowhere on the page.
+  Place it somewhere it reads naturally (a line in the Services or Contact
+  section, say), decided with the user, and have the SEO suite check that
+  the page shows the same range the data gives.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
