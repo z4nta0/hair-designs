@@ -1,6 +1,6 @@
 # Hair Designs
 
-The website for Hair Designs, a hair salon in Carson's Corner, Missouri, run by licensed cosmetologists Juli Wilkerson and Keeli Bryan. It's built and maintained by [techgeek.dev](https://techgeek.dev/).
+The website for Hair Designs, a hair salon in Carson's Corner, Missouri, run by licensed cosmetologists Juli Wilkerson and Keeli Bryan. It's built and maintained by [techgeek.dev](https://techgeek.dev/), whose portfolio links to it.
 
 Live at [hairdesigns.hair](https://hairdesigns.hair/).
 

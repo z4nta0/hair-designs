@@ -2,7 +2,8 @@
 
 A website for Hair Designs, a real hair salon in Carson's Corner, Missouri,
 run by licensed cosmetologists Juli Wilkerson and Keeli Bryan (React, Vite,
-React Router, deployed on Netlify at https://hairdesigns.hair/). Every rule
+React Router, deployed on Netlify at https://hairdesigns.hair/). It's also a
+portfolio piece by techgeek.dev, linked from https://techgeek.dev. Every rule
 in the user-level CLAUDE.md applies here; this file records only what's
 specific to this project.
 
