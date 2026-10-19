@@ -154,7 +154,7 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 	const pagTexStr = await curPagObj.locator( 'body' ).textContent() ?? '';                                                                                           // What: Page Text String. Why: Every claim has to appear on the page. How: This reads the page's text as written, before CSS uppercases any of it.
 	const telHreArr = await curPagObj.locator( 'a[href^="tel:"]' ).evaluateAll( ( ancEleArr ) => ancEleArr.map( ( ancCurEle ) => ancCurEle.getAttribute( 'href' ) ) ); // What: Telephone Href Array. Why: The structured data's phone has to be the number the page's call links dial. How: This collects every call link's address.
 
-	type LdjNodTyp = { '@id'? : string, '@type'? : string, address? : object, areaServed? : { name : string }[], employee? : { '@id' : string }[], hasOfferCatalog? : { itemListElement : { itemOffered : { name : string } }[] }, jobTitle? : string, name? : string, openingHours? : string, openingHoursSpecification? : object, publisher? : { '@id' : string }, sameAs? : string[], telephone? : string, url? : string, worksFor? : { '@id' : string } }; // What: Linked-Data-JSON Node Type. Why: Each node's fields are read by name, and a missing one should read as undefined rather than fail to type check. How: This lists every field the checks read, all optional.
+	type LdjNodTyp = { '@id'? : string, '@type'? : string, address? : object, areaServed? : { name : string }[], employee? : { '@id' : string }[], hasOfferCatalog? : { itemListElement : { itemOffered : { name : string } }[] }, jobTitle? : string, name? : string, openingHours? : string, openingHoursSpecification? : object, priceRange? : string, publisher? : { '@id' : string }, sameAs? : string[], telephone? : string, url? : string, worksFor? : { '@id' : string } }; // What: Linked-Data-JSON Node Type. Why: Each node's fields are read by name, and a missing one should read as undefined rather than fail to type check. How: This lists every field the checks read, all optional.
 
 	const ldjGraArr : LdjNodTyp[] = JSON.parse( ldjTexStr )[ '@graph' ] ?? []; // What: Linked-Data-JSON Graph Array. Why: The salon, the stylists, and the site are separate nodes, each checked on its own. How: This parses the text and reads its graph, or an empty list if it's missing.
 
@@ -195,6 +195,8 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 	expect( [ salNodObj.openingHours, salNodObj.openingHoursSpecification ] ).toEqual( [ undefined, undefined ] ); // What: No Hours Assertion. Why: The salon works by appointment, so the data must not claim regular hours. How: This checks the salon node carries none.
 
 	expect( pagTexStr ).toContain( 'By Appointment' ); // What: Appointment Shown Assertion. Why: The page has to say why no hours are listed. How: This checks it shows By Appointment.
+
+	expect( salNodObj.priceRange ).toBe( '$20-100' ); // What: Price Range Assertion. Why: Google's rich results ask a local business for its price range, and the salon's runs from $20 to $100. How: This checks the salon node gives it in Google's own range form.
 
 	expect( salNodObj.areaServed?.map( ( areCurObj ) => areCurObj.name ) ).toContain( 'Hickory County, Missouri' ); // What: Service Area Assertion. Why: The salon serves Hickory County and the towns around Carson's Corner. How: This checks the area served names the county.
 

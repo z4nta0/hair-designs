@@ -33,9 +33,12 @@ treatment. The `author` meta names the business itself.
   address, phone, street address, service area, the six services as an
   offer catalog, and the Facebook page as `sameAs`, with no opening hours) to
   a `Person` for each stylist with the title "Licensed Cosmetologist", and
-  to a `WebSite` it publishes. The service area is the one detail the page
-  doesn't show; it's the user's own answer about who the salon serves, not a
-  claim the page contradicts. `public/` gains `robots.txt` (every crawler
+  to a `WebSite` it publishes. The service area is one of two details the
+  page doesn't show; it's the user's own answer about who the salon serves,
+  not a claim the page contradicts. The other is `priceRange`, `$20-100`
+  (added 2026-10-18, the user's figure, after Google's rich results report
+  flagged it as a missing, non-critical field), written in the range form
+  Google's own examples use. `public/` gains `robots.txt` (every crawler
   allowed), `sitemap.xml` (the home page alone), and `_headers` (a strict
   Content-Security-Policy and the usual hardening headers, checked against
   the built site in all three engines; WebKit reports one harmless
