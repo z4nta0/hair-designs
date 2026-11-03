@@ -116,8 +116,11 @@ Built 2026-10-12 (`90d30fb`).
   with a mouse or tapping opens a tooltip at that point: "The form is
   disabled at this time. Please call us at 417-988-6239. We apologize for
   any inconvenience.", with the number as a `tel:` link. It closes when the
-  mouse leaves, on a tap outside the form, or on Escape, and a press on the
-  tooltip itself doesn't move it, so its link can be tapped.
+  mouse leaves, on a tap outside the form, or on Escape however it opened (a
+  hover included, per WCAG 2.2's 1.4.13, since 2026-11-03), and a press on the
+  tooltip itself doesn't move it, so its link can be tapped. Escape on its
+  phone link hands focus back to the wrapper without reopening the tooltip,
+  so a keyboard user isn't dropped to the page's start.
 - The wrapper is one Tab stop (`role='group'`, labeled "Contact form, turned
   off", with a rose focus ring). Focusing it opens the tooltip at the form's
   top edge, and the next Tab reaches its phone link. On blur it waits a frame
@@ -510,7 +513,8 @@ be scrolled into view.
   from stays put and the phone menu closes, and that the 404 page's bar links
   and "Back Home" link reach their sections. `tooltip.spec.ts` checks the form
   tooltip fades in when it opens and out before it's removed, closes on Escape
-  after keyboard focus, still goes under reduced motion (opening without a fade
+  after keyboard focus, after a hover, and from its phone link, which hands
+  focus back to the form, still goes under reduced motion (opening without a fade
   there), and gives its phone link hover, press, and focus feedback with and
   without motion; the probe's helpers live in `tests/support/feedback.ts`.
 - `npm run test:security`: added 2026-11-02, from tonys-toppers'. The

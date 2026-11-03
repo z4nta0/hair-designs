@@ -149,8 +149,10 @@ const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosOb
  * position lives in state, null while it's closed: a mouse entering the form
  * or a tap on it opens the tooltip at that point, focusing the form's wrapper
  * opens it at the form's top edge, and it closes when the mouse leaves, on
- * Escape, when focus settles outside the form, or on a tap anywhere else. Its
- * ID, `contact`, is the target of the page's links to this section.
+ * Escape however it opened, when focus settles outside the form, or on a tap
+ * anywhere else. Escape on the tooltip's phone link hands focus back to the
+ * wrapper. Its ID, `contact`, is the target of the page's links to this
+ * section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -169,6 +171,7 @@ function ConSecCom () : React.JSX.Element {
 
 
 	const forWraRef = useRef< HTMLDivElement >( null ); // What: Form Wrapper Reference. Why: The tooltip is placed inside the disabled form's wrapper and closes when a tap lands outside it. How: This holds the wrapper element.
+	const skiOpeRef = useRef( false );                  // What: Skip Open Reference. Why: Escape on the tooltip's phone link hands focus back to the wrapper, which would otherwise reopen the tooltip it just closed. How: This is true only for that one hand-back, and the wrapper's focus handler clears it.
 	const tipDivRef = useRef< HTMLDivElement >( null ); // What: Tip Div Reference. Why: A press on the tooltip itself, such as on its phone link, shouldn't move it. How: This holds the tooltip element while it's open.
 
 	const [ tipPosObj, setTipPosObj ] = useState< TipPosTyp | null >( null ); // What: Tip Position Object And Setter. Why: The tooltip opens where the visitor pointed, or at the top of the form for the keyboard, and fades out before it goes. How: This holds its left and top in pixels within the wrapper and whether it's leaving, or null once it's gone.
@@ -230,24 +233,60 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-	useEffect( () => { // What: Outside Tap Effect. Why: On a touchscreen there's no pointer leaving the form, so an open tooltip closes when a tap lands anywhere else. How: This listens for presses on the page while the tooltip is open and closes it for one outside the wrapper.
+	useEffect( () => { // What: Outside Close Effect. Why: On a touchscreen there's no pointer leaving the form, so an open tooltip closes when a tap lands anywhere else, and Escape has to close it however it opened, a mouse's hover included, which never puts focus in the form. How: This listens for presses and keys on the page while the tooltip is open, closing it for a press outside the wrapper or for Escape.
 
 
-		if ( !tipPosObj || tipPosObj.leaBoo ) return; // What: Closed Tooltip Guard. Why: A closed or closing tooltip has nothing to close. How: This skips the listener.
+		if ( !tipPosObj || tipPosObj.leaBoo ) return; // What: Closed Tooltip Guard. Why: A closed or closing tooltip has nothing to close. How: This skips the listeners.
 
 
 
 		const outPreFun = ( preEveObj : PointerEvent ) => { if ( !forWraRef.current!.contains( preEveObj.target as Node ) ) setTipPosObj( leaTipFun ); }; // What: Outside Press Function. Why: Only a press outside the form should close the tooltip. How: This fades it out when the press's target isn't inside the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 
 
-		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the handler.
+
+		const escKeyFun = ( keyEveObj : KeyboardEvent ) => { // What: Escape Key Function. Why: Escape is the expected way to dismiss a tooltip, and focus on its phone link mustn't fall to the page when the link goes. How: For Escape, this hands focus from the link back to the wrapper without reopening the tooltip, then fades the tooltip out.
+
+
+			if ( keyEveObj.key !== 'Escape' ) return; // What: Other Key Guard. Why: Only Escape closes the tooltip. How: This ignores every other key.
 
 
 
-		return () => document.removeEventListener( 'pointerdown', outPreFun ); // What: Listener Cleanup Return. Why: The listener should only run while the tooltip is open. How: This removes it when the tooltip closes or the page unmounts.
+			if ( tipDivRef.current?.contains( document.activeElement ) ) { // What: Link Focus Check. Why: The phone link disappears with the tooltip, which would drop its focus to the page. How: When focus is inside the tooltip, this moves it back to the wrapper first.
 
 
-	}, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listener is added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to an open position, then to a leaving one, as it does.
+				skiOpeRef.current = true; // What: Skip Open Set. Why: The wrapper's focus handler would reopen the tooltip. How: This tells it to let this one focus pass.
+
+				forWraRef.current!.focus(); // What: Wrapper Focus Call. Why: The keyboard visitor should stay on the form. How: This focuses the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount.
+
+
+			}
+
+
+
+			setTipPosObj( leaTipFun ); // What: Tip Close Call. Why: Escape closes the tooltip. How: This fades it out.
+
+
+		};
+
+
+
+		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the press handler.
+
+		document.addEventListener( 'keydown', escKeyFun ); // What: Escape Listener Call. Why: Escape has to work wherever focus is, since a hover never moves it. How: This registers the key handler.
+
+
+		return () => { // What: Listener Cleanup Return. Why: The listeners should only run while the tooltip is open. How: This removes both when the tooltip closes or the page unmounts.
+
+
+			document.removeEventListener( 'pointerdown', outPreFun ); // What: Press Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the press handler.
+
+			document.removeEventListener( 'keydown', escKeyFun ); // What: Key Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the key handler.
+
+
+		};
+
+
+	}, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listeners are added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to an open position, then to a leaving one, as it does.
 
 
 
@@ -489,6 +528,10 @@ function ConSecCom () : React.JSX.Element {
 
 
 
+								if ( skiOpeRef.current ) { skiOpeRef.current = false; return; } // What: Hand-Back Guard. Why: Escape on the phone link returns focus here after closing the tooltip, which shouldn't reopen. How: This clears the flag and leaves the tooltip closed.
+
+
+
 								setTipPosObj({ // What: Tip Position Update. Why: The tooltip opens at the form's top edge for the keyboard. How: This stores its center and top, open rather than leaving.
 
 
@@ -501,7 +544,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 							} }
-							onKeyDown={ ( keyEveObj ) => { if ( keyEveObj.key === 'Escape' ) setTipPosObj( leaTipFun ); } } // What: Escape Close Handler. Why: A tooltip should close on Escape. How: This closes it for the Escape key.
 							onPointerDown={ ( preEveObj ) => { if ( !tipDivRef.current?.contains( preEveObj.target as Node ) ) plaTipFun( preEveObj.clientX, preEveObj.clientY ); } } // What: Press Open Handler. Why: A tap on a touchscreen has no hover to open the tooltip, but a tap on the open tooltip, such as on its phone link, mustn't move it out from under the finger. How: This opens it where the finger landed, unless the press was inside the tooltip. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 							onPointerEnter={ ( entEveObj ) => { if ( entEveObj.pointerType === 'mouse' ) plaTipFun( entEveObj.clientX, entEveObj.clientY ); } } // What: Mouse Enter Handler. Why: A mouse hovering the form should learn why it's turned off. How: This opens the tooltip where the pointer entered, for a mouse only, since a touch also fires enter before its press.
 							onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( leaTipFun ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.

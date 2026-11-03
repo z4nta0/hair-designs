@@ -29,7 +29,8 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
  * Checks the turned-off contact form's tooltip in whichever engine the project
  * runs. Hovering the form opens it with its fade in, and moving away fades it
  * out, marked as leaving while it goes, before it's removed once the fade has
- * played. Focusing the form opens it too, and Escape closes it. Under reduced
+ * played. Focusing the form opens it too, and Escape closes it however it
+ * opened, handing focus back to the form from its phone link. Under reduced
  * motion the tooltip opens without a fade, and its closing fade is cut to
  * almost nothing, but the tooltip still has to leave, since its removal waits
  * on the fade's end. The tooltip's phone link, which the feedback spec never
@@ -419,6 +420,51 @@ test( 'Escape closes the tooltip that focusing the form opened', async ( { page 
 	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toBeVisible(); // What: Open Assertion. Why: Focusing should open the tooltip. How: This checks its message shows.
 
 	await curPagObj.keyboard.press( 'Escape' ); // What: Escape Press Call. Why: Escape is the expected way to dismiss a tooltip. How: This presses it.
+
+	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toHaveCount( 0 ); // What: Gone Assertion. Why: Escape should close the tooltip. How: This waits for it to be removed.
+
+
+} );
+
+
+
+test( "Escape on the tooltip's phone link closes it and hands focus back to the form", async ( { page : curPagObj } ) => { // What: Link Escape Test. Why: The phone link goes with the tooltip, and a keyboard visitor on it shouldn't be dropped to the page's start. How: This focuses the form, Tabs to the link, presses Escape, and checks the tooltip goes, focus is back on the wrapper, and the tooltip stays closed.
+
+
+	const forWraObj = await forOpeFun( curPagObj ); // What: Form Wrapper Object. Why: The keyboard opens the tooltip from the wrapper. How: This loads the page and finds it.
+
+
+	await forWraObj.focus(); // What: Form Focus Call. Why: Focusing the form opens the tooltip at its top edge. How: This focuses the wrapper.
+
+	await curPagObj.keyboard.press( 'Tab' ); // What: Link Tab Press. Why: The phone link is the next stop after the wrapper. How: This moves focus onto it.
+
+	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toBeFocused(); // What: Link Focus Assertion. Why: Escape has to be pressed from the link for the check to mean anything. How: This checks the link has focus.
+
+	await curPagObj.keyboard.press( 'Escape' ); // What: Escape Press Call. Why: Escape is the expected way to dismiss a tooltip. How: This presses it.
+
+	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toHaveCount( 0 ); // What: Gone Assertion. Why: Escape should close the tooltip. How: This waits for it to be removed.
+	await expect( forWraObj ).toBeFocused();                                                // What: Focus Return Assertion. Why: Focus should stay on the form rather than fall to the page. How: This checks the wrapper has it.
+
+	await curPagObj.waitForTimeout( 500 ); // What: Reopen Wait. Why: A tooltip reopened by the hand-back would show up after its own fade. How: This waits past the fade before looking again.
+
+	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toHaveCount( 0 ); // What: Still Closed Assertion. Why: Handing focus back mustn't reopen the tooltip Escape closed. How: This checks it's still gone.
+
+
+} );
+
+
+
+test( 'Escape closes the tooltip that hovering the form opened', async ( { page : curPagObj } ) => { // What: Hover Escape Test. Why: Content shown on hover has to be dismissable without moving the pointer, and a hover never puts focus in the form. How: This hovers the form, checks the tooltip opens, presses Escape with the pointer still on the form, and checks it goes.
+
+
+	const forWraObj = await forOpeFun( curPagObj ); // What: Form Wrapper Object. Why: The mouse opens the tooltip over the wrapper. How: This loads the page and finds it.
+
+
+	await forWraObj.hover(); // What: Form Hover Call. Why: A mouse entering the form opens the tooltip. How: This moves the pointer onto the wrapper.
+
+	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toBeVisible(); // What: Open Assertion. Why: Hovering should open the tooltip. How: This checks its phone link shows.
+
+	await curPagObj.keyboard.press( 'Escape' ); // What: Escape Press Call. Why: Escape is the expected way to dismiss a tooltip. How: This presses it, with the pointer left where it is.
 
 	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toHaveCount( 0 ); // What: Gone Assertion. Why: Escape should close the tooltip. How: This waits for it to be removed.
 
