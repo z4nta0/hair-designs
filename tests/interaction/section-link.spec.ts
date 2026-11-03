@@ -237,7 +237,7 @@ for ( const [ butLabStr, secIdeStr ] of BUT_LIN_ARR ) { // What: Button Link Loo
 
 
 
-for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click Loop. Why: Each way of asking for a new tab gets its own checks. How: This declares one test per section link for each row of CLI_KIN_ARR.
+for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click Loop. Why: Each way of asking for a new tab gets its own checks. How: This declares one test per row of NEW_TAB_ARR for each row of CLI_KIN_ARR.
 
 
 	for ( const [ plaKinStr, rouPatStr, linLabStr, secIdeStr ] of NEW_TAB_ARR ) { // What: New Tab Link Loop. Why: Every section link has to open its section in a new tab. How: This declares one test per row of NEW_TAB_ARR.
