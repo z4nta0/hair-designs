@@ -67,8 +67,8 @@ const ICO_REC_ARR : IcoRecTyp[] = [ // What: Icon Record Array. Why: The PNG ico
 
 
 	{ filStr : 'favicon-2-16x16.png',   kinStr : 'small', sizNum : 16  }, // What: Small Icon Row. Why: Tabs draw small icons crisper at their own size. How: This renders the 16px icon with the thick ring.
-	{ filStr : 'favicon-2-32x32.png',   kinStr : 'small', sizNum : 32  }, // What: Medium Icon Row. Why: Most browsers pick a 32px tab icon. How: This renders the 32px icon with the thick ring.
-	{ filStr : 'favicon-2-192x192.png', kinStr : 'large', sizNum : 192 }, // What: Large Icon Row. Why: Android and some browsers use a large icon for shortcuts. How: This renders the 192px icon with the thin ring.
+	{ filStr : 'favicon-2-32x32.png',   kinStr : 'small', sizNum : 32  }, // What: Medium Icon Row. Why: A browser without SVG favicons needs a raster tab icon at the larger size. How: This renders the 32px icon with the thick ring.
+	{ filStr : 'favicon-2-192x192.png', kinStr : 'large', sizNum : 192 }, // What: Large Icon Row. Why: Home screen shortcuts and other large uses need a bigger raster icon. How: This renders the 192px icon with the thin ring.
 	{ filStr : 'favicon-2-512x512.png', kinStr : 'large', sizNum : 512 }, // What: Extra Large Icon Row. Why: High-density screens and launchers can ask for a bigger icon still, and the structured data names it as the salon's logo. How: This renders the 512px icon with the thin ring.
 	{ filStr : 'apple-touch-icon.png',  kinStr : 'touch', sizNum : 180 }  // What: Apple Touch Icon Row. Why: iOS draws the home screen icon at 180px and fills transparency with black. How: This renders the full navy square with the thin ring.
 

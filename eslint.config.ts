@@ -47,7 +47,7 @@ import tyeEslObj from 'typescript-eslint';         // What: TypeScript ESLint Ob
 const ESL_CON_ARR = [ // What: ESLint Config Array. Why: ESLint reads its flat config as an array of objects, each scoped to the files it lists. How: This holds the build-output ignore, typescript-eslint's recommended configs and two rule overrides, the src/ undefined-component config, and the hooks config.
 
 
-	{ ignores : [ 'dist/**', 'tests/output/**' ] }, // What: Ignores Object. Why: The build output and the test suites' reports are generated, not hand-written, so their lint results mean nothing. How: This global ignores entry skips both folders for every config below; one glob each, since braces break ESLint's matching here.
+	{ ignores : [ 'dist/**', 'tests/output/**' ] }, // What: Ignores Object. Why: The build output and the test suites' reports are generated, not hand-written, so their lint results mean nothing. How: This global ignores entry skips both folders for every config below.
 	...tyeEslObj.configs.recommended,               // What: Recommended Configs Spread. Why: typescript-eslint's recommended rules catch TypeScript mistakes the compiler allows, such as an any or an unused variable. How: This spreads its recommended configs in, which apply to every file ESLint lints and switch off the core rules TypeScript already covers.
 
 	{ // What: Rule Overrides Object. Why: Two recommended rules flag patterns the formatting rules rely on. How: This re-sets both rules with an option that allows those patterns.
@@ -106,10 +106,10 @@ const ESL_CON_ARR = [ // What: ESLint Config Array. Why: ESLint reads its flat c
 
 			...rehPluObj.configs.recommended.rules, // What: Recommended Rules Spread. Why: These are the standard hooks checks, rules-of-hooks and exhaustive-deps among them. How: This spreads the plugin's recommended set in first, so the overrides below win.
 
-			'react-hooks/preserve-manual-memoization' : 'off', // What: Preserve Manual Memoization Rule. Why: It only reports where the compiler would skip a component. How: This turns it off.
-			'react-hooks/purity'                      : 'off', // What: Purity Rule. Why: It flags impure calls the compiler can't place, including ones that only run in event handlers. How: This turns it off.
-			'react-hooks/refs'                        : 'off', // What: Refs Rule. Why: Reading a ref during render only conflicts with the compiler, not with React itself. How: This turns it off.
-			'react-hooks/set-state-in-effect'         : 'off'  // What: Set State In Effect Rule. Why: Syncing or measuring into state inside an effect is a working React pattern that only costs an extra render outside the compiler. How: This turns it off.
+			'react-hooks/preserve-manual-memoization' : 'off', // What: Preserve Manual Memoization Rule. Why: It's one of the four React Compiler readiness rules, which the user-level Linting rule leaves off. How: This turns it off.
+			'react-hooks/purity'                      : 'off', // What: Purity Rule. Why: It's one of the four React Compiler readiness rules, which the user-level Linting rule leaves off. How: This turns it off.
+			'react-hooks/refs'                        : 'off', // What: Refs Rule. Why: It's one of the four React Compiler readiness rules, which the user-level Linting rule leaves off. How: This turns it off.
+			'react-hooks/set-state-in-effect'         : 'off'  // What: Set State In Effect Rule. Why: It's one of the four React Compiler readiness rules, which the user-level Linting rule leaves off. How: This turns it off.
 
 
 		}
