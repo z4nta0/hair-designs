@@ -556,7 +556,7 @@ passes (126 tests) in all three.
   user's other projects: the taglines lead into real headings and the
   captions are captions, so making them headings would add false entries to
   the outline screen reader users navigate by.
-- **Checked by hand**: axe can't measure text over the contact section's
+- **Checked by hand**: axe can't measure text over the Contact section's
   striped navy, so it lists those items as needing review. Measured against
   both stripes (and the quote box's 6% white overlay), the lowest is 5.30:1
   (the quote's sign-off), so all pass.
