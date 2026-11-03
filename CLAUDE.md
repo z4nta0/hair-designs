@@ -34,29 +34,19 @@ treatment. The `author` meta names the business itself.
   street address, service area, the six services as an offer catalog, and the
   Facebook page as `sameAs`, with no opening hours) to a `Person` for each
   stylist with the title "Licensed Cosmetologist", and to a `WebSite` it
-  publishes. The service area is one of two details the page doesn't show; it's
-  the user's own answer about who the salon serves, not a claim the page
-  contradicts. The other is `priceRange`, `$20-100` (added 2026-10-18, the
-  user's figure, after Google's rich results report flagged it as a missing,
-  non-critical field), written in the range form Google's own examples use.
-  Both are on the to-do list below, to bring the page in line with its
-  structured data. `public/` gains `robots.txt` (every crawler allowed),
+  publishes. The service area and `priceRange` (`$20-100`, added 2026-10-18,
+  the user's figure, after Google's rich results report flagged it as a
+  missing, non-critical field, written in the range form Google's own
+  examples use) both appear on the page since 2026-11-02, as the Contact
+  section's Service Area tags and its Prices row ("$20 to $100, depending on
+  the service"). The SEO suite pairs every `areaServed` name, exactly as
+  `index.html` writes it, with the tag that shows it, the way
+  seal-and-shield's does, and checks the page shows the same price range.
+  `public/` gains `robots.txt` (every crawler allowed),
   `sitemap.xml` (the home page alone), and `_headers` (a strict
   Content-Security-Policy and the usual hardening headers, checked against the
   built site in all three engines; WebKit reports one harmless violation from
   its own styling of the form's select, which draws identically either way).
-- **To do: show the service area on the page** (recorded 2026-10-18): the
-  structured data's `areaServed` (Hickory County and its nine towns) appears
-  nowhere on the page. Fix it the way seal-and-shield did: show the areas on
-  the page (seal-and-shield lists them as tags in its Services section), and
-  have the SEO suite pair every `areaServed` name, exactly as `index.html`
-  writes it, with the page element that shows it, rather than checking a
-  hard-coded list (seal-and-shield's `517bf0d`).
-- **To do: show the price range on the page** (recorded 2026-10-18): the
-  structured data's `priceRange` (`$20-100`) appears nowhere on the page.
-  Place it somewhere it reads naturally (a line in the Services or Contact
-  section, say), decided with the user, and have the SEO suite check that
-  the page shows the same range the data gives.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
@@ -441,8 +431,8 @@ be scrolled into view.
   full title and one description; the home page's title, description,
   author, canonical, and single h1; the structured data matched against the
   page's own text and links (phone, street address, stylists, services,
-  Facebook, no hours); the 404 page's noindex, title, single description,
-  and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
+  price range, every service area, Facebook, no hours); the 404 page's
+  noindex, title, single description, and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
 - `npm run test:interaction`: `feedback.spec.ts`, adapted from
   tonys-toppers', hovers and presses every reachable link and button in each
   state (skipping disabled ones and anything inert), failing any that looks

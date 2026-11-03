@@ -43,6 +43,40 @@ import { test   } from '@playwright/test'; // What: Test. Why: Each route and ea
 
 // #region Constants
 
+/**
+ * ARE_TAG_OBJ = Area Tag Object
+ *
+ * @summary
+ * Pairs each service area the structured data names with the tag the
+ * Contact section shows for it. Every row's key is an areaServed name
+ * exactly as index.html writes it, and its value is that area's tag text
+ * exactly as contact.tsx writes it, so the structured data test can check
+ * each area in the data against the tag that stands for it on the page,
+ * where the tag leaves off the state.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+const ARE_TAG_OBJ : Record< string, string > = { // What: Area Tag Object. Why: The structured data names each place with its state while the page's tags don't, so each data name needs its page tag spelled out. How: Each key is an areaServed name and each value is the tag text the page shows for it.
+
+
+	'Cross Timbers, Missouri'  : 'Cross Timbers',
+	'Elkton, Missouri'         : 'Elkton',
+	'Galmey, Missouri'         : 'Galmey',
+	'Hermitage, Missouri'      : 'Hermitage',
+	'Hickory County, Missouri' : 'Hickory County',
+	'Nemo, Missouri'           : 'Nemo',
+	'Pittsburg, Missouri'      : 'Pittsburg',
+	'Preston, Missouri'        : 'Preston',
+	'Urbana, Missouri'         : 'Urbana',
+	'Wheatland, Missouri'      : 'Wheatland'
+
+
+};
+
+
+
 const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: Facebook URL String. Why: The structured data's sameAs has to be the Facebook page the site links to. How: This is the address both are compared with.
 const LIV_URL_STR = 'https://hairdesigns.hair/';                        // What: Live URL String. Why: The canonical link, structured data, sitemap, and social tags must all name the live address. How: This is the address they're compared with.
 
@@ -198,7 +232,23 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 
 	expect( salNodObj.priceRange ).toBe( '$20-100' ); // What: Price Range Assertion. Why: Google's rich results ask a local business for its price range, and the salon's runs from $20 to $100. How: This checks the salon node gives it in Google's own range form.
 
-	expect( salNodObj.areaServed?.map( ( areCurObj ) => areCurObj.name ) ).toContain( 'Hickory County, Missouri' ); // What: Service Area Assertion. Why: The salon serves Hickory County and the towns around Carson's Corner. How: This checks the area served names the county.
+	expect( pagTexStr ).toContain( '$20 to $100' ); // What: Price Range Shown Assertion. Why: The range in the data has to be visible on the page. How: This checks the Contact section's Prices row gives the same two ends.
+
+	expect( salNodObj.areaServed ).toHaveLength( Object.keys( ARE_TAG_OBJ ).length ); // What: Service Area Count Assertion. Why: The data and the area lookup have to list the same areas, so neither can gain one the other lacks. How: This checks the data names exactly as many areas as the lookup pairs.
+
+
+	for ( const areSerObj of salNodObj.areaServed ?? [] ) { // What: Service Area Loop. Why: Every area the data names has to be one the page shows. How: This walks the salon node's areaServed entries, each an object holding the area's name.
+
+
+		expect( ARE_TAG_OBJ ).toHaveProperty( [ areSerObj.name ] ); // What: Area Paired Assertion. Why: An area with no tag paired to it would go unchecked. How: This checks the lookup has the data's area name as a key.
+
+		await expect( curPagObj.getByRole( 'listitem' ).filter( { hasText : ARE_TAG_OBJ[ areSerObj.name ] } ) ).toHaveCount( 1 ); // What: Area Tag Shown Assertion. Why: Each area in the data has to appear on the page as its own tag. How: This checks one list item holds the tag text paired with the area's name.
+
+
+	}
+
+
+
 
 	expect( serNamArr ).toHaveLength( 6 ); // What: Service Count Assertion. Why: The data should offer the six services the page shows. How: This checks the catalog lists six.
 

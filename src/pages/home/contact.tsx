@@ -19,12 +19,12 @@ import { useState  } from 'react';                 // What: Use State. Why: The 
  * contact.tsx = Contact
  *
  * @summary
- * The home page's Contact section: the phone number, hours, and a quote from
- * the stylists beside the contact form, which is shown but turned off, since
- * the salon doesn't take messages. Its fields sit in a disabled fieldset,
- * and hovering, tapping, or tabbing to them opens a tooltip pointing to the
- * phone number, while the fieldset's hidden legend tells screen readers the
- * same.
+ * The home page's Contact section: the phone number, hours, prices, service
+ * area, and a quote from the stylists beside the contact form, which is
+ * shown but turned off, since the salon doesn't take messages. Its fields sit
+ * in a disabled fieldset, and hovering, tapping, or tabbing to them opens a
+ * tooltip pointing to the phone number, while the fieldset's hidden legend
+ * tells screen readers the same.
  *
  * Sections:
  *  - Types
@@ -56,6 +56,37 @@ type TipPosTyp = { // What: Tip Position Type. Why: The form tooltip's state and
 
 
 // #region Constants
+
+/**
+ * ARE_NAM_ARR = Area Name Array
+ *
+ * @summary
+ * The places the salon serves, as the Contact section's Service Area tags
+ * show them: Hickory County first, then the towns around Carson's Corner.
+ * Every row is one place's name, so no row needs a comment of its own.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+*/
+
+const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows one tag per place the salon serves. How: Each entry is a place's name as its tag reads.
+
+
+	'Hickory County',
+	'Hermitage',
+	'Pittsburg',
+	'Galmey',
+	'Wheatland',
+	'Nemo',
+	'Preston',
+	'Cross Timbers',
+	'Elkton',
+	'Urbana'
+
+
+];
+
+
 
 /**
  * SER_OPT_ARR = Service Option Array
@@ -234,7 +265,7 @@ function ConSecCom () : React.JSX.Element {
 			<div className={ cssModObj.conLayDiv }>{ /* What: Contact Layout Div Element. Why: The details and the form card sit side by side. How: This holds both columns, stacked on narrow screens. */ }
 
 
-				<div className={ cssModObj.conDetDiv }>{ /* What: Contact Details Div Element. Why: The phone number, hours, and a word from the stylists form the first column. How: This holds them. */ }
+				<div className={ cssModObj.conDetDiv }>{ /* What: Contact Details Div Element. Why: The phone number, hours, prices, service area, and a word from the stylists form the first column. How: This holds them. */ }
 
 
 					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The phone number pairs with its icon and label. How: This lines them up. */ }
@@ -317,6 +348,98 @@ function ConSecCom () : React.JSX.Element {
 
 					</div>
 
+
+					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The price range pairs with its icon and label. How: This lines them up. */ }
+
+
+						<svg
+							className={ cssModObj.detIcoSvg }
+
+							strokeWidth='1.8'
+							viewBox='0 0 24 24'
+
+							aria-hidden='true'
+						>{ /* What: Detail Icon SVG Element. Why: A price tag icon marks the price range. How: This draws it, hidden from screen readers since the label beside it says what it is. */ }
+
+
+							<path d='M20.6 13.4l-7.2 7.2a2 2 0 01-2.8 0L2 12V2h10l8.6 8.6a2 2 0 010 2.8z' />{ /* What: Tag Body Path Element. Why: The tag's outline is one shape. How: This draws it. */ }
+
+							<circle
+								cx='7'
+								cy='7'
+								r='1'
+							/>{ /* What: Tag Hole Circle Element. Why: A punched hole makes the shape read as a price tag. How: This draws it near the tag's corner. */ }
+
+
+						</svg>
+
+						<div>{ /* What: Detail Text Div Element. Why: The label and the price range stack beside the icon. How: This holds them. */ }
+
+
+							<strong className={ cssModObj.detLabStr }>Prices</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Prices. */ }
+
+							<span className={ cssModObj.detValSpa }>$20 to $100, depending on the service</span>{ /* What: Detail Value Span Element. Why: A visitor should know roughly what a visit costs, and the structured data's price range has to appear on the page. How: This gives the range. */ }
+
+
+						</div>
+
+
+					</div>
+
+
+					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The service area pairs with its icon and label. How: This lines them up. */ }
+
+
+						<svg
+							className={ cssModObj.detIcoSvg }
+
+							strokeWidth='1.8'
+							viewBox='0 0 24 24'
+
+							aria-hidden='true'
+						>{ /* What: Detail Icon SVG Element. Why: A map pin icon marks the service area. How: This draws it, hidden from screen readers since the label beside it says what it is. */ }
+
+
+							<path d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' />{ /* What: Pin Body Path Element. Why: The pin's outline is one shape. How: This draws it. */ }
+
+							<circle
+								cx='12'
+								cy='10'
+								r='3'
+							/>{ /* What: Pin Center Circle Element. Why: A hollow center makes the shape read as a map pin. How: This draws it inside the pin's head. */ }
+
+
+						</svg>
+
+
+						<div>{ /* What: Detail Text Div Element. Why: The label and the places stack beside the icon. How: This holds them. */ }
+
+
+							<strong className={ cssModObj.detLabStr }>Service Area</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Service Area. */ }
+
+							<ul className={ cssModObj.areTagUno }>{ /* What: Area Tag Unordered List Element. Why: The places the salon serves read as a list of labels, and the structured data's service area has to appear on the page. How: This sets them as tags in a row that wraps. */ }
+
+
+								{ ARE_NAM_ARR.map( ( areNamStr ) => ( // What: Area Tag Map. Why: Each place gets its own tag. How: This renders one list item per name in ARE_NAM_ARR.
+
+
+									<li
+										key={ areNamStr }
+
+										className={ cssModObj.areTagIte }
+									>{ areNamStr }</li> // What: Area Tag Item Element. Why: Each place reads as its own label. How: This shows the place's name in a small rose-outlined tag.
+
+
+								))}
+
+
+							</ul>
+
+
+						</div>
+
+
+					</div>
 
 
 					<div className={ cssModObj.conQuoDiv }>{ /* What: Contact Quote Div Element. Why: A word from the stylists closes the details. How: This sets it on a faint panel with a rose edge. */ }
