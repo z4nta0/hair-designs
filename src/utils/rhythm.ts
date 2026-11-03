@@ -120,7 +120,7 @@ const rhyPxlFun = ( rhySteStr : string ) : number => { // What: Rhythm Pixel Fun
 
 // #region Exports
 
-export { durMilFun, rhyPxlFun }; // What: Named Exports. Why: Every piece of pixel layout math and every animation-matched timer reads the stylesheet's scales through the same helpers. How: This exports durMilFun and rhyPxlFun by name.
+export { durMilFun, rhyPxlFun }; // What: Named Exports. Why: Pixel layout math and animation-matched timers read the stylesheet's scales through the same helpers. How: This exports durMilFun and rhyPxlFun by name.
 
 // #endregion Exports
 

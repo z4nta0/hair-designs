@@ -10,7 +10,7 @@ import logSvgUrl from '../assets/logo.svg'; // What: Logo SVG URL. Why: The bar'
 import { modCliFun    } from './section-link.ts'; // What: Modified Click Function. Why: A Ctrl, Cmd, Shift, or Alt click on the skip link should open it the browser's own way. How: The skip link's click handler asks it before cancelling the default.
 import { useEffect    } from 'react';             // What: Use Effect. Why: The open menu makes the page behind it inert and listens for Escape and resizing. How: This applies and removes them as the menu opens and closes.
 import { useRef       } from 'react';             // What: Use Ref. Why: The menu's effect needs the bar, the scrim, and the toggle. How: This holds each element.
-import { useSecCliFun } from './section-link.ts'; // What: Use Section Click Function. Why: Every link in the bar reaches its section the same way, leaving no hash in the address. How: This returns secCliFun, the shared click handler.
+import { useSecCliFun } from './section-link.ts'; // What: Use Section Click Function. Why: Every section link in the bar reaches its section the same way, leaving no hash in the address. How: This returns secCliFun, the shared click handler.
 import { useState     } from 'react';             // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
 
 // #endregion Imports
@@ -96,10 +96,10 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
  * page, each row fading in just after the one before, over a scrim that dims
  * the page. While it's open the rest of the page is inert; tapping the scrim
  * closes it, Escape closes it and returns focus to the toggle, and widening
- * the screen past 900px closes it, since its toggle is gone. Every link points
- * at its section's address on the home page, which a Ctrl, Cmd, Shift, Alt, or
- * middle click opens, while a plain click goes through secCliFun, scrolling in
- * place without leaving a hash in the address.
+ * the screen past 900px closes it, since its toggle is gone. Every section
+ * link, and the brand, points at its section's address on the home page, which
+ * a Ctrl, Cmd, Shift, Alt, or middle click opens, while a plain click goes
+ * through secCliFun, scrolling in place without leaving a hash in the address.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -118,7 +118,7 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
 function NavBarCom () : React.JSX.Element {
 
 
-	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: Every link in the bar reaches its section the same way. How: This leaves a modified click to the browser and otherwise scrolls to the section without a hash.
+	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: Every section link in the bar reaches its section the same way. How: This leaves a modified click to the browser and otherwise scrolls to the section without a hash.
 
 
 

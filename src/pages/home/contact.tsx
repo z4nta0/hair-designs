@@ -175,8 +175,8 @@ function ConSecCom () : React.JSX.Element {
 	 * @summary
 	 * Opens the tooltip at a point on the screen, measured from the form
 	 * wrapper's corner. Its left is clamped so the tooltip, as wide as the
-	 * p10 rhythm step and centered on the point, never spills past either
-	 * side of the form.
+	 * p10 rhythm step and centered on the point, stays inside the form's
+	 * sides whenever the form is at least as wide as the tooltip.
 	 *
 	 * @author z4nta0 <https://github.com/z4nta0>
 	 *

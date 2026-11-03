@@ -62,10 +62,11 @@ type StaRecTyp = { // What: State Record Type. Why: Every check reads the same d
  * STA_REC_ARR = State Record Array
  *
  * @summary
- * Every state the checks visit: the home page and the 404 page at a phone
- * width (390px) and a desktop width (1,440px), plus the phone menu open at
- * the phone width, since the menu is only reachable there. Every row shares
- * the {@link StaRecTyp} shape, so its fields carry no comments of their own:
+ * The page states the shared checks visit: the home page and the 404 page at
+ * a phone width (390px) and a desktop width (1,440px), plus the phone menu
+ * open at the phone width, since the menu exists only at 900px and narrower.
+ * Every row shares the {@link StaRecTyp} shape, so its fields carry no
+ * comments of their own:
  * - `actFun` (Function): Action Function, run after the page loads to open
  *   something on it, such as the menu. Only the menu row has one.
  * - `heiNum` (Number): Height Number, the viewport height in CSS pixels.
@@ -77,7 +78,7 @@ type StaRecTyp = { // What: State Record Type. Why: Every check reads the same d
  *
 */
 
-const STA_REC_ARR : StaRecTyp[] = [ // What: State Record Array. Why: Every check walks the same list of states, so a new state is added in one place. How: Each row names a state, its path, and its viewport.
+const STA_REC_ARR : StaRecTyp[] = [ // What: State Record Array. Why: The suites that share these states walk the same list, so a new state is added in one place. How: Each row names a state, its path, and its viewport.
 
 
 	{ heiNum : 900, ideStr : 'home-desktop',      patStr : '/',             widNum : 1440 }, // What: Home Desktop State. Why: Most visitors on a computer land here. How: This loads the home page at 1,440px.
@@ -211,7 +212,7 @@ async function opeStaFun ( curPagObj : Page, staRecObj : StaRecTyp ) : Promise< 
 
 	await curPagObj.goto( staRecObj.patStr ); // What: Page Load Call. Why: Each state starts from a fresh load of its route. How: This opens the path on the suite's dev server.
 
-	await curPagObj.evaluate( () => document.fonts.ready ); // What: Fonts Ready Wait. Why: Text measured before its web font loads would have the wrong size and wrapping. How: This waits until every font face has loaded.
+	await curPagObj.evaluate( () => document.fonts.ready ); // What: Fonts Ready Wait. Why: Text measured before its web font loads would have the wrong size and wrapping. How: This waits until the fonts the page uses have loaded.
 
 	await curPagObj.evaluate( () => Promise.all( Array.from( document.images, ( imaCurEle ) => imaCurEle.decode() ) ) ); // What: Images Decoded Wait. Why: A check shouldn't measure or capture the page before its images are drawn. How: This waits until every image on the page has finished decoding.
 

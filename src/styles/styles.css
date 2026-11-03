@@ -5,14 +5,14 @@
  * styles.css = Styles
  *
  * @summary
- * The site's only global stylesheet: the design tokens every module reads
- * (the core design numbers, the standard color roles, the font families,
- * the type, spacing, border, and text width scales on the 11px base, the
- * duration, easing, and elevation scales, the horizontal rhythm, and the
- * layout sizes), and the base element
- * styles no single component owns (the page root, the reset, the body's
- * type and colors, lists, and links). Everything that belongs to one
- * component lives in that component's own module.
+ * The site's global stylesheet beside fonts.css, which holds the font faces:
+ * the design tokens every module reads (the core design numbers, the standard
+ * color roles, the font families, the type, spacing, border, and text width
+ * scales on the 11px base, the duration, easing, and elevation scales, the
+ * horizontal rhythm, and the layout sizes), and the base element styles no
+ * single component owns (the page root, the reset, the body's type and colors,
+ * lists, and links). Everything that belongs to one component lives in that
+ * component's own module.
  *
  * Sections:
  *  - Tokens
@@ -223,7 +223,7 @@
 	--mot-bou-eas : cubic-bezier( .34, 1.56, .5, 1 ); /* What: Motion Bounce Easing. Why: The easing set includes a strong spring past the target for rare celebrations. How: Nothing on this site uses it, and it's kept so the set matches the user's other sites. */
 	--mot-dec-eas : cubic-bezier( .2, .7, .3, 1 );    /* What: Motion Decelerate Easing. Why: Things arriving should start fast and land softly. How: Transitions and animations of something opening or arriving read it, such as the phone menu's scrim and rows easing in. */
 	--mot-ove-eas : cubic-bezier( .34, 1.2, .5, 1 );  /* What: Motion Overshoot Easing. Why: The easing set includes a gentle overshoot past the target for a touch of flair. How: Nothing on this site uses it yet. */
-	--mot-sta-eas : ease;                             /* What: Motion Standard Easing. Why: The hover changes, the menu's fade, the hero's entrance, and the tooltip's fade share one ordinary, smooth curve. How: Every transition and animation reads it, matching the browser's default ease they used before. */
+	--mot-sta-eas : ease;                             /* What: Motion Standard Easing. Why: The hover changes, the menu's fade, the hero's entrance, and the tooltip's fade share one ordinary, smooth curve. How: The hover, color, and entrance transitions read it, matching the browser's default ease they used before. */
 
 	/* #endregion Easing Tokens */
 
@@ -306,7 +306,7 @@
 
 	--con-max-wid : calc( 1920px / var( --cdn-pow-002 ) );                                     /* What: Container Maximum Width ~= 1,094.093px. Why: The sections' content should fill the screen on phones and tablets but stop widening on larger monitors, where the compact type left wide sections looking sparse. How: This divides a 1,920px screen by the square of the core design number, the same cap tonys-toppers uses, which the Services, About, and Contact sections center their content within. */
 	--gut-sid-pad : clamp( var( --spa-hor-p01 ), var( --hor-rhy-016 ), var( --spa-hor-p04 ) ); /* What: Gutter Side Padding, about 19.304px - 44.876px. Why: Content needs side margins that grow with the screen within sensible bounds. How: Every section, the bar, the menu, the hero's details bar, and the footer pad their sides with horizontal step 016, held between the p01 and p04 horizontal spacing steps, the same gutter as reese-roofing and seal-and-shield. */
-	--nav-bar-hei : calc( var( --ver-rhy-p05 ) * 1rem );                                       /* What: Navigation Bar Height ~= 59.447px. Why: The fixed bar's height sets how far the hero and every scroll stop clear it. How: This multiplies the p05 rhythm step by 1rem, which the bar, the hero's top padding, and the page's scroll stop all read. */
+	--nav-bar-hei : calc( var( --ver-rhy-p05 ) * 1rem );                                       /* What: Navigation Bar Height ~= 59.447px. Why: The fixed bar's height sets how far the hero and every scroll stop clear it. How: This multiplies the p05 rhythm step by 1rem, which the bar, the hero's top padding, and the 404 page's top padding read, while the page's scroll stop rebuilds it from the same rhythm steps. */
 
 	/* #endregion Layout Tokens */
 

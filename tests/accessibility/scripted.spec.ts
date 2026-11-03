@@ -248,7 +248,7 @@ function stoInfFun () : StoInfTyp | null {
 
 
 
-		return [ styCurObj.outlineStyle, styCurObj.outlineWidth, styCurObj.outlineColor, styCurObj.boxShadow, styCurObj.borderColor, styCurObj.backgroundColor, styCurObj.color, styCurObj.textDecorationLine ].join( '|' ); // What: Signature Return. Why: Two looks compare as one string. How: This joins every style a focus indicator usually changes.
+		return [ styCurObj.outlineStyle, styCurObj.outlineWidth, styCurObj.outlineColor, styCurObj.boxShadow, styCurObj.borderColor, styCurObj.backgroundColor, styCurObj.color, styCurObj.textDecorationLine ].join( '|' ); // What: Signature Return. Why: Two looks compare as one string. How: This joins the styles a focus indicator usually changes.
 
 
 	};
@@ -367,7 +367,7 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 		const walEndBoo = !stoInfObj || stoInfObj.desStr === firStoStr || stoInfObj.ordNum === preOrdNum; // What: Walk Ended Boolean. Why: Focus leaving the page, coming back around, or staying put means every stop was visited. How: This checks each in turn, the later two only once a stop exists, so the chain stays inline. // What: Firefox Walk End Note. Why: Firefox moves focus out to its own interface after the last stop but still reports that stop as focused. How: Focus staying on the same stop after a press is read as the walk leaving the page.
 
 
-		if ( walEndBoo ) return proLisArr; // What: Walk End Guard. Why: A walk that reaches its end has found every problem there is. How: This returns them, ending the walk.
+		if ( walEndBoo ) return proLisArr; // What: Walk End Guard. Why: A walk that reaches its end has collected every problem its checks found. How: This returns them, ending the walk.
 
 
 
@@ -416,7 +416,7 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every check runs on every page state. How: This declares each check once per state.
 
 
-	test( `${ staRecObj.ideStr } names every link and button cleanly`, async ( { page : curPagObj } ) => { // What: Names Test. Why: Every control must be announced by a clean name. How: This opens the state and checks its accessibility tree.
+	test( `${ staRecObj.ideStr } names every link and button cleanly`, async ( { page : curPagObj } ) => { // What: Names Test. Why: Every link and button must be announced by a clean name. How: This opens the state and checks its accessibility tree.
 
 
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The tree should be read with the state settled. How: This loads and settles it.

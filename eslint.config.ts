@@ -87,7 +87,7 @@ const ESL_CON_ARR = [ // What: ESLint Config Array. Why: ESLint reads its flat c
 	{ // What: JSX Config Object. Why: Hook calls in components follow rules of their own. How: This adds the React Hooks recommended rules for every .tsx file.
 
 
-		files   : [ '**/*.tsx' ],                                   // What: Files. Why: Hooks only appear in .tsx files. How: This matches every one of them.
+		files   : [ '**/*.tsx' ],                                   // What: Files. Why: Components, and most hook calls, live in .tsx files. How: This matches every one of them.
 		plugins : { react : reaPluObj, 'react-hooks' : rehPluObj }, // What: Plugins. Why: The hooks rules come from the React Hooks plugin. How: This registers it beside the React plugin.
 
 		languageOptions : { // What: Language Options. Why: These files are TypeScript with JSX. How: This sets the TypeScript parser and turns on JSX parsing.

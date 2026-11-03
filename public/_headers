@@ -25,8 +25,8 @@
 # Strict-Transport-Security keeps browsers on HTTPS for two years across
 # every subdomain, leaving out preload, which commits the domain to the
 # browsers' built-in HTTPS list and is slow to undo. Referrer-Policy sends a
-# referrer only to this same origin. Permissions-Policy turns off every
-# powerful browser feature the site never uses.
+# referrer only to this same origin. Permissions-Policy turns off a list of
+# powerful browser features the site never uses.
 #
 # @author z4nta0 <https://github.com/z4nta0>
 

@@ -46,7 +46,7 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers dr
  *
  * @summary
  * Checks the closed state every way out has to leave: the toggle reports
- * the menu closed, and nothing on the page is inert any more.
+ * the menu closed, and neither the main content nor the footer is inert.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
