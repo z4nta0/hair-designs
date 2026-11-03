@@ -4,7 +4,7 @@
 // #region Imports
 
 import { cliBloFun   } from '../support/feedback.ts'; // What: Click Block Function. Why: Pressing a control shouldn't navigate or close anything mid-check. How: This cancels every click in the page.
-import { CON_PRO_ARR } from '../support/feedback.ts'; // What: Control Property Array. Why: Hover, press, and toggle looks are compared over the same properties. How: This lists them.
+import { CON_PRO_ARR } from '../support/feedback.ts'; // What: Control Property Array. Why: A control's looks, such as its hover, are compared over the same properties. How: This lists them.
 import { expect      } from '@playwright/test';       // What: Expect. Why: Each state passes only when every reachable control and toggle responds. How: This asserts on what each check reads, such as that its problem list is empty.
 import { FOC_PRO_ARR } from '../support/feedback.ts'; // What: Focus Property Array. Why: A focus look is compared over the control properties and the ring's outline. How: This lists them.
 import { movProFun   } from '../support/feedback.ts'; // What: Moving Problems Function. Why: Under reduced motion a change has to switch rather than ease. How: This turns two snapshots into a problem for each eased change.

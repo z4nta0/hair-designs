@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import { expect } from '@playwright/test'; // What: Expect. Why: Each check passes only when the page ends up where it should. How: This asserts on positions, addresses, and the menu's state.
+import { expect } from '@playwright/test'; // What: Expect. Why: Each check passes only when the page ends up where it should. How: This asserts on what each check reads, such as a section's position.
 import { test   } from '@playwright/test'; // What: Test. Why: Each section link behavior is its own test. How: This declares them.
 
 
