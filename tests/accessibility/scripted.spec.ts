@@ -27,8 +27,10 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers th
  * lands only on stops that are on screen, not covered by anything else, and
  * visibly changed by focus. Reflow: at 320px wide, WCAG's narrowest reflow
  * width, nothing scrolls sideways. Motion: with reduced motion requested, the
- * page holds no animation or transition once the state has opened. Each
- * failure lists every problem found, by element.
+ * page holds no animation or transition once the state has opened. The names,
+ * keyboard, and motion checks list every problem they find, by element or
+ * animation name, and the reflow check reports how far the page scrolls
+ * sideways.
  *
  * Sections:
  *  - Constants
