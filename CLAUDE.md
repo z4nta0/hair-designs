@@ -47,6 +47,13 @@ treatment. The `author` meta names the business itself.
   Content-Security-Policy and the usual hardening headers, checked against the
   built site in all three engines; WebKit reports one harmless violation from
   its own styling of the form's select, which draws identically either way).
+- **Canonical** (recorded 2026-11-02, under the user-level rule for a site
+  whose only other route is a `noindex` page): the site counts as one indexed
+  page, so its canonical link stays in `index.html`, where crawlers that
+  never run scripts can read it, rather than rendering from the home page's
+  code. The 404 page therefore carries the home page's canonical beside its
+  `noindex`, which is accepted, since the `noindex` keeps it out of search
+  either way.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
