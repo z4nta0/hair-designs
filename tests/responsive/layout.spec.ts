@@ -48,7 +48,7 @@ type LayCasTyp = { // What: Layout Case Type. Why: Each test measures one page i
 	ideStr : string,  // What: Identifier String. Why: Each test names the case it measures. How: This becomes part of the test title.
 	menBoo : boolean, // What: Menu Boolean. Why: The open menu is measured as its own case. How: This is true when the case opens it.
 	patStr : string,  // What: Path String. Why: Each case opens one route. How: This is the path loaded from the dev server.
-	tipBoo : boolean  // What: Tooltip Boolean. Why: The open form tooltip is measured as its own case. How: This is true when the case opens it.
+	tipBoo : boolean  // What: Tip Boolean. Why: The open form tooltip is measured as its own case. How: This is true when the case opens it.
 
 
 };
