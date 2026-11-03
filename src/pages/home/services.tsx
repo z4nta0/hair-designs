@@ -143,10 +143,9 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
  *
  * @summary
  * Renders the Services section: its header, then one card per row of
- * SER_CAR_ARR, each with its icon (hidden from screen readers, since the
- * title names the service), its title, and its description. Its id,
- * services, is the target of the bar's Services link and the hero's Our
- * Services button.
+ * SER_CAR_ARR, each with its icon (hidden from screen readers, since the title
+ * names the service), its title, and its description. Its id, services, is the
+ * target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *

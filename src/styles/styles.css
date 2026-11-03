@@ -6,13 +6,12 @@
  *
  * @summary
  * The site's global stylesheet beside fonts.css, which holds the font faces:
- * the design tokens every module reads (the core design numbers, the standard
- * color roles, the font families, the type, spacing, border, and text width
- * scales on the 11px base, the duration, easing, and elevation scales, the
- * horizontal rhythm, and the layout sizes), and the base element styles no
- * single component owns (the page root, the reset, the body's type and colors,
- * lists, and links). Everything that belongs to one component lives in that
- * component's own module.
+ * the design tokens modules read (the core design numbers, color roles, font
+ * families, the scales for type, spacing, rhythm, borders, and text width, the
+ * motion and elevation scales, and layout sizes), and the base element styles
+ * no single component owns, such as the page root and the body's type.
+ * Everything that belongs to one component lives in that component's own
+ * module.
  *
  * Sections:
  *  - Tokens

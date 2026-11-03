@@ -75,7 +75,7 @@
 
 
 }
-.herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a 3px rose bar down the panel's right edge, a pixel over the seam. */
+.herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a rose bar one extra large border step wide down the panel's right edge, reaching a base border width over the seam. */
 
 
 	background : var( --acc-mai-col );              /* Accent Main Color = #d4806a */
@@ -162,7 +162,7 @@
 
 }
 
-.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it to the p10 rhythm step, square, never wider than its panel on the narrowest phones, and lifts it off the stripes with a soft drop shadow. */
+.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it square, growing with the screen between the p09 and p10 rhythm steps, never wider than its panel on the narrowest phones, and lifts it off the stripes with a soft drop shadow. */
 
 
 	filter    : drop-shadow( 0 calc( var( --ver-rhy-m03 ) * 1rem ) calc( var( --ver-rhy-p02 ) * 1rem ) rgb( 0 0 0 / var( --cdn-pow-003-rec ) ) ); /* Vertical Rhythm Base Minus 3 ~= 6.268px, Vertical Rhythm Base Plus 2 ~= 25.572px, black @ 0.430 opacity */

@@ -151,7 +151,7 @@
 	position              : fixed;
 	right                 : 0;
 	top                   : 0;
-	z-index               : 1;                                                                          /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath, and nothing else on the page is layered. How: This lifts it one layer above the content. */
+	z-index               : 1;                                                                          /* What: Z-Index Note. Why: The bar has to stay above the page as it scrolls underneath. How: This lifts it one layer above the content. */
 
 
 }

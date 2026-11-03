@@ -340,7 +340,7 @@ function NavBarCom () : React.JSX.Element {
 
 					data-mobile-menu-open={ menOpeBoo || undefined }
 
-					inert={ !menOpeBoo } // What: Closed Menu Inert Flag. Why: The closed panel is only faded out, so its links would otherwise still take keyboard focus while hidden. How: This makes the panel and its links unfocusable and hidden from screen readers until it opens.
+					inert={ !menOpeBoo } // What: Closed Menu Inert Flag. Why: The closed panel fades out before its visibility turns off, so its links would otherwise still take keyboard focus during the fade. How: This makes the panel and its links unfocusable and hidden from screen readers until it opens.
 				>{ /* What: Navigation Menu Div Element. Why: Phones need the section links somewhere once the bar hides them. How: This drops below the bar with the same links, carrying data-mobile-menu-open while it's open. */ }
 
 

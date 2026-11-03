@@ -137,12 +137,11 @@ const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosOb
  *
  * @summary
  * Renders the Contact section and runs its form tooltip. The tooltip's
- * position lives in state, null while it's closed: a mouse entering the
- * form or a tap on it opens the tooltip at that point, focusing the form's
- * wrapper opens it at the form's top edge, and it closes when the mouse
- * leaves, on Escape, when focus settles outside the form, or on a tap
- * anywhere else. Its id, contact, is the target of the bar's Contact link
- * and the hero's and About section's buttons.
+ * position lives in state, null while it's closed: a mouse entering the form
+ * or a tap on it opens the tooltip at that point, focusing the form's wrapper
+ * opens it at the form's top edge, and it closes when the mouse leaves, on
+ * Escape, when focus settles outside the form, or on a tap anywhere else. Its
+ * id, contact, is the target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *

@@ -43,8 +43,8 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * @summary
  * Renders the hero section, the first thing a visitor sees: the logo panel and
  * the welcome panel side by side (stacked at 900px and narrower), then the bar
- * with the phone number and address. Its id, home, is the target of the bar's
- * brand and Home links and the 404 page's Back Home button.
+ * with the phone number and address. Its id, home, is the target of the page's
+ * links to the top of the home page.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *

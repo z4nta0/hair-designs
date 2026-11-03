@@ -77,7 +77,7 @@ function HomPagCom () : React.JSX.Element {
 
 
 
-		void document.fonts.ready.then( () => { // What: Fonts Ready Callback. Why: The jump should land where the section sits once the fonts have reflowed the page above it, which Chromium otherwise misses by about 2px. How: This waits for every font face to load, then jumps and clears the hash; void marks the returned promise as deliberately not awaited.
+		void document.fonts.ready.then( () => { // What: Fonts Ready Callback. Why: The jump should land where the section sits once the fonts have reflowed the page above it, which Chromium otherwise misses by about 2px. How: This waits for the fonts the page uses to load, then jumps and clears the hash; void marks the returned promise as deliberately not awaited.
 
 
 			document.getElementById( hasValStr.slice( 1 ) )?.scrollIntoView( { behavior : 'instant' } ); // What: Arrival Scroll Call. Why: The visitor should land on the section, as a normal link arrival would. How: This jumps to the element the hash names, without the html element's smooth scrolling, since gliding down from the top of a freshly loaded page would be slow.
@@ -88,7 +88,7 @@ function HomPagCom () : React.JSX.Element {
 		} );
 
 
-	}, [ hasValStr, navRouFun ] ); // What: Effect Dependency Array. Why: Each new hash has to be handled once. How: hasValStr changes when a visitor arrives with a hash, and navRouFun is listed because the effect calls it, though it stays the same between renders.
+	}, [ hasValStr, navRouFun ] ); // What: Effect Dependency Array. Why: Each new hash has to be handled once. How: hasValStr changes when a visitor arrives with a hash, and navRouFun is listed because the effect calls it.
 
 
 

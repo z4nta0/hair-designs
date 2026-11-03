@@ -570,7 +570,7 @@
 	text-align  : center;
 	transform   : translate( -50%, calc( -100% - var( --spa-ver-m01 ) ) );       /* Spacing Vertical Base Minus 1 = 11px */
 	width       : calc( var( --ver-rhy-p10 ) * 1rem );                           /* Vertical Rhythm Base Plus 10 ~= 242.522px */
-	z-index     : 1;                                                             /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over, the only layer it competes with. How: This lifts it one layer above them. */
+	z-index     : 1;                                                             /* What: Z-Index Note. Why: The tooltip has to sit above the fields it floats over. How: This lifts it one layer above them. */
 
 
 }

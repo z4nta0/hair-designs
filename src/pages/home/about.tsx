@@ -41,7 +41,7 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * @summary
  * Renders the About section, telling the salon's story beside a card naming
  * its two stylists (stacked at 900px and narrower). Its id, about, is the
- * target of the bar's About link.
+ * target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
