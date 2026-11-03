@@ -206,7 +206,7 @@
 
 
 }
-.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The call to action stands out. How: This fills it navy with cream text. */
+.butBasAnc--primary { /* What: Button Base Anchor Primary. Why: The call to action stands out. How: This fills it navy with cream text. */
 
 
 	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
@@ -214,7 +214,7 @@
 
 
 }
-.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+.butBasAnc--primary:hover { /* What: Hovered Button Base Anchor Primary. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
 
 
 	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */

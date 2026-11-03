@@ -138,7 +138,7 @@ function HerSecCom () : React.JSX.Element {
 								href='/#services'
 
 								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'services' ) }
-							>Our Services</a>{ /* What: Primary Button Base Anchor Element. Why: Seeing the services is the main next step. How: This scrolls to the Services section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+							>Our Services</a>{ /* What: Button Base Anchor Primary Element. Why: Seeing the services is the main next step. How: This scrolls to the Services section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 							<a
 								className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncOutline } `}
@@ -146,7 +146,7 @@ function HerSecCom () : React.JSX.Element {
 								href='/#contact'
 
 								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'contact' ) }
-							>Get in Touch</a>{ /* What: Outline Button Base Anchor Element. Why: Reaching the salon is the other next step. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+							>Get in Touch</a>{ /* What: Button Base Anchor Outline Element. Why: Reaching the salon is the other next step. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 
 						</div>

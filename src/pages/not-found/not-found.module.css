@@ -122,7 +122,7 @@
 
 
 }
-.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: Going home is the page's main way onward. How: This fills it navy with cream text. */
+.butBasAnc--primary { /* What: Button Base Anchor Primary. Why: Going home is the page's main way onward. How: This fills it navy with cream text. */
 
 
 	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
@@ -130,7 +130,7 @@
 
 
 }
-.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+.butBasAnc--primary:hover { /* What: Hovered Button Base Anchor Primary. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
 
 
 	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
@@ -138,7 +138,7 @@
 
 
 }
-.butBasAnc--outline { /* What: Outline Button Base Anchor. Why: The call stays quieter beside the way home. How: This outlines it in navy. */
+.butBasAnc--outline { /* What: Button Base Anchor Outline. Why: The call stays quieter beside the way home. How: This outlines it in navy. */
 
 
 	background : transparent;
@@ -147,7 +147,7 @@
 
 
 }
-.butBasAnc--outline:hover { /* What: Hovered Outline Button Base Anchor. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
+.butBasAnc--outline:hover { /* What: Hovered Button Base Anchor Outline. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
 
 
 	background : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */

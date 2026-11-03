@@ -538,7 +538,7 @@ function ConSecCom () : React.JSX.Element {
 											placeholder='Jane'
 											required
 											type='text'
-										/>{ /* What: First Name Input Element. Why: The form asks for the visitor's first name. How: Its name, firstName, is kept as the form data key. */ }
+										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's first name. How: Its name, firstName, is kept as the form data key. */ }
 
 
 									</div>
@@ -564,7 +564,7 @@ function ConSecCom () : React.JSX.Element {
 											placeholder='Smith'
 											required
 											type='text'
-										/>{ /* What: Last Name Input Element. Why: The form asks for the visitor's last name. How: Its name, lastName, is kept as the form data key. */ }
+										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's last name. How: Its name, lastName, is kept as the form data key. */ }
 
 
 									</div>
@@ -592,7 +592,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder='417-555-0100'
 										type='tel'
-									/>{ /* What: Phone Number Input Element. Why: The form offers to take a number to call back. How: Its name, phone, is kept as the form data key. */ }
+									/>{ /* What: Form Field Input Element. Why: The form offers to take a number to call back. How: Its name, phone, is kept as the form data key. */ }
 
 
 								</div>
@@ -615,7 +615,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder='jane@email.com'
 										type='email'
-									/>{ /* What: Email Address Input Element. Why: The form offers to take an email address. How: Its name, email, is kept as the form data key. */ }
+									/>{ /* What: Form Field Input Element. Why: The form offers to take an email address. How: Its name, email, is kept as the form data key. */ }
 
 
 								</div>
@@ -640,7 +640,7 @@ function ConSecCom () : React.JSX.Element {
 
 										defaultValue=''
 										required
-									>{ /* What: Service Interest Select Element. Why: The form asks which service the visitor wants. How: It starts on its placeholder, and its name, service, is kept as the form data key. */ }
+									>{ /* What: Form Field Select Element. Why: The form asks which service the visitor wants. How: It starts on its placeholder, and its name, service, is kept as the form data key. */ }
 
 
 										<option
@@ -686,7 +686,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder="Tell us a little about what you're looking for…"
 										required
-									/>{ /* What: Message Body Textarea Element. Why: The form asks what the visitor is looking for. How: Its name, message, is kept as the form data key. */ }
+									/>{ /* What: Form Field Textarea Element. Why: The form asks what the visitor is looking for. How: Its name, message, is kept as the form data key. */ }
 
 
 								</div>

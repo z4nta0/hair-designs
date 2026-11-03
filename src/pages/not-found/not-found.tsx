@@ -104,13 +104,13 @@ function NotFouCom () : React.JSX.Element {
 						href='/#home'
 
 						onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'home' ) }
-					>Back Home</a>{ /* What: Primary Button Base Anchor Element. Why: Going home is the clearest way onward. How: This navigates to the home page's top without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+					>Back Home</a>{ /* What: Button Base Anchor Primary Element. Why: Going home is the clearest way onward. How: This navigates to the home page's top without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 					<a
 						className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncOutline } `}
 
 						href='tel:+1-417-988-6239'
-					>Call 417-988-6239</a>{ /* What: Outline Button Base Anchor Element. Why: The salon books by phone, so a call is its main action. How: This dials the salon. */ }
+					>Call 417-988-6239</a>{ /* What: Button Base Anchor Outline Element. Why: The salon books by phone, so a call is its main action. How: This dials the salon. */ }
 
 
 				</div>

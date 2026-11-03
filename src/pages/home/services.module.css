@@ -190,21 +190,21 @@
 
 
 }
-.carIcoSvg--rose { /* What: Rose Card Icon SVG. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
+.carIcoSvg--rose { /* What: Card Icon SVG Rose. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
 
 
 	color : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 
 
 }
-.carIcoSvg--sage { /* What: Sage Card Icon SVG. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
+.carIcoSvg--sage { /* What: Card Icon SVG Sage. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
 
 
 	color : var( --acc-sec-col ); /* Accent Secondary Color = #8ea89a */
 
 
 }
-.carIcoSvg--mauve { /* What: Mauve Card Icon SVG. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
+.carIcoSvg--mauve { /* What: Card Icon SVG Mauve. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
 
 
 	color : var( --acc-ter-col ); /* Accent Tertiary Color = #c9a0a0 */
@@ -230,7 +230,7 @@
 
 
 }
-.icoFilPat--soft { /* What: Soft Icon Fill Path. Why: The men's cut icon's shape is a little fainter. How: This lowers its opacity. */
+.icoFilPat--soft { /* What: Icon Fill Path Soft. Why: The men's cut icon's shape is a little fainter. How: This lowers its opacity. */
 
 
 	opacity : 0.65;
@@ -247,7 +247,7 @@
 
 
 }
-.icoStrLin--bold { /* What: Bold Icon Stroke Line. Why: The men's cut icon's line is a little heavier. How: This thickens it. */
+.icoStrLin--bold { /* What: Icon Stroke Line Bold. Why: The men's cut icon's line is a little heavier. How: This thickens it. */
 
 
 	stroke-width : 2.2;
@@ -263,7 +263,7 @@
 
 
 }
-.icoDotCir--plum { /* What: Plum Icon Dot Circle. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
+.icoDotCir--plum { /* What: Icon Dot Circle Plum. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
 
 
 	fill    : #b08898;

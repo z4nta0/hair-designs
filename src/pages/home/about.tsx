@@ -125,7 +125,7 @@ function AboSecCom () : React.JSX.Element {
 					href='/#contact'
 
 					onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'contact' ) }
-				>Reach Out</a>{ /* What: Primary Button Base Anchor Element. Why: The story ends with a way to reach the salon. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+				>Reach Out</a>{ /* What: Button Base Anchor Primary Element. Why: The story ends with a way to reach the salon. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 
 			</div>

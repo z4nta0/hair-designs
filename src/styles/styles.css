@@ -421,10 +421,10 @@ html { /* What: HTML. Why: One rem should equal the 11px base font size, the sit
 
 
 }
-@media ( prefers-reduced-motion : reduce ) { /* What: HTML Reduced Motion Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
+@media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion HTML Query. Why: Visitors who ask their system for less motion shouldn't see it move. How: This turns the motion off, so the change still happens, just at once. */
 
 
-	html { /* What: HTML Reduced Motion Rule. Why: The query's override needs a rule to hold it. How: This makes section links jump instead of glide. */
+	html { /* What: Motionless HTML. Why: The query's override needs a rule to hold it. How: This makes section links jump instead of glide. */
 
 
 		scroll-behavior : auto;
