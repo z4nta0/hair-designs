@@ -85,7 +85,7 @@ function AppRooCom () : React.JSX.Element {
 				className={ cssModObj.appConMai }
 
 				tabIndex={ -1 }
-			>{ /* What: App Content Main Element. Why: Each page's content is the page's main landmark, apart from the bar and footer every page shares. How: Its id, kept readable since it's the skip link's target, and its tabIndex of -1 let the skip link move focus here without adding it to the Tab order; it holds the route table and grows to fill the screen. */ }
+			>{ /* What: App Content Main Element. Why: Each page's content is the page's main landmark, apart from the bar and footer every page shares. How: Its ID, kept readable since it's the skip link's target, and its tabIndex of -1 let the skip link move focus here without adding it to the Tab order; it holds the route table and grows to fill the screen. */ }
 
 
 				<Routes>{ /* What: Page Routes. Why: Only one page should render for any path. How: This renders the route below that best matches the path. */ }

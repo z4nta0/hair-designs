@@ -43,9 +43,9 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
 
 // #region Constants
 
-const BUT_LIN_ARR = [ [ 'Our Services', 'services' ], [ 'Get in Touch', 'contact' ], [ 'Reach Out', 'contact' ] ];      // What: Button Link Array. Why: The hero's two buttons and the About section's button each lead to a section. How: Each row pairs a button's label with its section's id.
+const BUT_LIN_ARR = [ [ 'Our Services', 'services' ], [ 'Get in Touch', 'contact' ], [ 'Reach Out', 'contact' ] ];      // What: Button Link Array. Why: The hero's two buttons and the About section's button each lead to a section. How: Each row pairs a button's label with its section's ID.
 const DES_VIE_OBJ = { height : 900, width : 1440 };                                                                     // What: Desktop Viewport Object. Why: The bar's own links show only above 900px wide. How: This is the desktop size the bar link checks use.
-const NAV_LIN_ARR = [ [ 'Home', 'home' ], [ 'Services', 'services' ], [ 'About', 'about' ], [ 'Contact', 'contact' ] ]; // What: Navigation Link Array. Why: Each of the bar's links leads to its own section. How: Each row pairs a link's label with its section's id.
+const NAV_LIN_ARR = [ [ 'Home', 'home' ], [ 'Services', 'services' ], [ 'About', 'about' ], [ 'Contact', 'contact' ] ]; // What: Navigation Link Array. Why: Each of the bar's links leads to its own section. How: Each row pairs a link's label with its section's ID.
 const PHO_VIE_OBJ = { height : 844, width : 390 };                                                                      // What: Phone Viewport Object. Why: The phone menu exists only at 900px wide and below. How: This is the phone size the menu check uses.
 
 const CLI_KIN_ARR : Array< [ string, Parameters< Locator[ 'click' ] >[ 0 ] ] > = [ [ 'Ctrl or Cmd', { modifiers : [ 'ControlOrMeta' ] } ], [ 'middle', { button : 'middle' } ] ]; // What: Click Kind Array. Why: Both ways of asking for a new tab have to keep working. How: Each row pairs a name for the test title with the click options that make that kind of click.
@@ -129,7 +129,7 @@ async function opeRouFun ( curPagObj : Page, rouPatStr : string, vieSizObj : { h
  * @author z4nta0 <https://github.com/z4nta0>
  *
  * @param curPagObj - Current Page Object: The page holding the section.
- * @param secIdeStr - Section Identifier String: The section's id.
+ * @param secIdeStr - Section Identifier String: The section's ID.
  *
  * @returns A promise that resolves with the gap in pixels, positive when
  *          the section sits too low.
@@ -148,7 +148,7 @@ async function secGapFun ( curPagObj : Page, secIdeStr : string ) : Promise< num
 
 
 		const docRooEle = document.documentElement;                                                     // What: Document Root Element. Why: The scroll padding and the scroll range belong to the root. How: This reads it.
-		const secTopNum = document.getElementById( tarIdeStr )!.getBoundingClientRect().top;            // What: Section Top Number. Why: The section's position on screen is what's checked. How: This reads its top edge from the viewport's top. // What: Non-Null Note. Why: getElementById can return null. How: Every id the checks pass is a section the page renders.
+		const secTopNum = document.getElementById( tarIdeStr )!.getBoundingClientRect().top;            // What: Section Top Number. Why: The section's position on screen is what's checked. How: This reads its top edge from the viewport's top. // What: Non-Null Note. Why: getElementById can return null. How: Every ID the checks pass is a section the page renders.
 		const maxScrNum = docRooEle.scrollHeight - docRooEle.clientHeight;                              // What: Maximum Scroll Number. Why: A jump can't scroll past the page's end. How: This is the furthest the page can scroll.
 		const padTopNum = parseFloat( getComputedStyle( docRooEle ).scrollPaddingTop );                 // What: Padding Top Number. Why: A jump stops below the bar by the root's scroll padding. How: This reads it in pixels.
 		const tarScrNum = Math.min( maxScrNum, Math.max( 0, secTopNum + window.scrollY - padTopNum ) ); // What: Target Scroll Number. Why: The page scrolls as far toward the section as it can. How: This clamps the ideal scroll to the page's range.
@@ -158,7 +158,7 @@ async function secGapFun ( curPagObj : Page, secIdeStr : string ) : Promise< num
 		return Math.round( secTopNum - ( secTopNum + window.scrollY - tarScrNum ) ); // What: Gap Return. Why: The caller compares the section with its landing spot. How: This subtracts the landing spot's top from the section's.
 
 
-	}, secIdeStr ); // What: Measuring Argument. Why: The page can't read this function's parameters. How: This hands the section's id into the page.
+	}, secIdeStr ); // What: Measuring Argument. Why: The page can't read this function's parameters. How: This hands the section's ID into the page.
 
 
 }

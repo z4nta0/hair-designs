@@ -43,7 +43,7 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * @summary
  * Renders the hero section, the first thing a visitor sees: the logo panel and
  * the welcome panel side by side (stacked at 900px and narrower), then the bar
- * with the phone number and address. Its id, home, is the target of the page's
+ * with the phone number and address. Its ID, home, is the target of the page's
  * links to the top of the home page.
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -73,7 +73,7 @@ function HerSecCom () : React.JSX.Element {
 			id='home'
 
 			className={ cssModObj.homHerSec }
-		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its id, home, is kept as a readable word since the links to it name it in their addresses (/#home). */ }
+		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its ID, home, is kept as a readable word since the links to it name it in their addresses (/#home). */ }
 
 
 			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked at 900px and narrower. */ }

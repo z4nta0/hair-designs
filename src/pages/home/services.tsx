@@ -144,7 +144,7 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
  * @summary
  * Renders the Services section: its header, then one card per row of
  * SER_CAR_ARR, each with its icon (hidden from screen readers, since the title
- * names the service), its title, and its description. Its id, services, is the
+ * names the service), its title, and its description. Its ID, services, is the
  * target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -170,7 +170,7 @@ function SerSecCom () : React.JSX.Element {
 			id='services'
 
 			className={ cssModObj.homSerSec }
-		>{ /* What: Home Services Section Element. Why: The page's second section lists the services. How: Its id, services, is kept as a readable word since the links to it name it in their addresses (/#services). */ }
+		>{ /* What: Home Services Section Element. Why: The page's second section lists the services. How: Its ID, services, is kept as a readable word since the links to it name it in their addresses (/#services). */ }
 
 
 			<header className={ cssModObj.serHeaHed }>{ /* What: Services Header Header Element. Why: The section opens with its heading and intro. How: This stacks the eyebrow, heading, rule, and intro. */ }

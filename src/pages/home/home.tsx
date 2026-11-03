@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router';   // What: Use Navigate. Why: The ha
  * @summary
  * The home page, the site's only real page, which stacks its four sections in
  * order: the hero, Services, About, and Contact. A visitor arriving with a
- * section's id as the hash, from a shared address such as /#about or another
+ * section's ID as the hash, from a shared address such as /#about or another
  * page's section link, lands on that section, and the hash is cleared from
  * the address once used. Each section lives in its own
  * file beside this one, and the bar and footer around them come from ui/,
@@ -64,7 +64,7 @@ import { useNavigate } from 'react-router';   // What: Use Navigate. Why: The ha
 function HomPagCom () : React.JSX.Element {
 
 
-	const { hash : hasValStr } = useLocation(); // What: Hash Value String. Why: A visitor can arrive with a section's id as the hash. How: This reads the hash, e.g. #contact, or an empty string, renaming the router's hash key.
+	const { hash : hasValStr } = useLocation(); // What: Hash Value String. Why: A visitor can arrive with a section's ID as the hash. How: This reads the hash, e.g. #contact, or an empty string, renaming the router's hash key.
 
 	const navRouFun = useNavigate(); // What: Navigate Router Function. Why: The hash should be cleared once the page has used it. How: This is the router's navigate function.
 

@@ -149,7 +149,7 @@ const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosOb
  * or a tap on it opens the tooltip at that point, focusing the form's wrapper
  * opens it at the form's top edge, and it closes when the mouse leaves, on
  * Escape, when focus settles outside the form, or on a tap anywhere else. Its
- * id, contact, is the target of the page's links to this section.
+ * ID, contact, is the target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -257,7 +257,7 @@ function ConSecCom () : React.JSX.Element {
 			id='contact'
 
 			className={ cssModObj.homConSec }
-		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its id, contact, is kept as a readable word since the links to it name it in their addresses (/#contact). */ }
+		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its ID, contact, is kept as a readable word since the links to it name it in their addresses (/#contact). */ }
 
 
 			<p className={ cssModObj.eyeLabPar }>Find Us</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the heading. How: This shows it above the heading. */ }

@@ -253,7 +253,7 @@ replacing the old `netlify.toml`.
   tab, while a plain click goes through `ui/section-link.ts`'s `secCliFun`:
   it scrolls to the section in place (instantly under reduced motion,
   through `utils/motion.ts`'s `redMotFun`), or from any other page navigates
-  home with the section's id as the hash. The home page jumps to a section
+  home with the section's ID as the hash. The home page jumps to a section
   named in the hash on arrival, from a shared address or another page, and
   clears it. Adapted from tonys-toppers' version, with `useSecCliFun` added
   so every link shares one click handler; the phone menu closes only when a
@@ -325,7 +325,7 @@ with unchanged screenshots unless the step is meant to change the page.
    tokens**, one file per commit. The earlier hand formatting is replaced
    wherever it differs from the rules: per-declaration CSS comments,
    `══ Start/End ══` banners, `< tag >` spacing, JSX stored in a variable
-   before it's returned, and `return void 0`. Section ids become the
+   before it's returned, and `return void 0`. Section IDs become the
    readable navigation targets `home`, `services`, `about`, and `contact`.
    The Vite template's `index.css` and `AppRooCom.module.css` go, the
    global rules hiding in `HomPagCom.module.css` (`:root`, the reset,
@@ -341,7 +341,7 @@ with unchanged screenshots unless the step is meant to change the page.
      rewritten from the template (its leftover variables had collided with
      the site's own), `main.tsx` and `app.tsx`, self-hosted fonts (which
      ended the Firefox flake), `index.html`, `vite.config.ts` with its page
-     minifier, `.gitignore`, the section ids, then the nav, footer, hero,
+     minifier, `.gitignore`, the section IDs, then the nav, footer, hero,
      Services, About, and Contact, each with its own module, and finally
      camelCase-only module keys. The design tokens and the horizontal
      layout come next.

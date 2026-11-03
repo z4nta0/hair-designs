@@ -55,14 +55,14 @@ const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: 
  * @summary
  * The section links the bar and the phone menu both render, in page order.
  * Every row shares one shape, so its fields carry no comments of their own:
- * - `ideStr` (String): Identifier String, the section's id.
+ * - `ideStr` (String): Identifier String, the section's ID.
  * - `labStr` (String): Label String, the link's text.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
 */
 
-const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone menu list the same links, so they're defined once. How: Each row pairs a section's id with the link's label.
+const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone menu list the same links, so they're defined once. How: Each row pairs a section's ID with the link's label.
 
 
 	{ ideStr : 'home',     labStr : 'Home'     },
@@ -255,8 +255,8 @@ function NavBarCom () : React.JSX.Element {
 					href='/#home'
 
 					onAuxClick={ auxCloFun }
-					onClick={ ( cliEveObj ) => menLinFun( cliEveObj, 'home' ) } // What: Brand Click Handler. Why: The brand stays tappable above the open phone menu, and the page shouldn't be left inert behind a menu still open. How: This reaches the home section through menLinFun, which closes the menu, a new tab click included.
-				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, or navigates home to it from the 404 page, leaving no hash in the address, and closes the phone menu if it's open. */ }
+					onClick={ ( cliEveObj ) => menLinFun( cliEveObj, 'home' ) } // What: Brand Click Handler. Why: The brand stays tappable above the open phone menu, and the page shouldn't be left inert behind a menu still open. How: This reaches the Home section through menLinFun, which closes the menu, a new tab click included.
+				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the Home section, or navigates home to it from the 404 page, leaving no hash in the address, and closes the phone menu if it's open. */ }
 
 
 					<img

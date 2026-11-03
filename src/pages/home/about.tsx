@@ -40,7 +40,7 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  *
  * @summary
  * Renders the About section, telling the salon's story beside a card naming
- * its two stylists (stacked at 900px and narrower). Its id, about, is the
+ * its two stylists (stacked at 900px and narrower). Its ID, about, is the
  * target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -70,7 +70,7 @@ function AboSecCom () : React.JSX.Element {
 			id='about'
 
 			className={ cssModObj.homAboSec }
-		>{ /* What: Home About Section Element. Why: The page's third section tells the salon's story. How: Its id, about, is kept as a readable word since the links to it name it in their addresses (/#about). */ }
+		>{ /* What: Home About Section Element. Why: The page's third section tells the salon's story. How: Its ID, about, is kept as a readable word since the links to it name it in their addresses (/#about). */ }
 
 
 			<div className={ cssModObj.aboVisDiv }>{ /* What: About Visual Div Element. Why: The section's visual half holds the stylists' card. How: This sets a positioning context for its panel. */ }
