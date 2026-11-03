@@ -111,13 +111,13 @@ const ARE_NAM_ARR = [ // What: Area Name Array. Why: The "Service Area" row show
 const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one choice per service plus a general one. How: Each row pairs a choice's label with its value.
 
 
-	{ labStr : 'Haircut & Styling',        valStr : 'Haircut and Styling'      },
-	{ labStr : 'Color & Highlights',       valStr : 'Color and Highlights'     },
-	{ labStr : 'Perms & Texture',          valStr : 'Perms and Texture'        },
-	{ labStr : 'Special Occasion',         valStr : 'Special Occasion'         },
-	{ labStr : "Men's Cut",                valStr : "Men's Cut"                },
-	{ labStr : 'Hair Treatment',           valStr : 'Hair Treatment'           },
-	{ labStr : 'Other / General Question', valStr : 'Other / General Question' }
+	{ labStr : 'Haircut & Styling',        valStr : 'Haircut and Styling'      }, // What: Haircut And Styling Option Row. Why: Cuts and styling are the first service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Color & Highlights',       valStr : 'Color and Highlights'     }, // What: Color And Highlights Option Row. Why: Color is the second service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Perms & Texture',          valStr : 'Perms and Texture'        }, // What: Perms And Texture Option Row. Why: Perms and texture are the third service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Special Occasion',         valStr : 'Special Occasion'         }, // What: Special Occasion Option Row. Why: Special occasion styling is the fourth service card. How: This pairs the choice's label with its value.
+	{ labStr : "Men's Cut",                valStr : "Men's Cut"                }, // What: Men's Cut Option Row. Why: Men's cuts are the fifth service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Hair Treatment',           valStr : 'Hair Treatment'           }, // What: Hair Treatment Option Row. Why: Treatments are the sixth service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Other / General Question', valStr : 'Other / General Question' }  // What: Other Or General Question Option Row. Why: A visitor may want something no card names. How: This pairs the choice's label with its value.
 
 
 ];

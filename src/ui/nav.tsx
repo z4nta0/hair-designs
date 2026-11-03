@@ -65,10 +65,10 @@ const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: 
 const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone menu list the same links, so they're defined once. How: Each row pairs a section's ID with the link's label.
 
 
-	{ ideStr : 'home',     labStr : 'Home'     },
-	{ ideStr : 'services', labStr : 'Services' },
-	{ ideStr : 'about',    labStr : 'About'    },
-	{ ideStr : 'contact',  labStr : 'Contact'  }
+	{ ideStr : 'home',     labStr : 'Home'     }, // What: Home Link Row. Why: The page opens with the hero, its Home section. How: This pairs its ID with the label "Home".
+	{ ideStr : 'services', labStr : 'Services' }, // What: Services Link Row. Why: The Services section lists what the salon offers. How: This pairs its ID with the label "Services".
+	{ ideStr : 'about',    labStr : 'About'    }, // What: About Link Row. Why: The About section introduces the stylists. How: This pairs its ID with the label "About".
+	{ ideStr : 'contact',  labStr : 'Contact'  }  // What: Contact Link Row. Why: The Contact section ends the page with how to reach the salon. How: This pairs its ID with the label "Contact".
 
 
 ];
