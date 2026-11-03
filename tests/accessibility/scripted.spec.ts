@@ -199,6 +199,7 @@ type StoInfTyp = { // What: Stop Information Type. Why: The keyboard walk judges
 
 	covBoo : boolean, // What: Covered Boolean. Why: A stop hidden behind another element can't be seen while focused. How: This is true when something else sits on top of the stop's center.
 	desStr : string,  // What: Description String. Why: A problem should name the element a person would recognize. How: This joins the stop's tag and its label or text.
+	fulBoo : boolean, // What: Full Boolean. Why: A stop that slides in on focus, such as the skip link, has to end up whole on screen, not just partly in view. How: This is true when the stop's whole height sits inside the viewport.
 	indBoo : boolean, // What: Indicator Boolean. Why: A keyboard user has to see where focus is. How: This is true when focusing the stop changes how it looks.
 	ordNum : number,  // What: Order Number. Why: Focus order is compared with document order. How: This is the stop's position among every element in the page.
 	visBoo : boolean  // What: Visible Boolean. Why: A stop off screen leaves a keyboard user lost. How: This is true when the stop has a size and overlaps the viewport.
@@ -269,6 +270,8 @@ function stoInfFun () : StoInfTyp | null {
 	const focSigStr = sigStyFun(); // What: Focused Signature String. Why: The stop's look while focused is the first half of the comparison. How: This reads it before anything changes.
 
 
+	actCurEle.style.transition = 'none'; // What: Transition Off Set. Why: The walk runs with motion on, and a blurred stop read at once would still show its focused look mid-transition. How: This turns the stop's own transitions off for the comparison, so the blur and the refocus apply at once.
+
 	actCurEle.blur(); // What: Stop Blur Call. Why: The unfocused look is the other half of the comparison. How: This removes focus for a moment.
 
 
@@ -276,6 +279,10 @@ function stoInfFun () : StoInfTyp | null {
 
 
 	actCurEle.focus(); // What: Stop Refocus Call. Why: The walk continues from this stop. How: This puts focus back where the Tab press left it.
+
+	getComputedStyle( actCurEle ).outlineWidth; // What: Style Flush Read. Why: The refocused look has to be applied before the transitions return, or turning them back on would ease into it. How: This reads a computed style, which makes the browser apply the pending change.
+
+	actCurEle.style.transition = ''; // What: Transition Restore Set. Why: The stop should ease again once the comparison is done. How: This clears the inline value, handing the stop back its stylesheet's transitions.
 
 
 	const recCurObj = actCurEle.getBoundingClientRect();                                                                       // What: Rect Current Object. Why: A focused stop has to be on screen and uncovered. How: This measures the stop.
@@ -306,6 +313,7 @@ function stoInfFun () : StoInfTyp | null {
 
 		covBoo : !!topCurEle && !actCurEle.contains( topCurEle ),                               // What: Covered Boolean. Why: The stop is hidden when something else is on top of it. How: This is true when the top element at its center is neither the stop nor inside it.
 		desStr : `${ actCurEle.tagName.toLowerCase() } "${ stoLabStr.trim().slice( 0, 40 ) }"`, // What: Description String. Why: A problem should name the element a person would recognize. How: This joins the tag with the first 40 characters of its label, ID, or text.
+		fulBoo : recCurObj.top >= 0 && recCurObj.bottom <= innerHeight,                         // What: Full Boolean. Why: A stop that slides in on focus has to end up whole on screen. How: This is true when its top and bottom edges both sit inside the viewport.
 		indBoo : focSigStr !== bluSigStr,                                                       // What: Indicator Boolean. Why: A keyboard user has to see where focus is. How: This is true when focusing the stop changes how it looks.
 		ordNum : Array.prototype.indexOf.call( document.querySelectorAll( '*' ), actCurEle ),   // What: Order Number. Why: Focus order is compared with document order. How: This is the stop's position among every element in the page.
 		visBoo : visStoBoo                                                                      // What: Visible Boolean. Why: A stop off screen leaves a keyboard user lost. How: This reads whether the stop has a size and overlaps the viewport.
@@ -329,17 +337,18 @@ function stoInfFun () : StoInfTyp | null {
  * Walks the page with the Tab key from the top and returns every problem: any
  * element with a positive tabindex, which overrides the document order, a walk
  * that reaches no stop at all, a first stop other than the skip link when the
- * caller asks for that check, and every stop that comes earlier in the
- * document than the stop before it, sits off screen, is covered by something
- * else, or looks the same focused and unfocused. The walk ends when focus
+ * caller asks for that check, along with one only partly on screen, and every
+ * stop that comes earlier in the document than the stop before it, sits off
+ * screen, is covered by something else, or looks the same focused and
+ * unfocused. The walk ends when focus
  * leaves the page, comes back to the first stop, or stays on the same stop
  * after a press, which is how Firefox leaves its last stop; one that hasn't
  * ended within TAB_MAX_NUM presses counts as a keyboard trap. WebKit only tabs
  * to links with Alt held, the way Safari does by default, so the walk presses
- * Alt+Tab there. The caller requests reduced motion first, so the page jumps
- * to each stop instead of gliding and focus styles appear at once, and each
- * press waits for scrolling to settle, so every stop is measured where and how
- * it ends up.
+ * Alt+Tab there. The walk runs with motion on, and each press waits for
+ * every animation and transition that ends to finish and for scrolling to
+ * settle, so every stop is measured where and how it ends up, the skip link
+ * included, which also has to land whole on screen.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -376,6 +385,8 @@ async function keyProFun ( curPagObj : Page, engNamStr : string, skiLinBoo : boo
 
 		await curPagObj.keyboard.press( tabKeyStr ); // What: Tab Press Call. Why: Each pass moves focus to the next stop. How: This presses the engine's Tab key.
 
+		await curPagObj.evaluate( () => Promise.all( document.getAnimations().filter( ( aniCurObj ) => aniCurObj.effect?.getComputedTiming().iterations !== Infinity ).map( ( aniCurObj ) => aniCurObj.finished ) ) ); // What: Motion Finished Wait. Why: The walk runs with motion on, and a stop sliding in or a ring growing would be measured halfway. How: This waits for every animation and transition on the page that ends, such as the skip link's slide, to finish.
+
 		await curPagObj.evaluate( scrSetFun ); // What: Scroll Settled Wait. Why: A stop measured while the page is still scrolling it into view would read as off screen. How: This waits until the page has stopped scrolling.
 
 
@@ -396,6 +407,8 @@ async function keyProFun ( curPagObj : Page, engNamStr : string, skiLinBoo : boo
 
 
 		if ( !stoCouNum && skiLinBoo && stoInfObj.desStr !== SKI_LIN_STR ) proLisArr.push( 'the first stop is not the skip link' ); // What: Skip Link First Check. Why: A keyboard user's first stop should take them past the bar. How: This records a problem when the caller asks for the check and the first stop is anything else.
+
+		else if ( !stoCouNum && skiLinBoo && !stoInfObj.fulBoo ) proLisArr.push( 'the skip link is only partly on screen once it lands' ); // What: Skip Link Landing Check. Why: The skip link slides down on focus, and it has to be judged where it lands, whole on screen. How: Once the first stop is the skip link, this records a problem when its top or bottom edge sits outside the viewport after its motion has finished.
 
 
 
@@ -454,12 +467,11 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every ch
 
 
 
-	test( `${ staRecObj.ideStr } walks cleanly with the keyboard`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Keyboard Test. Why: Everything has to be usable without a mouse. How: This opens the state under reduced motion and walks it with Tab.
+	test( `${ staRecObj.ideStr } walks cleanly with the keyboard`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Keyboard Test. Why: Everything has to be usable without a mouse. How: This opens the state with motion on and walks it with Tab.
 
 
 		test.slow(); // What: Slow Test Mark. Why: A full walk measures every stop and takes about 11 seconds alone, which ran past the default 30 second timeout in Firefox when every suite shared the machine. How: This triples this test's timeout.
 
-		await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: A smooth scroll or a focus transition still running would be measured halfway. How: This makes the page match prefers-reduced-motion, which turns both off.
 
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The walk should start from the state settled. How: This loads and settles it.
 
