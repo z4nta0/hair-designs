@@ -89,3 +89,14 @@ The salon doesn't take messages through the site, so the contact form is turned 
 ## Status
 
 The cleanup that brought the project in line with the builder's coding rules is complete: the 404 page, SEO and local SEO, the social preview card and icons, interaction feedback, and the test suites are all in place. `CLAUDE.md` records the decisions behind them. After each deploy, check the shared-link preview in a checker such as [opengraph.xyz](https://www.opengraph.xyz/), which also refreshes a stale cached card.
+
+## Support
+
+If this project is useful to you, you can support its development with a tip
+on Ko-fi. It's never required, and always appreciated.
+
+[![Support me on Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/techgeekdev)
+
+## License
+
+The code is copyright Gary S. Walton, all rights reserved, with Hair Designs granted full use of it for their own website. Hair Designs's name, logos, photos, and written content belong to Hair Designs. See [LICENSE.md](LICENSE.md) for the full terms.

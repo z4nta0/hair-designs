@@ -54,6 +54,13 @@ treatment. The `author` meta names the business itself.
   code. The 404 page therefore carries the home page's canonical beside its
   `noindex`, which is accepted, since the `noindex` keeps it out of search
   either way.
+- **License** (added 2026-11-02): a client project under the user-level
+  "## Licenses" rule, so `LICENSE.md` keeps the code Gary S. Walton's, all
+  rights reserved, grants Hair Designs full use of it for their own website,
+  and leaves the salon's name, logos, photos, and written content theirs. The
+  README ends with the Ko-fi Support section and then the License section.
+  The client grant is custom wording, worth a lawyer's look before relying on
+  it.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
