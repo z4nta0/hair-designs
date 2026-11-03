@@ -34,29 +34,33 @@ treatment. The `author` meta names the business itself.
   street address, service area, the six services as an offer catalog, and the
   Facebook page as `sameAs`, with no opening hours) to a `Person` for each
   stylist with the title "Licensed Cosmetologist", and to a `WebSite` it
-  publishes. The service area is one of two details the page doesn't show; it's
-  the user's own answer about who the salon serves, not a claim the page
-  contradicts. The other is `priceRange`, `$20-100` (added 2026-10-18, the
-  user's figure, after Google's rich results report flagged it as a missing,
-  non-critical field), written in the range form Google's own examples use.
-  Both are on the to-do list below, to bring the page in line with its
-  structured data. `public/` gains `robots.txt` (every crawler allowed),
+  publishes. The service area and `priceRange` (`$20-100`, added 2026-10-18,
+  the user's figure, after Google's rich results report flagged it as a
+  missing, non-critical field, written in the range form Google's own
+  examples use) both appear on the page since 2026-11-02, as the Contact
+  section's Service Area tags and its Prices row ("$20 to $100, depending on
+  the service"). The SEO suite pairs every `areaServed` name, exactly as
+  `index.html` writes it, with the tag that shows it, the way
+  seal-and-shield's does, and checks the page shows the same price range.
+  `public/` gains `robots.txt` (every crawler allowed),
   `sitemap.xml` (the home page alone), and `_headers` (a strict
   Content-Security-Policy and the usual hardening headers, checked against the
   built site in all three engines; WebKit reports one harmless violation from
   its own styling of the form's select, which draws identically either way).
-- **To do: show the service area on the page** (recorded 2026-10-18): the
-  structured data's `areaServed` (Hickory County and its nine towns) appears
-  nowhere on the page. Fix it the way seal-and-shield did: show the areas on
-  the page (seal-and-shield lists them as tags in its Services section), and
-  have the SEO suite pair every `areaServed` name, exactly as `index.html`
-  writes it, with the page element that shows it, rather than checking a
-  hard-coded list (seal-and-shield's `517bf0d`).
-- **To do: show the price range on the page** (recorded 2026-10-18): the
-  structured data's `priceRange` (`$20-100`) appears nowhere on the page.
-  Place it somewhere it reads naturally (a line in the Services or Contact
-  section, say), decided with the user, and have the SEO suite check that
-  the page shows the same range the data gives.
+- **Canonical** (recorded 2026-11-02, under the user-level rule for a site
+  whose only other route is a `noindex` page): the site counts as one indexed
+  page, so its canonical link stays in `index.html`, where crawlers that
+  never run scripts can read it, rather than rendering from the home page's
+  code. The 404 page therefore carries the home page's canonical beside its
+  `noindex`, which is accepted, since the `noindex` keeps it out of search
+  either way.
+- **License** (added 2026-11-02): a client project under the user-level
+  "## Licenses" rule, so `LICENSE.md` keeps the code Gary S. Walton's, all
+  rights reserved, grants Hair Designs full use of it for their own website,
+  and leaves the salon's name, logos, photos, and written content theirs. The
+  README ends with the Ko-fi Support section and then the License section.
+  The client grant is custom wording, worth a lawyer's look before relying on
+  it.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
@@ -71,17 +75,29 @@ treatment. The `author` meta names the business itself.
   JPEG, since the card is flat stripes, line art, and text. `index.html`
   carries every Open Graph and Twitter tag (no `twitter:site`, since there's
   no X account), `theme-color` in the bar's navy, and the full icon set:
-  `favicon.svg`, `favicon.ico`, PNGs at 16, 32, 192, and 512px, and a 180px
-  `apple-touch-icon.png`. `npm run icons` (`design/icons/render.mts`)
-  rebuilds all of them, `favicon.svg` included, from `src/assets/logo.svg`
-  set on the bar's navy (read from `--bac-inv-col`): a rounded square for the
-  favicons and a full square, the logo a little smaller, for iOS. The old
-  hand-made `favicon.svg`, which predated the logo, is gone. Known limit: at
-  16 and 32px the logo's thin arrows fade into the navy, leaving a faint X,
-  since the logo's detail is finer than a tab icon can show; a simplified mark
-  would fix it if the user ever wants one. The structured data names the
-  512px icon as the salon's `logo` and the card as its `image`. After each
-  deploy, the user checks the card in a preview checker such as
+  `favicon-2.svg`, `favicon.ico`, PNGs at 16, 32, 192, and 512px
+  (`favicon-2-16x16.png` and so on), and a 180px `apple-touch-icon.png`.
+  `npm run icons` (`design/icons/render.mts`) rebuilds all of them from
+  `src/assets/logo.svg`: the logo, fitted to its measured shapes, inside a
+  navy circle with a rose ring (`--acc-mai-col`), on the bar's navy
+  (`--bac-inv-col`), a rounded square for the favicons and a full square for
+  iOS. The ring was added 2026-11-02 (the set's `-2` names keep browsers and
+  Google from showing their cached copies) because Google draws favicons on
+  a white circle, which showed the rounded square's corners in search
+  results and, the user suspected, kept Search Console from showing the icon
+  at all; the ring gives the icon a definite round shape there while tabs
+  keep the rounded square. It's thicker (14 of the icon's 220 drawing units,
+  about 1px at 16px) on the SVG, the 16 and 32px PNGs, and the ICO, and
+  thinner (10 units) on the 192 and 512px PNGs and the touch icon, where the
+  thick one looked heavy, the user's choice of three. After the deploy, the
+  user checks which icon Google stored at
+  https://www.google.com/s2/favicons?domain=hairdesigns.hair&sz=128. Known
+  limit: at 16 and 32px the logo's thin arrows fade into the navy, leaving a
+  faint X, since the logo's detail is finer than a tab icon can show; a
+  simplified mark would fix it if the user ever wants one. The structured
+  data names the 512px icon as the salon's `logo` and the card as its
+  `image`. After each deploy, the user checks the card in a preview checker
+  such as
   opengraph.xyz.
 - **Off-site work for the user** (done 2026-10-12): the site is added to
   Google Search Console and Bing Webmaster Tools, with
@@ -176,6 +192,20 @@ it doesn't suit this design.
   their content centers. The hero stays full width, and the footer, which
   already centers its line, is unchanged.
 
+## Skip link
+Added 2026-11-02 under the user-level "## Skip Link And Modal Layers" rule.
+The page's main content is everything between the bar and the footer: the
+`<main>` in `app.tsx`, which every route renders into, carries `id='main'`
+and `tabIndex={ -1 }`, and `styles.css` drops its focus outline. The skip
+link, "Skip to main content", is the first thing `NavBarCom` renders, a light
+rose button like the phone menu's Call button that waits above the screen and
+slides down over the bar on `:focus`, layered at 2 above the bar and scrim.
+A plain click focuses the `<main>` without a hash; a modified click is left to
+the browser. The open phone menu makes it inert with the rest of the page.
+`section-link.spec.ts` checks the first Tab lands on it, on screen, on both
+pages at both widths, and that following it focuses the `<main>` with a
+clean address.
+
 ## Scroll position
 Decided 2026-10-12, confirmed by the user once the 404 page was built: the
 404 page makes this a two-route site, but `useScrTopFun` is left out, an
@@ -229,9 +259,12 @@ replacing the old `netlify.toml`.
   so every link shares one click handler; the phone menu closes only when a
   click was handled. Checked in all three engines: every link lands just
   below the bar (63px down since the type scale, after a WebKit fix in
-  step 8), with a clean address (a modified click opens a new tab
-  in Chromium and Firefox; headless WebKit doesn't open tabs on modified
-  clicks, so that case is unchecked there).
+  step 8), with a clean address, and a Ctrl, Cmd, or middle click opens a new
+  tab that lands on its section in all three engines, checked since
+  2026-11-02 by `tests/interaction/section-link.spec.ts`. The home page waits
+  for the fonts before an arrival jump (fixed 2026-11-02, when the new spec
+  caught Chromium landing a new tab's section about 2px high), and the phone
+  menu closes on any link chosen in it, a new tab or middle click included.
 - **A page's main file is named after its folder** (`pages/home/home.tsx`),
   the same as seal-and-shield.
 - **The bar and footer live in `ui/`** as `nav.tsx` and `footer.tsx`, since
@@ -402,7 +435,9 @@ with unchanged screenshots unless the step is meant to change the page.
 Added 2026-10-12, adapted from seal-and-shield's. Playwright suites live in
 `tests/`, one project per suite and engine in `tests/playwright.config.ts`,
 which starts its own dev server on port 5191 (never the usual 5173) and stops
-it afterwards. Every suite runs in Chromium, Firefox, and WebKit. Results,
+it afterwards. Every suite runs in Chromium, Firefox, and WebKit, Chromium as
+full headless Chrome (`channel : 'chromium'`, since 2026-11-02, which moved
+one Services card's wrap at 390px and with it the Chromium baselines). Results,
 screenshots, and traces go to `tests/output/` (git-ignored); `npx playwright
 show-report tests/output/report` opens the HTML report. The states the suites
 visit (the home page and the 404 page at 390px and 1,440px, and the phone
@@ -441,8 +476,8 @@ be scrolled into view.
   full title and one description; the home page's title, description,
   author, canonical, and single h1; the structured data matched against the
   page's own text and links (phone, street address, stylists, services,
-  Facebook, no hours); the 404 page's noindex, title, single description,
-  and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
+  price range, every service area, Facebook, no hours); the 404 page's
+  noindex, title, single description, and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
 - `npm run test:interaction`: `feedback.spec.ts`, adapted from
   tonys-toppers', hovers and presses every reachable link and button in each
   state (skipping disabled ones and anything inert), failing any that looks
@@ -454,8 +489,28 @@ be scrolled into view.
   link, and the scrim under a tap) and every way out: the scrim, Escape
   (focus back on the toggle), a section link (landing about 63px down, below
   the bar, with a clean address), the brand, and widening the screen.
+  `section-link.spec.ts`, adapted from reese-roofing's behavior spec, checks
+  every bar link and section button lands its section below the bar with a
+  clean address and no hashchange, that a Ctrl, Cmd, or middle click opens it
+  in a new tab while the page clicked from stays put and the phone menu
+  closes, and that the 404 page's bar links reach their sections.
   `tooltip.spec.ts` checks the form tooltip fades out before it's removed,
   closes on Escape after keyboard focus, and still goes under reduced motion.
+- `npm run test:security`: added 2026-11-02, from tonys-toppers'. The
+  playwright config also builds the site and serves it with `vite preview` on
+  port 5202, since the dev server injects inline scripts the policy would
+  block. `headers.spec.ts` checks `public/_headers` against the security
+  baseline (a strict Content-Security-Policy, HSTS for at least a year,
+  nosniff, DENY framing, and the referrer and permissions policies), searches
+  the build for private keys and provider tokens, and runs `npm audit` on the
+  shipped dependencies, those three in Chromium only, since a file reads the
+  same in every engine, the audit skipping with a message when npm is
+  offline. `browser.spec.ts` loads each state from the build with the
+  headers file's headers applied, proves the policy is live by seeing an
+  injected inline script refused, and checks every state reports no
+  violation (but WebKit's report for the form's select, which every select
+  draws) and that every new tab link carries `noopener` and `noreferrer`. No
+  browser key ships, and the form never sends, so there's no post to check.
 - `npm test` runs every suite.
 
 ### Accessibility pass

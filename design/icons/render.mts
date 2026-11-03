@@ -19,20 +19,26 @@ import { writeFileSync } from 'node:fs';          // What: Write File Sync. Why:
  * Rebuilds the site's whole icon set in public/ from the logo the site shows,
  * src/assets/logo.svg. The logo is light artwork drawn for the navy bar, so
  * every icon sets it on the bar's navy, read from styles.css's
- * --bac-inv-col so it follows the site's color: favicon.svg puts it on a
- * rounded navy square, for the browsers that read SVG favicons, and the PNG
- * icons at 16, 32, 192, and 512px and a favicon.ico holding the 16, 32, and
- * 48px sizes are drawn from that same SVG, for every other browser and for
- * the request browsers make for /favicon.ico on their own. The 180px
- * apple-touch-icon.png fills the whole square with navy instead, since iOS
- * fills transparent corners with black and rounds the corners itself, and
- * draws the logo a little smaller, so those corners never crowd the arrows.
- * Since the logo is a vector, each size is drawn straight from it. Run it
- * with npm run icons whenever the logo or the navy changes. Adapted from
- * tonys-toppers' own icon renderer.
+ * --bac-inv-col, inside a navy circle ringed in the brand's rose, read from
+ * --acc-mai-col, so the icons follow the site's colors. The ring gives the
+ * icon a definite round shape where a search result draws it inside a
+ * circle, and the logo is scaled to fit inside it, measured from its own
+ * drawn shapes. The favicons keep a navy square with rounded corners behind
+ * the circle, so a browser tab shows the rounded square it always has. The
+ * ring is drawn thicker on favicon-2.svg, the 16 and 32px PNGs, and the
+ * favicon.ico holding the 16, 32, and 48px sizes, so it stays a full pixel
+ * wide in a tab, and thinner on the 192 and 512px PNGs and the 180px
+ * apple-touch-icon.png, where the thick one looks heavy. The touch icon fills
+ * the whole square with navy instead, since iOS fills transparent corners
+ * with black and rounds the corners itself. Since the logo is a vector, each
+ * size is drawn straight from it. Run it with npm run icons whenever the logo
+ * or the colors change, and give changed favicons a new filename, since
+ * browsers and search engines cache them. Adapted from tonys-toppers' own
+ * icon renderer.
  *
  * Sections:
  *  - Constants
+ *  - Module State
  *  - Module Init
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -46,54 +52,106 @@ import { writeFileSync } from 'node:fs';          // What: Write File Sync. Why:
 type IcoRecTyp = { // What: Icon Record Type. Why: Every PNG icon is described the same way. How: This names its file, its size, and which SVG it's drawn from.
 
 
-	filStr : string,  // What: File String. Why: Each icon is saved under its own name in public/. How: This is the file name.
-	sizNum : number,  // What: Size Number. Why: Each icon is square at its own size. How: This is its width and height in pixels.
-	touBoo : boolean  // What: Touch Boolean. Why: The Apple touch icon is drawn from its own full-square SVG. How: This is true for that icon alone.
+	filStr : string,                      // What: File String. Why: Each icon is saved under its own name in public/. How: This is the file name.
+	kinStr : 'large' | 'small' | 'touch', // What: Kind String. Why: Small icons, large icons, and the touch icon are each drawn from their own SVG. How: This names which one the icon reads.
+	sizNum : number                       // What: Size Number. Why: Each icon is square at its own size. How: This is its width and height in pixels.
 
 
 };
 
-const ICO_REC_ARR : IcoRecTyp[] = [ // What: Icon Record Array. Why: The PNG icons the head links to, and the one iOS reads, are rendered from one list. How: Each row names a file, its size, and whether it's the touch icon.
+const ICO_REC_ARR : IcoRecTyp[] = [ // What: Icon Record Array. Why: The PNG icons the head links to, and the one iOS reads, are rendered from one list. How: Each row names a file, which SVG it's drawn from, and its size.
 
 
-	{ filStr : 'favicon-16x16.png',    sizNum : 16,  touBoo : false }, // What: Small Icon Row. Why: Tabs draw small icons crisper at their own size. How: This renders the 16px icon.
-	{ filStr : 'favicon-32x32.png',    sizNum : 32,  touBoo : false }, // What: Medium Icon Row. Why: Most browsers pick a 32px tab icon. How: This renders the 32px icon.
-	{ filStr : 'favicon-192x192.png',  sizNum : 192, touBoo : false }, // What: Large Icon Row. Why: Android and some browsers use a large icon for shortcuts. How: This renders the 192px icon.
-	{ filStr : 'favicon-512x512.png',  sizNum : 512, touBoo : false }, // What: Extra Large Icon Row. Why: High-density screens and launchers can ask for a bigger icon still, and the structured data names it as the salon's logo. How: This renders the 512px icon.
-	{ filStr : 'apple-touch-icon.png', sizNum : 180, touBoo : true  }  // What: Apple Touch Icon Row. Why: iOS draws the home screen icon at 180px and fills transparency with black. How: This renders the full navy square.
+	{ filStr : 'favicon-2-16x16.png',   kinStr : 'small', sizNum : 16  }, // What: Small Icon Row. Why: Tabs draw small icons crisper at their own size. How: This renders the 16px icon with the thick ring.
+	{ filStr : 'favicon-2-32x32.png',   kinStr : 'small', sizNum : 32  }, // What: Medium Icon Row. Why: Most browsers pick a 32px tab icon. How: This renders the 32px icon with the thick ring.
+	{ filStr : 'favicon-2-192x192.png', kinStr : 'large', sizNum : 192 }, // What: Large Icon Row. Why: Android and some browsers use a large icon for shortcuts. How: This renders the 192px icon with the thin ring.
+	{ filStr : 'favicon-2-512x512.png', kinStr : 'large', sizNum : 512 }, // What: Extra Large Icon Row. Why: High-density screens and launchers can ask for a bigger icon still, and the structured data names it as the salon's logo. How: This renders the 512px icon with the thin ring.
+	{ filStr : 'apple-touch-icon.png',  kinStr : 'touch', sizNum : 180 }  // What: Apple Touch Icon Row. Why: iOS draws the home screen icon at 180px and fills transparency with black. How: This renders the full navy square with the thin ring.
 
 
 ];
 
 
 
-const ICO_SIZ_ARR = [ 16, 32, 48 ]; // What: ICO Size Array. Why: favicon.ico should hold the sizes older browsers and Windows pick from. How: Each entry is one square size packed into the file.
-
-
-
-const FAV_SCA_NUM = 0.84;                                                                                                                                   // What: Favicon Scale Number. Why: The arrows' feathers reach the logo's corners, which a rounded square would clip. How: favicon.svg draws the logo at this share of its square, centered.
-const LOG_SVG_STR = readFileSync( new URL( '../../src/assets/logo.svg', import.meta.url ), 'utf8' );                                                        // What: Logo SVG String. Why: Every icon is drawn from the logo the site shows. How: This reads it from src/assets/.
-const NAV_COL_STR = readFileSync( new URL( '../../src/styles/styles.css', import.meta.url ), 'utf8' ).match( /--bac-inv-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ]; // What: Navy Color String. Why: The icons sit on the same navy as the bar, and should follow it if it changes. How: This reads --bac-inv-col's value from styles.css. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --bac-inv-col as a hex color, and a missing one should stop the run.
-const OUT_DIR_STR = fileURLToPath( new URL( '../../public/', import.meta.url ) );                                                                           // What: Output Directory String. Why: Browsers request icons from the site's root. How: This resolves public/ from this script's folder.
-const TOU_SCA_NUM = 0.74;                                                                                                                                   // What: Touch Scale Number. Why: iOS rounds the touch icon's corners further than favicon.svg does. How: The touch icon draws the logo at this share of its square, centered.
+const FAV_SVG_STR = 'favicon-2.svg';                                             // What: Favicon SVG String. Why: The head's first icon link names it, and a changed icon needs a new name to pass browser and search caches. How: This is its file name.
+const ICO_SIZ_ARR = [ 16, 32, 48 ];                                              // What: ICO Size Array. Why: favicon.ico should hold the sizes older browsers and Windows pick from. How: Each entry is one square size packed into the file.
+const OUT_DIR_STR = fileURLToPath( new URL( '../../public/', import.meta.url ) ); // What: Output Directory String. Why: Browsers request icons from the site's root. How: This resolves public/ from this script's folder.
+const RIN_GAP_NUM = 6;                                                           // What: Ring Gap Number. Why: The logo shouldn't touch the ring. How: This is the space left between them, in the icon's 220-unit drawing space.
+const RIN_LAR_NUM = 10;                                                          // What: Ring Large Number. Why: At 180px and up a thick ring looks heavy. How: This is the large icons' ring width, in drawing units, about 9px at 192px.
+const RIN_OUT_NUM = 108;                                                         // What: Ring Outer Number. Why: The ring sits just inside the square's edges, so no size clips it. How: This is its outer edge's distance from the center, in drawing units.
+const RIN_SMA_NUM = 14;                                                          // What: Ring Small Number. Why: A tab's icon needs a ring at least a pixel wide to read. How: This is the small icons' ring width, in drawing units, about 1px at 16px.
 
 // #endregion Constants
+
+
+
+// #region Module State
+
+const LOG_SVG_STR = readFileSync( new URL( '../../src/assets/logo.svg', import.meta.url ), 'utf8' ); // What: Logo SVG String. Why: Every icon is drawn from the logo the site shows. How: This reads it from src/assets/.
+const STY_CSS_STR = readFileSync( new URL( '../../src/styles/styles.css', import.meta.url ), 'utf8' ); // What: Styles CSS String. Why: The icons' colors are the site's own. How: This reads the global stylesheet that defines them.
+
+
+const NAV_COL_STR = STY_CSS_STR.match( /--bac-inv-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ]; // What: Navy Color String. Why: The icons sit on the same navy as the bar, and should follow it if it changes. How: This reads --bac-inv-col's value. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --bac-inv-col as a hex color, and a missing one should stop the run.
+const ROS_COL_STR = STY_CSS_STR.match( /--acc-mai-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ]; // What: Rose Color String. Why: The ring is the brand's rose, and should follow it if it changes. How: This reads --acc-mai-col's value. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --acc-mai-col as a hex color, and a missing one should stop the run.
+
+// #endregion Module State
 
 
 
 // #region Module Init
 
 const logInnStr = LOG_SVG_STR.replace( /^[\s\S]*?<svg[^>]*>/, '' ).replace( /<\/svg>\s*$/, '' ); // What: Logo Inner String. Why: The logo's shapes are set inside a new square, so its own outer svg tag has to go. How: This strips the opening and closing svg tags, keeping everything between them.
-const icoSvgFun = ( scaValNum : number, radValNum : number ) : string => `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><rect width='220' height='220' rx='${ radValNum }' fill='${ NAV_COL_STR }'/><g transform='translate(${ ( 110 * ( 1 - scaValNum ) ).toFixed( 1 ) } ${ ( 110 * ( 1 - scaValNum ) ).toFixed( 1 ) }) scale(${ scaValNum })'>${ logInnStr }</g></svg>\n`; // What: Icon SVG Function. Why: favicon.svg and the touch icon frame the logo the same way at different scales and corner radii. How: This returns the logo set on navy as SVG text.
-const favSvgStr = icoSvgFun( FAV_SCA_NUM, 44 );                                                  // What: Favicon SVG String. Why: Browsers that read SVG favicons show the logo sharp at any density. How: This sets the logo on a navy square rounded by a fifth of its side.
-const touSvgStr = icoSvgFun( TOU_SCA_NUM, 0 );                                                   // What: Touch SVG String. Why: iOS rounds the touch icon itself and fills transparent corners with black. How: This sets the logo, a little smaller, on a full navy square.
 
-
-writeFileSync( OUT_DIR_STR + 'favicon.svg', favSvgStr ); // What: Favicon SVG Write Call. Why: The head's first icon link points at it. How: This writes it into public/.
 
 
 const broInsObj = await chromium.launch();   // What: Browser Instance Object. Why: The icons are drawn in a real browser's canvas. How: This launches Chromium.
-const draPagObj = await broInsObj.newPage(); // What: Draw Page Object. Why: The canvas work runs inside a page. How: This opens a blank one.
+const draPagObj = await broInsObj.newPage(); // What: Draw Page Object. Why: The canvas work and the logo's measurement run inside a page. How: This opens a blank one.
+
+
+const logBoxObj = await draPagObj.evaluate( ( souInnStr ) => { // What: Logo Box Object. Why: The logo's drawn shapes don't fill its square or sit at its center, so the ring fits around the shapes themselves. How: This draws the logo in the page and returns the box around its shapes.
+
+
+	document.body.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><g>${ souInnStr }</g></svg>`; // What: Logo Draw Assignment. Why: A shape's box can only be measured once it's in the page. How: This draws the logo's shapes in a group.
+
+
+	const boxRecObj = document.querySelector( 'g' )!.getBBox(); // What: Box Rect Object. Why: The group's box is the space the logo's shapes take. How: This measures it. // What: Non-Null Note. Why: querySelector can return null. How: The line above just drew the group.
+
+
+
+	return { heiNum : boxRecObj.height, widNum : boxRecObj.width, xcoNum : boxRecObj.x, ycoNum : boxRecObj.y }; // What: Box Return. Why: A DOMRect can't leave the page, but its numbers can. How: This returns its position and size.
+
+
+}, logInnStr ); // What: Measuring Argument. Why: The page can't read this script's variables. How: This hands the logo's shapes into the page.
+
+
+
+const icoSvgFun = ( radValNum : number, rinWidNum : number ) : string => { // What: Icon SVG Function. Why: The favicons and the touch icon frame the logo the same way, with different corners and ring widths. How: This returns the logo inside a ringed navy circle on a navy square, as SVG text.
+
+
+	const logScaNum = ( RIN_OUT_NUM - rinWidNum - RIN_GAP_NUM ) / ( Math.hypot( logBoxObj.widNum, logBoxObj.heiNum ) / 2 ); // What: Logo Scale Number. Why: The logo's arrows reach its box's corners, which have to sit inside the ring. How: This divides the space inside the ring by half the box's diagonal.
+	const logXcoNum = 110 - ( logBoxObj.xcoNum + logBoxObj.widNum / 2 ) * logScaNum;                                     // What: Logo X-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center across.
+	const logYcoNum = 110 - ( logBoxObj.ycoNum + logBoxObj.heiNum / 2 ) * logScaNum;                                     // What: Logo Y-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center down.
+
+
+
+	return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><rect width='220' height='220' rx='${ radValNum }' fill='${ NAV_COL_STR }'/><circle cx='110' cy='110' r='${ RIN_OUT_NUM - rinWidNum / 2 }' fill='${ NAV_COL_STR }' stroke='${ ROS_COL_STR }' stroke-width='${ rinWidNum }'/><g transform='translate(${ logXcoNum.toFixed( 1 ) } ${ logYcoNum.toFixed( 1 ) }) scale(${ logScaNum.toFixed( 3 ) })'>${ logInnStr }</g></svg>\n`; // What: Icon SVG Return. Why: Each icon is drawn from SVG text. How: This returns the square, the ringed circle centered on it, and the fitted logo.
+
+
+};
+
+
+const icoSvgObj = { // What: Icon SVG Object. Why: Each kind of icon reads its own SVG. How: This builds the large and small favicons on a square rounded by a fifth of its side, and the touch icon on a full square, iOS rounding that one itself.
+
+
+	large : icoSvgFun( 44, RIN_LAR_NUM ), // What: Large SVG. Why: The 192 and 512px icons look best with a thin ring. How: This rounds the square and draws the thin ring.
+	small : icoSvgFun( 44, RIN_SMA_NUM ), // What: Small SVG. Why: Tab-sized icons need a ring a full pixel wide. How: This rounds the square and draws the thick ring.
+	touch : icoSvgFun( 0, RIN_LAR_NUM )   // What: Touch SVG. Why: iOS rounds the touch icon itself and fills transparent corners with black. How: This keeps the square full and draws the thin ring.
+
+
+};
+
+
+writeFileSync( OUT_DIR_STR + FAV_SVG_STR, icoSvgObj.small ); // What: Favicon SVG Write Call. Why: The head's first icon link points at it, and tabs are mostly what draw it. How: This writes the thick-ringed SVG into public/.
 
 
 
@@ -109,15 +167,15 @@ const draPagObj = await broInsObj.newPage(); // What: Draw Page Object. Why: The
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
- * @param icoSvgStr - Icon SVG String: The SVG to draw, favicon.svg's or the
- *                    touch icon's.
+ * @param icoSvgStr - Icon SVG String: The SVG to draw, one of the icon SVG
+ *                    object's.
  * @param icoSizNum - Icon Size Number: The icon's width and height in pixels.
  *
  * @returns The finished PNG's bytes.
  *
  * @example
  * ```ts
- * renPngFun(favSvgStr, 32) // => Buffer
+ * renPngFun(icoSvgObj.small, 32) // => Buffer
  * ```
  *
 */
@@ -162,11 +220,11 @@ async function renPngFun ( icoSvgStr : string, icoSizNum : number ) : Promise< B
 
 
 
-for ( const icoRecObj of ICO_REC_ARR ) writeFileSync( OUT_DIR_STR + icoRecObj.filStr, await renPngFun( icoRecObj.touBoo ? touSvgStr : favSvgStr, icoRecObj.sizNum ) ); // What: PNG Icon Loop. Why: Each PNG icon is saved under its own name. How: This renders every row from its SVG and writes it into public/.
+for ( const icoRecObj of ICO_REC_ARR ) writeFileSync( OUT_DIR_STR + icoRecObj.filStr, await renPngFun( icoSvgObj[ icoRecObj.kinStr ], icoRecObj.sizNum ) ); // What: PNG Icon Loop. Why: Each PNG icon is saved under its own name. How: This renders every row from its kind's SVG and writes it into public/.
 
 
 
-const icoPngArr = await Promise.all( ICO_SIZ_ARR.map( ( icoSizNum ) => renPngFun( favSvgStr, icoSizNum ) ) ); // What: ICO PNG Array. Why: favicon.ico packs one PNG per size. How: This renders each of its sizes.
+const icoPngArr = await Promise.all( ICO_SIZ_ARR.map( ( icoSizNum ) => renPngFun( icoSvgObj.small, icoSizNum ) ) ); // What: ICO PNG Array. Why: favicon.ico packs one PNG per size, all small enough for the thick ring. How: This renders each of its sizes.
 const icoHeaBuf = Buffer.alloc( 6 + 16 * icoPngArr.length );                                                  // What: ICO Header Buffer. Why: An ICO file starts with a header and one directory entry per image. How: This allocates both.
 
 
@@ -203,7 +261,7 @@ writeFileSync( OUT_DIR_STR + 'favicon.ico', Buffer.concat( [ icoHeaBuf, ...icoPn
 
 await broInsObj.close(); // What: Browser Close Call. Why: The script should exit once the icons are saved. How: This shuts Chromium down.
 
-console.log( `Wrote favicon.svg, ${ ICO_REC_ARR.length } PNG icons, and favicon.ico to ${ OUT_DIR_STR }.` ); // What: Result Log Call. Why: The run should say what it wrote. How: This prints what it wrote and where.
+console.log( `Wrote ${ FAV_SVG_STR }, ${ ICO_REC_ARR.length } PNG icons, and favicon.ico to ${ OUT_DIR_STR }.` ); // What: Result Log Call. Why: The run should say what it wrote. How: This prints what it wrote and where.
 
 // #endregion Module Init
 

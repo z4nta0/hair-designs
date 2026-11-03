@@ -6,9 +6,9 @@
  *
  * @summary
  * Styles for ConSecCom, the home page's Contact section on striped navy: the
- * eyebrow, heading, and rose rule, then the phone number, hours, and a quote
- * from the stylists beside a cream card holding the contact form, the two
- * stacking at 900px and narrower. The form is turned off: its fields sit in a
+ * eyebrow, heading, and rose rule, then the phone number, hours, prices,
+ * service area tags, and a quote from the stylists beside a cream card
+ * holding the contact form, the two stacking at 900px and narrower. The form is turned off: its fields sit in a
  * disabled fieldset, faded slightly, inside a wrapper that catches the pointer
  * and the keyboard for them and anchors the tooltip that explains why, which
  * fades in through forTipDivOpenFadeIn. The fieldset's legend carries the same
@@ -198,7 +198,7 @@
 
 }
 
-.detValSpa { /* What: Detail Value Span. Why: The hours read like the phone number beside them. How: This sets them the same size and fade. */
+.detValSpa { /* What: Detail Value Span. Why: The hours and the price range read like the phone number above them. How: This sets them the same size and fade. */
 
 
 	font-size : var( --fon-siz-p01 ); /* Font Size Base Plus 1 ~= 14.572px */
@@ -206,6 +206,36 @@
 
 
 }
+
+
+/* #region areTagUno */
+
+.areTagUno { /* What: Area Tag Unordered List. Why: The places the salon serves read as a row of labels under their heading. How: This clears the list's bullets and indent and lays the tags out with flexbox, since a row that wraps while each tag keeps its own text's width is what flexbox does and grid doesn't. */
+
+
+	display    : flex;
+	flex-wrap  : wrap;
+	gap        : var( --spa-ver-m03 ) var( --spa-hor-m03 ); /* Spacing Vertical Base Minus 3 ~= 6.268px, Spacing Horizontal Base Minus 3 ~= 6.268px */
+	list-style : none;
+	margin     : var( --spa-ver-m03 ) 0 0;                  /* Spacing Vertical Base Minus 3 ~= 6.268px */
+	padding    : 0;
+
+
+}
+
+.areTagIte { /* What: Area Tag Item. Why: Each place reads as its own small label. How: This sets the name in cream inside a light rose pill outline. */
+
+
+	border        : var( --bor-wid-bas ) solid var( --acc-lig-col ); /* Border Width Base ~= 1.160px, Accent Light Color = #e8a898 */
+	border-radius : 999px;
+	color         : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
+	font-size     : var( --fon-siz-bas );                            /* Font Size Base = 11px */
+	padding       : var( --spa-ver-m05 ) var( --spa-hor-m02 );       /* Spacing Vertical Base Minus 5 ~= 3.572px, Spacing Horizontal Base Minus 2 ~= 8.304px */
+
+
+}
+
+/* #endregion areTagUno */
 
 /* #endregion detRowDiv */
 
