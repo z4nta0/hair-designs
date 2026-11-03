@@ -101,4 +101,4 @@ on Ko-fi. It's never required, and always appreciated.
 
 ## License
 
-The code is copyright Gary S. Walton, all rights reserved, with Hair Designs granted full use of it for their own website. Hair Designs's name, logos, photos, and written content belong to Hair Designs. See [LICENSE.md](LICENSE.md) for the full terms.
+The code is copyright Gary S. Walton, all rights reserved, with Hair Designs granted full use of it for their own website. Hair Designs' name, logos, photos, and written content belong to Hair Designs. See [LICENSE.md](LICENSE.md) for the full terms.
