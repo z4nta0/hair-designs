@@ -80,10 +80,6 @@
 
 }
 
-
-
-/* #region navScrDiv */
-
 .navScrDiv { /* What: Navigation Scrim Div. Why: The open phone menu should stand apart from the page, and the dimmed page gives a large target for closing it. How: This covers the screen in translucent navy, faded out and hidden until the menu opens, and exists only at 900px and narrower. */
 
 
@@ -134,8 +130,6 @@
 
 
 }
-
-/* #endregion navScrDiv */
 
 
 

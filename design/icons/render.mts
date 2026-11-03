@@ -49,6 +49,10 @@ import { writeFileSync } from 'node:fs';          // What: Write File Sync. Why:
 
 // #region Constants
 
+const FAV_SVG_STR = 'favicon-2.svg'; // What: Favicon SVG String. Why: The head's first icon link names it, and a changed icon needs a new name to pass browser and search caches. How: This is its file name.
+
+
+
 type IcoRecTyp = { // What: Icon Record Type. Why: Every PNG icon is described the same way. How: This names its file, its size, and which SVG it's drawn from.
 
 
@@ -73,13 +77,12 @@ const ICO_REC_ARR : IcoRecTyp[] = [ // What: Icon Record Array. Why: The PNG ico
 
 
 
-const FAV_SVG_STR = 'favicon-2.svg';                                             // What: Favicon SVG String. Why: The head's first icon link names it, and a changed icon needs a new name to pass browser and search caches. How: This is its file name.
-const ICO_SIZ_ARR = [ 16, 32, 48 ];                                              // What: ICO Size Array. Why: favicon.ico should hold the sizes older browsers and Windows pick from. How: Each entry is one square size packed into the file.
+const ICO_SIZ_ARR = [ 16, 32, 48 ];                                               // What: ICO Size Array. Why: favicon.ico should hold the sizes older browsers and Windows pick from. How: Each entry is one square size packed into the file.
 const OUT_DIR_STR = fileURLToPath( new URL( '../../public/', import.meta.url ) ); // What: Output Directory String. Why: Browsers request icons from the site's root. How: This resolves public/ from this script's folder.
-const RIN_GAP_NUM = 6;                                                           // What: Ring Gap Number. Why: The logo shouldn't touch the ring. How: This is the space left between them, in the icon's 220-unit drawing space.
-const RIN_LAR_NUM = 10;                                                          // What: Ring Large Number. Why: At 180px and up a thick ring looks heavy. How: This is the large icons' ring width, in drawing units, about 9px at 192px.
-const RIN_OUT_NUM = 108;                                                         // What: Ring Outer Number. Why: The ring sits just inside the square's edges, so no size clips it. How: This is its outer edge's distance from the center, in drawing units.
-const RIN_SMA_NUM = 14;                                                          // What: Ring Small Number. Why: A tab's icon needs a ring at least a pixel wide to read. How: This is the small icons' ring width, in drawing units, about 1px at 16px.
+const RIN_GAP_NUM = 6;                                                            // What: Ring Gap Number. Why: The logo shouldn't touch the ring. How: This is the space left between them, in the icon's 220-unit drawing space.
+const RIN_LAR_NUM = 10;                                                           // What: Ring Large Number. Why: At 180px and up a thick ring looks heavy. How: This is the large icons' ring width, in drawing units, about 9px at 192px.
+const RIN_OUT_NUM = 108;                                                          // What: Ring Outer Number. Why: The ring sits just inside the square's edges, so no size clips it. How: This is its outer edge's distance from the center, in drawing units.
+const RIN_SMA_NUM = 14;                                                           // What: Ring Small Number. Why: A tab's icon needs a ring at least a pixel wide to read. How: This is the small icons' ring width, in drawing units, about 1px at 16px.
 
 // #endregion Constants
 
