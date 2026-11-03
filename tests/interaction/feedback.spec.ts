@@ -338,7 +338,21 @@ async function conLisFun ( curPagObj : Page, conSelStr : string ) : Promise< Ele
 	for ( const conCurObj of await curPagObj.$$( conSelStr ) ) { // What: Control Loop. Why: Every element the selector matches is judged on its own. How: This keeps each one a visitor can reach.
 
 
-		const conReaBoo = await conCurObj.evaluate( ( conCurEle ) => conCurEle.getAttribute( 'tabindex' ) !== '-1' && !conCurEle.matches( ':disabled' ) && !conCurEle.closest( '[inert]' ) ); // What: Control Reachable Boolean. Why: An element outside the tab order, disabled, or inside inert content can't be reached. How: This checks all three inside the page.
+		const conReaBoo = await conCurObj.evaluate( ( conCurEle ) => { // What: Control Reachable Boolean. Why: An element outside the tab order, disabled, or inside inert content can't be reached. How: This checks all three inside the page.
+
+
+			const notDisBoo = !conCurEle.matches( ':disabled' );             // What: Not Disabled Boolean. Why: A disabled control takes no input. How: This is true when the element isn't disabled.
+			const notIneBoo = !conCurEle.closest( '[inert]' );               // What: Not Inert Boolean. Why: Inert content can't be reached. How: This is true when no ancestor is inert.
+			const tabOrdBoo = conCurEle.getAttribute( 'tabindex' ) !== '-1'; // What: Tab Order Boolean. Why: A control taken out of the tab order can't be reached by Tab. How: This is true unless its tabindex is -1.
+
+			const reaConBoo = notDisBoo && notIneBoo && tabOrdBoo; // What: Reachable Control Boolean. Why: A control counts only when all three hold. How: This combines them.
+
+
+
+			return reaConBoo; // What: Reachable Control Return. Why: The test reads the verdict back. How: This returns the combined boolean.
+
+
+		} );
 
 
 		if ( conReaBoo && await conCurObj.isVisible() ) conHanArr.push( conCurObj ); // What: Reachable Control Record. Why: Only elements a visitor can see and reach are checked. How: This keeps the element when it's both.
