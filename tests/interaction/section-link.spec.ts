@@ -96,9 +96,9 @@ async function opeRouFun ( curPagObj : Page, rouPatStr : string, vieSizObj : { h
 	await curPagObj.addInitScript( () => { // What: Hash Change Counter. Why: A plain jump that put a hash in the address would see the home page clear it again, so the address alone couldn't show it happened. How: This counts every hashchange event on the window, from the first script that runs.
 
 
-		Reflect.set( window, 'hasChaNum', 0 ); // What: Hash Change Number Set. Why: The count starts at zero on every load. How: This puts the counter on the window, where a check reads it.
+		Reflect.set( window, '__hasChaNum', 0 ); // What: Hash Change Number Set. Why: The count starts at zero on every load. How: This puts the counter on the window, where a check reads it.
 
-		window.addEventListener( 'hashchange', () => Reflect.set( window, 'hasChaNum', Number( Reflect.get( window, 'hasChaNum' ) ) + 1 ) ); // What: Hash Change Listener. Why: Each jump has to be counted. How: This adds one to the counter whenever the hash changes.
+		window.addEventListener( 'hashchange', () => Reflect.set( window, '__hasChaNum', Number( Reflect.get( window, '__hasChaNum' ) ) + 1 ) ); // What: Hash Change Listener. Why: Each jump has to be counted. How: This adds one to the counter whenever the hash changes.
 
 
 	} );
@@ -186,7 +186,7 @@ for ( const [ linLabStr, secIdeStr ] of NAV_LIN_ARR ) { // What: Bar Link Loop. 
 		await expect.poll( async () => Math.abs( await secGapFun( curPagObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar. How: This waits until its top sits less than a pixel from where the jump should leave it.
 		await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
 
-		expect( await curPagObj.evaluate( () => Reflect.get( window, 'hasChaNum' ) ) ).toBe( 0 ); // What: No Hash Jump Assertion. Why: A plain jump would have put a hash in the address before the home page cleared it. How: This checks the page never fired a hashchange event.
+		expect( await curPagObj.evaluate( () => Reflect.get( window, '__hasChaNum' ) ) ).toBe( 0 ); // What: No Hash Jump Assertion. Why: A plain jump would have put a hash in the address before the home page cleared it. How: This checks the page never fired a hashchange event.
 
 
 	} );
@@ -209,7 +209,7 @@ for ( const [ butLabStr, secIdeStr ] of BUT_LIN_ARR ) { // What: Button Link Loo
 		await expect.poll( async () => Math.abs( await secGapFun( curPagObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar. How: This waits until its top sits less than a pixel from where the jump should leave it.
 		await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
 
-		expect( await curPagObj.evaluate( () => Reflect.get( window, 'hasChaNum' ) ) ).toBe( 0 ); // What: No Hash Jump Assertion. Why: A plain jump would have put a hash in the address before the home page cleared it. How: This checks the page never fired a hashchange event.
+		expect( await curPagObj.evaluate( () => Reflect.get( window, '__hasChaNum' ) ) ).toBe( 0 ); // What: No Hash Jump Assertion. Why: A plain jump would have put a hash in the address before the home page cleared it. How: This checks the page never fired a hashchange event.
 
 
 	} );
