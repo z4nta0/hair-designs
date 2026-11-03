@@ -8,8 +8,8 @@ import logSvgUrl from '../assets/logo.svg'; // What: Logo SVG URL. Why: The bar'
 
 
 import { modCliFun    } from './section-link.ts'; // What: Modified Click Function. Why: A Ctrl, Cmd, Shift, or Alt click on the skip link should open it the browser's own way. How: The skip link's click handler asks it before cancelling the default.
-import { useEffect    } from 'react';             // What: Use Effect. Why: The open menu makes the page behind it inert and listens for Escape and resizing. How: This applies and removes them as the menu opens and closes.
-import { useRef       } from 'react';             // What: Use Ref. Why: The menu's effect needs the bar, the scrim, and the toggle. How: This holds each element.
+import { useEffect    } from 'react';             // What: Use Effect. Why: The open menu changes the page behind it and listens for ways to close, such as Escape. How: This applies and removes those changes and listeners as the menu opens and closes.
+import { useRef       } from 'react';             // What: Use Ref. Why: The menu's effect works on elements of the bar, such as the toggle. How: This holds each one.
 import { useSecCliFun } from './section-link.ts'; // What: Use Section Click Function. Why: Every section link in the bar reaches its section the same way, leaving no hash in the address. How: This returns secCliFun, the shared click handler.
 import { useState     } from 'react';             // What: Use State. Why: The bar tracks whether the phone menu is open. How: This holds that flag.
 

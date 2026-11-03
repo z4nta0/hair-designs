@@ -7,7 +7,7 @@ import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: T
 
 
 import { rhyPixFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
-import { useEffect } from 'react';                 // What: Use Effect. Why: An open form tooltip closes when a tap lands anywhere else. How: This adds and removes that page-wide listener while the tooltip is open.
+import { useEffect } from 'react';                 // What: Use Effect. Why: An open form tooltip closes on page-wide events, such as a tap anywhere else. How: This adds and removes those listeners while the tooltip is open.
 import { useRef    } from 'react';                 // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds what the tooltip's handlers read between renders, such as the wrapper element.
 import { useState  } from 'react';                 // What: Use State. Why: The form tooltip opens at a position. How: This holds that position, or null while it's closed.
 
