@@ -70,16 +70,22 @@ function HomPagCom () : React.JSX.Element {
 
 
 
-	useEffect( () => { // What: Hash Arrival Effect. Why: A visitor arriving from a shared address or another page's section link should land on that section, with no hash left in the address. How: This jumps to the section the hash names, then replaces the address with one without it.
+	useEffect( () => { // What: Hash Arrival Effect. Why: A visitor arriving from a shared address or another page's section link should land on that section, with no hash left in the address. How: Once the fonts have loaded, this jumps to the section the hash names, then replaces the address with one without it.
 
 
 		if ( !hasValStr ) return; // What: No Hash Guard. Why: Most visits arrive without a hash. How: This does nothing when the hash is empty, including right after it's been cleared.
 
 
 
-		document.getElementById( hasValStr.slice( 1 ) )?.scrollIntoView( { behavior : 'instant' } ); // What: Arrival Scroll Call. Why: The visitor should land on the section, as a normal link arrival would. How: This jumps to the element the hash names, without the html element's smooth scrolling, since gliding down from the top of a freshly loaded page would be slow.
+		void document.fonts.ready.then( () => { // What: Fonts Ready Callback. Why: The jump should land where the section sits once the fonts have reflowed the page above it, which Chromium otherwise misses by about 2px. How: This waits for every font face to load, then jumps and clears the hash; void marks the returned promise as deliberately not awaited.
 
-		void navRouFun( { hash : '' }, { replace : true } ); // What: Hash Clear Call. Why: The address should stay as clean as it does for in-page links. How: This replaces the current history entry with the same path and no hash; void marks the returned promise as deliberately unawaited.
+
+			document.getElementById( hasValStr.slice( 1 ) )?.scrollIntoView( { behavior : 'instant' } ); // What: Arrival Scroll Call. Why: The visitor should land on the section, as a normal link arrival would. How: This jumps to the element the hash names, without the html element's smooth scrolling, since gliding down from the top of a freshly loaded page would be slow.
+
+			void navRouFun( { hash : '' }, { replace : true } ); // What: Hash Clear Call. Why: The address should stay as clean as it does for in-page links. How: This replaces the current history entry with the same path and no hash; void marks the returned promise as deliberately unawaited.
+
+
+		} );
 
 
 	}, [ hasValStr, navRouFun ] ); // What: Effect Dependency Array. Why: Each new hash has to be handled once. How: hasValStr changes when a visitor arrives with a hash, and navRouFun is listed because the effect calls it, though it stays the same between renders.
