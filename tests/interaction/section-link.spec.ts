@@ -28,7 +28,9 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
  * reaches its top. On every page the first Tab lands on the skip link, on
  * screen, and following it moves focus to the main content without a hash.
  * Pages open under reduced motion, so scrolling jumps straight to its target
- * and each position can be read at once.
+ * and each position can be read at once, except in the checks of the smooth
+ * scroll, an arrival from the 404 page, and the skip link's slide, which turn
+ * motion back on.
  *
  * Sections:
  *  - Constants
@@ -320,6 +322,60 @@ test( "the 404 page's \"Back Home\" button reaches the home page's top", async (
 	await expect( curPagObj.locator( '#home' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the Home section is on the page.
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'home' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's Home section should land where a jump to it should leave it. How: This waits until it sits less than a pixel from there.
 	await expect( curPagObj ).toHaveURL( /\/$/ );                                                        // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
+
+
+} );
+
+
+
+test( 'with motion on, a bar link glides to its section and lands below the bar', async ( { page : curPagObj } ) => { // What: Smooth Bar Link Test. Why: Most visitors see the smooth scroll, which the reduced-motion tests never run. How: This turns motion on, records the page's scroll positions, clicks the bar's Contact link from the top, and checks the section lands below the bar with a clean address after passing through a position between the start and the end.
+
+
+	await opeRouFun( curPagObj, '/', DES_VIE_OBJ ); // What: Home Open Call. Why: The bar's own links show above 900px wide. How: This opens the home page at desktop size.
+
+	await curPagObj.emulateMedia( { reducedMotion : 'no-preference' } ); // What: Motion On Emulation. Why: The helper turns reduced motion on, and the smooth scroll only runs without it. How: This drops the preference, which the page applies at once.
+
+
+	await curPagObj.evaluate( () => { // What: Scroll Recorder Setup. Why: A jump and a glide can land in the same place, so only the positions in between tell them apart. How: This records the page's scroll position on every scroll event.
+
+
+		Reflect.set( window, '__scrPosArr', [] ); // What: Scroll Position Array Set. Why: The record starts empty for this click. How: This puts the list on the window, where the check reads it.
+
+		window.addEventListener( 'scroll', () => ( Reflect.get( window, '__scrPosArr' ) as number[] ).push( window.scrollY ) ); // What: Scroll Position Listener. Why: Each step of the scroll has to be seen. How: This adds the page's scroll position to the list on every scroll event. // What: Type Assertion Note. Why: Reflect.get reads the window's property as any. How: The line above set it to an array of numbers.
+
+
+	} );
+
+
+	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test, from the page's top, so the glide covers most of the page. How: This clicks the bar's Contact link.
+
+	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'contact' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar once the glide ends. How: This waits until its top sits less than a pixel from where the scroll should leave it.
+	await expect( curPagObj ).toHaveURL( /\/$/ );                                                            // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
+
+
+	const scrPosArr = await curPagObj.evaluate( () => Reflect.get( window, '__scrPosArr' ) as number[] ); // What: Scroll Position Array. Why: The check reads the positions the page passed through. How: This reads the recorded list. // What: Type Assertion Note. Why: Reflect.get reads the window's property as any. How: The recorder set it to an array of numbers.
+	const endScrNum = await curPagObj.evaluate( () => window.scrollY );                                     // What: End Scroll Number. Why: A position counts as partway only if it falls short of where the scroll ended. How: This reads the final scroll.
+
+
+	expect( scrPosArr.some( ( scrPosNum ) => scrPosNum > 0 && scrPosNum < endScrNum - 1 ) ).toBe( true ); // What: Glide Assertion. Why: A smooth scroll passes through the page on its way, while a jump goes straight there. How: This checks some recorded position sits between the top and more than a pixel short of the end.
+
+
+} );
+
+
+
+test( "with motion on, the 404 page's bar link reaches its section on the home page", async ( { page : curPagObj } ) => { // What: Smooth Not Found Link Test. Why: A section link away from the home page has to land its section with motion on too, where the arrival jumps rather than glides. How: This turns motion on, clicks the bar's About link on an unknown address, and checks the home page's About section lands below the bar with a clean address.
+
+
+	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
+
+	await curPagObj.emulateMedia( { reducedMotion : 'no-preference' } ); // What: Motion On Emulation. Why: The helper turns reduced motion on, and this check is about the page with motion on. How: This drops the preference, which the page applies at once.
+
+	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's About link.
+
+	await expect( curPagObj.locator( '#about' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the About section is on the page.
+	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'about' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's About section should land just below the bar. How: This waits until it sits where the arrival should leave it.
+	await expect( curPagObj ).toHaveURL( /\/$/ );                                                         // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
 
 
 } );
