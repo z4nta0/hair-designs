@@ -138,6 +138,8 @@
 
 	/* #region Color Tokens */
 
+	/* CTRL+ALT+C to toggle color swatches on and off *Requires Extension Toggle by Peng Lv */
+
 	--acc-dar-col : #c7745f;              /* What: Accent Dark Color. Why: Large rose text on the cream and ivory backgrounds (the names, the italic Designs, and the script eyebrows) has to reach 3:1, which the main rose misses at 2.6:1. How: This is the rose darkened one small step in OKLCH lightness, 3.04:1 on cream; borders, rules, and buttons keep the main rose. */
 	--acc-lig-col : #e8a898;              /* What: Accent Light Color. Why: Rose accents on the navy bands need a lighter rose to read. How: Text, icons, borders, and hovers on navy read it. */
 	--acc-mai-col : #d4806a;              /* What: Accent Main Color. Why: The brand's rose draws the borders, rules, and the rose button. How: Fills, borders, and rules read it, never text on a light background, which it doesn't contrast enough with. */
