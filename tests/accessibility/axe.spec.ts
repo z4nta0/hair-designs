@@ -158,7 +158,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every pa
 
 
 
-		expect( axeResObj.incomplete.filter( ( resCurObj ) => resCurObj.id === 'bypass' ).map( ( resCurObj ) => resCurObj.help ) ).toEqual( [] ); // What: No Bypass Review Assertion. Why: With the skip link in place, axe accepts the page as having a way past the bar, so a bypass result left for review means the skip link is broken or missing. How: This lists any incomplete result whose ID is bypass and compares the list with an empty one.
+		expect( axeResObj.incomplete.filter( ( resCurObj ) => resCurObj.id === 'bypass' ).map( ( resCurObj ) => resCurObj.help ) ).toEqual( [] ); // What: No Bypass Review Assertion. Why: With the skip link in place, axe accepts the page as having a way past the bar, so a bypass result left for review means the skip link is broken or missing. How: This lists any incomplete result whose ID is `bypass` and compares the list with an empty one.
 		expect( sumResFun( axeResObj.violations ) ).toEqual( [] );                                                                                // What: No Violations Assertion. Why: The state passes only with zero violations. How: This compares the summarized violations with an empty list, so a failure prints each one.
 
 
