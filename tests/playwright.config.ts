@@ -43,7 +43,7 @@ const ENG_NAM_ARR = [ // What: Engine Name Array. Why: Every suite runs in all t
 
 	'chromium', // What: Chromium Engine. Why: Chrome and Edge render with it. How: This is Playwright's Chromium build.
 	'firefox',  // What: Firefox Engine. Why: Firefox renders with its own engine, Gecko. How: This is Playwright's Firefox build.
-	'webkit'    // What: WebKit Engine. Why: Safari, and every browser on iOS, renders with it. How: This is Playwright's WebKit build.
+	'webkit'    // What: WebKit Engine. Why: Safari renders with it, as do the browsers on iOS outside the EU, where Apple's App Store rules require WebKit. How: This is Playwright's WebKit build.
 
 
 ] as const;
