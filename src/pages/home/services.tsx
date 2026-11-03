@@ -208,7 +208,7 @@ function SerSecCom () : React.JSX.Element {
 							viewBox='0 0 44 44'
 
 							aria-hidden='true'
-						>{ carRecObj.icoEle }</svg>{ /* What: Card Icon SVG Element. Why: Each card opens with a small icon in its own color. How: This draws the row's shapes, hidden from screen readers since the title names the service. */ }
+						>{ carRecObj.icoEle }</svg>{ /* What: Card Icon SVG Element. Why: Each card opens with a small icon in its own color. How: This draws the row's shapes in the rose, sage, or mauve its row names, hidden from screen readers since the title names the service. */ }
 
 						<h3 className={ cssModObj.carTitHea }>{ carRecObj.titStr }</h3>{ /* What: Card Title Heading Element. Why: Each card names its service. How: This shows the row's title. */ }
 
