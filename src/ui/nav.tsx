@@ -41,7 +41,7 @@ import { useState     } from 'react';             // What: Use State. Why: The b
 
 // #region Constants
 
-const FAC_PAT_STR = 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z'; // What: Facebook Path String. Why: The menu's Facebook link opens with the platform's mark. How: This is the 24 by 24 path from Simple Icons (CC0), the same the-bernie-bears uses.
+const FAC_PAT_STR = 'M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z'; // What: Facebook Path String. Why: The menu's Facebook link opens with the platform's mark. How: This is the 24 by 24 path from Simple Icons (CC0).
 
 
 
@@ -161,7 +161,7 @@ function NavBarCom () : React.JSX.Element {
 		const onKeyDowFun = ( keyEveObj : KeyboardEvent ) => { // What: On Key Down Function. Why: Escape is the expected way out of a layer over the page. How: This closes the menu and puts focus back on the toggle when Escape is pressed.
 
 
-			if ( keyEveObj.key !== 'Escape' ) return; // What: Escape Key Guard. Why: Escape is the only key that closes the menu. How: This ignores every other key.
+			if ( keyEveObj.key !== 'Escape' ) return; // What: Escape Key Guard. Why: Escape is the only key this handler acts on. How: This ignores every other key.
 
 
 
@@ -279,7 +279,7 @@ function NavBarCom () : React.JSX.Element {
 					className={ cssModObj.navLinNav }
 
 					aria-label='Main'
-				>{ /* What: Navigation Links Nav Element. Why: Wide screens show the section links in the bar. How: This labels the landmark Main, which screen readers announce as the main navigation. */ }
+				>{ /* What: Navigation Links Nav Element. Why: Wide screens show the section links in the bar. How: This labels the landmark "Main", which joins its navigation role in the name screen readers announce. */ }
 
 
 					<ul className={ cssModObj.navLinUno }>{ /* What: Navigation Links Unordered List Element. Why: The links form one list of the page's sections. How: This holds one item per link. */ }

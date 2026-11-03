@@ -92,7 +92,7 @@ async function opeRouFun ( curPagObj : Page, rouPatStr : string, vieSizObj : { h
 
 	await curPagObj.setViewportSize( vieSizObj ); // What: Viewport Size Call. Why: The bar's links and the phone menu depend on the width. How: This sizes the page before it loads.
 
-	await curPagObj.addInitScript( () => { // What: Hash Change Counter. Why: A plain jump to a section adds a hash that the home page then clears, so the address alone can't show it happened. How: This counts every hashchange event on the window, from the first script that runs.
+	await curPagObj.addInitScript( () => { // What: Hash Change Counter. Why: A plain jump that put a hash in the address would see the home page clear it again, so the address alone couldn't show it happened. How: This counts every hashchange event on the window, from the first script that runs.
 
 
 		Reflect.set( window, 'hasChaNum', 0 ); // What: Hash Change Number Set. Why: The count starts at zero on every load. How: This puts the counter on the window, where a check reads it.
