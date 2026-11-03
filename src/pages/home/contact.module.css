@@ -68,7 +68,7 @@
 
 }
 
-.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a short box about 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -519,7 +519,7 @@
 
 
 }
-.forSubBut:hover { /* What: Hovered Form Submit Button. Why: The button should respond to the pointer. How: This deepens the rose and lifts it 2px. */
+.forSubBut:hover { /* What: Hovered Form Submit Button. Why: The button should respond to the pointer. How: This deepens the rose and lifts it about 2px. */
 
 
 	background : #c2705a;

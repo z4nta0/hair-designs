@@ -283,7 +283,7 @@
 
 }
 
-.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
+.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a short box about 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -370,7 +370,7 @@
 
 
 }
-.butBasAnc--primary:hover { /* What: Hovered Button Base Anchor Primary. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+.butBasAnc--primary:hover { /* What: Hovered Button Base Anchor Primary. Why: The button should respond to the pointer. How: This lightens it and lifts it about 2px. */
 
 
 	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
@@ -387,7 +387,7 @@
 
 
 }
-.butBasAnc--outline:hover { /* What: Hovered Button Base Anchor Outline. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
+.butBasAnc--outline:hover { /* What: Hovered Button Base Anchor Outline. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it about 2px. */
 
 
 	background : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */

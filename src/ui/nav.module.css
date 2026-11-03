@@ -50,7 +50,7 @@
 
 
 }
-.navSkiAnc:hover { /* What: Hovered Navigation Skip Anchor. Why: The button should respond to the pointer. How: This brightens it to cream and lifts it 2px. */
+.navSkiAnc:hover { /* What: Hovered Navigation Skip Anchor. Why: The button should respond to the pointer. How: This brightens it to cream and lifts it about 2px. */
 
 
 	background-color : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
@@ -595,7 +595,7 @@
 
 
 }
-.menCalAnc:hover { /* What: Hovered Menu Call Anchor. Why: The button should respond to the pointer. How: This brightens it to cream and lifts it 2px. */
+.menCalAnc:hover { /* What: Hovered Menu Call Anchor. Why: The button should respond to the pointer. How: This brightens it to cream and lifts it about 2px. */
 
 
 	background-color : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
