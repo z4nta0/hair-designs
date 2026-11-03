@@ -36,17 +36,17 @@ treatment. The `author` meta names the business itself.
   stylist with the title "Licensed Cosmetologist", and to a `WebSite` it
   publishes. The service area and `priceRange` (`$20-100`, added 2026-10-18,
   the user's figure, after Google's rich results report flagged it as a
-  missing, non-critical field, written in the range form Google's own
-  examples use) both appear on the page since 2026-11-02, as the Contact
-  section's Service Area tags and its Prices row ("$20 to $100, depending on
-  the service"). The SEO suite pairs every `areaServed` name, exactly as
-  `index.html` writes it, with the tag that shows it, the way
-  seal-and-shield's does, and checks the page shows the same price range.
-  `public/` gains `robots.txt` (every crawler allowed),
-  `sitemap.xml` (the home page alone), and `_headers` (a strict
-  Content-Security-Policy and the usual hardening headers, checked against the
-  built site in all three engines; WebKit reports one harmless violation from
-  its own styling of the form's select, which draws identically either way).
+  missing, non-critical field, written in the range form Google's own examples
+  use) both appear on the page since 2026-11-02, as the Contact section's
+  "Service Area" tags and its "Prices" row ("$20 to $100, depending on the
+  service"). The SEO suite pairs every `areaServed` name, exactly as
+  `index.html` writes it, with the tag that shows it, the way seal-and-shield's
+  does, and checks the page shows the same price range. `public/` gains
+  `robots.txt` (every crawler allowed), `sitemap.xml` (the home page alone),
+  and `_headers` (a strict Content-Security-Policy and the usual hardening
+  headers, checked against the built site in all three engines; WebKit reports
+  one harmless violation from its own styling of the form's select, which draws
+  identically either way).
 - **Canonical** (recorded 2026-11-02, under the user-level rule for a site
   whose only other route is a `noindex` page): the site counts as one indexed
   page, so its canonical link stays in `index.html`, where crawlers that
