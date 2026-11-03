@@ -55,6 +55,47 @@ type StaRecTyp = { // What: State Record Type. Why: Every check reads the same d
 
 // #region Helpers
 
+// #region tipOpeFun
+
+/**
+ * tipOpeFun = Tip Open Function
+ *
+ * @summary
+ * Opens the turned-off contact form's tooltip the way a keyboard does, by
+ * focusing the form's wrapper with its focus ring showing, and waits until
+ * the tooltip's phone link is on the page. The page stays at its top, and the
+ * wrapper's focus handler opens the tooltip at the form's top edge.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+ * @param curPagObj - Current Page Object: The loaded home page.
+ *
+ * @returns A promise that settles once the tooltip is open, with no value.
+ *
+ * @example
+ * ```ts
+ * tipOpeFun(page) // => Promise<void>
+ * ```
+ *
+*/
+
+async function tipOpeFun ( curPagObj : Page ) : Promise< void > {
+
+
+	const forWraObj = curPagObj.getByRole( 'group', { name : 'Contact form, turned off' } ); // What: Form Wrapper Object. Why: Focusing the wrapper is what opens the tooltip. How: This finds it by its role and label.
+
+
+	await forWraObj.evaluate( ( wraCurEle ) => { if ( wraCurEle instanceof HTMLElement ) wraCurEle.focus( { focusVisible : true, preventScroll : true } ); } ); // What: Keyboard Focus Call. Why: The tooltip should show as a keyboard user meets it, ring and all, and a script's focus draws the ring in every engine only when it asks to show it. How: This focuses the wrapper with focusVisible set, and without scrolling, since a full-page screenshot of a scrolled page draws the fixed bar partway down it.
+
+	await forWraObj.getByRole( 'link', { name : '417-988-6239' } ).waitFor(); // What: Tooltip Link Wait. Why: The state is open only once the tooltip is drawn. How: This waits for its phone link, the only link inside the form.
+
+
+}
+
+// #endregion tipOpeFun
+
+
+
 // #region waiSetFun
 
 /**
@@ -166,47 +207,6 @@ async function opeStaFun ( curPagObj : Page, staRecObj : StaRecTyp ) : Promise< 
 }
 
 // #endregion opeStaFun
-
-
-
-// #region tipOpeFun
-
-/**
- * tipOpeFun = Tip Open Function
- *
- * @summary
- * Opens the turned-off contact form's tooltip the way a keyboard does, by
- * focusing the form's wrapper with its focus ring showing, and waits until
- * the tooltip's phone link is on the page. The page stays at its top, and the
- * wrapper's focus handler opens the tooltip at the form's top edge.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param curPagObj - Current Page Object: The loaded home page.
- *
- * @returns A promise that settles once the tooltip is open, with no value.
- *
- * @example
- * ```ts
- * tipOpeFun(page) // => Promise<void>
- * ```
- *
-*/
-
-async function tipOpeFun ( curPagObj : Page ) : Promise< void > {
-
-
-	const forWraObj = curPagObj.getByRole( 'group', { name : 'Contact form, turned off' } ); // What: Form Wrapper Object. Why: Focusing the wrapper is what opens the tooltip. How: This finds it by its role and label.
-
-
-	await forWraObj.evaluate( ( wraCurEle ) => { if ( wraCurEle instanceof HTMLElement ) wraCurEle.focus( { focusVisible : true, preventScroll : true } ); } ); // What: Keyboard Focus Call. Why: The tooltip should show as a keyboard user meets it, ring and all, and a script's focus draws the ring in every engine only when it asks to show it. How: This focuses the wrapper with focusVisible set, and without scrolling, since a full-page screenshot of a scrolled page draws the fixed bar partway down it.
-
-	await forWraObj.getByRole( 'link', { name : '417-988-6239' } ).waitFor(); // What: Tooltip Link Wait. Why: The state is open only once the tooltip is drawn. How: This waits for its phone link, the only link inside the form.
-
-
-}
-
-// #endregion tipOpeFun
 
 
 
