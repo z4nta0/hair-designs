@@ -182,7 +182,7 @@ function SerSecCom () : React.JSX.Element {
 
 				<hr className={ cssModObj.secRulHor } />{ /* What: Section Rule Horizontal Rule Element. Why: A short rose rule underlines the heading. How: This draws it. */ }
 
-				<p className={ cssModObj.serIntPar }>From a fresh trim to a full color transformation, Juli and Keeli bring skill, care, and small town warmth to every client who sits in their chair.</p>{ /* What: Services Intro Paragraph Element. Why: A short intro sums up the services. How: This shows it under the rule. */ }
+				<p className={ cssModObj.serIntPar }>From a fresh trim to a full color transformation, Juli and Keeli bring skill, care, and small-town warmth to every client who sits in their chair.</p>{ /* What: Services Intro Paragraph Element. Why: A short intro sums up the services. How: This shows it under the rule. */ }
 
 
 			</header>
