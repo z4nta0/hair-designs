@@ -39,6 +39,44 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers dr
 
 // #region Helpers
 
+// #region cloCheFun
+
+/**
+ * cloCheFun = Close Check Function
+ *
+ * @summary
+ * Checks the closed state every way out has to leave: the toggle reports
+ * the menu closed, and nothing on the page is inert any more.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+ * @param curPagObj - Current Page Object: The page whose menu should be
+ *                    closed.
+ *
+ * @returns A promise that settles once the closed state is checked, with no
+ *          value.
+ *
+ * @example
+ * ```ts
+ * cloCheFun(page) // => Promise<void>
+ * ```
+ *
+*/
+
+async function cloCheFun ( curPagObj : Page ) : Promise< void > {
+
+
+	await expect( curPagObj.locator( '[aria-label="Toggle menu"]' ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Closed State Assertion. Why: The way out should close the menu. How: This checks the toggle reports it closed, found by its label rather than its role, since a widened screen hides it.
+
+	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 0 ); // What: Page Restored Assertion. Why: The page has to be usable again. How: This checks neither the main content nor the footer is inert.
+
+
+}
+
+// #endregion cloCheFun
+
+
+
 // #region menOpeFun
 
 /**
@@ -80,44 +118,6 @@ async function menOpeFun ( curPagObj : Page ) : Promise< void > {
 }
 
 // #endregion menOpeFun
-
-
-
-// #region cloCheFun
-
-/**
- * cloCheFun = Close Check Function
- *
- * @summary
- * Checks the closed state every way out has to leave: the toggle reports
- * the menu closed, and nothing on the page is inert any more.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param curPagObj - Current Page Object: The page whose menu should be
- *                    closed.
- *
- * @returns A promise that settles once the closed state is checked, with no
- *          value.
- *
- * @example
- * ```ts
- * cloCheFun(page) // => Promise<void>
- * ```
- *
-*/
-
-async function cloCheFun ( curPagObj : Page ) : Promise< void > {
-
-
-	await expect( curPagObj.locator( '[aria-label="Toggle menu"]' ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Closed State Assertion. Why: The way out should close the menu. How: This checks the toggle reports it closed, found by its label rather than its role, since a widened screen hides it.
-
-	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 0 ); // What: Page Restored Assertion. Why: The page has to be usable again. How: This checks neither the main content nor the footer is inert.
-
-
-}
-
-// #endregion cloCheFun
 
 // #endregion Helpers
 

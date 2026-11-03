@@ -255,17 +255,6 @@
 
 }
 
-.icoFilRec { /* What: Icon Fill Rectangle. Why: The special occasions icon's card is a small filled rectangle. How: This sizes and fills it in the icon's color, faded. */
-
-
-	fill    : currentColor;
-	height  : 12px;
-	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
-	width   : 16px;
-
-
-}
-
 .icoDotCir { /* What: Icon Dot Circle. Why: Two icons center a small filled dot. How: This fills it in the icon's color, faded. */
 
 
@@ -279,6 +268,17 @@
 
 	fill    : #b08898;
 	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
+
+
+}
+
+.icoFilRec { /* What: Icon Fill Rectangle. Why: The special occasions icon's card is a small filled rectangle. How: This sizes and fills it in the icon's color, faded. */
+
+
+	fill    : currentColor;
+	height  : 12px;
+	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
+	width   : 16px;
 
 
 }
