@@ -38,12 +38,16 @@ import cssModObj from './services.module.css'; // What: CSS Module Object. Why: 
  * @summary
  * The six service cards, in the order they appear. Every row shares one
  * shape, so its fields carry no comments of their own:
+ *
  * - `desStr` (String): Description String, the card's text.
+ *
  * - `icoClaStr` (String): Icon Class String, the icon's color modifier
  *   class, which its shapes read as currentColor.
+ *
  * - `icoEle` (Element): Icon Element, the icon's shapes, drawn inside a
  *   44 by 44 view box. Each icon is one self-contained piece of markup, so
  *   it stays on one line with no comments on its shapes.
+ *
  * - `titStr` (String): Title String, the service's name.
  *
  * @author z4nta0 <https://github.com/z4nta0>

@@ -101,7 +101,9 @@ const ARE_NAM_ARR = [ // What: Area Name Array. Why: The "Service Area" row show
  * @summary
  * The service select's choices after its placeholder, in order. Every row
  * shares one shape, so its fields carry no comments of their own:
+ *
  * - `labStr` (String): Label String, the choice as the visitor reads it.
+ *
  * - `valStr` (String): Value String, the choice as the form would send it.
  *
  * @author z4nta0 <https://github.com/z4nta0>

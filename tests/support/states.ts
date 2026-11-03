@@ -222,12 +222,17 @@ async function tipOpeFun ( curPagObj : Page ) : Promise< void > {
  * contact form's tooltip open at both widths, opened by {@link tipOpeFun}.
  * It sits after that helper, which its tooltip rows read. Every row shares
  * the {@link StaRecTyp} shape, so its fields carry no comments of their own:
+ *
  * - `actFun` (Function): Action Function, run after the page loads to open
  *   something on it, such as the menu. Only the menu and tooltip rows
  *   have one.
+ *
  * - `heiNum` (Number): Height Number, the viewport height in CSS pixels.
+ *
  * - `ideStr` (String): Identifier String, the state's name in test titles.
+ *
  * - `patStr` (String): Path String, the route loaded from the suite's server.
+ *
  * - `widNum` (Number): Width Number, the viewport width in CSS pixels.
  *
  * @author z4nta0 <https://github.com/z4nta0>

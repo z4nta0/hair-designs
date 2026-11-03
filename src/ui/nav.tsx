@@ -55,7 +55,9 @@ const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: 
  * @summary
  * The section links the bar and the phone menu both render, in page order.
  * Every row shares one shape, so its fields carry no comments of their own:
+ *
  * - `ideStr` (String): Identifier String, the section's ID.
+ *
  * - `labStr` (String): Label String, the link's text.
  *
  * @author z4nta0 <https://github.com/z4nta0>
