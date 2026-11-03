@@ -197,7 +197,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Loop. Why: Every state t
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The state's fonts, images, and open menu have to load before the page is checked. How: This opens the state the way the other page suites do.
 
 
-		const opeRelArr = await curPagObj.locator( 'a[target="_blank"]' ).evaluateAll( ( ancEleArr ) => ancEleArr.map( ( ancCurEle ) => ancCurEle.getAttribute( 'rel' ) ?? '' ) ); // What: Opener Rel Array. Why: A new tab opened without noopener can reach back and change this page. How: This collects the rel of every link that opens a new tab.
+		const opeRelArr = await curPagObj.locator( 'a[target="_blank"]' ).evaluateAll( ( ancEleArr ) => ancEleArr.map( ( ancCurEle ) => ancCurEle.getAttribute( 'rel' ) ?? '' ) ); // What: Opener Relationship Array. Why: A new tab opened without noopener can reach back and change this page. How: This collects the rel of every link that opens a new tab.
 		const vioLisArr = ( await polVioFun( curPagObj ) ).filter( ( vioCurStr ) => !( broNamStr === 'webkit' && vioCurStr === 'style-src-attr blocked inline on select' ) );      // What: Violation List Array. Why: WebKit reports a style attribute violation for every select element, even one built in a blank script with no style of its own, which no page can avoid short of allowing inline style attributes everywhere. How: This keeps every violation but that one WebKit select report.
 
 
