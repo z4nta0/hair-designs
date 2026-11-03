@@ -63,15 +63,16 @@ type TipPosTyp = { // What: Tip Position Type. Why: The form tooltip's state and
  * ARE_NAM_ARR = Area Name Array
  *
  * @summary
- * The places the salon serves, as the Contact section's Service Area tags
- * show them: Hickory County first, then the towns around Carson's Corner.
+ * The places the salon serves, as the tags under "Service Area" in the
+ * Contact section show them: Hickory County first, then the towns around
+ * Carson's Corner.
  * Every row is one place's name, so no row needs a comment of its own.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
 */
 
-const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows one tag per place the salon serves. How: Each entry is a place's name as its tag reads.
+const ARE_NAM_ARR = [ // What: Area Name Array. Why: The "Service Area" row shows one tag per place the salon serves. How: Each entry is a place's name as its tag reads.
 
 
 	'Hickory County',
