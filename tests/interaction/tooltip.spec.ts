@@ -381,7 +381,7 @@ async function telProFun ( curPagObj : Page, forWraObj : Locator, redMotBoo : bo
 
 // #region Module Init
 
-test( 'the tooltip fades out before it goes', async ( { page : curPagObj } ) => { // What: Fade Out Test. Why: The tooltip should leave the way it came, rather than vanish. How: This hovers the form, moves away, and checks the tooltip is marked as leaving before it's removed.
+test( 'the tooltip fades out before it goes', async ( { page : curPagObj } ) => { // What: Fade Out Test. Why: The tooltip should leave the way it came, rather than vanish. How: This hovers the form, moves away, and checks the tooltip is marked as leaving and plays its fade out before it's removed.
 
 
 	const forWraObj = await forOpeFun( curPagObj ); // What: Form Wrapper Object. Why: The pointer opens the tooltip from the wrapper. How: This loads the page and finds it.
@@ -393,7 +393,14 @@ test( 'the tooltip fades out before it goes', async ( { page : curPagObj } ) => 
 
 	await curPagObj.mouse.move( 0, 0 ); // What: Pointer Away Call. Why: Leaving the form closes the tooltip. How: This moves the pointer to the page's corner.
 
-	await expect( curPagObj.locator( '[data-tooltip-close-active]' ) ).toHaveCount( 1 );    // What: Leaving Assertion. Why: The tooltip should fade rather than vanish. How: This checks it's still there, marked as leaving.
+	await expect( curPagObj.locator( '[data-tooltip-close-active]' ) ).toHaveCount( 1 ); // What: Leaving Assertion. Why: The tooltip should fade rather than vanish. How: This checks it's still there, marked as leaving.
+
+
+	const cloNamArr = await curPagObj.locator( '[data-tooltip-close-active]' ).evaluate( ( tipCurEle ) => tipCurEle.getAnimations().map( ( aniCurObj ) => aniCurObj instanceof CSSAnimation ? aniCurObj.animationName : '' ) ); // What: Closing Name Array. Why: Being marked as leaving proves nothing about the fade it plays. How: This reads the keyframes name of each CSS animation the leaving tooltip runs, or '' for any other animation, right after the mark appears and well inside the fade's 209ms.
+
+
+	expect( cloNamArr ).toContainEqual( expect.stringContaining( 'forTipDivCloseFadeOut' ) ); // What: Close Fade Assertion. Why: The tooltip should leave on its own fade out. How: This checks one animation is the forTipDivCloseFadeOut keyframes, by the name Vite keeps inside the hashed one.
+
 	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toHaveCount( 0 ); // What: Gone Assertion. Why: The tooltip should leave once its fade has played. How: This waits for it to be removed.
 
 

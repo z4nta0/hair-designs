@@ -25,7 +25,7 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 ```bash
 npm run lint       # ESLint across the repo
-npm run typecheck  # TypeScript across src/, the configs, and tests/
+npm run typecheck  # TypeScript across src/, the configs, tests/, and design/
 ```
 
 ## Tests

@@ -205,7 +205,7 @@ test( 'Escape closes the menu and returns focus to the toggle', async ( { page :
 
 
 
-test( 'choosing a section closes the menu on the way there', async ( { page : curPagObj } ) => { // What: Link Close Test. Why: A chosen section should come into view with the menu out of the way. How: This taps the menu's Contact link and checks the menu closes, the section arrives at the bar, and the address stays clean.
+test( 'choosing a section closes the menu on the way there', async ( { page : curPagObj } ) => { // What: Link Close Test. Why: A chosen section should come into view with the menu out of the way. How: This taps the menu's Contact link and checks the menu closes, the section lands just below the bar, and the address stays clean.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
@@ -214,7 +214,7 @@ test( 'choosing a section closes the menu on the way there', async ( { page : cu
 
 	await cloCheFun( curPagObj ); // What: Closed Check Call. Why: The tap should close the menu and give the page back. How: This checks both.
 
-	await expect.poll( () => curPagObj.evaluate( () => Math.round( document.getElementById( 'contact' )!.getBoundingClientRect().top ) ) ).toBeLessThan( 66 ); // What: Section Arrival Assertion. Why: The Contact section should come to the top of the screen, just below the bar, which WebKit once stopped about 29px short of. How: This waits for its top to sit no lower than 66px from the viewport's top, just under the bar's height and border of about 63px. // What: Non-Null Note. Why: getElementById can return null. How: The home page always renders the Contact section.
+	await expect.poll( () => curPagObj.evaluate( () => Math.abs( Math.round( document.getElementById( 'contact' )!.getBoundingClientRect().top - parseFloat( getComputedStyle( document.documentElement ).scrollPaddingTop ) ) ) ) ).toBeLessThan( 1 ); // What: Section Arrival Assertion. Why: The Contact section should land just below the bar, neither short of it, as WebKit once stopped about 29px short, nor under it. How: This waits until its top sits less than a pixel from the root's scroll padding, the bar's height and border, which the section's stacked form leaves the phone page room to scroll it to. // What: Non-Null Note. Why: getElementById can return null. How: The home page always renders the Contact section.
 
 	expect( curPagObj.url() ).not.toContain( '#' ); // What: Clean Address Assertion. Why: Section links leave no hash in the address. How: This checks the URL carries none.
 
