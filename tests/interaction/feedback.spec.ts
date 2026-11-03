@@ -14,6 +14,7 @@ import { snaEleFun   } from '../support/feedback.ts'; // What: Snapshot Element 
 import { snaProFun   } from '../support/feedback.ts'; // What: Snap Problems Function. Why: A change has to ease rather than snap. How: This turns two snapshots into a problem for each snapped change.
 import { STA_REC_ARR } from '../support/states.ts';   // What: State Record Array. Why: Every page state is checked. How: This lists them.
 import { test        } from '@playwright/test';       // What: Test. Why: Each check of each state is its own test. How: This declares them.
+import { tipOpeFun   } from '../support/states.ts';   // What: Tooltip Open Function. Why: The open tooltip's states are left out of these checks. How: The state loop skips rows whose action is this opener.
 import { valSigFun   } from '../support/feedback.ts'; // What: Value Signature Function. Why: Two looks are told apart by their values alone. How: This joins a snapshot's values into one string.
 
 
@@ -28,23 +29,24 @@ import type { Page          } from '@playwright/test'; // What: Page. Why: The h
  * feedback.spec.ts = Feedback Spec
  *
  * @summary
- * Checks the interaction feedback rule on every page state, in whichever
- * engine the project runs. Every reachable link and button has to look
- * different hovered than at rest, pressed than hovered, and focused than
- * unfocused, and every property each of those changes, on it or anything
- * inside it, has to be eased by a transition, its focus ring included. Each
- * kind of element with a state that switches on and off, such as the phone
- * menu's toggle, is flipped off, on, and off again by its attribute, and has
- * to look different and ease each change both ways. On the home states, any
- * other element that takes keyboard focus, such as the turned-off contact
- * form's wrapper, has to show and ease its focus, and the service cards have
- * to show and ease their hover. The first keyboard stop has to draw its ring
- * at full width. Under reduced motion every change stays but switches at
- * once. Real clicks are blocked during the checks, so pressing
- * a control never navigates or closes anything mid-check. The snapshot and
- * comparison helpers live in tests/support/feedback.ts, shared with the
- * tooltip spec. Adapted from come-hang's and tonys-toppers' own feedback
- * specs.
+ * Checks the interaction feedback rule on every page state but the open
+ * tooltip's, in whichever engine the project runs, since probing the page's
+ * other controls would close the tooltip, whose phone link the tooltip spec
+ * probes instead. Every reachable link and button has to look different
+ * hovered than at rest, pressed than hovered, and focused than unfocused, and
+ * every property each of those changes, on it or anything inside it, has to be
+ * eased by a transition, its focus ring included. Each kind of element with a
+ * state that switches on and off, such as the phone menu's toggle, is flipped
+ * off, on, and off again by its attribute, and has to look different and ease
+ * each change both ways. On the home states, any other element that takes
+ * keyboard focus, such as the turned-off contact form's wrapper, has to show
+ * and ease its focus, and the service cards have to show and ease their hover.
+ * The first keyboard stop has to draw its ring at full width. Under reduced
+ * motion every change stays but switches at once. Real clicks are blocked
+ * during the checks, so pressing a control never navigates or closes anything
+ * mid-check. The snapshot and comparison helpers live in
+ * tests/support/feedback.ts, shared with the tooltip spec. Adapted from
+ * come-hang's and tonys-toppers' own feedback specs.
  *
  * Sections:
  *  - Types
@@ -797,7 +799,7 @@ async function togProFun ( curPagObj : Page, staIdeStr : string, redMotBoo : boo
 
 // #region Module Init
 
-for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every page state is checked. How: This declares each check once per state.
+for ( const staRecObj of STA_REC_ARR.filter( ( staFilObj ) => staFilObj.actFun !== tipOpeFun ) ) { // What: State Test Loop. Why: Every page state is checked but the open tooltip's, which the first control probed elsewhere on the page would close. How: This declares each check once per state, skipping the states the tooltip's opener opens.
 
 
 	test( `${ staRecObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other focusable element and every service card, and checks it finds no problems.

@@ -6,6 +6,7 @@
 import { expect    } from '@playwright/test';     // What: Expect. Why: Each width passes only when its layout holds together. How: This asserts each problem list is empty.
 import { opeStaFun } from '../support/states.ts'; // What: Open State Function. Why: Each width is measured settled. How: This loads the page and waits for it.
 import { test      } from '@playwright/test';     // What: Test. Why: Each page at each width is its own test. How: This declares them.
+import { tipOpeFun } from '../support/states.ts'; // What: Tooltip Open Function. Why: The tooltip case opens the form's tooltip. How: This focuses the form's wrapper and waits for the tooltip.
 
 // #endregion Imports
 
@@ -15,17 +16,18 @@ import { test      } from '@playwright/test';     // What: Test. Why: Each page 
  * layout.spec.ts = Layout Spec
  *
  * @summary
- * Measures the home page, the 404 page, and the open phone menu across a range
- * of screen widths, in whichever engine the project runs, and fails a width
- * whose layout breaks: the page scrolling sideways, a visible element reaching
- * past either edge of the screen (unless an ancestor clips it on purpose),
- * text spilling out of its own box, or two controls a visitor can reach
- * overlapping each other. On the home page, the Services cards also have to
- * fill even rows of the column count each width calls for. The widths run
- * from 320px, WCAG's narrowest reflow width, to 1,920px, and include a pixel
- * either side of each of the site's breakpoints, where a layout switches and
- * is most likely to crowd. Pages open under reduced motion, which changes
- * nothing about the layout but skips the wait for entrance animations.
+ * Measures the home page, the 404 page, the open phone menu, and the open
+ * contact form tooltip across a range of screen widths, in whichever engine
+ * the project runs, and fails a width whose layout breaks: the page scrolling
+ * sideways, a visible element reaching past either edge of the screen (unless
+ * an ancestor clips it on purpose), text spilling out of its own box, or two
+ * controls a visitor can reach overlapping each other. On the home page, the
+ * Services cards also have to fill even rows of the column count each width
+ * calls for. The widths run from 320px, WCAG's narrowest reflow width, to
+ * 1,920px, and include a pixel either side of each of the site's
+ * breakpoints, where a layout switches and is most likely to crowd. Pages
+ * open under reduced motion, which changes nothing about the layout but skips
+ * the wait for entrance animations.
  *
  * Sections:
  *  - Constants
@@ -40,22 +42,24 @@ import { test      } from '@playwright/test';     // What: Test. Why: Each page 
 
 // #region Constants
 
-type LayCasTyp = { // What: Layout Case Type. Why: Each test measures one page in one state. How: This names the case, its path, and whether it opens the menu.
+type LayCasTyp = { // What: Layout Case Type. Why: Each test measures one page in one state. How: This names the case, its path, and whether it opens the menu or the form's tooltip.
 
 
 	ideStr : string,  // What: Identifier String. Why: Each test names the case it measures. How: This becomes part of the test title.
 	menBoo : boolean, // What: Menu Boolean. Why: The open menu is measured as its own case. How: This is true when the case opens it.
-	patStr : string   // What: Path String. Why: Each case opens one route. How: This is the path loaded from the dev server.
+	patStr : string,  // What: Path String. Why: Each case opens one route. How: This is the path loaded from the dev server.
+	tipBoo : boolean  // What: Tooltip Boolean. Why: The open form tooltip is measured as its own case. How: This is true when the case opens it.
 
 
 };
 
-const LAY_CAS_ARR : LayCasTyp[] = [ // What: Layout Case Array. Why: Both pages and the open menu are measured the same way. How: Each row names a case, its path, and whether it opens the menu.
+const LAY_CAS_ARR : LayCasTyp[] = [ // What: Layout Case Array. Why: Both pages, the open menu, and the open tooltip are measured the same way. How: Each row names a case, its path, and whether it opens the menu or the form's tooltip.
 
 
-	{ ideStr : 'home',      menBoo : false, patStr : '/'             }, // What: Home Case. Why: The home page holds most of the site's layout. How: This measures it as loaded.
-	{ ideStr : 'menu',      menBoo : true,  patStr : '/'             }, // What: Menu Case. Why: The open menu stacks the links its own way. How: This measures the home page with the menu open.
-	{ ideStr : 'not-found', menBoo : false, patStr : '/no-such-page' }  // What: Not Found Case. Why: The 404 page centers its message and wraps its buttons on narrow screens. How: This measures an address no route matches, as loaded.
+	{ ideStr : 'home',      menBoo : false, patStr : '/',             tipBoo : false }, // What: Home Case. Why: The home page holds most of the site's layout. How: This measures it as loaded.
+	{ ideStr : 'menu',      menBoo : true,  patStr : '/',             tipBoo : false }, // What: Menu Case. Why: The open menu stacks the links its own way. How: This measures the home page with the menu open.
+	{ ideStr : 'not-found', menBoo : false, patStr : '/no-such-page', tipBoo : false }, // What: Not Found Case. Why: The 404 page centers its message and wraps its buttons on narrow screens. How: This measures an address no route matches, as loaded.
+	{ ideStr : 'tooltip',   menBoo : false, patStr : '/',             tipBoo : true  }  // What: Tooltip Case. Why: The form's tooltip is a fixed width, so it has to stay on screen on the narrowest phones. How: This measures the home page with the tooltip open.
 
 
 ];
@@ -317,7 +321,7 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 
 			await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: Entrance animations don't change the layout, so waiting on them only slows the run. How: This makes the page match prefers-reduced-motion, which turns them off.
 
-			await opeStaFun( curPagObj, { // What: Case Open Call. Why: The layout is measured settled. How: This opens the case's path at the width, opening the menu first for the menu case.
+			await opeStaFun( curPagObj, { // What: Case Open Call. Why: The layout is measured settled. How: This opens the case's path at the width, opening the menu or the tooltip first for their cases.
 
 
 				heiNum : 900,              // What: Height Number. Why: The suite measures across widths, so the height is held fixed. How: Every case is measured at the same height.
@@ -325,7 +329,8 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 				patStr : layCasObj.patStr, // What: Path String. Why: The state opens the case's route. How: This reuses the case's path.
 				widNum : widCurNum,        // What: Width Number. Why: The width is what this test varies. How: This sizes the viewport to the loop's width.
 
-				...( layCasObj.menBoo ? { actFun : async ( actPagObj ) => { await actPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); } } : {} ) // What: Menu Action Spread. Why: Only the menu case opens the menu. How: This adds the toggle click as the state's action for that case.
+				...( layCasObj.menBoo ? { actFun : async ( actPagObj ) => { await actPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); } } : {} ), // What: Menu Action Spread. Why: Only the menu case opens the menu. How: This adds the toggle click as the state's action for that case.
+				...( layCasObj.tipBoo ? { actFun : tipOpeFun } : {} )                                                                                         // What: Tooltip Action Spread. Why: Only the tooltip case opens the tooltip. How: This adds the tooltip's opener as the state's action for that case, never alongside the menu's, since no case sets both.
 
 
 			} );
