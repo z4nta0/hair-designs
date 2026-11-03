@@ -278,16 +278,16 @@ function NavBarCom () : React.JSX.Element {
 					className={ cssModObj.navLinNav }
 
 					aria-label='Main'
-				>{ /* What: Navigation Links Nav Element. Why: Wide screens show the section links in the bar. How: This labels the landmark "Main", which joins its navigation role in the name screen readers announce. */ }
+				>{ /* What: Navigation Links Nav Element. Why: Above 900px wide the section links show in the bar, while the phone menu holds them at 900px and narrower. How: This labels the landmark "Main", which joins its navigation role in the name screen readers announce. */ }
 
 
-					<ul className={ cssModObj.navLinUno }>{ /* What: Navigation Links Unordered List Element. Why: The links form one list of the page's sections. How: This holds one item per link. */ }
+					<ul className={ cssModObj.navLinUno }>{ /* What: Navigation Links Unordered List Element. Why: The links form one list of the page's sections. How: This holds one item per link, hidden with the bar's links at 900px and narrower. */ }
 
 
 						{ NAV_LIN_ARR.map( ( linRecObj ) => ( // What: Link Item Map. Why: Each section gets a link in the bar. How: This renders one list item per row.
 
 
-							<li key={ linRecObj.ideStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it. */ }
+							<li key={ linRecObj.ideStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it, hidden with the bar's links at 900px and narrower. */ }
 
 
 								<a
@@ -296,7 +296,7 @@ function NavBarCom () : React.JSX.Element {
 									href={ `/#${ linRecObj.ideStr }` }
 
 									onClick={ ( cliEveObj ) => secCliFun( cliEveObj, linRecObj.ideStr ) }
-								>{ linRecObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there, or navigates home to it from the 404 page, without a hash. */ }
+								>{ linRecObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section, and shows above 900px wide with the bar's links. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there, or navigates home to it from the 404 page, without a hash. */ }
 
 
 							</li>
