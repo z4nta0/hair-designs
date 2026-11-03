@@ -480,24 +480,28 @@ be scrolled into view.
   page's own text and links (phone, street address, stylists, services,
   price range, every service area, Facebook, no hours); the 404 page's
   noindex, title, single description, and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
-- `npm run test:interaction`: `feedback.spec.ts`, adapted from
-  tonys-toppers', hovers and presses every reachable link and button in each
-  state (skipping disabled ones and anything inert), failing any that looks
-  the same hovered as at rest or pressed as hovered, or whose transitions
-  leave out the focus ring's outline; it checks the first Tab stop's ring
-  eases in to 2px, and that under reduced motion every control still
-  responds with nothing transitioning. `menu.spec.ts`, adapted from
-  the-bernie-bears', checks the open menu (its links, Call button, Facebook
-  link, and the scrim under a tap) and every way out: the scrim, Escape
-  (focus back on the toggle), a section link (landing about 63px down, below
-  the bar, with a clean address), the brand, and widening the screen.
-  `section-link.spec.ts`, adapted from reese-roofing's behavior spec, checks
-  every bar link and section button lands its section below the bar with a
-  clean address and no hashchange, that a Ctrl, Cmd, or middle click opens it
-  in a new tab while the page clicked from stays put and the phone menu
-  closes, and that the 404 page's bar links reach their sections.
-  `tooltip.spec.ts` checks the form tooltip fades out before it's removed,
-  closes on Escape after keyboard focus, and still goes under reduced motion.
+- `npm run test:interaction`: `feedback.spec.ts`, adapted from tonys-toppers',
+  probes the reachable links and buttons in each state (skipping disabled ones
+  and anything inert) at rest, hovered, pressed, unfocused, and
+  keyboard-focused, failing any that looks the same or whose changed
+  properties, the focus ring included, aren't eased; it flips the menu toggle,
+  open panel, and scrim by their attributes, checks the form wrapper's focus
+  and the Services cards' hover the same way, checks the first Tab stop draws
+  its ring at 2px, and that under reduced motion every control still responds
+  with nothing transitioning. `menu.spec.ts`, adapted from the-bernie-bears',
+  checks the open menu (its links, Call button, Facebook link, and the scrim
+  under a tap) and every way out: the scrim, Escape (focus back on the toggle),
+  a section link (landing about 63px down, below the bar, with a clean
+  address), the brand, and widening the screen. `section-link.spec.ts`, adapted
+  from reese-roofing's behavior spec, checks every bar link and section button
+  lands its section below the bar with a clean address and no hashchange, that
+  a Ctrl, Cmd, or middle click opens it in a new tab while the page clicked
+  from stays put and the phone menu closes, and that the 404 page's bar links
+  and "Back Home" link reach their sections. `tooltip.spec.ts` checks the form
+  tooltip fades in when it opens and out before it's removed, closes on Escape
+  after keyboard focus, still goes under reduced motion (opening without a fade
+  there), and gives its phone link hover, press, and focus feedback with and
+  without motion; the probe's helpers live in `tests/support/feedback.ts`.
 - `npm run test:security`: added 2026-11-02, from tonys-toppers'. The
   playwright config also builds the site and serves it with `vite preview` on
   port 5202, since the dev server injects inline scripts the policy would

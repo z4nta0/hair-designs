@@ -27,8 +27,10 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The policy set
  * is given its headers here. First a check proves the policy is live, by
  * injecting an inline script and seeing it refused and reported. Then every
  * state the suites visit is checked for policy violations and checked to close
- * off every new tab link. The contact form is turned off and never sends, so
- * there's no post to check. Adapted from tonys-toppers' own browser spec.
+ * off every new tab link. Last, the contact form's tooltip, which none of
+ * those states opens, is opened by a hover and checked for violations too.
+ * The contact form is turned off and never sends, so there's no post to
+ * check. Adapted from tonys-toppers' own browser spec.
  *
  * Sections:
  *  - Helpers
@@ -208,6 +210,39 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Loop. Why: Every state t
 
 
 }
+
+
+
+test( 'the open contact tooltip reports no security policy violation', async ( { browserName : broNamStr, page : curPagObj } ) => { // What: Tooltip Policy Test. Why: The tooltip only renders once the form is hovered, so no shared state loads it, yet its inline style values and fade have to pass the policy too. How: This opens the home page under the policy, hovers the form until the tooltip has faded in, and checks nothing was refused.
+
+
+	const homDesObj = STA_REC_ARR.find( ( staRecObj ) => staRecObj.ideStr === 'home-desktop' )!; // What: Home Desktop Object. Why: A mouse hovering the form is a desktop visit. How: This picks the home page's desktop state from the shared list. // What: Non-Null Note. Why: The shared list always holds a home-desktop row. How: The ! states that the find can't come back empty.
+
+
+	await polSetFun( curPagObj ); // What: Policy Setup Call. Why: The page has to load under the policy. How: This adds the headers and the violation listener.
+
+	await opeStaFun( curPagObj, homDesObj ); // What: State Open Call. Why: The page's fonts and images have to load before the form is hovered. How: This opens the home page at the desktop size the way the other page suites do.
+
+
+	const forWraObj = curPagObj.getByRole( 'group', { name : 'Contact form, turned off' } ); // What: Form Wrapper Object. Why: The wrapper catches the pointer for the turned-off form. How: This finds it by its name.
+
+
+	await forWraObj.scrollIntoViewIfNeeded(); // What: Form Scroll Call. Why: The form has to be on screen to hover. How: This scrolls it into view.
+
+	await forWraObj.hover(); // What: Form Hover Call. Why: A mouse over the form opens the tooltip. How: This moves the pointer onto the wrapper.
+
+	await expect( forWraObj.getByRole( 'link', { name : '417-988-6239' } ) ).toBeVisible(); // What: Open Assertion. Why: The tooltip has to be showing before its violations are read. How: This waits for its phone link to show.
+
+	await curPagObj.locator( '[class*="forTipDiv"]' ).evaluate( ( tipCurEle ) => Promise.all( tipCurEle.getAnimations().map( ( aniCurObj ) => aniCurObj.finished ) ).then( () => undefined ) ); // What: Fade Settle Call. Why: A violation from the fade would be reported while it plays. How: This finds the tooltip by its CSS module class, whose name Vite keeps inside the hashed class, and waits for every animation on it to finish.
+
+
+	const vioLisArr = ( await polVioFun( curPagObj ) ).filter( ( vioCurStr ) => !( broNamStr === 'webkit' && vioCurStr === 'style-src-attr blocked inline on select' ) ); // What: Violation List Array. Why: WebKit reports a style attribute violation for every select element, which no page can avoid short of allowing inline style attributes everywhere. How: This keeps every violation but that one WebKit select report.
+
+
+	expect( vioLisArr ).toEqual( [] ); // What: No Violation Assertion. Why: The open tooltip should load nothing the policy refuses. How: This checks none was refused.
+
+
+} );
 
 // #endregion Module Init
 
