@@ -323,7 +323,7 @@ test( "the 404 page's \"Back Home\" button reaches the home page's top", async (
 
 	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
 
-	await curPagObj.getByRole( 'link', { exact : true, name : 'Back Home' } ).click(); // What: Back Home Click Call. Why: This is the action under test. How: This clicks the 404 page's Back Home button by its name.
+	await curPagObj.getByRole( 'link', { exact : true, name : 'Back Home' } ).click(); // What: Back Home Click Call. Why: This is the action under test. How: This clicks the 404 page's "Back Home" button by its name.
 
 	await expect( curPagObj.locator( '#home' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the Home section is on the page.
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'home' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's Home section should land where a jump to it should leave it. How: This waits until it sits less than a pixel from there.
