@@ -61,17 +61,29 @@ treatment. The `author` meta names the business itself.
   JPEG, since the card is flat stripes, line art, and text. `index.html`
   carries every Open Graph and Twitter tag (no `twitter:site`, since there's
   no X account), `theme-color` in the bar's navy, and the full icon set:
-  `favicon.svg`, `favicon.ico`, PNGs at 16, 32, 192, and 512px, and a 180px
-  `apple-touch-icon.png`. `npm run icons` (`design/icons/render.mts`)
-  rebuilds all of them, `favicon.svg` included, from `src/assets/logo.svg`
-  set on the bar's navy (read from `--bac-inv-col`): a rounded square for the
-  favicons and a full square, the logo a little smaller, for iOS. The old
-  hand-made `favicon.svg`, which predated the logo, is gone. Known limit: at
-  16 and 32px the logo's thin arrows fade into the navy, leaving a faint X,
-  since the logo's detail is finer than a tab icon can show; a simplified mark
-  would fix it if the user ever wants one. The structured data names the
-  512px icon as the salon's `logo` and the card as its `image`. After each
-  deploy, the user checks the card in a preview checker such as
+  `favicon-2.svg`, `favicon.ico`, PNGs at 16, 32, 192, and 512px
+  (`favicon-2-16x16.png` and so on), and a 180px `apple-touch-icon.png`.
+  `npm run icons` (`design/icons/render.mts`) rebuilds all of them from
+  `src/assets/logo.svg`: the logo, fitted to its measured shapes, inside a
+  navy circle with a rose ring (`--acc-mai-col`), on the bar's navy
+  (`--bac-inv-col`), a rounded square for the favicons and a full square for
+  iOS. The ring was added 2026-11-02 (the set's `-2` names keep browsers and
+  Google from showing their cached copies) because Google draws favicons on
+  a white circle, which showed the rounded square's corners in search
+  results and, the user suspected, kept Search Console from showing the icon
+  at all; the ring gives the icon a definite round shape there while tabs
+  keep the rounded square. It's thicker (14 of the icon's 220 drawing units,
+  about 1px at 16px) on the SVG, the 16 and 32px PNGs, and the ICO, and
+  thinner (10 units) on the 192 and 512px PNGs and the touch icon, where the
+  thick one looked heavy, the user's choice of three. After the deploy, the
+  user checks which icon Google stored at
+  https://www.google.com/s2/favicons?domain=hairdesigns.hair&sz=128. Known
+  limit: at 16 and 32px the logo's thin arrows fade into the navy, leaving a
+  faint X, since the logo's detail is finer than a tab icon can show; a
+  simplified mark would fix it if the user ever wants one. The structured
+  data names the 512px icon as the salon's `logo` and the card as its
+  `image`. After each deploy, the user checks the card in a preview checker
+  such as
   opengraph.xyz.
 - **Off-site work for the user** (done 2026-10-12): the site is added to
   Google Search Console and Bing Webmaster Tools, with

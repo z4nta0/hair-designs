@@ -44,7 +44,7 @@ Each suite runs in Chromium, Firefox, and WebKit against its own dev server on p
 ## Icons and social preview
 
 ```bash
-npm run icons     # rebuilds favicon.svg, favicon.ico, the PNG icons, and apple-touch-icon.png from src/assets/logo.svg
+npm run icons     # rebuilds favicon-2.svg, favicon.ico, the PNG icons, and apple-touch-icon.png from src/assets/logo.svg
 npm run og-image  # rebuilds the 1,200x630 social preview card from design/og-image/card.html
 ```
 
