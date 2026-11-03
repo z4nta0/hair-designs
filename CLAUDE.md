@@ -404,7 +404,9 @@ with unchanged screenshots unless the step is meant to change the page.
 Added 2026-10-12, adapted from seal-and-shield's. Playwright suites live in
 `tests/`, one project per suite and engine in `tests/playwright.config.ts`,
 which starts its own dev server on port 5191 (never the usual 5173) and stops
-it afterwards. Every suite runs in Chromium, Firefox, and WebKit. Results,
+it afterwards. Every suite runs in Chromium, Firefox, and WebKit, Chromium as
+full headless Chrome (`channel : 'chromium'`, since 2026-11-02, which moved
+one Services card's wrap at 390px and with it the Chromium baselines). Results,
 screenshots, and traces go to `tests/output/` (git-ignored); `npx playwright
 show-report tests/output/report` opens the HTML report. The states the suites
 visit (the home page and the 404 page at 390px and 1,440px, and the phone
