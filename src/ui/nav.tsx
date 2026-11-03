@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './nav.module.css';    // What: CSS Module Object. Why: The bar is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './nav.module.css';   // What: CSS Module Object. Why: The bar is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
 import logSvgUrl from '../assets/logo.svg'; // What: Logo SVG URL. Why: The bar's brand opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 

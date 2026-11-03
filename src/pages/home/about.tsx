@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './about.module.css';     // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './about.module.css';    // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The stylists' card opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 

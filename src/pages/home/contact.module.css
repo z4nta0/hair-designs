@@ -7,12 +7,13 @@
  * @summary
  * Styles for ConSecCom, the home page's Contact section on striped navy: the
  * eyebrow, heading, and rose rule, then the phone number, hours, prices,
- * service area tags, and a quote from the stylists beside a cream card
- * holding the contact form, the two stacking at 900px and narrower. The form is turned off: its fields sit in a
- * disabled fieldset, faded slightly, inside a wrapper that catches the pointer
- * and the keyboard for them and anchors the tooltip that explains why, which
- * fades in through forTipDivOpenFadeIn. The fieldset's legend carries the same
- * message for screen readers, hidden visually.
+ * service area tags, and a quote from the stylists beside a cream card holding
+ * the contact form, the two stacking at 900px and narrower. The form is turned
+ * off: its fields sit in a disabled fieldset, faded slightly, inside a wrapper
+ * that catches the pointer and the keyboard for them and anchors the tooltip
+ * that explains why, which fades in through forTipDivOpenFadeIn. The
+ * fieldset's legend carries the same message for screen readers, hidden
+ * visually.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -238,6 +239,7 @@
 /* #endregion areTagUno */
 
 /* #endregion detRowDiv */
+
 
 
 /* #region conQuoDiv */
@@ -530,6 +532,7 @@
 }
 
 /* #endregion forDisFie */
+
 
 
 /* #region forTipDiv */

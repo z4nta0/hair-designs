@@ -431,6 +431,7 @@
 /* #endregion navTogBut */
 
 
+
 /* #region navMenDiv */
 
 .navMenDiv { /* What: Navigation Menu Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */

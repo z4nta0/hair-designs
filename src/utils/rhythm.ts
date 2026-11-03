@@ -1,9 +1,6 @@
 
 
 
-
-
-
 /**
  * rhythm.ts = Rhythm
  *
