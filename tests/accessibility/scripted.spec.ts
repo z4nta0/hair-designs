@@ -133,11 +133,10 @@ async function namProFun ( curPagObj : Page ) : Promise< string[] > {
  * @summary
  * Runs inside the page and resolves once the page has stopped scrolling,
  * meaning its scroll position hasn't changed for 15 frames in a row (about a
- * quarter of a second), or after 2 seconds at most. WebKit scrolls a focused
- * text field into view a few frames after focusing it rather than at once,
- * so measuring a stop straight after the Tab press would find it still off
- * screen. Passed to Playwright's evaluate, so it can't read anything from
- * this file.
+ * quarter of a second), or after 2 seconds at most. Focusing a stop below the
+ * fold scrolls the page, and measuring the stop while the page is still
+ * scrolling it into view would find it off screen. Passed to Playwright's
+ * evaluate, so it can't read anything from this file.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -377,7 +376,7 @@ async function keyProFun ( curPagObj : Page, engNamStr : string, skiLinBoo : boo
 
 		await curPagObj.keyboard.press( tabKeyStr ); // What: Tab Press Call. Why: Each pass moves focus to the next stop. How: This presses the engine's Tab key.
 
-		await curPagObj.evaluate( scrSetFun ); // What: Scroll Settled Wait. Why: Some engines scroll a focused field into view a few frames late. How: This waits until the page has stopped scrolling.
+		await curPagObj.evaluate( scrSetFun ); // What: Scroll Settled Wait. Why: A stop measured while the page is still scrolling it into view would read as off screen. How: This waits until the page has stopped scrolling.
 
 
 		const stoInfObj = await curPagObj.evaluate( stoInfFun );                                          // What: Stop Information Object. Why: The stop is described and measured inside the page. How: This runs stoInfFun there.
