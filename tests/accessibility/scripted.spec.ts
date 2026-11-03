@@ -233,7 +233,7 @@ type StoInfTyp = { // What: Stop Information Type. Why: The keyboard walk judges
  *
  * @example
  * ```ts
- * page.evaluate(stoInfFun) // => { covBoo, desStr, indBoo, ordNum, visBoo }
+ * page.evaluate(stoInfFun) // => { covBoo, desStr, fulBoo, indBoo, ... }
  * ```
  *
 */
@@ -308,7 +308,7 @@ function stoInfFun () : StoInfTyp | null {
 
 
 
-	return { // What: Stop Information Return. Why: The walk judges each stop outside the page. How: This hands back the stop's coverage, description, indicator, position, and visibility.
+	return { // What: Stop Information Return. Why: The walk judges each stop outside the page. How: This hands back the stop's coverage, description, fullness on screen, indicator, position, and visibility.
 
 
 		covBoo : !!topCurEle && !actCurEle.contains( topCurEle ),                               // What: Covered Boolean. Why: The stop is hidden when something else is on top of it. How: This is true when the top element at its center is neither the stop nor inside it.
