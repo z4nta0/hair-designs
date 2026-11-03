@@ -9,8 +9,7 @@
  * between the bar and the footer, with its script eyebrow, its heading and
  * rose accent, the short rose rule, a short note, and its two buttons, home
  * and a call, side by side in a row that wraps. The eyebrow, heading, rule,
- * and button rules are copied from the home page's sections, centered here,
- * and the buttons' transition stops for anyone who asked for less motion.
+ * and button rules are copied from the home page's sections, centered here.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -20,7 +19,7 @@
 
 /* #region nofPagSec */
 
-.nofPagSec { /* What: Not-Found Page Section. Why: The page's short message should sit in the middle of the screen, clear of the fixed bar. How: This grows to fill the main element's leftover height, centers its column of content there, and pads the top by the bar's height and border on top of the usual section spacing. */
+.nofPagSec { /* What: Not-Found Page Section. Why: The page's short message should sit in the middle of the screen, clear of the fixed bar. How: This grows to fill the main element's leftover height, centers its column of content there, and pads the top by the bar's height plus one border width of room, on top of the usual section spacing. */
 
 
 	align-content : center;

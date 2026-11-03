@@ -8,9 +8,9 @@
  * Styles for SerSecCom, the home page's Services section on ivory: its header
  * (a script eyebrow, the heading, a short rose rule, and an intro) above a
  * grid of six cream cards, each with a line icon, a title, and a description,
- * lifting slightly on hover. Each icon's SVG takes a color modifier and its
- * shapes draw in currentColor, so one class per shape serves every card, with
- * modifiers only where a card's shape differs.
+ * lifting slightly on hover. Each icon's SVG takes a color modifier and most
+ * of its shapes draw in currentColor, so one class per shape serves every
+ * card, with modifiers only where a card's shape differs.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *

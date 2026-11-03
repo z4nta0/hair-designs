@@ -122,7 +122,7 @@ const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one c
 // #region Helpers
 
 const endTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj?.leaBoo ? null : curPosObj;               // What: End Tip Function. Why: A closing tooltip should leave the page once its fade has played, while an opening one's fade ending changes nothing. How: This state updater removes a leaving tooltip and returns any other state unchanged.
-const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosObj, leaBoo : true }; // What: Leave Tip Function. Why: Every way of closing the tooltip should fade it out rather than snap it away. How: This state updater marks an open tooltip as leaving, in place, and leaves a closed one closed.
+const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosObj, leaBoo : true }; // What: Leave Tip Function. Why: Every way of closing the tooltip should fade it out rather than snap it away. How: This state updater returns a copy of an open tooltip's state marked as leaving, at the same position, and leaves a closed one closed.
 
 // #endregion Helpers
 

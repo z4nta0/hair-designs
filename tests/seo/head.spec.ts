@@ -142,7 +142,7 @@ test( 'the raw page carries the full title and one description', async ( { reque
 
 
 
-test( 'the home page names the salon, its town, and its owner', async ( { page : curPagObj } ) => { // What: Home Head Test. Why: Search listings show the title and description, and nearby visitors search for a salon by town. How: This loads the home page and checks its head tags and its heading against the salon's name, town, and live address.
+test( 'the home page names the salon, its town, and its stylists', async ( { page : curPagObj } ) => { // What: Home Head Test. Why: Search listings show the title and description, and nearby visitors search for a salon by town. How: This loads the home page and checks its head tags and its heading against the salon's name, town, and live address.
 
 
 	await curPagObj.goto( '/' ); // What: Home Open Call. Why: The checks read the home page's head. How: This loads the root path.

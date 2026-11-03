@@ -9,9 +9,8 @@
  * column grid with the logo on a striped navy panel beside the cream welcome
  * panel, which stack at 900px and narrower, and the navy bar of contact
  * details beneath them. Both panels' contents rise into place on load through
- * blockEnterFadeIn, the logo's a little sooner, and stay put under reduced
- * motion. The primary and outline buttons are modifiers of one butBasAnc
- * class.
+ * blockEnterFadeIn, the logo's a little sooner. The primary and outline
+ * buttons are modifiers of one butBasAnc class.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *

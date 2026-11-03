@@ -18,12 +18,12 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helper 
  * tooltip.spec.ts = Tooltip Spec
  *
  * @summary
- * Checks the turned-off contact form's tooltip in whichever engine the
- * project runs. Hovering the form opens it, and moving away fades it out,
- * marked as leaving while it goes, before it's removed once the fade has
- * played. Focusing the form from the keyboard opens it too, and Escape
- * closes it. Under reduced motion the fade is cut to almost nothing, but the
- * tooltip still has to leave, since its removal waits on the fade's end.
+ * Checks the turned-off contact form's tooltip in whichever engine the project
+ * runs. Hovering the form opens it, and moving away fades it out, marked as
+ * leaving while it goes, before it's removed once the fade has played.
+ * Focusing the form opens it too, and Escape closes it. Under reduced motion
+ * the fade is cut to almost nothing, but the tooltip still has to leave, since
+ * its removal waits on the fade's end.
  *
  * Sections:
  *  - Constants
@@ -119,7 +119,7 @@ test( 'the tooltip fades out before it goes', async ( { page : curPagObj } ) => 
 
 
 
-test( 'Escape closes the tooltip the keyboard opened', async ( { page : curPagObj } ) => { // What: Escape Close Test. Why: A keyboard visitor needs the same message and the usual way to dismiss it. How: This focuses the form, checks the tooltip opens, presses Escape, and checks it goes.
+test( 'Escape closes the tooltip that focusing the form opened', async ( { page : curPagObj } ) => { // What: Escape Close Test. Why: A keyboard visitor needs the same message and the usual way to dismiss it. How: This focuses the form, checks the tooltip opens, presses Escape, and checks it goes.
 
 
 	const forWraObj = await forOpeFun( curPagObj ); // What: Form Wrapper Object. Why: The keyboard opens the tooltip from the wrapper. How: This loads the page and finds it.
