@@ -3,8 +3,10 @@
 
 // #region Imports
 
-import { expect } from '@playwright/test'; // What: Expect. Why: Each check passes only when the page says what it should. How: This asserts on the page's head, its text, and the crawler files.
-import { test   } from '@playwright/test'; // What: Test. Why: Each route and each file is its own test. How: This declares them.
+import { expect        } from '@playwright/test'; // What: Expect. Why: Each check passes only when the page says what it should. How: This asserts on the page's head, its text, and the crawler files.
+import { fileURLToPath } from 'node:url';         // What: File URL To Path. Why: The redirects file sits two folders above this file, in public/. How: This turns its URL into a path.
+import { readFileSync  } from 'node:fs';          // What: Read File Sync. Why: The redirects file is checked as written, since Netlify reads it and never serves it. How: This reads its text.
+import { test          } from '@playwright/test'; // What: Test. Why: Each route and each file is its own test. How: This declares them.
 
 // #endregion Imports
 
@@ -16,14 +18,16 @@ import { test   } from '@playwright/test'; // What: Test. Why: Each route and ea
  * @summary
  * Checks the site's SEO setup in whichever engine the project runs. Hair
  * Designs is a real local salon, so the home page has to be findable and
- * describe it accurately: the raw page, fetched without a browser, already
- * carries its full title and its one description, its head tags name the salon
- * and its town, and its structured data matches what the page itself shows,
- * such as the phone number. The 404 page stays out of search results under a
- * title of its own. The social preview tags are complete and point at a card
- * of the size apps expect, every icon the head links to is served, and the
- * crawler files let every crawler in and list the home page. Adapted from
- * tonys-toppers' own SEO suite.
+ * describe it accurately: the raw page, fetched without a browser from both
+ * the dev server and the production build, already carries its full title and
+ * its one description, its head tags name the salon and its town, and its
+ * structured data matches what the page itself shows, such as the phone
+ * number. The 404 page stays out of search results under a title of its own.
+ * The social preview tags are complete and point at a card of the size apps
+ * expect, every icon the head links to is served, and the crawler files let
+ * every crawler in and list the home page, while the redirects file answers
+ * every unknown address with the app. Adapted from tonys-toppers' own SEO
+ * suite.
  *
  * Sections:
  *  - Constants
@@ -75,8 +79,10 @@ const ARE_TAG_OBJ : Record< string, string > = { // What: Area Tag Object. Why: 
 
 
 
-const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: Facebook URL String. Why: The structured data's sameAs has to be the Facebook page the site links to. How: This is the address both are compared with.
-const LIV_URL_STR = 'https://hairdesigns.hair/';                       // What: Live URL String. Why: The live address is the one every public tag and file must name. How: This is the address they're compared with.
+const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology';                      // What: Facebook URL String. Why: The structured data's sameAs has to be the Facebook page the site links to. How: This is the address both are compared with.
+const LIV_URL_STR = 'https://hairdesigns.hair/';                                            // What: Live URL String. Why: The live address is the one every public tag and file must name. How: This is the address they're compared with.
+const PRE_URL_STR = 'http://localhost:5202/';                                               // What: Preview URL String. Why: Crawlers receive the production build, which the page minifier in vite.config.ts rewrites, not the dev server's page. How: This is the address the test config's preview server answers on.
+const RED_FIL_STR = fileURLToPath( new URL( '../../public/_redirects', import.meta.url ) ); // What: Redirects File String. Why: Netlify answers an unknown address with the app only through this file's fallback rule. How: This resolves the file's path in public/.
 
 
 
@@ -127,18 +133,28 @@ const SOC_KEY_ARR = [ // What: Social Key Array. Why: The social preview rule li
 
 // #region Home Page Checks
 
-test( 'the raw page carries the full title and one description', async ( { request : reqCotObj } ) => { // What: Raw Head Test. Why: Link checkers and many crawlers read the HTML without running the script, so the home page's title and description have to be in it already. How: This fetches the page as plain HTML and checks its title and description tags.
+for ( const [ souNamStr, souUrlStr ] of [ [ 'dev server', '/' ], [ 'production build', PRE_URL_STR ] ] ) { // What: Raw Source Loop. Why: The page crawlers receive is the build, rewritten by the page minifier, while the dev server's copy is what the other checks read. How: This declares the raw check once for each source.
 
 
-	const rawTexStr = await ( await reqCotObj.get( '/' ) ).text(); // What: Raw Text String. Why: The checks read the page the way a crawler without JavaScript does. How: This fetches the root path and reads its HTML.
+	test( `the raw page from the ${ souNamStr } carries the full title and one description`, async ( { browserName : broNamStr, request : reqCotObj } ) => { // What: Raw Head Test. Why: Link checkers and many crawlers read the HTML without running the script, so the home page's title and description have to be in it already. How: This fetches the page as plain HTML and checks its title and description tags.
 
 
-	expect( rawTexStr ).toContain( "<title>Hair Designs | Hair Salon in Carson's Corner, Missouri</title>" );                                                                                         // What: Raw Title Assertion. Why: The title has to be the full one, not a bare site name. How: This checks the HTML carries it.
-	expect( rawTexStr.match( /<meta name='description'/g ) ).toHaveLength( 1 );                                                                                                                       // What: Raw Description Assertion. Why: The page should carry exactly one description for crawlers to read. How: This counts the description tags in the HTML.
-	expect( rawTexStr ).toContain( "<meta name='description' content=\"Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only.\"" ); // What: Raw Description Text Assertion. Why: Crawlers that never run scripts read the description from the raw page, so it has to hold the full text. How: This checks the raw HTML carries the description tag with its whole content.
+		test.skip( souUrlStr === PRE_URL_STR && broNamStr !== 'chromium', 'The built page is a file the preview serves, the same in every engine, so it is checked in Chromium only.' ); // What: Chromium Only Skip. Why: Fetching the same built file three times proves nothing more. How: This skips the build's check outside Chromium.
 
 
-} );
+
+		const rawTexStr = await ( await reqCotObj.get( souUrlStr ) ).text(); // What: Raw Text String. Why: The checks read the page the way a crawler without JavaScript does. How: This fetches the source's root path and reads its HTML.
+
+
+		expect( rawTexStr ).toContain( "<title>Hair Designs | Hair Salon in Carson's Corner, Missouri</title>" );                                                                                         // What: Raw Title Assertion. Why: The title has to be the full one, not a bare site name. How: This checks the HTML carries it.
+		expect( rawTexStr.match( /<meta name='description'/g ) ).toHaveLength( 1 );                                                                                                                       // What: Raw Description Assertion. Why: The page should carry exactly one description for crawlers to read. How: This counts the description tags in the HTML.
+		expect( rawTexStr ).toContain( "<meta name='description' content=\"Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only.\"" ); // What: Raw Description Text Assertion. Why: Crawlers that never run scripts read the description from the raw page, so it has to hold the full text. How: This checks the raw HTML carries the description tag with its whole content.
+
+
+	} );
+
+
+}
 
 
 
@@ -399,6 +415,21 @@ test( 'the sitemap lists the home page alone', async ( { request : reqCotObj } )
 
 	expect( sitResObj.ok() ).toBe( true );                                                            // What: Sitemap Served Assertion. Why: A missing sitemap would fall through to the app. How: This checks the file is served.
 	expect( sitTexStr.match( /<loc>([^<]*)<\/loc>/g ) ).toEqual( [ `<loc>${ LIV_URL_STR }</loc>` ] ); // What: Home Entry Assertion. Why: The home page is the only indexable page. How: This checks the sitemap's entries are exactly its canonical address.
+
+
+} );
+
+test( 'the redirects file answers every unknown address with the app', ( { browserName : broNamStr } ) => { // What: Redirects File Test. Why: The 404 tests reach the page through Vite's own fallback, so only this file shows Netlify would serve the app, and its 404 page, for an unknown address. How: This reads public/_redirects and checks its last rule serves index.html with a 200 for every path.
+
+
+	test.skip( broNamStr !== 'chromium', 'This check reads a file, which is the same in every engine, so it runs in Chromium only.' ); // What: Chromium Only Skip. Why: Reading the same file three times proves nothing more. How: This skips the check outside Chromium.
+
+
+
+	const rulLinArr = readFileSync( RED_FIL_STR, 'utf8' ).split( '\n' ).filter( ( linCurStr ) => linCurStr.trim() && !linCurStr.startsWith( '#' ) ); // What: Rule Line Array. Why: Only rules decide what Netlify serves. How: This reads the file and keeps its lines that are neither blank nor comments.
+
+
+	expect( rulLinArr.at( -1 )?.trim().split( /\s+/ ) ).toEqual( [ '/*', '/index.html', '200' ] ); // What: Fallback Rule Assertion. Why: Netlify matches rules top to bottom, so the catch-all has to come last, or it would hide every rule after it. How: This checks the last rule's path, target, and status.
 
 
 } );
