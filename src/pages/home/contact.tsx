@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: The Contact section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: The Contact section is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 
 import { rhyPxlFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
@@ -250,7 +250,7 @@ function ConSecCom () : React.JSX.Element {
 			id='contact'
 
 			className={ cssModObj.homConSec }
-		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its id, contact, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its id, contact, is kept as a readable word since the links to it name it in their addresses (/#contact). */ }
 
 
 			<p className={ cssModObj.eyeLabPar }>Find Us</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the heading. How: This shows it above the heading. */ }

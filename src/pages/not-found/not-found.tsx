@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './not-found.module.css'; // What: CSS Module Object. Why: The 404 page is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './not-found.module.css'; // What: CSS Module Object. Why: The 404 page is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 
 import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Click Function. Why: The Back Home button reaches the home page the same way the bar's brand does. How: This returns secCliFun, the shared click handler that navigates home without leaving a hash in the address.

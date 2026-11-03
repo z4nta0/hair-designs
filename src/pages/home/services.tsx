@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './services.module.css'; // What: CSS Module Object. Why: The Services section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './services.module.css'; // What: CSS Module Object. Why: The Services section is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 // #endregion Imports
 
@@ -170,7 +170,7 @@ function SerSecCom () : React.JSX.Element {
 			id='services'
 
 			className={ cssModObj.homSerSec }
-		>{ /* What: Home Services Section Element. Why: The page's second section lists the services. How: Its id, services, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home Services Section Element. Why: The page's second section lists the services. How: Its id, services, is kept as a readable word since the links to it name it in their addresses (/#services). */ }
 
 
 			<header className={ cssModObj.serHeaHed }>{ /* What: Services Header Header Element. Why: The section opens with its heading and intro. How: This stacks the eyebrow, heading, rule, and intro. */ }

@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './hero.module.css';     // What: CSS Module Object. Why: The hero is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './hero.module.css';     // What: CSS Module Object. Why: The hero is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The hero's centerpiece is the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
@@ -73,7 +73,7 @@ function HerSecCom () : React.JSX.Element {
 			id='home'
 
 			className={ cssModObj.homHerSec }
-		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its id, home, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its id, home, is kept as a readable word since the links to it name it in their addresses (/#home). */ }
 
 
 			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked at 900px and narrower. */ }

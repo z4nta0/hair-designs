@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './nav.module.css';   // What: CSS Module Object. Why: The bar is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './nav.module.css';   // What: CSS Module Object. Why: The bar is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 import logSvgUrl from '../assets/logo.svg'; // What: Logo SVG URL. Why: The bar's brand opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
@@ -161,7 +161,7 @@ function NavBarCom () : React.JSX.Element {
 		const onKeyDowFun = ( keyEveObj : KeyboardEvent ) => { // What: On Key Down Function. Why: Escape is the expected way out of a layer over the page. How: This closes the menu and puts focus back on the toggle when Escape is pressed.
 
 
-			if ( keyEveObj.key !== 'Escape' ) return; // What: Escape Key Guard. Why: Only Escape closes the menu. How: This ignores every other key.
+			if ( keyEveObj.key !== 'Escape' ) return; // What: Escape Key Guard. Why: Escape is the only key that closes the menu. How: This ignores every other key.
 
 
 

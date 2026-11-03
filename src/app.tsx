@@ -10,7 +10,7 @@ import { HomPagCom } from './pages/home/home.tsx';           // What: Home Page 
 import { NavBarCom } from './ui/nav.tsx';                    // What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders it above the main element.
 import { NotFouCom } from './pages/not-found/not-found.tsx'; // What: Not Found Component. Why: Every unknown address should land on a real page. How: The catch-all route renders it.
 import { Route     } from 'react-router';                    // What: Route. Why: Each page is matched to a path. How: This declares one path and the page it renders.
-import { Routes    } from 'react-router';                    // What: Routes. Why: Only one page should render for any path. How: This renders the first route whose path matches.
+import { Routes    } from 'react-router';                    // What: Routes. Why: Only one page should render for any path. How: This renders the route that best matches the path.
 import { SitFooCom } from './ui/footer.tsx';                 // What: Site Footer Component. Why: Every page ends with the footer. How: This renders it after the main element.
 
 // #endregion Imports
@@ -88,7 +88,7 @@ function AppRooCom () : React.JSX.Element {
 			>{ /* What: App Content Main Element. Why: Each page's content is the page's main landmark, apart from the bar and footer every page shares. How: Its id, kept readable since it's the skip link's target, and its tabIndex of -1 let the skip link move focus here without adding it to the Tab order; it holds the route table and grows to fill the screen. */ }
 
 
-				<Routes>{ /* What: Page Routes. Why: Only one page should render for any path. How: This renders the first route below whose path matches. */ }
+				<Routes>{ /* What: Page Routes. Why: Only one page should render for any path. How: This renders the route below that best matches the path. */ }
 
 
 					<Route

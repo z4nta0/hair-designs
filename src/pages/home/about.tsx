@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './about.module.css';    // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './about.module.css';    // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The stylists' card opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
@@ -70,7 +70,7 @@ function AboSecCom () : React.JSX.Element {
 			id='about'
 
 			className={ cssModObj.homAboSec }
-		>{ /* What: Home About Section Element. Why: The page's third section tells the salon's story. How: Its id, about, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home About Section Element. Why: The page's third section tells the salon's story. How: Its id, about, is kept as a readable word since the links to it name it in their addresses (/#about). */ }
 
 
 			<div className={ cssModObj.aboVisDiv }>{ /* What: About Visual Div Element. Why: The section's visual half holds the stylists' card. How: This sets a positioning context for its panel. */ }

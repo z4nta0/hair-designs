@@ -25,7 +25,7 @@
 
 /* #region Tokens */
 
-:root { /* What: Root Tokens. Why: Every module reads the site's core design numbers, colors, fonts, type and spacing scales, motion durations and easing, shadows, the horizontal rhythm, and layout sizes from one place. How: This defines them as custom properties on the root element. */
+:root { /* What: Root Tokens. Why: Modules read the site's design tokens, such as its colors, from one place. How: This defines them as custom properties on the root element. */
 
 
 	/* #region Core Design Numbers */
