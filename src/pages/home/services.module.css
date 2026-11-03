@@ -144,7 +144,7 @@
 
 /* #region serCarDiv */
 
-.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge. */
+.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge, and eases its hover lift and shadow. */
 
 
 	background-color : var( --bac-sur-col );                                                                                      /* Background Surface Color = #f5f0e8 */
@@ -180,7 +180,7 @@
 
 /* #region carIcoSvg */
 
-.carIcoSvg { /* What: Card Icon SVG. Why: Each card opens with a small line icon. How: This sizes it to 44px with no fill by default, so only the shapes that ask for one are filled. */
+.carIcoSvg { /* What: Card Icon SVG. Why: Each card opens with a small line icon. How: This sizes it to the p04 rhythm step with no fill by default, so only the shapes that ask for one are filled. */
 
 
 	fill          : none;
@@ -308,7 +308,7 @@
 
 }
 
-.carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it small in warm gray. */
+.carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it in warm gray. */
 
 
 	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */

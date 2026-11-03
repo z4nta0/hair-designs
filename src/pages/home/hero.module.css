@@ -62,7 +62,7 @@
 
 /* #region herLefDiv */
 
-.herLefDiv { /* What: Hero Left Div. Why: The logo sits on the brand's striped navy. How: This centers its contents on 30px navy stripes, positioned so its rose divider can sit on its edge. */
+.herLefDiv { /* What: Hero Left Div. Why: The logo sits on the brand's striped navy. How: This centers its contents on navy stripes, positioned so its rose divider can sit on its edge. */
 
 
 	align-items      : center;
@@ -138,7 +138,7 @@
 
 
 }
-@keyframes blockEnterFadeIn { /* What: Block Enter Fade In. Why: The hero's two blocks rise into place as the page opens. How: This fades a block in from transparent while it slides up 28px. */
+@keyframes blockEnterFadeIn { /* What: Block Enter Fade In. Why: The hero's two blocks rise into place as the page opens. How: This fades a block in from transparent while it slides up the p02 vertical spacing step. */
 
 
 	from {
@@ -330,7 +330,7 @@
 
 /* #region herActDiv */
 
-.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up a spacing step apart, wrapping on narrow screens. */
+.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up a spacing step apart, wrapping onto two lines at about 416px wide and below. */
 
 
 	display    : flex;
@@ -341,7 +341,7 @@
 
 }
 
-.butBasAnc { /* What: Button Base Anchor. Why: Both calls to action share one button shape. How: This sets small spaced bold capitals in a padded block, with a transition for the hover changes. */
+.butBasAnc { /* What: Button Base Anchor. Why: Both calls to action share one button shape. How: This sets small spaced bold capitals in a padded block, and eases its hover fill, color, and lift, its press, and its focus ring. */
 
 
 	border          : none;
@@ -425,7 +425,7 @@
 
 /* #region herBarDiv */
 
-.herBarDiv { /* What: Hero Bar Div. Why: The phone number and address sit in a band under the panels. How: This centers them on navy below a rose rule, wrapping on narrow screens. */
+.herBarDiv { /* What: Hero Bar Div. Why: The phone number and address sit in a band under the panels. How: This centers them on navy below a rose rule, wrapping onto two lines at about 618px wide and below. */
 
 
 	align-items     : center;

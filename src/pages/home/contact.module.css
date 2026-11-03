@@ -23,7 +23,7 @@
 
 /* #region homConSec */
 
-.homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws 30px navy stripes with cream text. */
+.homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws navy stripes with cream text. */
 
 
 	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
@@ -159,7 +159,7 @@
 
 }
 
-.detValAnc { /* What: Detail Value Anchor. Why: The phone number can be tapped to call. How: This sets it as plain slightly faded cream text. */
+.detValAnc { /* What: Detail Value Anchor. Why: The phone number can be tapped to call. How: This sets it as plain slightly faded cream text, and eases its hover color, press dim, and focus ring. */
 
 
 	color           : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */
@@ -256,7 +256,7 @@
 
 }
 
-.quoBodPar { /* What: Quote Body Paragraph. Why: The quote reads as a personal aside. How: This sets it small, italic, and slightly faded. */
+.quoBodPar { /* What: Quote Body Paragraph. Why: The quote reads as a personal aside. How: This sets it italic and slightly faded. */
 
 
 	font-size   : var( --fon-siz-p01 );     /* Font Size Base Plus 1 ~= 14.572px */
@@ -418,7 +418,7 @@
 
 .forFieInp,
 .forFieSel,
-.forFieTex { /* What: Form Field Controls. Why: The inputs, the select, and the textarea share one look. How: This sets full-width ivory boxes with a soft border and the browser's own styling removed. */
+.forFieTex { /* What: Form Field Controls. Why: The inputs, the select, and the textarea share one look. How: This sets full-width ivory boxes with a soft border and the browser's own styling removed, and eases the border's focus color. */
 
 
 	appearance  : none;
@@ -486,7 +486,7 @@
 
 /* What: Form Field Controls Pointer. Why: Each field div's input, select, or textarea shares the name rows' control look. How: Its rules sit in the forRowDiv region above, the first parent that uses them. */
 
-.forFieTex { /* What: Form Field Textarea. Why: The message needs more room than a single line. How: This starts it 110px tall and lets it grow only downward. */
+.forFieTex { /* What: Form Field Textarea. Why: The message needs more room than a single line. How: This starts it at the p07 rhythm step tall and lets it grow only downward. */
 
 
 	min-height : calc( var( --ver-rhy-p07 ) * 1rem ); /* Vertical Rhythm Base Plus 7 ~= 104.323px */
@@ -498,7 +498,7 @@
 /* #endregion forFieDiv */
 
 
-.forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card. */
+.forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card, and eases its hover deepening and lift. */
 
 
 	background      : var( --acc-mai-col );                                                                                      /* Accent Main Color = #d4806a */
@@ -646,7 +646,7 @@
 
 }
 
-.tipTelAnc { /* What: Tip Telephone Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in light rose, underlined as a link, and keeps it on one line. */
+.tipTelAnc { /* What: Tip Telephone Anchor. Why: The phone number is the way to reach the salon instead. How: This sets it in light rose, underlined as a link, and keeps it on one line, and eases its hover color, press dim, and focus ring. */
 
 
 	color           : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */

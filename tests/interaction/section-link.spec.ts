@@ -274,7 +274,7 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 
 
 
-test( "the 404 page's bar links reach their sections on the home page", async ( { page : curPagObj } ) => { // What: Not Found Section Link Test. Why: A section link away from the home page has to navigate there and land on its section. How: This opens an unknown address, clicks the bar's About link, and checks the home page's About section, the address, and the hash count.
+test( "the 404 page's bar links reach their sections on the home page", async ( { page : curPagObj } ) => { // What: Not Found Section Link Test. Why: A section link away from the home page has to navigate there and land on its section. How: This opens an unknown address, clicks the bar's About link, and checks the home page's About section lands below the bar with a clean address.
 
 
 	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.

@@ -188,7 +188,7 @@
 
 }
 
-.butBasAnc { /* What: Button Base Anchor. Why: The story ends with a way to reach the salon, in the hero's button shape. How: This sets small spaced bold capitals in a padded block a little below the last paragraph, with a transition for the hover changes. */
+.butBasAnc { /* What: Button Base Anchor. Why: The story ends with a way to reach the salon, in the hero's button shape. How: This sets small spaced bold capitals in a padded block a little below the last paragraph, and eases its hover fill and lift, its press, and its focus ring. */
 
 
 	border          : none;

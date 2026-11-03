@@ -13,16 +13,15 @@ import type { Page } from '@playwright/test'; // What: Page. Why: Opening a stat
  * states.ts = States
  *
  * @summary
- * The page states the accessibility and rendering suites visit, and the
- * helper that opens one; the responsive suite opens its own widths through
- * the same helper. A state is a page at a width, sometimes with something
- * opened on it: the home page and the 404 page at a phone width and a
- * desktop width, and the phone menu open on a phone.
- * opeStaFun sizes the viewport, loads the page, waits for the fonts and
- * images, runs the state's own action if it has one, and then waits for the
- * page to stay still so nothing is measured mid-fade. Adapted from
- * seal-and-shield's own states, minus its scroll pass, since this site has
- * no content that waits to be scrolled into view.
+ * The page states the suites visit, and the helper that opens one; the
+ * responsive suite opens its own widths through the same helper. A state is a
+ * page at a width, sometimes with something opened on it: the home page and
+ * the 404 page at a phone width and a desktop width, and the phone menu open
+ * on a phone. opeStaFun sizes the viewport, loads the page, waits for the
+ * fonts and images, runs the state's own action if it has one, and then waits
+ * for the page to stay still so nothing is measured mid-fade. Adapted from
+ * seal-and-shield's own states, minus its scroll pass, since this site has no
+ * content that waits to be scrolled into view.
  *
  * Sections:
  *  - Types
@@ -235,7 +234,7 @@ async function opeStaFun ( curPagObj : Page, staRecObj : StaRecTyp ) : Promise< 
 
 // #region Exports
 
-export { opeStaFun, STA_REC_ARR, type StaRecTyp }; // What: Named Exports. Why: The accessibility, rendering, and responsive specs share these states and their opener. How: This exports the state list, its type, and the helper that opens one.
+export { opeStaFun, STA_REC_ARR, type StaRecTyp }; // What: Named Exports. Why: Several specs share these states and their opener. How: This exports the state list, its type, and the helper that opens one.
 
 // #endregion Exports
 

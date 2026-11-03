@@ -159,7 +159,7 @@
 
 /* #region navBraAnc */
 
-.navBraAnc { /* What: Navigation Brand Anchor. Why: The logo and name together lead back to the top of the page. How: This sets them side by side, nudged up to sit centered against the bar's border. */
+.navBraAnc { /* What: Navigation Brand Anchor. Why: The logo and name together lead back to the top of the page. How: This sets them side by side, nudged up to sit centered against the bar's border, and eases its press dim and focus ring. */
 
 
 	align-items           : center;
@@ -193,7 +193,7 @@
 
 }
 
-.navLogIma { /* What: Navigation Logo Image. Why: The bar shows the logo at one fixed size. How: This sizes it to 44px square. */
+.navLogIma { /* What: Navigation Logo Image. Why: The bar shows the logo at one fixed size. How: This sizes it to a square one p04 rhythm step on each side. */
 
 
 	height : calc( var( --ver-rhy-p04 ) * 1rem ); /* Vertical Rhythm Base Plus 4 ~= 44.876px */
@@ -202,7 +202,7 @@
 
 }
 
-.braNamSpa { /* What: Brand Name Span. Why: The salon's name sits beside the logo in the display face. How: This sets it in cream Playfair Display, its line as tall as the logo. */
+.braNamSpa { /* What: Brand Name Span. Why: The salon's name sits beside the logo in the display face. How: This sets it in cream Playfair Display, its line as tall as the logo, and eases the hover color it takes with the brand. */
 
 
 	color          : var( --tex-inv-col );                            /* Text Inverse Color = #f5f0e8 */
@@ -270,7 +270,7 @@
 
 }
 
-.navLinAnc { /* What: Navigation Link Anchor. Why: Each section link reads as a quiet label until it's pointed at. How: This sets it in small spaced cream capitals, slightly faded. */
+.navLinAnc { /* What: Navigation Link Anchor. Why: Each section link reads as a quiet label until it's pointed at. How: This sets it in spaced cream capitals, slightly faded, and eases its hover color, press dim, and focus ring. */
 
 
 	color          : var( --tex-inv-col );                   /* Text Inverse Color = #f5f0e8 */
@@ -321,7 +321,7 @@
 
 /* #region navTogBut */
 
-.navTogBut { /* What: Navigation Toggle Button. Why: Narrow screens reach the links through a menu. How: This stacks the three lines of the menu icon in a borderless button, hidden until the narrow screen query shows it. */
+.navTogBut { /* What: Navigation Toggle Button. Why: Narrow screens reach the links through a menu. How: This stacks the three lines of the menu icon in a borderless button, hidden until the narrow screen query shows it, and eases its press and focus ring. */
 
 
 	background     : none;
@@ -369,7 +369,7 @@
 
 }
 
-.togLinSpa { /* What: Toggle Line Span. Why: Three lines draw the menu icon. How: This draws each as a thin cream line that can turn and fade into a cross. */
+.togLinSpa { /* What: Toggle Line Span. Why: Three lines draw the menu icon. How: This draws each as a thin cream line that can turn and fade into a cross, and eases its hover color and every change between the icon and the cross. */
 
 
 	background-color : var( --tex-inv-col );                /* Text Inverse Color = #f5f0e8 */
@@ -485,7 +485,7 @@
 
 }
 
-.menLinAnc { /* What: Menu Link Anchor. Why: Each link fills a row of the panel, easy to tap. How: This sets it in the bar's spaced capitals, larger for a finger, with a faint cream divider below. */
+.menLinAnc { /* What: Menu Link Anchor. Why: Each link fills a row of the panel, easy to tap. How: This sets it in the bar's spaced capitals, padded taller for a finger, with a faint cream divider below, and eases its hover color and nudge, press dim, and focus ring. */
 
 
 	border-bottom  : var( --bor-wid-bas ) solid rgb( from var( --tex-inv-col ) r g b / var( --cdn-pow-008-rec ) ); /* Border Width Base ~= 1.160px, Text Inverse Color = #f5f0e8 @ 0.105 opacity */
@@ -529,7 +529,7 @@
 
 }
 
-.navMenDiv[data-mobile-menu-open] :is( .menLinAnc, .menCalAnc, .menFacAnc ) { /* What: Open Menu Rows. Why: The rows should arrive one after another as the menu opens, a small touch of flair. How: Each row fades and slides down into place, delayed by one stagger step per place before it, read from the --men-ite-ind index its markup sets, and holds its starting frame during the delay. */
+.navMenDiv[data-mobile-menu-open] :is( .menLinAnc, .menCalAnc, .menFacAnc ) { /* What: Open Menu Rows. Why: The rows should arrive one after another as the menu opens, a small touch of flair. How: Each row fades and slides down into place, delayed by its --men-ite-ind index plus one in stagger steps, so even the first row waits one step and each later row one more, and holds its starting frame during the delay. */
 
 
 	animation : menuItemOpenFadeIn var( --dur-ani-p01 ) var( --mot-dec-eas ) calc( var( --dur-ani-m03 ) * ( var( --men-ite-ind ) + 1 ) ) backwards; /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Duration Animation Base Minus 3 ~= 67.9ms, Menu Item Index set by its markup */
@@ -580,7 +580,7 @@
 
 }
 
-.menCalAnc { /* What: Menu Call Anchor. Why: A call is how the salon books, so the button stands out on the navy panel. How: This sets the bar's spaced capitals in navy on a light rose button, which reads at 6.37:1 and stands out from the panel at 6.37:1. */
+.menCalAnc { /* What: Menu Call Anchor. Why: A call is how the salon books, so the button stands out on the navy panel. How: This sets the bar's spaced capitals in navy on a light rose button, which reads at 6.37:1 and stands out from the panel at 6.37:1, and eases its hover fill and lift, press, and focus ring. */
 
 
 	background-color : var( --acc-lig-col );                      /* Accent Light Color = #e8a898 */
@@ -628,7 +628,7 @@
 
 /* #region menFacAnc */
 
-.menFacAnc { /* What: Menu Facebook Anchor. Why: The salon's Facebook page is a quieter second way to keep up with it. How: This sets a cream text link with the platform's mark before it. */
+.menFacAnc { /* What: Menu Facebook Anchor. Why: The salon's Facebook page is a quieter second way to keep up with it. How: This sets a cream text link with the platform's mark before it, and eases its hover color, press dim, and focus ring. */
 
 
 	align-items : center;

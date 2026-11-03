@@ -20,11 +20,11 @@ import { useState  } from 'react';                 // What: Use State. Why: The 
  *
  * @summary
  * The home page's Contact section: the phone number, hours, prices, service
- * area, and a quote from the stylists beside the contact form, which is
- * shown but turned off, since the salon doesn't take messages. Its fields sit
- * in a disabled fieldset, and hovering, tapping, or tabbing to them opens a
- * tooltip pointing to the phone number, while the fieldset's hidden legend
- * tells screen readers the same.
+ * area, and a quote from the stylists beside the contact form (stacked at
+ * 900px and narrower), which is shown but turned off, since the salon doesn't
+ * take messages. Its fields sit in a disabled fieldset, and hovering, tapping,
+ * or tabbing to them opens a tooltip pointing to the phone number, while the
+ * fieldset's hidden legend tells screen readers the same.
  *
  * Sections:
  *  - Types
@@ -262,10 +262,10 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-			<div className={ cssModObj.conLayDiv }>{ /* What: Contact Layout Div Element. Why: The details and the form card sit side by side. How: This holds both columns, stacked on narrow screens. */ }
+			<div className={ cssModObj.conLayDiv }>{ /* What: Contact Layout Div Element. Why: The details and the form card sit side by side. How: This holds both columns, stacked at 900px and narrower. */ }
 
 
-				<div className={ cssModObj.conDetDiv }>{ /* What: Contact Details Div Element. Why: The phone number, hours, prices, service area, and a word from the stylists form the first column. How: This holds them. */ }
+				<div className={ cssModObj.conDetDiv }>{ /* What: Contact Details Div Element. Why: The phone number, hours, prices, service area, and a word from the stylists form the first column, above the form card at 900px and narrower. How: This holds them. */ }
 
 
 					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The phone number pairs with its icon and label. How: This lines them up. */ }
@@ -516,7 +516,7 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-								<div className={ cssModObj.forRowDiv }>{ /* What: Form Row Div Element. Why: The first and last name fields share a row. How: This splits it into two columns, stacked on narrow screens. */ }
+								<div className={ cssModObj.forRowDiv }>{ /* What: Form Row Div Element. Why: The first and last name fields share a row. How: This splits it into two columns, stacked at 900px and narrower. */ }
 
 
 									<div>{ /* What: First Name Field Div Element. Why: The label and its input form one group. How: This holds them in the row's first column. */ }

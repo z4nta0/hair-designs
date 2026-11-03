@@ -24,8 +24,8 @@ import type { Plugin } from 'vite'; // What: Plugin. Why: The page minifier is a
  * so the page's comments, indentation, and any JSON-LD whitespace stay out of
  * what visitors download. It also reads CSS module class names as camelCase
  * keys only. Beyond those, Vite's defaults stand, including copying the files
- * in public/ (the favicon and Netlify's _redirects) into the build untouched.
- * Adapted from seal-and-shield's own config.
+ * in public/ (such as Netlify's _redirects) into the build untouched. Adapted
+ * from seal-and-shield's own config.
  *
  * Sections:
  *  - Helpers

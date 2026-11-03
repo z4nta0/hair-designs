@@ -18,8 +18,8 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  *
  * @summary
  * The home page's About section: a card with the logo, both stylists' names,
- * and their title on a striped navy panel, beside the salon's story and a
- * button to the Contact section.
+ * and their title on a striped navy panel, beside the salon's story (stacked
+ * at 900px and narrower) and a button to the Contact section.
  *
  * Sections:
  *  - Components
@@ -40,7 +40,8 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  *
  * @summary
  * Renders the About section, telling the salon's story beside a card naming
- * its two stylists. Its id, about, is the target of the bar's About link.
+ * its two stylists (stacked at 900px and narrower). Its id, about, is the
+ * target of the bar's About link.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -104,7 +105,7 @@ function AboSecCom () : React.JSX.Element {
 
 
 
-			<div>{ /* What: About Text Div Element. Why: The story forms the section's second column. How: This holds the eyebrow, heading, rule, paragraphs, and button. */ }
+			<div>{ /* What: About Text Div Element. Why: The story forms the section's second column, below the card at 900px and narrower. How: This holds the eyebrow, heading, rule, paragraphs, and button. */ }
 
 
 				<p className={ cssModObj.eyeLabPar }>Our Story</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the heading. How: This shows it above the heading. */ }

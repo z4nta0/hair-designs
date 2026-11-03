@@ -95,7 +95,7 @@ function HomPagCom () : React.JSX.Element {
 	return (
 
 
-		<>{ /* What: Home Page Fragment. Why: The sections sit side by side in the main landmark app.tsx provides. How: This groups them without adding an element. */ }
+		<>{ /* What: Home Page Fragment. Why: The sections stack in order in the main landmark app.tsx provides. How: This groups them without adding an element. */ }
 
 
 			<HerSecCom />{ /* What: Hero Section Component. Why: The page opens with the hero. How: This renders it. */ }

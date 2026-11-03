@@ -76,7 +76,7 @@ const ARE_TAG_OBJ : Record< string, string > = { // What: Area Tag Object. Why: 
 
 
 const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: Facebook URL String. Why: The structured data's sameAs has to be the Facebook page the site links to. How: This is the address both are compared with.
-const LIV_URL_STR = 'https://hairdesigns.hair/';                        // What: Live URL String. Why: The canonical link, structured data, sitemap, and social tags must all name the live address. How: This is the address they're compared with.
+const LIV_URL_STR = 'https://hairdesigns.hair/';                        // What: Live URL String. Why: The live address is the one every public tag and file must name. How: This is the address they're compared with.
 
 
 
@@ -142,7 +142,7 @@ test( 'the raw page carries the full title and one description', async ( { reque
 
 
 
-test( 'the home page names the salon, its town, and its owner', async ( { page : curPagObj } ) => { // What: Home Head Test. Why: Search listings show the title and description, and nearby visitors search for a salon by town. How: This loads the home page and checks its title, description, author, canonical, and robots tags.
+test( 'the home page names the salon, its town, and its owner', async ( { page : curPagObj } ) => { // What: Home Head Test. Why: Search listings show the title and description, and nearby visitors search for a salon by town. How: This loads the home page and checks its head tags and its heading against the salon's name, town, and live address.
 
 
 	await curPagObj.goto( '/' ); // What: Home Open Call. Why: The checks read the home page's head. How: This loads the root path.
@@ -226,7 +226,7 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 
 	expect( [ salNodObj.openingHours, salNodObj.openingHoursSpecification ] ).toEqual( [ undefined, undefined ] ); // What: No Hours Assertion. Why: The salon works by appointment, so the data must not claim regular hours. How: This checks the salon node carries none.
 
-	expect( pagTexStr ).toContain( 'By Appointment' ); // What: Appointment Shown Assertion. Why: The page has to say why no hours are listed. How: This checks it shows By Appointment.
+	expect( pagTexStr ).toContain( 'By Appointment' ); // What: Appointment Shown Assertion. Why: The page has to say why no hours are listed. How: This checks it shows "By Appointment".
 
 	expect( salNodObj.priceRange ).toBe( '$20-100' ); // What: Price Range Assertion. Why: Google's rich results ask a local business for its price range, and the salon's runs from $20 to $100. How: This checks the salon node gives it in Google's own range form.
 

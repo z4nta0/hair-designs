@@ -17,11 +17,11 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * hero.tsx = Hero
  *
  * @summary
- * The home page's opening section: the logo on a striped navy panel beside
- * the welcome, with the salon's name, its trade and town, both stylists,
- * and buttons to the Services and Contact sections, then a navy bar with the
- * phone number and address. Both panels' contents rise into place as the
- * page opens.
+ * The home page's opening section: the logo on a striped navy panel beside the
+ * welcome (stacked at 900px and narrower), with the salon's name, its trade
+ * and town, both stylists, and buttons to the Services and Contact sections,
+ * then a navy bar with the phone number and address. Both panels' contents
+ * rise into place as the page opens.
  *
  * Sections:
  *  - Components
@@ -41,10 +41,10 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * HerSecCom = Hero Section Component
  *
  * @summary
- * Renders the hero section, the first thing a visitor sees: the logo panel
- * and the welcome panel side by side (stacked on narrow screens), then the
- * bar with the phone number and address. Its id, home, is the target of the
- * bar's brand and Home links.
+ * Renders the hero section, the first thing a visitor sees: the logo panel and
+ * the welcome panel side by side (stacked at 900px and narrower), then the bar
+ * with the phone number and address. Its id, home, is the target of the bar's
+ * brand and Home links and the 404 page's Back Home button.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -76,10 +76,10 @@ function HerSecCom () : React.JSX.Element {
 		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its id, home, is kept as a readable word since in-page links put it in the address bar. */ }
 
 
-			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked on narrow screens. */ }
+			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked at 900px and narrower. */ }
 
 
-				<div className={ cssModObj.herLefDiv }>{ /* What: Hero Left Div Element. Why: The logo sits on the brand's stripes. How: This centers it on striped navy with a rose divider at its edge. */ }
+				<div className={ cssModObj.herLefDiv }>{ /* What: Hero Left Div Element. Why: The logo sits on the brand's stripes. How: This centers it on striped navy, with a rose divider at its edge above 900px. */ }
 
 
 					<div className={ cssModObj.herLogDiv }>{ /* What: Hero Logo Div Element. Why: The logo should rise into place as the page opens. How: This plays the entrance for it. */ }
@@ -129,7 +129,7 @@ function HerSecCom () : React.JSX.Element {
 
 						<p className={ cssModObj.herCapPar }>Licensed Cosmetologists</p>{ /* What: Hero Caption Paragraph Element. Why: The stylists' title follows their names. How: This shows it in italic. */ }
 
-						<div className={ cssModObj.herActDiv }>{ /* What: Hero Actions Div Element. Why: The welcome ends with two ways onward. How: This sets the buttons in a row. */ }
+						<div className={ cssModObj.herActDiv }>{ /* What: Hero Actions Div Element. Why: The welcome ends with two ways onward. How: This sets the buttons in a row, wrapping onto two lines at about 416px wide and below. */ }
 
 
 							<a

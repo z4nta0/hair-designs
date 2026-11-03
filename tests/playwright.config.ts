@@ -60,7 +60,7 @@ const SUI_NAM_ARR = [ // What: Suite Name Array. Why: Each suite lives in its ow
 
 
 	'accessibility', // What: Accessibility Suite. Why: The pre-commit accessibility scan runs from here. How: This names tests/accessibility.
-	'interaction',   // What: Interaction Suite. Why: Each control's feedback, the phone menu, and the form tooltip are checked from here. How: This names tests/interaction.
+	'interaction',   // What: Interaction Suite. Why: The site's interactive behavior is checked from here. How: This names tests/interaction.
 	'rendering',     // What: Rendering Suite. Why: Each page state is compared with its approved screenshot from here. How: This names tests/rendering.
 	'responsive',    // What: Responsive Suite. Why: Each page is measured across screen widths from here. How: This names tests/responsive.
 	'security',      // What: Security Suite. Why: The site's security policy, its build, and its dependencies are checked from here. How: This names tests/security.
@@ -109,7 +109,7 @@ const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playw
 
 	],
 
-	use : { // What: Use. Why: Every suite shares the same page setup. How: This sets the base URL, locale, and failure artifacts.
+	use : { // What: Use. Why: Every suite shares the same page setup. How: This sets the locale and the failure artifacts.
 
 
 		locale     : 'en-US',            // What: Locale. Why: The site is written in US English. How: This runs every page in it.

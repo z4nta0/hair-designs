@@ -14,18 +14,16 @@ import { useNavigate } from 'react-router';       // What: Use Navigate. Why: A 
  * section-link.ts = Section Link
  *
  * @summary
- * The one way the bar, the hero, and the About section reach a home page
- * section, from any page.
- * On the home page the section is already there, so the link scrolls to it in
- * place, smoothly unless the visitor asked for reduced motion. On any other
- * page, such as the 404 page, the section doesn't exist yet, so the link
- * navigates to the home page with the section's id as the hash, and the home
- * page scrolls to it on arrival and then clears the hash, so the address bar
- * stays free of hashes either way. Each link keeps its real address
- * (/#about), so a Ctrl, Cmd, Shift, Alt, or middle click is left to the
- * browser, which opens the home page at that section. Adapted from
- * tonys-toppers' own, with secCliFun added so every section link shares one
- * click handler.
+ * The one way a link on any page reaches a home page section. On the home page
+ * the section is already there, so the link scrolls to it in place, smoothly
+ * unless the visitor asked for reduced motion. On any other page, such as the
+ * 404 page, the section doesn't exist yet, so the link navigates to the home
+ * page with the section's id as the hash, and the home page scrolls to it on
+ * arrival and then clears the hash, so the address bar stays free of hashes
+ * either way. Each link keeps its real address (/#about), so a Ctrl, Cmd,
+ * Shift, Alt, or middle click is left to the browser, which opens the home
+ * page at that section. Adapted from tonys-toppers' own, with secCliFun added
+ * so every section link shares one click handler.
  *
  * Sections:
  *  - Helpers
@@ -209,7 +207,7 @@ function useSecCliFun () : ( cliEveObj : React.MouseEvent< HTMLAnchorElement >, 
 
 // #region Exports
 
-export { modCliFun, useSecCliFun, useSecLinFun }; // What: Named Exports. Why: The bar, the hero, and the About section reach sections through these. How: This exports the modified-click check, the shared click handler, and useSecLinFun.
+export { modCliFun, useSecCliFun, useSecLinFun }; // What: Named Exports. Why: Every section link reaches its section through these. How: This exports the modified-click check, the shared click handler, and useSecLinFun.
 
 // #endregion Exports
 
