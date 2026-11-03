@@ -6,13 +6,11 @@
  *
  * @summary
  * The vertical rhythm's step sizes in pixels, for layout math that works with
- * measured element positions (such as placing a tooltip), and the duration
- * scale's steps in milliseconds, for timers that wait on a CSS animation.
- * Every length step is the root font size times a power of the core design
- * number, and every duration step is a power of it in milliseconds, the same
- * formulas styles.css uses for its --ver-rhy-* and --dur-* tokens, so a step
- * read here always matches the stylesheet's own value. Copied from ease-my-
- * life's own.
+ * measured element positions (such as placing a tooltip). Every step is the
+ * root font size times a power of the core design number, the same formula
+ * styles.css uses for its --ver-rhy-* tokens, so a step read here always
+ * matches the stylesheet's own value. Adapted from ease-my-life's own, keeping
+ * only the pixel helper this site uses.
  *
  * Sections:
  *  - Constants
@@ -35,40 +33,7 @@ const COR_DES_NUM = ( Math.cbrt( 108 + 12 * Math.sqrt( 69 ) ) + Math.cbrt( 108 -
 
 // #region Helpers
 
-const steOffFun = ( steNamStr : string ) => steNamStr === 'bas' ? 0 : ( steNamStr[ 0 ] === 'p' ? 1 : -1 ) * Number( steNamStr.slice( 1 ) ); // What: Step Offset Function. Why: The rhythm and the duration scale name their steps the same way, by offset from a base step. How: This returns 0 for 'bas', NN for 'pNN', and -NN for 'mNN'.
-
-
-
-// #region durMilFun
-
-/**
- * durMilFun = Duration Millisecond Function
- *
- * @summary
- * The length of one duration step in milliseconds, named the way the
- * stylesheet names its --dur-ani-* and --dur-tra-* steps: 'bas' for the base
- * step, 'pNN' for NN steps above it, and 'mNN' for NN steps below it. The
- * base step is the 18th power of the core design number, so 'p04' is the
- * 22nd power, about 486ms. A timer that waits for a CSS animation reads the
- * same step the animation uses, so the two always end together.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param durSteStr - Duration Step String: The step's name, e.g. 'bas', 'p04',
- *                    or 'm01'.
- *
- * @returns The step's length in milliseconds.
- *
- * @example
- * ```ts
- * durMilFun('p04') // => about 486
- * ```
- *
-*/
-
-const durMilFun = ( durSteStr : string ) : number => Math.pow( COR_DES_NUM, 18 + steOffFun( durSteStr ) ); // What: Duration Millisecond Function. Why: Timers that wait on a CSS animation need the same step lengths the stylesheet uses. How: This raises the core design number to the 18th power plus the step's offset.
-
-// #endregion durMilFun
+const steOffFun = ( steNamStr : string ) => steNamStr === 'bas' ? 0 : ( steNamStr[ 0 ] === 'p' ? 1 : -1 ) * Number( steNamStr.slice( 1 ) ); // What: Step Offset Function. Why: The rhythm names its steps by their offset from a base step. How: This returns 0 for 'bas', NN for 'pNN', and -NN for 'mNN'.
 
 
 
@@ -120,7 +85,7 @@ const rhyPixFun = ( rhySteStr : string ) : number => { // What: Rhythm Pixel Fun
 
 // #region Exports
 
-export { durMilFun, rhyPixFun }; // What: Named Exports. Why: Pixel layout math and animation-matched timers read the stylesheet's scales through the same helpers. How: This exports durMilFun and rhyPixFun by name.
+export { rhyPixFun }; // What: Named Export. Why: Pixel layout math reads the stylesheet's rhythm through this helper. How: This exports rhyPixFun by name.
 
 // #endregion Exports
 
