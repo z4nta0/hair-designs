@@ -150,7 +150,7 @@ const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosOb
  * or a tap on it opens the tooltip at that point, focusing the form's wrapper
  * opens it at the form's top edge, and it closes when the mouse leaves, on
  * Escape, when focus settles outside the form, or on a tap anywhere else. Its
- * ID, contact, is the target of the page's links to this section.
+ * ID, `contact`, is the target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -258,7 +258,7 @@ function ConSecCom () : React.JSX.Element {
 			id='contact'
 
 			className={ cssModObj.homConSec }
-		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its ID, contact, is kept as a readable word since the links to it name it in their addresses (/#contact). */ }
+		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its ID, `contact`, is kept as a readable word since the links to it name it in their addresses (/#contact). */ }
 
 
 			<p className={ cssModObj.eyeLabPar }>Find Us</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the heading. How: This shows it above the heading. */ }
@@ -544,7 +544,7 @@ function ConSecCom () : React.JSX.Element {
 											placeholder='Jane'
 											required
 											type='text'
-										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's first name. How: Its name, firstName, is kept as the form data key. */ }
+										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's first name. How: Its name, `firstName`, is kept as the form data key. */ }
 
 
 									</div>
@@ -568,7 +568,7 @@ function ConSecCom () : React.JSX.Element {
 											placeholder='Smith'
 											required
 											type='text'
-										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's last name. How: Its name, lastName, is kept as the form data key. */ }
+										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's last name. How: Its name, `lastName`, is kept as the form data key. */ }
 
 
 									</div>
@@ -595,7 +595,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder='417-555-0100'
 										type='tel'
-									/>{ /* What: Form Field Input Element. Why: The form offers to take a number to call back. How: Its name, phone, is kept as the form data key. */ }
+									/>{ /* What: Form Field Input Element. Why: The form offers to take a number to call back. How: Its name, `phone`, is kept as the form data key. */ }
 
 
 								</div>
@@ -618,7 +618,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder='jane@email.com'
 										type='email'
-									/>{ /* What: Form Field Input Element. Why: The form offers to take an email address. How: Its name, email, is kept as the form data key. */ }
+									/>{ /* What: Form Field Input Element. Why: The form offers to take an email address. How: Its name, `email`, is kept as the form data key. */ }
 
 
 								</div>
@@ -687,7 +687,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder="Tell us a little about what you're looking for…"
 										required
-									/>{ /* What: Form Field Textarea Element. Why: The form asks what the visitor is looking for. How: Its name, message, is kept as the form data key. */ }
+									/>{ /* What: Form Field Textarea Element. Why: The form asks what the visitor is looking for. How: Its name, `message`, is kept as the form data key. */ }
 
 
 								</div>

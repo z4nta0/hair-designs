@@ -24,7 +24,7 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
  * middle click opens the section in a new tab instead, which lands on it and
  * clears its hash, while the page clicked from stays put, and a new tab
  * opened from the phone menu closes the menu. From the 404 page, a bar link
- * reaches its section on the home page, and Back Home reaches its top. On
+ * reaches its section on the home page, and "Back Home" reaches its top. On
  * every page the first Tab lands on the skip link, on screen, and following
  * it moves focus to the main content without a hash. Pages open under
  * reduced motion, so scrolling jumps straight to its target and each
@@ -298,7 +298,7 @@ test( "the 404 page's bar links reach their sections on the home page", async ( 
 
 
 
-test( "the 404 page's Back Home button reaches the home page's top", async ( { page : curPagObj } ) => { // What: Not Found Back Home Test. Why: The 404 page's main way onward has to land the visitor on the home page's top without a hash. How: This opens an unknown address, clicks Back Home, and checks the home page's Home section lands below the bar with a clean address.
+test( "the 404 page's \"Back Home\" button reaches the home page's top", async ( { page : curPagObj } ) => { // What: Not Found Back Home Test. Why: The 404 page's main way onward has to land the visitor on the home page's top without a hash. How: This opens an unknown address, clicks "Back Home", and checks the home page's Home section lands below the bar with a clean address.
 
 
 	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.

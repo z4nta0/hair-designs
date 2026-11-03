@@ -218,7 +218,7 @@ Decided 2026-10-12, confirmed by the user once the 404 page was built: the
 exception to the user-level rule. The 404 page
 fits one screen at every size checked except the smallest phone (320 by
 568, about 140px of scroll), and every link on it (the bar's brand and
-section links, the phone menu's, and its own Back Home button) goes through
+section links, the phone menu's, and its own "Back Home" button) goes through
 `secCliFun` with a section hash, which the home page scrolls to on arrival.
 So no navigation opens a page without a hash, the one case the hook covers.
 the-bernie-bears' hook would also fight this site's hash clearing: the home
@@ -368,7 +368,7 @@ with unchanged screenshots unless the step is meant to change the page.
      catch-all route for every path no other route matches. In the salon's
      own style (a script eyebrow, "Page not found" with a rose italic accent,
      the short rose rule, and one line pointing back to Carson's Corner),
-     with two ways onward: Back Home, through `secCliFun` to the home page's
+     with two ways onward: "Back Home", through `secCliFun` to the home page's
      top, and a Call button, since the salon books by phone. Its own title is
      "Page Not Found | Hair Designs" and it carries `noindex`; it keeps
      `index.html`'s description. The app root became a column at least a

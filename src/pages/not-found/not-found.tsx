@@ -6,7 +6,7 @@
 import cssModObj from './not-found.module.css'; // What: CSS Module Object. Why: The 404 page is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 
-import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Click Function. Why: The Back Home button reaches the home page the same way the bar's brand does. How: This returns secCliFun, the shared click handler that navigates home without leaving a hash in the address.
+import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Click Function. Why: The "Back Home" button reaches the home page the same way the bar's brand does. How: This returns secCliFun, the shared click handler that navigates home without leaving a hash in the address.
 
 // #endregion Imports
 
@@ -44,7 +44,7 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * @summary
  * Renders the 404 page's title and its noindex robots tag, which React moves
  * into the document head, then its message, centered in the space between
- * the bar and the footer under the page's one h1. Back Home goes through
+ * the bar and the footer under the page's one h1. "Back Home" goes through
  * secCliFun to the home page's top section, the same way the bar's brand
  * does, so it opens the home page at its top with a clean address, and a
  * modified click still opens it in a new tab.
@@ -65,7 +65,7 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
 function NotFouCom () : React.JSX.Element {
 
 
-	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: The Back Home button reaches the home page the same way the bar's brand does. How: This leaves a modified click to the browser and otherwise navigates home without a hash.
+	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: The "Back Home" button reaches the home page the same way the bar's brand does. How: This leaves a modified click to the browser and otherwise navigates home without a hash.
 
 
 
