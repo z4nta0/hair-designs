@@ -151,14 +151,14 @@
 	border           : var( --bor-wid-bas ) solid var( --bor-mai-col );                                                           /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
 	border-top       : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                           /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	padding          : var( --spa-ver-p03 ) var( --spa-hor-p02 );                                                                 /* Spacing Vertical Base Plus 3 ~= 33.876px, Spacing Horizontal Base Plus 2 ~= 25.572px */
-	transition       : transform var( --dur-tra-p02 ) var( --mot-sta-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
+	transition       : transform var( --dur-tra-p02 ) var( --mot-sta-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */ /* What: Paint Property Note. Why: The rule animates compositor properties where it can. How: The shadow deepening under the lifted card has no compositor equivalent, so box-shadow is eased directly. */
 
 
 }
 .serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
 
 
-	box-shadow : var( --ele-med-sha );                            /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
+	box-shadow : var( --ele-med-sha );                            /* Elevation Medium Shadow ~= 0 8.304px 25.572px plus 0 3.572px 8.304px -2.035px */
 	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) ); /* Spacing Vertical Base Minus 4 ~= -4.732px */
 
 

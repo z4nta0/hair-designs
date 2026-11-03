@@ -175,7 +175,7 @@
 .navBraAnc:active { /* What: Pressed Navigation Brand Anchor. Why: A tap should register before the page scrolls. How: This dims the brand slightly, the way every text link presses. */
 
 
-	opacity : 0.7;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -295,7 +295,7 @@
 .navLinAnc:active { /* What: Pressed Navigation Link Anchor. Why: A click should register before the page scrolls. How: This dims the link below its resting strength, the way every text link presses. */
 
 
-	opacity : 0.7;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -511,7 +511,7 @@
 .menLinAnc:active { /* What: Pressed Menu Link Anchor. Why: A tap should register before the menu closes. How: This dims the link slightly, the way every text link presses. */
 
 
-	opacity : 0.7;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -651,7 +651,7 @@
 .menFacAnc:active { /* What: Pressed Menu Facebook Anchor. Why: A tap should register before the page opens. How: This dims the link slightly, the way every text link presses. */
 
 
-	opacity : 0.7;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }

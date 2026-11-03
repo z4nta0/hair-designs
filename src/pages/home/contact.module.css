@@ -181,7 +181,7 @@
 .detValAnc:active { /* What: Pressed Detail Value Anchor. Why: A tap should register before the call starts. How: This dims the number slightly, the way every text link presses. */
 
 
-	opacity : 0.7;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -250,7 +250,7 @@
 	background  : rgb( 255 255 255 / var( --cdn-pow-010-rec ) );                                                         /* Core-Design-Number to the Power of 10 Reciprocal ~= 0.060 */
 	border-left : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                       /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	margin-top  : var( --spa-ver-bas );                                                                                  /* Spacing Vertical Base ~= 14.572px */
-	max-width   : calc( var( --cdn-pow-011 ) * var( --fon-siz-p01 ) + var( --spa-hor-p01 ) * 2 + var( --bor-wid-xla ) ); /* Core-Design-Number to the Power of 11 ~= 22.047, Font Size Base Plus 1 ~= 14.572px, Spacing Horizontal Base Plus 1 ~= 19.304px, Border Width Extra Large ~= 3.572px, about 363px in all */ /* What: Panel Width Note. Why: The panel exists to hold the quote, so its translucent background should end where the quote's capped lines do rather than run on empty. How: This adds the quote's small text width at its font size to the panel's side padding and rose left border. */
+	max-width   : calc( var( --cdn-pow-011 ) * var( --fon-siz-p01 ) + var( --spa-hor-p01 ) * 2 + var( --bor-wid-xla ) ); /* Core-Design-Number to the Power of 11 ~= 22.047, Font Size Base Plus 1 ~= 14.572px, Spacing Horizontal Base Plus 1 ~= 19.304px, Border Width Extra Large ~= 3.572px, ~= 363.452px in all */ /* What: Panel Width Note. Why: The panel exists to hold the quote, so its translucent background should end where the quote's capped lines do rather than run on empty. How: This adds the quote's small text width at its font size to the panel's side padding and rose left border. */
 	padding     : var( --spa-ver-p01 ) var( --spa-hor-p01 );                                                             /* Spacing Vertical Base Plus 1 ~= 19.304px, Spacing Horizontal Base Plus 1 ~= 19.304px */
 
 
@@ -560,7 +560,7 @@
 	animation   : forTipDivOpenFadeIn var( --dur-ani-p01 ) var( --mot-dec-eas ); /* Duration Animation Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 	background  : var( --bac-inv-col );                                          /* Background Inverse Color = #2b3245 */
 	border-top  : var( --bor-wid-xla ) solid var( --acc-mai-col );               /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
-	box-shadow  : var( --ele-med-sha );                                          /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
+	box-shadow  : var( --ele-med-sha );                                          /* Elevation Medium Shadow ~= 0 8.304px 25.572px plus 0 3.572px 8.304px -2.035px */
 	color       : var( --tex-inv-col );                                          /* Text Inverse Color = #f5f0e8 */
 	cursor      : default;
 	font-size   : var( --fon-siz-p01 );                                          /* Font Size Base Plus 1 ~= 14.572px */
@@ -666,7 +666,7 @@
 .tipTelAnc:active { /* What: Pressed Tip Telephone Anchor. Why: A tap should register before the call starts. How: This dims the number slightly, the way every text link presses. */
 
 
-	opacity : 0.7;
+	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
