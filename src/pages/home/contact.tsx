@@ -6,7 +6,7 @@
 import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: The Contact section is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 
-import { rhyPxlFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
+import { rhyPixFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
 import { useEffect } from 'react';                 // What: Use Effect. Why: An open form tooltip closes when a tap lands anywhere else. How: This adds and removes that page-wide listener while the tooltip is open.
 import { useRef    } from 'react';                 // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds the wrapper and the tooltip.
 import { useState  } from 'react';                 // What: Use State. Why: The form tooltip opens at a position. How: This holds that position, or null while it's closed.
@@ -204,7 +204,7 @@ function ConSecCom () : React.JSX.Element {
 	const plaTipFun = ( cliXcoNum : number, cliYcoNum : number ) => { // What: Place Tip Function. Why: The tooltip should open where the visitor pointed without spilling past the form's sides. How: This stores the point's position within the wrapper as the tooltip's position.
 
 
-		const halWidNum = rhyPxlFun( 'p10' ) / 2;                             // What: Half Width Number. Why: The tooltip's center has to stay half its width inside each side. How: This halves the p10 rhythm step its stylesheet sizes it to. // Vertical Rhythm Base Plus 10 ~= 242.522px
+		const halWidNum = rhyPixFun( 'p10' ) / 2;                             // What: Half Width Number. Why: The tooltip's center has to stay half its width inside each side. How: This halves the p10 rhythm step its stylesheet sizes it to. // Vertical Rhythm Base Plus 10 ~= 242.522px
 		const wraRecObj = forWraRef.current!.getBoundingClientRect();         // What: Wrapper Rectangle Object. Why: The point has to be measured from the wrapper's corner. How: This reads the wrapper's box in viewport pixels. // What: Non-Null Note. Why: Only the wrapper's own events call this function. How: Those events can't fire before the ref is attached.
 		const lefMaxNum = Math.max( halWidNum, wraRecObj.width - halWidNum ); // What: Left Maximum Number. Why: The tooltip's center has to stay half its width inside the right side. How: This is the wrapper's width less half the tooltip's, never below the left limit.
 
