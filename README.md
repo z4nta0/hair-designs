@@ -33,9 +33,9 @@ npm run typecheck  # TypeScript across src/, the configs, tests/, and design/
 ```bash
 npm test                    # every suite
 npm run test:accessibility  # axe-core plus scripted keyboard, naming, reflow, and motion checks
-npm run test:interaction    # hover, press, and focus feedback on every control, the phone menu, and the form tooltip
+npm run test:interaction    # feedback on the reachable controls, the section links and skip link, the phone menu, and the form tooltip
 npm run test:rendering      # full-page screenshots of each page state against approved baselines
-npm run test:responsive     # both pages from 320 to 1,920px: no sideways scroll, spill, or overlap
+npm run test:responsive     # both pages from 320 to 1,920px: no sideways scroll, spill, or overlap, and the Services cards' rows
 npm run test:security       # the security headers, the policy against the built site, secrets in the build, and npm audit
 npm run test:seo            # titles, descriptions, structured data, social tags, icons, robots.txt, and the sitemap
 ```
