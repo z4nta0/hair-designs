@@ -288,7 +288,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the number stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Phone</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Phone. */ }
+							<strong className={ cssModObj.detLabStr }>Phone</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Phone". */ }
 
 							<a
 								className={ cssModObj.detValAnc }
@@ -332,7 +332,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the hours stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Hours</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Hours. */ }
+							<strong className={ cssModObj.detLabStr }>Hours</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Hours". */ }
 
 							<span className={ cssModObj.detValSpa }>By Appointment<br />Call us to schedule</span>{ /* What: Detail Value Span Element. Why: The salon works by appointment. How: This says so over two lines. */ }
 
@@ -370,7 +370,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the price range stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Prices</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Prices. */ }
+							<strong className={ cssModObj.detLabStr }>Prices</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Prices". */ }
 
 							<span className={ cssModObj.detValSpa }>$20 to $100, depending on the service</span>{ /* What: Detail Value Span Element. Why: A visitor should know roughly what a visit costs, and the structured data's price range has to appear on the page. How: This gives the range. */ }
 
@@ -409,7 +409,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the places stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Service Area</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Service Area. */ }
+							<strong className={ cssModObj.detLabStr }>Service Area</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Service Area". */ }
 
 							<ul className={ cssModObj.areTagUno }>{ /* What: Area Tag Unordered List Element. Why: The places the salon serves read as a list of labels, and the structured data's service area has to appear on the page. How: This sets them as tags in a row that wraps. */ }
 
@@ -496,7 +496,7 @@ function ConSecCom () : React.JSX.Element {
 							onPointerDown={ ( preEveObj ) => { if ( !tipDivRef.current?.contains( preEveObj.target as Node ) ) plaTipFun( preEveObj.clientX, preEveObj.clientY ); } } // What: Press Open Handler. Why: A tap on a touchscreen has no hover to open the tooltip, but a tap on the open tooltip, such as on its phone link, mustn't move it out from under the finger. How: This opens it where the finger landed, unless the press was inside the tooltip. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 							onPointerEnter={ ( entEveObj ) => { if ( entEveObj.pointerType === 'mouse' ) plaTipFun( entEveObj.clientX, entEveObj.clientY ); } } // What: Mouse Enter Handler. Why: A mouse hovering the form should learn why it's turned off. How: This opens the tooltip where the pointer entered, for a mouse only, since a touch also fires enter before its press.
 							onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( leaTipFun ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.
-						>{ /* What: Form Wrapper Div Element. Why: Disabled fields don't reliably pass the pointer on in every browser, and the keyboard skips them entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and described by the fieldset's legend. */ }
+						>{ /* What: Form Wrapper Div Element. Why: The disabled fieldset ignores the pointer, and the keyboard skips its fields entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and described by the fieldset's legend. */ }
 
 
 

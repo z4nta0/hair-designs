@@ -118,7 +118,7 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
 function NavBarCom () : React.JSX.Element {
 
 
-	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: Every section link in the bar reaches its section the same way. How: This leaves a modified click to the browser and otherwise scrolls to the section without a hash.
+	const secCliFun = useSecCliFun(); // What: Section Click Function. Why: Every section link in the bar reaches its section the same way. How: This leaves a modified click to the browser and otherwise scrolls to the section, or navigates home to it from the 404 page, without a hash.
 
 
 
@@ -136,7 +136,7 @@ function NavBarCom () : React.JSX.Element {
 	const menLinFun = ( cliEveObj : React.MouseEvent< HTMLAnchorElement >, secIdeStr : string ) => { // What: Menu Link Function. Why: Choosing a section link from the menu, or the brand above it, should close the menu whether the link opens in place or in a new tab. How: This hands the click to secCliFun, then closes the menu.
 
 
-		secCliFun( cliEveObj, secIdeStr ); // What: Section Click Call. Why: The link should reach its section the way every section link does. How: This scrolls to it without a hash, or leaves a modified click to the browser.
+		secCliFun( cliEveObj, secIdeStr ); // What: Section Click Call. Why: The link should reach its section the way every section link does. How: This scrolls to it, or navigates home to it from another page, without a hash, or leaves a modified click to the browser.
 
 		setMenOpeBoo( false ); // What: Menu Close Call. Why: Once a link is chosen the menu has done its job. How: This sets the menu state to closed.
 
@@ -257,7 +257,7 @@ function NavBarCom () : React.JSX.Element {
 
 					onAuxClick={ auxCloFun }
 					onClick={ ( cliEveObj ) => menLinFun( cliEveObj, 'home' ) } // What: Brand Click Handler. Why: The brand stays tappable above the open phone menu, and the page shouldn't be left inert behind a menu still open. How: This reaches the home section through menLinFun, which closes the menu, a new tab click included.
-				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, leaving no hash in the address, and closes the phone menu if it's open. */ }
+				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, or navigates home to it from the 404 page, leaving no hash in the address, and closes the phone menu if it's open. */ }
 
 
 					<img
@@ -297,7 +297,7 @@ function NavBarCom () : React.JSX.Element {
 									href={ `/#${ linRecObj.ideStr }` }
 
 									onClick={ ( cliEveObj ) => secCliFun( cliEveObj, linRecObj.ideStr ) }
-								>{ linRecObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there without a hash. */ }
+								>{ linRecObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there, or navigates home to it from the 404 page, without a hash. */ }
 
 
 							</li>
@@ -357,7 +357,7 @@ function NavBarCom () : React.JSX.Element {
 
 							onAuxClick={ auxCloFun }
 							onClick={ ( cliEveObj ) => menLinFun( cliEveObj, linRecObj.ideStr ) } // What: Menu Link Click Handler. Why: A chosen link should close the menu, whether it opens in place or in a new tab. How: This reaches the section through menLinFun, which closes the menu.
-						>{ linRecObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This scrolls to the section without a hash and closes the menu behind it.
+						>{ linRecObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This scrolls to the section, or navigates home to it from the 404 page, without a hash and closes the menu behind it.
 
 
 					))}

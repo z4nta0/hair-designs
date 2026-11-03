@@ -255,7 +255,7 @@
 
 }
 
-.icoDotCir { /* What: Icon Dot Circle. Why: Two icons center a small filled dot. How: This fills it in the icon's color, faded. */
+.icoDotCir { /* What: Icon Dot Circle. Why: Two icons draw a small filled dot. How: This fills it in the icon's color, faded. */
 
 
 	fill    : currentColor;

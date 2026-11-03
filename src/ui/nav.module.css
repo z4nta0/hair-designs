@@ -80,7 +80,7 @@
 
 }
 
-.navScrDiv { /* What: Navigation Scrim Div. Why: The open phone menu should stand apart from the page, and the dimmed page gives a large target for closing it. How: This covers the screen in translucent navy, faded out and hidden until the menu opens, and exists only at 900px and narrower. */
+.navScrDiv { /* What: Navigation Scrim Div. Why: The open phone menu should stand apart from the page, and the dimmed page gives a large target for closing it. How: This covers the screen in translucent navy, faded out and hidden until the menu opens, easing its fade out on the accelerating curve and hiding it only once that finishes, and exists only at 900px and narrower. */
 
 
 	background-color : rgb( from var( --scr-mai-col ) r g b / var( --cdn-pow-002-rec ) );                     /* Scrim Main Color = #1d2235 @ 0.570 opacity */
