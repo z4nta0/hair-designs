@@ -121,7 +121,7 @@ const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one c
 
 // #region Helpers
 
-const endTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj?.leaBoo ? null : curPosObj;               // What: End Tip Function. Why: A closing tooltip should leave the page once its fade has played, while an opening one's fade ending changes nothing. How: This state updater removes a leaving tooltip and returns any other state unchanged.
+const endTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj?.leaBoo ? null : curPosObj;         // What: End Tip Function. Why: A closing tooltip should leave the page once its fade has played, while an opening one's fade ending changes nothing. How: This state updater removes a leaving tooltip and returns any other state unchanged.
 const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosObj, leaBoo : true }; // What: Leave Tip Function. Why: Every way of closing the tooltip should fade it out rather than snap it away. How: This state updater returns a copy of an open tooltip's state marked as leaving, at the same position, and leaves a closed one closed.
 
 // #endregion Helpers
@@ -163,7 +163,6 @@ function ConSecCom () : React.JSX.Element {
 	const tipDivRef = useRef< HTMLDivElement >( null ); // What: Tip Div Reference. Why: A press on the tooltip itself, such as on its phone link, shouldn't move it. How: This holds the tooltip element while it's open.
 
 	const [ tipPosObj, setTipPosObj ] = useState< TipPosTyp | null >( null ); // What: Tip Position Object And Setter. Why: The tooltip opens where the visitor pointed, or at the top of the form for the keyboard, and fades out before it goes. How: This holds its left and top in pixels within the wrapper and whether it's leaving, or null once it's gone.
-
 
 
 	// #region plaTipFun
@@ -381,6 +380,7 @@ function ConSecCom () : React.JSX.Element {
 					</div>
 
 
+
 					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The service area pairs with its icon and label. How: This lines them up. */ }
 
 
@@ -436,6 +436,7 @@ function ConSecCom () : React.JSX.Element {
 					</div>
 
 
+
 					<div className={ cssModObj.conQuoDiv }>{ /* What: Contact Quote Div Element. Why: A word from the stylists closes the details. How: This sets it on a faint panel with a rose edge. */ }
 
 
@@ -461,16 +462,15 @@ function ConSecCom () : React.JSX.Element {
 					<form onSubmit={ ( subEveObj ) => subEveObj.preventDefault() }>{ /* What: Contact Form Element. Why: The fields keep a form's semantics, though the salon doesn't take messages. How: Its only attribute stops a submission, which its disabled fields can't trigger anyway. */ }
 
 
-
 						<div
 							ref={ forWraRef }
 
 							className={ cssModObj.forWraDiv }
 
-							tabIndex={ 0 }
 							aria-describedby='forNotLeg'
 							aria-label='Contact form, turned off'
 							role='group'
+							tabIndex={ 0 }
 
 							onBlur={ bluCloFun }
 							onFocus={ ( focEveObj ) => { // What: Focus Open Handler. Why: Keyboard users reach the form as one stop and need the same message. How: This opens the tooltip centered at the form's top edge when the wrapper itself takes focus.
@@ -499,7 +499,6 @@ function ConSecCom () : React.JSX.Element {
 						>{ /* What: Form Wrapper Div Element. Why: The disabled fieldset ignores the pointer, and the keyboard skips its fields entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and described by the fieldset's legend. */ }
 
 
-
 							<fieldset
 								className={ cssModObj.forDisFie }
 
@@ -512,7 +511,6 @@ function ConSecCom () : React.JSX.Element {
 
 									className={ cssModObj.forNotLeg }
 								>The form is disabled at this time. Please call us at 417-988-6239. We apologize for any inconvenience.</legend>{ /* What: Form Note Legend Element. Why: A fieldset should say what its group is, and screen readers should hear why the form is off without needing the tooltip. How: This holds the tooltip's message, hidden visually, and also describes the wrapper through aria-describedby. */ }
-
 
 
 								<div className={ cssModObj.forRowDiv }>{ /* What: Form Row Div Element. Why: The first and last name fields share a row. How: This splits it into two columns, stacked at 900px and narrower. */ }
@@ -542,8 +540,6 @@ function ConSecCom () : React.JSX.Element {
 
 									</div>
 
-
-
 									<div>{ /* What: Last Name Field Div Element. Why: The label and its input form one group. How: This holds them in the row's second column. */ }
 
 
@@ -570,7 +566,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 								</div>
-
 
 
 								<div className={ cssModObj.forFieDiv }>{ /* What: Form Field Div Element. Why: The phone field and its label form one group. How: This spaces it from the next. */ }
@@ -620,7 +615,6 @@ function ConSecCom () : React.JSX.Element {
 								</div>
 
 
-
 								<div className={ cssModObj.forFieDiv }>{ /* What: Form Field Div Element. Why: The service field and its label form one group. How: This spaces it from the next. */ }
 
 
@@ -664,7 +658,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 								</div>
-
 
 
 								<div className={ cssModObj.forFieDiv }>{ /* What: Form Field Div Element. Why: The message field and its label form one group. How: This spaces it from the button. */ }
@@ -724,7 +717,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 						</div>
-
 
 
 					</form>

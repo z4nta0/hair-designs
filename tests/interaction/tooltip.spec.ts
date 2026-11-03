@@ -110,8 +110,7 @@ test( 'the tooltip fades out before it goes', async ( { page : curPagObj } ) => 
 
 	await curPagObj.mouse.move( 0, 0 ); // What: Pointer Away Call. Why: Leaving the form closes the tooltip. How: This moves the pointer to the page's corner.
 
-	await expect( curPagObj.locator( '[data-tooltip-close-active]' ) ).toHaveCount( 1 ); // What: Leaving Assertion. Why: The tooltip should fade rather than vanish. How: This checks it's still there, marked as leaving.
-
+	await expect( curPagObj.locator( '[data-tooltip-close-active]' ) ).toHaveCount( 1 );    // What: Leaving Assertion. Why: The tooltip should fade rather than vanish. How: This checks it's still there, marked as leaving.
 	await expect( forWraObj.getByRole( 'link', { name : TIP_LIN_STR } ) ).toHaveCount( 0 ); // What: Gone Assertion. Why: The tooltip should leave once its fade has played. How: This waits for it to be removed.
 
 

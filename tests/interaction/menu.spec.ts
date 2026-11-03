@@ -67,8 +67,7 @@ async function cloCheFun ( curPagObj : Page ) : Promise< void > {
 
 
 	await expect( curPagObj.locator( '[aria-label="Toggle menu"]' ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Closed State Assertion. Why: The way out should close the menu. How: This checks the toggle reports it closed, found by its label rather than its role, since a widened screen hides it.
-
-	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 0 ); // What: Page Restored Assertion. Why: The page has to be usable again. How: This checks neither the main content nor the footer is inert.
+	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 0 );                            // What: Page Restored Assertion. Why: The page has to be usable again. How: This checks neither the main content nor the footer is inert.
 
 
 }
@@ -111,8 +110,7 @@ async function menOpeFun ( curPagObj : Page ) : Promise< void > {
 	await curPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); // What: Menu Toggle Click. Why: Every check starts with the menu open. How: This opens it.
 
 	await expect( curPagObj.getByRole( 'button', { name : 'Toggle menu' } ) ).toHaveAttribute( 'aria-expanded', 'true' ); // What: Open State Assertion. Why: The toggle has to report the menu open. How: This checks its aria-expanded.
-
-	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 2 ); // What: Inert Page Assertion. Why: Content under the scrim shouldn't take focus or be read. How: This checks the main content and the footer are both inert.
+	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 2 );                                   // What: Inert Page Assertion. Why: Content under the scrim shouldn't take focus or be read. How: This checks the main content and the footer are both inert.
 
 
 }
@@ -143,8 +141,7 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 
 
 	await expect( menNavObj.getByRole( 'link', { name : 'Call 417-988-6239' } ) ).toHaveAttribute( 'href', 'tel:+1-417-988-6239' ); // What: Call Button Assertion. Why: A call is how the salon books. How: This checks the Call button dials the salon.
-
-	await expect( menNavObj.getByRole( 'link', { name : 'Find us on Facebook' } ) ).toHaveAttribute( 'target', '_blank' ); // What: Facebook Link Assertion. Why: The salon's Facebook page should open beside the site. How: This checks the link opens in a new tab.
+	await expect( menNavObj.getByRole( 'link', { name : 'Find us on Facebook' } ) ).toHaveAttribute( 'target', '_blank' );          // What: Facebook Link Assertion. Why: The salon's Facebook page should open beside the site. How: This checks the link opens in a new tab.
 
 	expect( await curPagObj.evaluate( () => { const tapCurEle = document.elementFromPoint( 200, 800 ); return !!tapCurEle?.matches( '[data-mobile-menu-open]' ) && !tapCurEle.closest( 'header' ); } ) ).toBe( true ); // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
 

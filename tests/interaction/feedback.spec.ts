@@ -469,7 +469,6 @@ function snaEleFun ( eleCurEle : Element, proNamArr : string[] ) : SnaRecTyp[] {
 		const traNamArr = styCurObj.transitionProperty.split( ',' ).map( ( traNamStr ) => traNamStr.trim() );                                                           // What: Transition Name Array. Why: A property eases only when its transition lists it. How: This reads each listed property name.
 
 
-
 		const durProFun = ( proNamStr : string ) : number => { // What: Duration Property Function. Why: Each probed property needs the duration of whichever transition covers it. How: This finds the first listing by its name, its shorthand, or all, and reads its duration, which repeats when fewer durations than names are listed.
 
 
@@ -1093,6 +1092,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every pa
 
 		await curPagObj.evaluate( cliBloFun ); // What: Click Block Call. Why: Pressing a control shouldn't navigate or close anything. How: This cancels every click from here on.
 
+
 		const proLisArr = [ ...await feeProFun( curPagObj, false ), ...await togProFun( curPagObj, staRecObj.ideStr, false ) ]; // What: Problem List Array. Why: The state passes only when every reachable link and button responds and every switched state shows and eases. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
 
 
@@ -1133,6 +1133,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every pa
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
 
 		await curPagObj.evaluate( cliBloFun ); // What: Click Block Call. Why: Pressing a control shouldn't navigate or close anything. How: This cancels every click from here on.
+
 
 		const proLisArr = [ ...await feeProFun( curPagObj, true ), ...await togProFun( curPagObj, staRecObj.ideStr, true ) ]; // What: Problem List Array. Why: Every reachable link and button has to respond, and every switched state show, without moving. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
 

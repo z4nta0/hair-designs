@@ -165,9 +165,9 @@
 
 
 	filter    : drop-shadow( 0 calc( var( --ver-rhy-m03 ) * 1rem ) calc( var( --ver-rhy-p02 ) * 1rem ) rgb( 0 0 0 / var( --cdn-pow-003-rec ) ) ); /* Vertical Rhythm Base Minus 3 ~= 6.268px, Vertical Rhythm Base Plus 2 ~= 25.572px, = black @ 0.430 opacity */
-	height    : auto; /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
+	height    : auto;                                                                                                    /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
 	max-width : 100%;
-	width     : clamp( calc( var( --ver-rhy-p09 ) * 1rem ), var( --hor-rhy-021 ), calc( var( --ver-rhy-p10 ) * 1rem ) );                          /* Vertical Rhythm Base Plus 9 ~= 183.070px, Horizontal Rhythm 21, Vertical Rhythm Base Plus 10 ~= 242.522px, about 183.070px - 242.522px */
+	width     : clamp( calc( var( --ver-rhy-p09 ) * 1rem ), var( --hor-rhy-021 ), calc( var( --ver-rhy-p10 ) * 1rem ) ); /* Vertical Rhythm Base Plus 9 ~= 183.070px, Horizontal Rhythm 21, Vertical Rhythm Base Plus 10 ~= 242.522px, about 183.070px - 242.522px */
 
 
 }
@@ -241,6 +241,7 @@
 
 }
 
+
 /* #region herTitHea */
 
 .herTitHea { /* What: Hero Title Heading. Why: The salon's name is the page's main heading. How: This sets it in large navy Playfair Display that grows with the screen, its two lines set close. */
@@ -267,6 +268,7 @@
 
 /* #endregion herTitHea */
 
+
 .herSubPar { /* What: Hero Subheading Paragraph. Why: The trade and the town follow the name. How: This sets them in light, widely spaced warm gray capitals. */
 
 
@@ -292,6 +294,7 @@
 
 }
 
+
 /* #region styNamDiv */
 
 .styNamDiv { /* What: Stylist Names Div. Why: The two stylists' names are set like a signature. How: This sets them in dark rose Dancing Script. */
@@ -315,6 +318,7 @@
 
 /* #endregion styNamDiv */
 
+
 .herCapPar { /* What: Hero Caption Paragraph. Why: The stylists' title sits under their names. How: This sets it in warm gray Playfair Display italic. */
 
 
@@ -326,6 +330,7 @@
 
 
 }
+
 
 /* #region herActDiv */
 

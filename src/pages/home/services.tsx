@@ -56,10 +56,10 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
 	{ // What: Cuts And Styling Card.
 
 
+		desStr    : 'Precision cuts for women, men, and children. Blowouts, updos, and everyday styles tailored to you.',
 		icoClaStr : cssModObj.carIcoSvgRose,
 		titStr    : 'Cuts & Styling',
 
-		desStr : 'Precision cuts for women, men, and children. Blowouts, updos, and everyday styles tailored to you.',
 		icoEle : <><circle className={ cssModObj.icoRinCir } cx='22' cy='22' r='20' /><path className={ cssModObj.icoFilPat } d='M14 14 Q22 10 30 14 Q26 22 22 28 Q18 22 14 14Z' /><line className={ cssModObj.icoStrLin } x1='22' x2='22' y1='28' y2='34' /></>
 
 
@@ -68,10 +68,10 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
 	{ // What: Color And Highlights Card.
 
 
+		desStr    : 'Full color, balayage, highlights, and toning. Vibrant results using quality professional products.',
 		icoClaStr : cssModObj.carIcoSvgSage,
 		titStr    : 'Color & Highlights',
 
-		desStr : 'Full color, balayage, highlights, and toning. Vibrant results using quality professional products.',
 		icoEle : <><circle className={ cssModObj.icoRinCir } cx='22' cy='22' r='20' /><path className={ cssModObj.icoFilPat } d='M12 22 Q18 14 22 20 Q26 14 32 22 Q26 30 22 26 Q18 30 12 22Z' /></>
 
 
@@ -80,10 +80,10 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
 	{ // What: Perms And Texture Card.
 
 
+		desStr    : 'Body waves, curls, and relaxers. We work with your natural hair to create texture that lasts.',
 		icoClaStr : cssModObj.carIcoSvgMauve,
 		titStr    : 'Perms & Texture',
 
-		desStr : 'Body waves, curls, and relaxers. We work with your natural hair to create texture that lasts.',
 		icoEle : <><circle className={ cssModObj.icoRinCir } cx='22' cy='22' r='20' /><path className={ cssModObj.icoFilPat } d='M16 16 Q22 12 28 16 L30 28 Q22 32 14 28Z' /><circle className={` ${ cssModObj.icoDotCir }   ${ cssModObj.icoDotCirPlum } `} cx='22' cy='22' r='4' /></>
 
 
@@ -92,10 +92,10 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
 	{ // What: Special Occasions Card.
 
 
+		desStr    : 'Weddings, proms, and events. Let us make sure you look and feel your absolute best on the big day.',
 		icoClaStr : cssModObj.carIcoSvgRose,
 		titStr    : 'Special Occasions',
 
-		desStr : 'Weddings, proms, and events. Let us make sure you look and feel your absolute best on the big day.',
 		icoEle : <><circle className={ cssModObj.icoRinCir } cx='22' cy='22' r='20' /><rect className={ cssModObj.icoFilRec } rx='3' x='14' y='16' /><line className={ cssModObj.icoStrLin } x1='18' x2='18' y1='16' y2='12' /><line className={ cssModObj.icoStrLin } x1='26' x2='26' y1='16' y2='12' /></>
 
 
@@ -104,10 +104,10 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
 	{ // What: Men's Cuts Card.
 
 
+		desStr    : 'Classic cuts, fades, and tapers for the gentlemen too. Everyone is welcome at Hair Designs.',
 		icoClaStr : cssModObj.carIcoSvgSage,
 		titStr    : "Men's Cuts",
 
-		desStr : 'Classic cuts, fades, and tapers for the gentlemen too. Everyone is welcome at Hair Designs.',
 		icoEle : <><circle className={ cssModObj.icoRinCir } cx='22' cy='22' r='20' /><path className={` ${ cssModObj.icoFilPat }   ${ cssModObj.icoFilPatSoft } `} d='M17 17 L27 17 L25 29 L19 29Z' /><line className={` ${ cssModObj.icoStrLin }   ${ cssModObj.icoStrLinBold } `} x1='14' x2='30' y1='17' y2='17' /></>
 
 
@@ -116,10 +116,10 @@ const SER_CAR_ARR = [ // What: Services Card Array. Why: The six cards share one
 	{ // What: Hair Treatments Card.
 
 
+		desStr    : 'Deep conditioning, glosses, and scalp treatments to keep your hair healthy and hydrated.',
 		icoClaStr : cssModObj.carIcoSvgMauve,
 		titStr    : 'Hair Treatments',
 
-		desStr : 'Deep conditioning, glosses, and scalp treatments to keep your hair healthy and hydrated.',
 		icoEle : <><circle className={ cssModObj.icoRinCir } cx='22' cy='22' r='20' /><path className={ cssModObj.icoStrPat } d='M12 28 Q17 18 22 24 Q27 18 32 28' /><circle className={ cssModObj.icoDotCir } cx='22' cy='16' r='5' /></>
 
 
@@ -216,6 +216,7 @@ function SerSecCom () : React.JSX.Element {
 
 
 					</div>
+
 
 				))}
 

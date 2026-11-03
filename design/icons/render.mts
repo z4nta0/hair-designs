@@ -90,12 +90,10 @@ const RIN_SMA_NUM = 14;                                                         
 
 // #region Module State
 
-const LOG_SVG_STR = readFileSync( new URL( '../../src/assets/logo.svg', import.meta.url ), 'utf8' ); // What: Logo SVG String. Why: Every icon is drawn from the logo the site shows. How: This reads it from src/assets/.
+const LOG_SVG_STR = readFileSync( new URL( '../../src/assets/logo.svg', import.meta.url ), 'utf8' );   // What: Logo SVG String. Why: Every icon is drawn from the logo the site shows. How: This reads it from src/assets/.
 const STY_CSS_STR = readFileSync( new URL( '../../src/styles/styles.css', import.meta.url ), 'utf8' ); // What: Styles CSS String. Why: The icons' colors are the site's own. How: This reads the global stylesheet that defines them.
-
-
-const NAV_COL_STR = STY_CSS_STR.match( /--bac-inv-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ]; // What: Navy Color String. Why: The icons sit on the same navy as the bar, and should follow it if it changes. How: This reads --bac-inv-col's value. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --bac-inv-col as a hex color, and a missing one should stop the run.
-const ROS_COL_STR = STY_CSS_STR.match( /--acc-mai-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ]; // What: Rose Color String. Why: The ring is the brand's rose, and should follow it if it changes. How: This reads --acc-mai-col's value. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --acc-mai-col as a hex color, and a missing one should stop the run.
+const NAV_COL_STR = STY_CSS_STR.match( /--bac-inv-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ];                  // What: Navy Color String. Why: The icons sit on the same navy as the bar, and should follow it if it changes. How: This reads --bac-inv-col's value. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --bac-inv-col as a hex color, and a missing one should stop the run.
+const ROS_COL_STR = STY_CSS_STR.match( /--acc-mai-col\s*:\s*(#[0-9a-f]{6})/i )![ 1 ];                  // What: Rose Color String. Why: The ring is the brand's rose, and should follow it if it changes. How: This reads --acc-mai-col's value. // What: Non-Null Note. Why: match returns null when the pattern isn't found. How: styles.css always defines --acc-mai-col as a hex color, and a missing one should stop the run.
 
 // #endregion Module State
 
@@ -194,6 +192,7 @@ async function renPngFun ( icoSvgStr : string, icoSizNum : number ) : Promise< B
 
 		souImaEle.src = `data:image/svg+xml;base64,${ souB64Str }`; // What: Source Address Assignment. Why: The image loads from the data handed in. How: This sets it as an SVG data URL.
 
+
 		await souImaEle.decode(); // What: Source Decode Wait. Why: Drawing an undecoded image draws nothing. How: This waits until it's ready.
 
 
@@ -202,6 +201,7 @@ async function renPngFun ( icoSvgStr : string, icoSizNum : number ) : Promise< B
 
 		finCanEle.height = tarSizNum; // What: Final Height Assignment. Why: The icon is square at its target size. How: This sets the height.
 		finCanEle.width  = tarSizNum; // What: Final Width Assignment. Why: The icon is square at its target size. How: This sets the width.
+
 
 		finCanEle.getContext( '2d' )!.drawImage( souImaEle, 0, 0, tarSizNum, tarSizNum ); // What: Icon Draw Call. Why: This draws the icon itself. How: This rasterizes the SVG to fill the canvas. // What: Non-Null Note. Why: getContext can return null for an unsupported type. How: A 2D context is always available on a fresh canvas.
 

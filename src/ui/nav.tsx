@@ -173,6 +173,7 @@ function NavBarCom () : React.JSX.Element {
 		};
 
 
+
 		const onResWinFun = () => { if ( !togButEle.getClientRects().length ) setMenOpeBoo( false ); }; // What: On Resize Window Function. Why: A screen widened past the phone layout hides the toggle, which would leave the page inert with no way to close the menu. How: This closes the menu once the toggle has no box on the page.
 
 
@@ -302,6 +303,7 @@ function NavBarCom () : React.JSX.Element {
 
 							</li>
 
+
 						))}
 
 
@@ -335,6 +337,8 @@ function NavBarCom () : React.JSX.Element {
 
 				</button>
 
+
+
 				<div
 					className={ cssModObj.navMenDiv }
 
@@ -351,6 +355,7 @@ function NavBarCom () : React.JSX.Element {
 							key={ linRecObj.ideStr }
 
 							className={ cssModObj.menLinAnc }
+
 							style={ { '--men-ite-ind' : linIndNum } as React.CSSProperties } // What: Menu Item Index Style. Why: Each row fades in just after the one before. How: This hands the row its place, which the stylesheet multiplies into its entrance delay. // What: Type Assertion Note. Why: React's style type doesn't list custom properties. How: The browser accepts any custom property in a style attribute.
 
 							href={ `/#${ linRecObj.ideStr }` }
@@ -369,6 +374,7 @@ function NavBarCom () : React.JSX.Element {
 
 						<a
 							className={ cssModObj.menCalAnc }
+
 							style={ { '--men-ite-ind' : NAV_LIN_ARR.length } as React.CSSProperties } // What: Menu Item Index Style. Why: The Call button fades in after the links. How: This continues the rows' count. // What: Type Assertion Note. Why: React's style type doesn't list custom properties. How: The browser accepts any custom property in a style attribute.
 
 							href='tel:+1-417-988-6239'
@@ -377,8 +383,10 @@ function NavBarCom () : React.JSX.Element {
 							onClick={ () => setMenOpeBoo( false ) } // What: Call Click Handler. Why: Once the Call button is chosen the menu has done its job. How: This closes the menu as the call starts.
 						>Call 417-988-6239</a>{ /* What: Menu Call Anchor Element. Why: The salon works by appointment, so a call is the way to book. How: This dials the salon from the menu. */ }
 
+
 						<a
 							className={ cssModObj.menFacAnc }
+
 							style={ { '--men-ite-ind' : NAV_LIN_ARR.length + 1 } as React.CSSProperties } // What: Menu Item Index Style. Why: The Facebook link fades in last. How: This continues the rows' count. // What: Type Assertion Note. Why: React's style type doesn't list custom properties. How: The browser accepts any custom property in a style attribute.
 
 							href={ FAC_URL_STR }

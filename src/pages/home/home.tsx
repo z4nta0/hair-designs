@@ -69,7 +69,6 @@ function HomPagCom () : React.JSX.Element {
 	const navRouFun = useNavigate(); // What: Navigate Router Function. Why: The hash should be cleared once the page has used it. How: This is the router's navigate function.
 
 
-
 	useEffect( () => { // What: Hash Arrival Effect. Why: A visitor arriving from a shared address or another page's section link should land on that section, with no hash left in the address. How: Once the fonts have loaded, this jumps to the section the hash names, then replaces the address with one without it.
 
 

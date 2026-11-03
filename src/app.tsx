@@ -96,6 +96,7 @@ function AppRooCom () : React.JSX.Element {
 						path='/'
 					/>{ /* What: Home Route. Why: The site's root address is its home page. How: This renders HomPagCom at the root path. */ }
 
+
 					<Route
 						element={ <NotFouCom /> }
 						path='*'

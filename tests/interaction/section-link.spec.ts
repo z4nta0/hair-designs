@@ -92,6 +92,7 @@ async function opeRouFun ( curPagObj : Page, rouPatStr : string, vieSizObj : { h
 
 	await curPagObj.setViewportSize( vieSizObj ); // What: Viewport Size Call. Why: The bar's links and the phone menu depend on the width. How: This sizes the page before it loads.
 
+
 	await curPagObj.addInitScript( () => { // What: Hash Change Counter. Why: A plain jump that put a hash in the address would see the home page clear it again, so the address alone couldn't show it happened. How: This counts every hashchange event on the window, from the first script that runs.
 
 
@@ -101,6 +102,7 @@ async function opeRouFun ( curPagObj : Page, rouPatStr : string, vieSizObj : { h
 
 
 	} );
+
 
 	await curPagObj.goto( rouPatStr ); // What: Route Load Call. Why: Each check starts from a fresh load. How: This opens the path on the suite's dev server.
 
@@ -182,8 +184,7 @@ for ( const [ linLabStr, secIdeStr ] of NAV_LIN_ARR ) { // What: Bar Link Loop. 
 		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : linLabStr } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's link by its label, the first match being the bar's own row rather than the menu's copy.
 
 		await expect.poll( async () => Math.abs( await secGapFun( curPagObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar. How: This waits until its top sits less than a pixel from where the jump should leave it.
-
-		await expect( curPagObj ).toHaveURL( /\/$/ ); // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
+		await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
 
 		expect( await curPagObj.evaluate( () => Reflect.get( window, 'hasChaNum' ) ) ).toBe( 0 ); // What: No Hash Jump Assertion. Why: A plain jump would have put a hash in the address before the home page cleared it. How: This checks the page never fired a hashchange event.
 
@@ -206,8 +207,7 @@ for ( const [ butLabStr, secIdeStr ] of BUT_LIN_ARR ) { // What: Button Link Loo
 		await curPagObj.getByRole( 'link', { exact : true, name : butLabStr } ).click(); // What: Button Click Call. Why: This is the action under test. How: This clicks the button by its label.
 
 		await expect.poll( async () => Math.abs( await secGapFun( curPagObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar. How: This waits until its top sits less than a pixel from where the jump should leave it.
-
-		await expect( curPagObj ).toHaveURL( /\/$/ ); // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
+		await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
 
 		expect( await curPagObj.evaluate( () => Reflect.get( window, 'hasChaNum' ) ) ).toBe( 0 ); // What: No Hash Jump Assertion. Why: A plain jump would have put a hash in the address before the home page cleared it. How: This checks the page never fired a hashchange event.
 
@@ -262,8 +262,7 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 
 		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).last().click( cliOptObj ); // What: Modified Click Call. Why: This is the action under test. How: This clicks the menu's About link, the last match being the menu's copy of the bar's link, the way the loop's row says.
 
-		await expect( ( await newTabPro ).locator( '#about' ) ).toBeVisible(); // What: New Tab Assertion. Why: The section should open in the new tab. How: This waits until the new tab shows the About section.
-
+		await expect( ( await newTabPro ).locator( '#about' ) ).toBeVisible();                                                 // What: New Tab Assertion. Why: The section should open in the new tab. How: This waits until the new tab shows the About section.
 		await expect( curPagObj.getByRole( 'button', { name : 'Toggle menu' } ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Menu Closed Assertion. Why: Choosing a link should close the menu, wherever the link opens. How: This checks the toggle reports the menu closed.
 
 
@@ -281,11 +280,9 @@ test( "the 404 page's bar links reach their sections on the home page", async ( 
 
 	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's About link.
 
-	await expect( curPagObj.locator( '#about' ) ).toBeVisible(); // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the About section is on the page.
-
+	await expect( curPagObj.locator( '#about' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the About section is on the page.
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'about' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's About section should land just below the bar. How: This waits until it sits where the jump should leave it.
-
-	await expect( curPagObj ).toHaveURL( /\/$/ ); // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
+	await expect( curPagObj ).toHaveURL( /\/$/ );                                                         // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
 
 
 } );

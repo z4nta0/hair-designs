@@ -315,8 +315,8 @@
 
 
 	cursor         : not-allowed;
-	outline        : 0 solid var( --foc-rin-col );                                                                                      /* Focus Ring Color = #c7745f */ /* What: Zero Width Outline. Why: A zero width stays invisible, even in forced colors mode, until the form is focused. How: The focused rule below grows it. */
-	outline-offset : var( --spa-ver-m01 );                                                                                              /* Spacing Vertical Base Minus 1 = 11px */
+	outline        : 0 solid var( --foc-rin-col ); /* Focus Ring Color = #c7745f */ /* What: Zero Width Outline. Why: A zero width stays invisible, even in forced colors mode, until the form is focused. How: The focused rule below grows it. */
+	outline-offset : var( --spa-ver-m01 );         /* Spacing Vertical Base Minus 1 = 11px */
 	position       : relative;
 	transition     : outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 
@@ -501,17 +501,17 @@
 .forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card, and eases its hover deepening and lift. */
 
 
-	background      : var( --acc-mai-col );                                                                                      /* Accent Main Color = #d4806a */
+	background      : var( --acc-mai-col );                      /* Accent Main Color = #d4806a */
 	border          : none;
-	color           : var( --tex-acc-col );                                                                                      /* Text Accent Color = #ffffff */
+	color           : var( --tex-acc-col );                      /* Text Accent Color = #ffffff */
 	cursor          : pointer;
 	display         : inline-block;
-	font-family     : var( --fon-fam-mai );                                                                                      /* Font Family Main = 'Lato', sans-serif */
-	font-size       : var( --fon-siz-bas );                                                                                      /* Font Size Base = 11px */
+	font-family     : var( --fon-fam-mai );                      /* Font Family Main = 'Lato', sans-serif */
+	font-size       : var( --fon-siz-bas );                      /* Font Size Base = 11px */
 	font-weight     : 700;
 	letter-spacing  : 0.16em;
-	margin-top      : var( --spa-ver-m02 );                                                                                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
-	padding         : var( --spa-ver-bas ) var( --spa-hor-bas );                                                                 /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
+	margin-top      : var( --spa-ver-m02 );                      /* Spacing Vertical Base Minus 2 ~= 8.304px */
+	padding         : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
 	text-decoration : none;
 	text-transform  : uppercase;
 	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
@@ -592,7 +592,6 @@
 
 
 	}
-
 	.forTipDiv[data-tooltip-close-active] { /* What: Instant Closing Form Tooltip Div. Why: React waits for the fade-out's end to remove the tooltip, and a turned-off animation never ends. How: This shortens the fade to a hundredth of a millisecond, so the tooltip simply goes. */
 
 

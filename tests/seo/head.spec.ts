@@ -134,8 +134,7 @@ test( 'the raw page carries the full title and one description', async ( { reque
 
 
 	expect( rawTexStr ).toContain( "<title>Hair Designs | Hair Salon in Carson's Corner, Missouri</title>" ); // What: Raw Title Assertion. Why: The title has to be the full one, not a bare site name. How: This checks the HTML carries it.
-
-	expect( rawTexStr.match( /<meta name='description'/g ) ).toHaveLength( 1 ); // What: Raw Description Assertion. Why: The page should carry exactly one description for crawlers to read. How: This counts the description tags in the HTML.
+	expect( rawTexStr.match( /<meta name='description'/g ) ).toHaveLength( 1 );                               // What: Raw Description Assertion. Why: The page should carry exactly one description for crawlers to read. How: This counts the description tags in the HTML.
 
 
 } );
@@ -153,23 +152,16 @@ test( 'the home page names the salon, its town, and its stylists', async ( { pag
 
 	await expect( curPagObj ).toHaveTitle( /^Hair Designs .*Carson's Corner, Missouri$/ ); // What: Title Assertion. Why: The title should lead with the salon and name its town. How: This checks it starts with the name and ends with the town.
 
-	expect( ( await curPagObj.title() ).length ).toBeLessThanOrEqual( 60 ); // What: Title Length Assertion. Why: Search listings and link cards cut long titles off. How: This keeps it to 60 characters or fewer.
-
+	expect( ( await curPagObj.title() ).length ).toBeLessThanOrEqual( 60 );                         // What: Title Length Assertion. Why: Search listings and link cards cut long titles off. How: This keeps it to 60 characters or fewer.
 	expect( desConStr ).toContain( "Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri" ); // What: Description Stylists Assertion. Why: The summary should say who does the work and where. How: This checks the description names both stylists and the town.
+	expect( desConStr.length ).toBeGreaterThanOrEqual( 100 );                                       // What: Description Minimum Assertion. Why: A summary that's too short wastes the space a listing gives it. How: This checks it runs at least 100 characters.
+	expect( desConStr.length ).toBeLessThanOrEqual( 125 );                                          // What: Description Maximum Assertion. Why: Phones cut a summary off around 125 characters. How: This checks it stays within that.
 
-	expect( desConStr.length ).toBeGreaterThanOrEqual( 100 ); // What: Description Minimum Assertion. Why: A summary that's too short wastes the space a listing gives it. How: This checks it runs at least 100 characters.
-
-	expect( desConStr.length ).toBeLessThanOrEqual( 125 ); // What: Description Maximum Assertion. Why: Phones cut a summary off around 125 characters. How: This checks it stays within that.
-
-	await expect( curPagObj.locator( 'meta[name="description"]' ) ).toHaveCount( 1 ); // What: Single Description Assertion. Why: Two descriptions would leave search engines to pick one. How: This checks there's exactly one.
-
+	await expect( curPagObj.locator( 'meta[name="description"]' ) ).toHaveCount( 1 );                        // What: Single Description Assertion. Why: Two descriptions would leave search engines to pick one. How: This checks there's exactly one.
 	await expect( curPagObj.locator( 'meta[name="author"]' ) ).toHaveAttribute( 'content', 'Hair Designs' ); // What: Author Assertion. Why: A real business's site names the business as its author. How: This checks the author tag.
-
-	await expect( curPagObj.locator( 'link[rel="canonical"]' ) ).toHaveAttribute( 'href', LIV_URL_STR ); // What: Canonical Assertion. Why: Every address Netlify serves the site at should count as the live one. How: This checks the canonical link names the live address.
-
-	await expect( curPagObj.locator( 'meta[name="robots"]' ) ).toHaveCount( 0 ); // What: Indexable Assertion. Why: The home page has to stay findable. How: This checks it carries no robots tag that could keep it out.
-
-	await expect( curPagObj.getByRole( 'heading', { level : 1 } ) ).toHaveCount( 1 ); // What: Single Heading Assertion. Why: One h1 tells search engines and screen readers what the page is about. How: This checks there's exactly one.
+	await expect( curPagObj.locator( 'link[rel="canonical"]' ) ).toHaveAttribute( 'href', LIV_URL_STR );     // What: Canonical Assertion. Why: Every address Netlify serves the site at should count as the live one. How: This checks the canonical link names the live address.
+	await expect( curPagObj.locator( 'meta[name="robots"]' ) ).toHaveCount( 0 );                             // What: Indexable Assertion. Why: The home page has to stay findable. How: This checks it carries no robots tag that could keep it out.
+	await expect( curPagObj.getByRole( 'heading', { level : 1 } ) ).toHaveCount( 1 );                        // What: Single Heading Assertion. Why: One h1 tells search engines and screen readers what the page is about. How: This checks there's exactly one.
 
 
 } );
@@ -196,14 +188,10 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 	const webNodObj = ldjGraArr.find( ( graNodObj ) => graNodObj[ '@type' ] === 'WebSite' ) ?? {};                         // What: WebSite Node Object. Why: The site's details are checked together. How: This finds its node, or an empty object if it's missing.
 
 
-	expect( [ salNodObj.name, salNodObj.url, webNodObj.name, webNodObj.url ] ).toEqual( [ 'Hair Designs', LIV_URL_STR, 'Hair Designs', LIV_URL_STR ] ); // What: Salon Name Assertion. Why: The salon and the site have to carry the name and live address the site uses everywhere. How: This checks both nodes' names and addresses.
-
-	expect( [ webNodObj.publisher?.[ '@id' ], ...perNodArr.map( ( perCurObj ) => perCurObj.worksFor?.[ '@id' ] ) ] ).toEqual( Array( 3 ).fill( salNodObj[ '@id' ] ) ); // What: Salon Links Assertion. Why: Search engines join the nodes by their ids, so the salon has to publish the site and employ both stylists. How: This checks each link points at the salon's node.
-
-	expect( salNodObj.employee?.map( ( empCurObj ) => empCurObj[ '@id' ] ) ).toEqual( perNodArr.map( ( perCurObj ) => perCurObj[ '@id' ] ) ); // What: Employee Links Assertion. Why: The salon's employees have to be the two stylist nodes. How: This checks its employee list names each of them.
-
+	expect( [ salNodObj.name, salNodObj.url, webNodObj.name, webNodObj.url ] ).toEqual( [ 'Hair Designs', LIV_URL_STR, 'Hair Designs', LIV_URL_STR ] );                                            // What: Salon Name Assertion. Why: The salon and the site have to carry the name and live address the site uses everywhere. How: This checks both nodes' names and addresses.
+	expect( [ webNodObj.publisher?.[ '@id' ], ...perNodArr.map( ( perCurObj ) => perCurObj.worksFor?.[ '@id' ] ) ] ).toEqual( Array( 3 ).fill( salNodObj[ '@id' ] ) );                             // What: Salon Links Assertion. Why: Search engines join the nodes by their ids, so the salon has to publish the site and employ both stylists. How: This checks each link points at the salon's node.
+	expect( salNodObj.employee?.map( ( empCurObj ) => empCurObj[ '@id' ] ) ).toEqual( perNodArr.map( ( perCurObj ) => perCurObj[ '@id' ] ) );                                                      // What: Employee Links Assertion. Why: The salon's employees have to be the two stylist nodes. How: This checks its employee list names each of them.
 	expect( perNodArr.map( ( perCurObj ) => [ perCurObj.name, perCurObj.jobTitle ] ) ).toEqual( [ [ 'Juli Wilkerson', 'Licensed Cosmetologist' ], [ 'Keeli Bryan', 'Licensed Cosmetologist' ] ] ); // What: Stylists Assertion. Why: The people in the data have to be the salon's two cosmetologists. How: This checks their names and titles.
-
 	expect( pagTexStr ).toContain( 'Licensed Cosmetologists' ); // What: Title Shown Assertion. Why: The stylists' title in the data has to be visible on the page. How: This checks the page shows it.
 
 
@@ -218,21 +206,14 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 
 
 
-	expect( pagTexStr ).toContain( '417-988-6239' ); // What: Phone Shown Assertion. Why: The number in the data has to be visible on the page. How: This checks the page shows it.
-
+	expect( pagTexStr ).toContain( '417-988-6239' );                                                               // What: Phone Shown Assertion. Why: The number in the data has to be visible on the page. How: This checks the page shows it.
 	expect( salNodObj.address ).toEqual( { '@type' : 'PostalAddress', addressCountry : 'US', addressLocality : "Carson's Corner", addressRegion : 'MO', postalCode : '65668', streetAddress : '24579 State Hwy 254' } ); // What: Address Assertion. Why: The data has to give the salon's exact street address. How: This checks every part of it.
-
-	expect( pagTexStr ).toContain( "24579 State Hwy 254 · Carson's Corner, Mo. 65668" ); // What: Address Shown Assertion. Why: The address in the data has to be visible on the page. How: This checks the page shows it whole.
-
+	expect( pagTexStr ).toContain( "24579 State Hwy 254 · Carson's Corner, Mo. 65668" );                           // What: Address Shown Assertion. Why: The address in the data has to be visible on the page. How: This checks the page shows it whole.
 	expect( [ salNodObj.openingHours, salNodObj.openingHoursSpecification ] ).toEqual( [ undefined, undefined ] ); // What: No Hours Assertion. Why: The salon works by appointment, so the data must not claim regular hours. How: This checks the salon node carries none.
-
-	expect( pagTexStr ).toContain( 'By Appointment' ); // What: Appointment Shown Assertion. Why: The page has to say why no hours are listed. How: This checks it shows "By Appointment".
-
-	expect( salNodObj.priceRange ).toBe( '$20-100' ); // What: Price Range Assertion. Why: Google's rich results ask a local business for its price range, and the salon's runs from $20 to $100. How: This checks the salon node gives it in Google's own range form.
-
-	expect( pagTexStr ).toContain( '$20 to $100' ); // What: Price Range Shown Assertion. Why: The range in the data has to be visible on the page. How: This checks the page's text gives the same two ends, as the Contact section's Prices row does.
-
-	expect( salNodObj.areaServed ).toHaveLength( Object.keys( ARE_TAG_OBJ ).length ); // What: Service Area Count Assertion. Why: The data and the area lookup have to list the same areas, so neither can gain one the other lacks. How: This checks the data names exactly as many areas as the lookup pairs.
+	expect( pagTexStr ).toContain( 'By Appointment' );                                                             // What: Appointment Shown Assertion. Why: The page has to say why no hours are listed. How: This checks it shows "By Appointment".
+	expect( salNodObj.priceRange ).toBe( '$20-100' );                                                              // What: Price Range Assertion. Why: Google's rich results ask a local business for its price range, and the salon's runs from $20 to $100. How: This checks the salon node gives it in Google's own range form.
+	expect( pagTexStr ).toContain( '$20 to $100' );                                                                // What: Price Range Shown Assertion. Why: The range in the data has to be visible on the page. How: This checks the page's text gives the same two ends, as the Contact section's Prices row does.
+	expect( salNodObj.areaServed ).toHaveLength( Object.keys( ARE_TAG_OBJ ).length );                              // What: Service Area Count Assertion. Why: The data and the area lookup have to list the same areas, so neither can gain one the other lacks. How: This checks the data names exactly as many areas as the lookup pairs.
 
 
 	for ( const areSerObj of salNodObj.areaServed ?? [] ) { // What: Service Area Loop. Why: Every area the data names has to be one the page shows. How: This walks the salon node's areaServed entries, each an object holding the area's name.
@@ -244,7 +225,6 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 
 
 	}
-
 
 
 
@@ -273,14 +253,10 @@ test( 'the 404 page stays out of search results', async ( { page : curPagObj } )
 
 	await curPagObj.goto( '/no-such-page' ); // What: Unknown Address Open Call. Why: Every unknown path shows the 404 page. How: This loads one.
 
-
 	await expect( curPagObj.locator( 'meta[name="robots"]' ) ).toHaveAttribute( 'content', 'noindex' ); // What: Noindex Assertion. Why: Search engines must leave the page out. How: This checks the robots tag.
-
-	await expect( curPagObj ).toHaveTitle( 'Page Not Found | Hair Designs' ); // What: Not Found Title Assertion. Why: The page needs a title of its own. How: This checks it.
-
-	await expect( curPagObj.locator( 'meta[name="description"]' ) ).toHaveCount( 1 ); // What: Single Description Assertion. Why: The noindex page keeps the site's one description rather than adding a second. How: This checks there's exactly one.
-
-	await expect( curPagObj.getByRole( 'heading', { level : 1 } ) ).toHaveCount( 1 ); // What: Single Heading Assertion. Why: Every page should have exactly one h1. How: This checks the 404 page has one.
+	await expect( curPagObj ).toHaveTitle( 'Page Not Found | Hair Designs' );                           // What: Not Found Title Assertion. Why: The page needs a title of its own. How: This checks it.
+	await expect( curPagObj.locator( 'meta[name="description"]' ) ).toHaveCount( 1 );                   // What: Single Description Assertion. Why: The noindex page keeps the site's one description rather than adding a second. How: This checks there's exactly one.
+	await expect( curPagObj.getByRole( 'heading', { level : 1 } ) ).toHaveCount( 1 );                   // What: Single Heading Assertion. Why: Every page should have exactly one h1. How: This checks the 404 page has one.
 
 
 } );
@@ -302,13 +278,9 @@ test( 'the social preview tags are complete', async ( { page : curPagObj } ) => 
 
 
 	expect( Object.keys( socTagObj ) ).toEqual( expect.arrayContaining( SOC_KEY_ARR ) ); // What: Complete Tags Assertion. Why: A missing tag leaves part of the card blank. How: This checks every required key is present, allowing optional extras.
-
-	expect( [ socTagObj[ 'og:image' ], socTagObj[ 'og:url' ], socTagObj[ 'twitter:image' ] ] ).toEqual( [ `${ LIV_URL_STR }og-image-2.png`, LIV_URL_STR, `${ LIV_URL_STR }og-image-2.png` ] ); // What: Absolute URLs Assertion. Why: Scrapers can't resolve a relative address. How: This checks each URL tag names the live https address.
-
-	expect( [ socTagObj[ 'og:image:type' ], socTagObj[ 'og:image:width' ], socTagObj[ 'og:image:height' ] ] ).toEqual( [ 'image/png', '1200', '630' ] ); // What: Image Facts Assertion. Why: The tags have to describe the file they point at. How: This checks the type and size they give.
-
-	expect( [ socTagObj[ 'og:title' ], socTagObj[ 'twitter:title' ] ] ).toEqual( [ await curPagObj.title(), await curPagObj.title() ] ); // What: Title Match Assertion. Why: A card should name the page the way its tab does. How: This checks both card titles match the page title.
-
+	expect( [ socTagObj[ 'og:image' ], socTagObj[ 'og:url' ], socTagObj[ 'twitter:image' ] ] ).toEqual( [ `${ LIV_URL_STR }og-image-2.png`, LIV_URL_STR, `${ LIV_URL_STR }og-image-2.png` ] );     // What: Absolute URLs Assertion. Why: Scrapers can't resolve a relative address. How: This checks each URL tag names the live https address.
+	expect( [ socTagObj[ 'og:image:type' ], socTagObj[ 'og:image:width' ], socTagObj[ 'og:image:height' ] ] ).toEqual( [ 'image/png', '1200', '630' ] );                                           // What: Image Facts Assertion. Why: The tags have to describe the file they point at. How: This checks the type and size they give.
+	expect( [ socTagObj[ 'og:title' ], socTagObj[ 'twitter:title' ] ] ).toEqual( [ await curPagObj.title(), await curPagObj.title() ] );                                                           // What: Title Match Assertion. Why: A card should name the page the way its tab does. How: This checks both card titles match the page title.
 	expect( [ socTagObj[ 'og:description' ], socTagObj[ 'twitter:description' ] ] ).toEqual( Array( 2 ).fill( await curPagObj.locator( 'meta[name="description"]' ).getAttribute( 'content' ) ) ); // What: Description Match Assertion. Why: A card should sum the page up the way its search listing does. How: This checks both card descriptions match the page's description.
 
 	await expect( curPagObj.locator( 'meta[name="theme-color"]' ) ).toHaveAttribute( 'content', '#2b3245' ); // What: Theme Color Assertion. Why: Mobile browsers and Discord's embeds read it, and it should be the bar's navy. How: This checks the tag's color.
@@ -325,10 +297,8 @@ test( 'the social preview image is a 1,200x630 PNG under 300 KB', async ( { requ
 	const pngBufObj = await imaResObj.body();                 // What: PNG Buffer Object. Why: The image's size is written in its header. How: This reads the response bytes.
 
 
-	expect( imaResObj.headers()[ 'content-type' ] ).toBe( 'image/png' ); // What: PNG Type Assertion. Why: The tags promise a PNG. How: This checks the served type.
-
-	expect( pngBufObj.length ).toBeLessThan( 300 * 1024 ); // What: PNG Bytes Assertion. Why: WhatsApp drops a preview image of 300 KB or more. How: This checks the file's byte count.
-
+	expect( imaResObj.headers()[ 'content-type' ] ).toBe( 'image/png' );                               // What: PNG Type Assertion. Why: The tags promise a PNG. How: This checks the served type.
+	expect( pngBufObj.length ).toBeLessThan( 300 * 1024 );                                             // What: PNG Bytes Assertion. Why: WhatsApp drops a preview image of 300 KB or more. How: This checks the file's byte count.
 	expect( [ pngBufObj.readUInt32BE( 16 ), pngBufObj.readUInt32BE( 20 ) ] ).toEqual( [ 1200, 630 ] ); // What: PNG Size Assertion. Why: The tags promise 1,200 by 630 pixels. How: This reads the width and height the header stores after the file's signature and chunk heading.
 
 
@@ -408,12 +378,9 @@ test( 'robots.txt lets crawlers in and names the sitemap', async ( { request : r
 	const robTexStr = await robResObj.text();               // What: Robots Text String. Why: The rules are checked as written. How: This reads the response body.
 
 
-	expect( robResObj.ok() ).toBe( true ); // What: Robots Served Assertion. Why: A missing robots.txt would fall through to the app. How: This checks the file is served.
-
-	expect( robTexStr ).toMatch( /User-agent: \*\nAllow: \// ); // What: Allow All Assertion. Why: Every crawler should be let in. How: This checks the wildcard group allows the whole site.
-
-	expect( robTexStr ).not.toMatch( /Disallow: \// ); // What: No Block Assertion. Why: Nothing should be blocked from crawling. How: This checks no group disallows the site.
-
+	expect( robResObj.ok() ).toBe( true );                                   // What: Robots Served Assertion. Why: A missing robots.txt would fall through to the app. How: This checks the file is served.
+	expect( robTexStr ).toMatch( /User-agent: \*\nAllow: \// );              // What: Allow All Assertion. Why: Every crawler should be let in. How: This checks the wildcard group allows the whole site.
+	expect( robTexStr ).not.toMatch( /Disallow: \// );                       // What: No Block Assertion. Why: Nothing should be blocked from crawling. How: This checks no group disallows the site.
 	expect( robTexStr ).toContain( `Sitemap: ${ LIV_URL_STR }sitemap.xml` ); // What: Sitemap Line Assertion. Why: Crawlers find the sitemap from here. How: This checks it names the sitemap's absolute address.
 
 
@@ -428,8 +395,7 @@ test( 'the sitemap lists the home page alone', async ( { request : reqCotObj } )
 	const sitTexStr = await sitResObj.text();                // What: Sitemap Text String. Why: Its entries are checked as written. How: This reads the response body.
 
 
-	expect( sitResObj.ok() ).toBe( true ); // What: Sitemap Served Assertion. Why: A missing sitemap would fall through to the app. How: This checks the file is served.
-
+	expect( sitResObj.ok() ).toBe( true );                                                            // What: Sitemap Served Assertion. Why: A missing sitemap would fall through to the app. How: This checks the file is served.
 	expect( sitTexStr.match( /<loc>([^<]*)<\/loc>/g ) ).toEqual( [ `<loc>${ LIV_URL_STR }</loc>` ] ); // What: Home Entry Assertion. Why: The home page is the only indexable page. How: This checks the sitemap's entries are exactly its canonical address.
 
 
