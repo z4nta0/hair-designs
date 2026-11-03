@@ -245,9 +245,12 @@ replacing the old `netlify.toml`.
   so every link shares one click handler; the phone menu closes only when a
   click was handled. Checked in all three engines: every link lands just
   below the bar (63px down since the type scale, after a WebKit fix in
-  step 8), with a clean address (a modified click opens a new tab
-  in Chromium and Firefox; headless WebKit doesn't open tabs on modified
-  clicks, so that case is unchecked there).
+  step 8), with a clean address, and a Ctrl, Cmd, or middle click opens a new
+  tab that lands on its section in all three engines, checked since
+  2026-11-02 by `tests/interaction/section-link.spec.ts`. The home page waits
+  for the fonts before an arrival jump (fixed 2026-11-02, when the new spec
+  caught Chromium landing a new tab's section about 2px high), and the phone
+  menu closes on any link chosen in it, a new tab or middle click included.
 - **A page's main file is named after its folder** (`pages/home/home.tsx`),
   the same as seal-and-shield.
 - **The bar and footer live in `ui/`** as `nav.tsx` and `footer.tsx`, since
@@ -472,6 +475,11 @@ be scrolled into view.
   link, and the scrim under a tap) and every way out: the scrim, Escape
   (focus back on the toggle), a section link (landing about 63px down, below
   the bar, with a clean address), the brand, and widening the screen.
+  `section-link.spec.ts`, adapted from reese-roofing's behavior spec, checks
+  every bar link and section button lands its section below the bar with a
+  clean address and no hashchange, that a Ctrl, Cmd, or middle click opens it
+  in a new tab while the page clicked from stays put and the phone menu
+  closes, and that the 404 page's bar links reach their sections.
   `tooltip.spec.ts` checks the form tooltip fades out before it's removed,
   closes on Escape after keyboard focus, and still goes under reduced motion.
 - `npm test` runs every suite.
