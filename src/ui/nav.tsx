@@ -87,16 +87,16 @@ const NAV_LIN_ARR = [ // What: Navigation Link Array. Why: The bar and the phone
  * Renders the fixed top bar: the brand linking to the top of the page, the row
  * of section links on wide screens, and on narrow screens the menu button and
  * the panel it opens. The panel is inert while closed, so its links stay out
- * of the focus order, and each of its links, like the bar's brand, closes it
- * on the way to its section. Under the links, the menu offers a Call button
- * and a link to the salon's Facebook page, each row fading in just after the
- * one before, over a scrim that dims the page. While it's open the rest of the
- * page is inert; tapping the scrim closes it, Escape closes it and returns
- * focus to the toggle, and widening the screen past 900px closes it, since its
- * toggle is gone. Every link points at its section's address on the home page,
- * which a Ctrl, Cmd, Shift, Alt, or middle click opens, while a plain click
- * goes through secCliFun, scrolling in place without leaving a hash in the
- * address.
+ * of the focus order, and choosing any of its links, or the bar's brand,
+ * closes it, a middle click or a new tab click included. Under the links, the
+ * menu offers a Call button and a link to the salon's Facebook page, each row
+ * fading in just after the one before, over a scrim that dims the page. While
+ * it's open the rest of the page is inert; tapping the scrim closes it, Escape
+ * closes it and returns focus to the toggle, and widening the screen past
+ * 900px closes it, since its toggle is gone. Every link points at its
+ * section's address on the home page, which a Ctrl, Cmd, Shift, Alt, or middle
+ * click opens, while a plain click goes through secCliFun, scrolling in place
+ * without leaving a hash in the address.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -124,6 +124,21 @@ function NavBarCom () : React.JSX.Element {
 	const togButRef = useRef< HTMLButtonElement >( null ); // What: Toggle Button Reference. Why: Escape puts focus back on the toggle, and a hidden toggle means the menu no longer applies. How: This attaches to the toggle.
 
 	const [ menOpeBoo, setMenOpeBoo ] = useState( false ); // What: Menu Open Boolean And Setter. Why: The phone menu opens and closes from its button. How: This holds whether it's open, starting closed.
+
+
+	const auxCloFun = ( auxEveObj : React.MouseEvent ) => { if ( auxEveObj.button === 1 ) setMenOpeBoo( false ); }; // What: Auxiliary Close Function. Why: A middle click opens a link in a new tab through the auxclick event, which never reaches onClick, and the menu should still close once a link in it is chosen. How: This closes the menu when the middle button sent the event.
+
+
+
+	const menLinFun = ( cliEveObj : React.MouseEvent< HTMLAnchorElement >, secIdeStr : string ) => { // What: Menu Link Function. Why: Choosing a section link from the menu, or the brand above it, should close the menu whether the link opens in place or in a new tab. How: This hands the click to secCliFun, then closes the menu.
+
+
+		secCliFun( cliEveObj, secIdeStr ); // What: Section Click Call. Why: The link should reach its section the way every section link does. How: This scrolls to it without a hash, or leaves a modified click to the browser.
+
+		setMenOpeBoo( false ); // What: Menu Close Call. Why: Once a link is chosen the menu has done its job. How: This sets the menu state to closed.
+
+
+	};
 
 
 
@@ -215,7 +230,8 @@ function NavBarCom () : React.JSX.Element {
 
 					href='/#home'
 
-					onClick={ ( cliEveObj ) => { if ( secCliFun( cliEveObj, 'home' ) ) setMenOpeBoo( false ); } } // What: Brand Click Handler. Why: The brand stays tappable above the open phone menu, and the page it scrolls to shouldn't be left inert behind a menu still open. How: This closes the menu whenever secCliFun handled the click, leaving a modified click's new tab alone.
+					onAuxClick={ auxCloFun }
+					onClick={ ( cliEveObj ) => menLinFun( cliEveObj, 'home' ) } // What: Brand Click Handler. Why: The brand stays tappable above the open phone menu, and the page shouldn't be left inert behind a menu still open. How: This reaches the home section through menLinFun, which closes the menu, a new tab click included.
 				>{ /* What: Navigation Brand Anchor Element. Why: The brand doubles as a way back to the top. How: This scrolls to the home section, leaving no hash in the address, and closes the phone menu if it's open. */ }
 
 
@@ -314,7 +330,8 @@ function NavBarCom () : React.JSX.Element {
 
 							href={ `/#${ linRcdObj.ideStr }` }
 
-							onClick={ ( cliEveObj ) => { if ( secCliFun( cliEveObj, linRcdObj.ideStr ) ) setMenOpeBoo( false ); } } // What: Menu Link Click Handler. Why: A chosen link should close the menu on the way to its section, but a link opened in a new tab leaves the menu as it was. How: This closes the menu only when secCliFun handled the click.
+							onAuxClick={ auxCloFun }
+							onClick={ ( cliEveObj ) => menLinFun( cliEveObj, linRcdObj.ideStr ) } // What: Menu Link Click Handler. Why: A chosen link should close the menu, whether it opens in place or in a new tab. How: This reaches the section through menLinFun, which closes the menu.
 						>{ linRcdObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This scrolls to the section without a hash and closes the menu behind it.
 
 
@@ -330,6 +347,9 @@ function NavBarCom () : React.JSX.Element {
 							style={ { '--men-ite-ind' : NAV_LIN_ARR.length } as React.CSSProperties } // What: Menu Item Index Style. Why: The Call button fades in after the links. How: This continues the rows' count. // What: Type Assertion Note. Why: React's style type doesn't list custom properties. How: The browser accepts any custom property in a style attribute.
 
 							href='tel:+1-417-988-6239'
+
+							onAuxClick={ auxCloFun }
+							onClick={ () => setMenOpeBoo( false ) } // What: Call Click Handler. Why: Once the Call button is chosen the menu has done its job. How: This closes the menu as the call starts.
 						>Call 417-988-6239</a>{ /* What: Menu Call Anchor Element. Why: The salon works by appointment, so a call is the way to book. How: This dials the salon from the menu. */ }
 
 						<a
@@ -339,6 +359,9 @@ function NavBarCom () : React.JSX.Element {
 							href={ FAC_URL_STR }
 							rel='noopener noreferrer'
 							target='_blank'
+
+							onAuxClick={ auxCloFun }
+							onClick={ () => setMenOpeBoo( false ) } // What: Facebook Click Handler. Why: Once the Facebook link is chosen the menu has done its job. How: This closes the menu as the page opens in its new tab.
 						>{ /* What: Menu Facebook Anchor Element. Why: The salon's Facebook page is another way to keep up with it. How: This opens the page in a new tab. */ }
 
 
