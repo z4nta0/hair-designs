@@ -132,6 +132,12 @@ Built 2026-10-12 (`90d30fb`).
 - Known quirk: Tab past the tooltip's link, the page's last stop, sends
   Firefox's focus to its own toolbar without a blur the page can see, so the
   tooltip stays up until focus or the pointer returns.
+- **The tooltip on the narrowest phones** (decided 2026-11-03, the audit's
+  question 11): the tooltip is a fixed 243px wide, so below about 330px it
+  overhangs the form. At 320px the form's wrapper spans 64px to 256px and
+  the tooltip 64px to 307px, 51px past the form but 13px inside the screen,
+  with its text and link still usable. It's left that way, since a tooltip
+  overhanging its card reads normally.
 - **Copy** (decided with the user 2026-10-12, step 7): the stylists' quote
   invites a call or a visit instead of a message ("We're your neighbors, so
   give us a call or stop by. We'd love to hear from you."), the form card
