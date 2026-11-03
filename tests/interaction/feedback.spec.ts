@@ -14,7 +14,7 @@ import { snaEleFun   } from '../support/feedback.ts'; // What: Snapshot Element 
 import { snaProFun   } from '../support/feedback.ts'; // What: Snap Problems Function. Why: A change has to ease rather than snap. How: This turns two snapshots into a problem for each snapped change.
 import { STA_REC_ARR } from '../support/states.ts';   // What: State Record Array. Why: Each page state but the open tooltip's is checked. How: This lists them.
 import { test        } from '@playwright/test';       // What: Test. Why: Each check of each state is its own test. How: This declares them.
-import { tipOpeFun   } from '../support/states.ts';   // What: Tooltip Open Function. Why: The open tooltip's states are left out of these checks. How: The state loop skips rows whose action is this opener.
+import { tipOpeFun   } from '../support/states.ts';   // What: Tip Open Function. Why: The open tooltip's states are left out of these checks. How: The state loop skips rows whose action is this opener.
 import { valSigFun   } from '../support/feedback.ts'; // What: Value Signature Function. Why: Two looks are told apart by their values alone. How: This joins a snapshot's values into one string.
 
 

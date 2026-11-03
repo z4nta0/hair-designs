@@ -172,7 +172,7 @@ async function opeStaFun ( curPagObj : Page, staRecObj : StaRecTyp ) : Promise< 
 // #region tipOpeFun
 
 /**
- * tipOpeFun = Tooltip Open Function
+ * tipOpeFun = Tip Open Function
  *
  * @summary
  * Opens the turned-off contact form's tooltip the way a keyboard does, by

@@ -6,7 +6,7 @@
 import { expect    } from '@playwright/test';     // What: Expect. Why: Each width passes only when its layout holds together. How: This asserts each problem list is empty.
 import { opeStaFun } from '../support/states.ts'; // What: Open State Function. Why: Each width is measured settled. How: This loads the page and waits for it.
 import { test      } from '@playwright/test';     // What: Test. Why: Each page at each width is its own test. How: This declares them.
-import { tipOpeFun } from '../support/states.ts'; // What: Tooltip Open Function. Why: The tooltip case opens the form's tooltip. How: This focuses the form's wrapper and waits for the tooltip.
+import { tipOpeFun } from '../support/states.ts'; // What: Tip Open Function. Why: The tooltip case opens the form's tooltip. How: This focuses the form's wrapper and waits for the tooltip.
 
 // #endregion Imports
 
