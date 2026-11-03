@@ -296,19 +296,25 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 
 
 
-test( "the 404 page's bar links reach their sections on the home page", async ( { page : curPagObj } ) => { // What: Not Found Section Link Test. Why: A section link away from the home page has to navigate there and land on its section. How: This opens an unknown address, clicks the bar's About link, and checks the home page's About section lands below the bar with a clean address.
+for ( const [ linLabStr, secIdeStr ] of NAV_LIN_ARR ) { // What: Not Found Bar Link Loop. Why: Each of the bar's links on the 404 page leads to its own section on the home page. How: This declares one test per row of NAV_LIN_ARR.
 
 
-	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
-
-	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's About link.
-
-	await expect( curPagObj.locator( '#about' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the About section is on the page.
-	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'about' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's About section should land just below the bar. How: This waits until it sits where the jump should leave it.
-	await expect( curPagObj ).toHaveURL( /\/$/ );                                                         // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
+	test( `the 404 page's ${ linLabStr } link reaches its section on the home page`, async ( { page : curPagObj } ) => { // What: Not Found Section Link Test. Why: A section link away from the home page has to navigate there and land on its section. How: This opens an unknown address, clicks the bar's link, and checks the home page's section lands below the bar with a clean address.
 
 
-} );
+		await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
+
+		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : linLabStr } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's link by its label, the first match being the bar's own row rather than the menu's copy.
+
+		await expect( curPagObj.locator( `#${ secIdeStr }` ) ).toBeVisible();                                   // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the row's section is on the page.
+		await expect.poll( async () => Math.abs( await secGapFun( curPagObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's section should land just below the bar. How: This waits until it sits where the jump should leave it.
+		await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
+
+
+	} );
+
+
+}
 
 
 
