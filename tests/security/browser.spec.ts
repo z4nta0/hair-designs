@@ -214,7 +214,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Loop. Why: Every state t
 
 
 
-test( 'the open contact tooltip reports no security policy violation', async ( { browserName : broNamStr, page : curPagObj } ) => { // What: Tooltip Policy Test. Why: The shared states open the tooltip by keyboard focus, while a hover places it at the pointer through its own inline style values, which have to pass the policy too. How: This opens the home page under the policy, hovers the form until the tooltip has faded in, and checks nothing was refused.
+test( 'the open contact tooltip reports no security policy violation', async ( { browserName : broNamStr, page : curPagObj } ) => { // What: Tooltip Policy Test. Why: The shared states open the tooltip by keyboard focus at the form's top edge, while a hover places it at the pointer, and its inline position there has to pass the policy too. How: This opens the home page under the policy, hovers the form until the tooltip has faded in, and checks nothing was refused.
 
 
 	const homDesObj = STA_REC_ARR.find( ( staRecObj ) => staRecObj.ideStr === 'home-desktop' )!; // What: Home Desktop Object. Why: A mouse hovering the form is a desktop visit. How: This picks the home page's desktop state from the shared list. // What: Non-Null Note. Why: The shared list always holds a home-desktop row. How: The ! states that the find can't come back empty.
