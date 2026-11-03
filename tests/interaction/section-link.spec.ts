@@ -314,7 +314,7 @@ test( "the 404 page's Back Home button reaches the home page's top", async ( { p
 
 
 
-for ( const [ rouPatStr, vieSizObj ] of [ [ '/', DES_VIE_OBJ ], [ '/', PHO_VIE_OBJ ], [ '/no-such-page', DES_VIE_OBJ ], [ '/no-such-page', PHO_VIE_OBJ ] ] as const ) { // What: Skip Link Loop. Why: Every page, at both widths, has to open with the skip link. How: This declares one test per page and viewport pair.
+for ( const [ rouPatStr, vieSizObj ] of [ [ '/', DES_VIE_OBJ ], [ '/', PHO_VIE_OBJ ], [ '/no-such-page', DES_VIE_OBJ ], [ '/no-such-page', PHO_VIE_OBJ ] ] as const ) { // What: Skip Link Loop. Why: Every page, at both widths, has to open with the skip link. How: This declares one test per page and viewport pair. // What: Type Assertion Note. Why: Without it each pair widens to a mixed array, so the path and the viewport lose their own types. How: as const keeps each pair a tuple, its first slot a path string and its second a viewport size.
 
 
 	test( `the skip link is the first stop on ${ rouPatStr } at ${ vieSizObj.width }px and jumps to the main content`, async ( { page : curPagObj } ) => { // What: Skip Link Test. Why: A keyboard user should reach the page's content without Tabbing through the bar. How: This presses Tab once, checks the skip link took focus on screen, clicks it, and checks focus moved to the main element with the address unchanged.
