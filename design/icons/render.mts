@@ -152,10 +152,6 @@ const icoSvgObj = { // What: Icon SVG Object. Why: Each kind of icon reads its o
 };
 
 
-writeFileSync( OUT_DIR_STR + FAV_SVG_STR, icoSvgObj.small ); // What: Favicon SVG Write Call. Why: The head's first icon link points at it, and tabs are mostly what draw it. How: This writes the thick-ringed SVG into public/.
-
-
-
 // #region renPngFun
 
 /**
@@ -223,6 +219,10 @@ async function renPngFun ( icoSvgStr : string, icoSizNum : number ) : Promise< B
 
 
 for ( const icoRecObj of ICO_REC_ARR ) writeFileSync( OUT_DIR_STR + icoRecObj.filStr, await renPngFun( icoSvgObj[ icoRecObj.kinStr ], icoRecObj.sizNum ) ); // What: PNG Icon Loop. Why: Each PNG icon is saved under its own name. How: This renders every row from its kind's SVG and writes it into public/.
+
+
+
+writeFileSync( OUT_DIR_STR + FAV_SVG_STR, icoSvgObj.small ); // What: Favicon SVG Write Call. Why: The head's first icon link points at it, and tabs are mostly what draw it. How: This writes the thick-ringed SVG into public/.
 
 
 
