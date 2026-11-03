@@ -206,12 +206,12 @@ test( 'Escape closes the menu and returns focus to the toggle', async ( { page :
 
 
 
-test( 'choosing a section closes the menu on the way there', async ( { page : curPagObj } ) => { // What: Link Close Test. Why: A chosen section should come into view with the menu out of the way. How: This taps the menu's Contact link and checks the menu closes, the section lands just below the bar, and the address stays clean.
+test( 'choosing a section closes the menu on the way there', async ( { page : curPagObj } ) => { // What: Link Close Test. Why: A chosen section should come into view with the menu out of the way. How: This taps the menu's "Contact" link and checks the menu closes, the section lands just below the bar, and the address stays clean.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
 
-	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).last().click(); // What: Contact Tap Call. Why: A section link is the menu's main use. How: This taps the menu's Contact link.
+	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).last().click(); // What: Contact Tap Call. Why: A section link is the menu's main use. How: This taps the menu's "Contact" link.
 
 	await cloCheFun( curPagObj ); // What: Closed Check Call. Why: The tap should close the menu and give the page back. How: This checks both.
 

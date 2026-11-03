@@ -62,7 +62,7 @@ const NEW_TAB_ARR : Array< [ string, string, string, string ] > = [ // What: New
 	...BUT_LIN_ARR.map( ( [ butLabStr, secIdeStr ] ) : [ string, string, string, string ] => [ 'page', '/', butLabStr, secIdeStr ] ), // What: Button Link Rows. Why: The hero's and About section's buttons open their sections too. How: This makes a home page content row for each.
 
 	[ 'bar',  '/',             'Hair Designs', 'home'  ], // What: Brand Row. Why: The bar's brand is a section link to the page's top. How: This clicks it on the home page.
-	[ 'bar',  '/no-such-page', 'About',        'about' ], // What: Not Found Bar Row. Why: From the 404 page, a bar link's new tab opens the home page's section. How: This clicks the bar's About link there.
+	[ 'bar',  '/no-such-page', 'About',        'about' ], // What: Not Found Bar Row. Why: From the 404 page, a bar link's new tab opens the home page's section. How: This clicks the bar's "About" link there.
 	[ 'page', '/no-such-page', 'Back Home',    'home'  ]  // What: Not Found Back Home Row. Why: The 404 page's main way onward opens the home page's top in a new tab too. How: This clicks "Back Home" there.
 
 
@@ -192,12 +192,12 @@ async function secGapFun ( curPagObj : Page, secIdeStr : string ) : Promise< num
 for ( const [ linLabStr, secIdeStr ] of NAV_LIN_ARR ) { // What: Bar Link Loop. Why: Each of the bar's links leads to its own section. How: This declares one test per row of NAV_LIN_ARR.
 
 
-	test( `the bar's ${ linLabStr } link scrolls to its section`, async ( { page : curPagObj } ) => { // What: Bar Link Test. Why: A section link has to take the visitor to its section without a hash. How: This scrolls partway down, clicks the link, and checks the section's position, the address, and that no hashchange fired.
+	test( `the bar's "${ linLabStr }" link scrolls to its section`, async ( { page : curPagObj } ) => { // What: Bar Link Test. Why: A section link has to take the visitor to its section without a hash. How: This scrolls partway down, clicks the link, and checks the section's position, the address, and that no hashchange fired.
 
 
 		await opeRouFun( curPagObj, '/', DES_VIE_OBJ ); // What: Home Open Call. Why: The bar's own links show above 900px wide. How: This opens the home page at desktop size.
 
-		await curPagObj.evaluate( () => window.scrollTo( 0, 1500 ) ); // What: Partway Scroll Call. Why: Starting partway down shows the Home link really moves the page. How: This scrolls 1,500px down.
+		await curPagObj.evaluate( () => window.scrollTo( 0, 1500 ) ); // What: Partway Scroll Call. Why: Starting partway down shows the "Home" link really moves the page. How: This scrolls 1,500px down.
 
 		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : linLabStr } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's link by its label, the first match being the bar's own row rather than the menu's copy.
 
@@ -217,7 +217,7 @@ for ( const [ linLabStr, secIdeStr ] of NAV_LIN_ARR ) { // What: Bar Link Loop. 
 for ( const [ butLabStr, secIdeStr ] of BUT_LIN_ARR ) { // What: Button Link Loop. Why: Each section button leads to its own section. How: This declares one test per row of BUT_LIN_ARR.
 
 
-	test( `the ${ butLabStr } button scrolls to its section`, async ( { page : curPagObj } ) => { // What: Button Link Test. Why: A section button has to take the visitor to its section without a hash. How: This clicks the button and checks the section's position, the address, and that no hashchange fired.
+	test( `the "${ butLabStr }" button scrolls to its section`, async ( { page : curPagObj } ) => { // What: Button Link Test. Why: A section button has to take the visitor to its section without a hash. How: This clicks the button and checks the section's position, the address, and that no hashchange fired.
 
 
 		await opeRouFun( curPagObj, '/', DES_VIE_OBJ ); // What: Home Open Call. Why: The buttons sit on the home page. How: This opens it at desktop size.
@@ -300,7 +300,7 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 for ( const [ linLabStr, secIdeStr ] of NAV_LIN_ARR ) { // What: Not Found Bar Link Loop. Why: Each of the bar's links on the 404 page leads to its own section on the home page. How: This declares one test per row of NAV_LIN_ARR.
 
 
-	test( `the 404 page's ${ linLabStr } link reaches its section on the home page`, async ( { page : curPagObj } ) => { // What: Not Found Section Link Test. Why: A section link away from the home page has to navigate there and land on its section. How: This opens an unknown address, clicks the bar's link, and checks the home page's section lands below the bar with a clean address.
+	test( `the 404 page's "${ linLabStr }" link reaches its section on the home page`, async ( { page : curPagObj } ) => { // What: Not Found Section Link Test. Why: A section link away from the home page has to navigate there and land on its section. How: This opens an unknown address, clicks the bar's link, and checks the home page's section lands below the bar with a clean address.
 
 
 		await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
@@ -335,7 +335,7 @@ test( "the 404 page's \"Back Home\" button reaches the home page's top", async (
 
 
 
-test( 'with motion on, a bar link glides to its section and lands below the bar', async ( { page : curPagObj } ) => { // What: Smooth Bar Link Test. Why: Most visitors see the smooth scroll, which the reduced-motion tests never run. How: This turns motion on, records the page's scroll positions, clicks the bar's Contact link from the top, and checks the section lands below the bar with a clean address after passing through a position between the start and the end.
+test( 'with motion on, a bar link glides to its section and lands below the bar', async ( { page : curPagObj } ) => { // What: Smooth Bar Link Test. Why: Most visitors see the smooth scroll, which the reduced-motion tests never run. How: This turns motion on, records the page's scroll positions, clicks the bar's "Contact" link from the top, and checks the section lands below the bar with a clean address after passing through a position between the start and the end.
 
 
 	await opeRouFun( curPagObj, '/', DES_VIE_OBJ ); // What: Home Open Call. Why: The bar's own links show above 900px wide. How: This opens the home page at desktop size.
@@ -354,7 +354,7 @@ test( 'with motion on, a bar link glides to its section and lands below the bar'
 	} );
 
 
-	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test, from the page's top, so the glide covers most of the page. How: This clicks the bar's Contact link.
+	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test, from the page's top, so the glide covers most of the page. How: This clicks the bar's "Contact" link.
 
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'contact' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar once the glide ends. How: This waits until its top sits less than a pixel from where the scroll should leave it.
 	await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
@@ -371,14 +371,14 @@ test( 'with motion on, a bar link glides to its section and lands below the bar'
 
 
 
-test( "with motion on, the 404 page's bar link reaches its section on the home page", async ( { page : curPagObj } ) => { // What: Smooth Not Found Link Test. Why: A section link away from the home page has to land its section with motion on too, where the arrival jumps rather than glides. How: This turns motion on, clicks the bar's About link on an unknown address, and checks the home page's About section lands below the bar with a clean address.
+test( "with motion on, the 404 page's bar link reaches its section on the home page", async ( { page : curPagObj } ) => { // What: Smooth Not Found Link Test. Why: A section link away from the home page has to land its section with motion on too, where the arrival jumps rather than glides. How: This turns motion on, clicks the bar's "About" link on an unknown address, and checks the home page's About section lands below the bar with a clean address.
 
 
 	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
 
 	await curPagObj.emulateMedia( { reducedMotion : 'no-preference' } ); // What: Motion On Emulation. Why: The helper turns reduced motion on, and this check is about the page with motion on. How: This drops the preference, which the page applies at once.
 
-	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's About link.
+	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test. How: This clicks the bar's "About" link.
 
 	await expect( curPagObj.locator( '#about' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the About section is on the page.
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'about' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's About section should land just below the bar. How: This waits until it sits where the arrival should leave it.
