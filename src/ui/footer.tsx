@@ -68,7 +68,7 @@ function SitFooCom () : React.JSX.Element {
 
 				<span className={ cssModObj.copAccSpa }> Hair Designs </span>{ /* What: Copyright Accent Span Element. Why: The salon's name stands out in the line. How: This colors it light rose. */ }
 
-				· Juli Wilkerson &amp; Keeli Bryan · Carson's Corner, Mo. ·
+				· Juli Wilkerson & Keeli Bryan · Carson's Corner, Mo. ·
 
 				<span className={ cssModObj.copAccSpa }> 417-988-6239 </span>{ /* What: Copyright Accent Span Element. Why: The phone number stands out in the line. How: This colors it light rose. */ }
 

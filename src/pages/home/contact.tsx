@@ -451,7 +451,7 @@ function ConSecCom () : React.JSX.Element {
 
 						<p className={ cssModObj.quoBodPar }>"We're your neighbors, so give us a call or stop by. We'd love to hear from you."</p>{ /* What: Quote Body Paragraph Element. Why: The stylists speak to visitors directly. How: This shows their words. */ }
 
-						<p className={ cssModObj.quoSigPar }>— Juli &amp; Keeli</p>{ /* What: Quote Signature Paragraph Element. Why: The quote is signed by the stylists. How: This shows their names in script after an em dash, the copy rules' exception for a quote's attribution. */ }
+						<p className={ cssModObj.quoSigPar }>— Juli & Keeli</p>{ /* What: Quote Signature Paragraph Element. Why: The quote is signed by the stylists. How: This shows their names in script after an em dash, the copy rules' exception for a quote's attribution. */ }
 
 
 					</div>

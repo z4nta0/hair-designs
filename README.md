@@ -80,7 +80,7 @@ tests/
 ├── responsive/    layout checks across screen widths
 ├── security/      security headers, the policy in practice, the build, and dependencies
 ├── seo/           search and social preview checks
-├── support/       the page states the suites visit and the headers file reader
+├── support/       the page states the suites visit, the headers file reader, and the feedback probe's shared helpers
 └── playwright.config.ts
 ```
 

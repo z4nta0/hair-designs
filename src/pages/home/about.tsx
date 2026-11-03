@@ -90,7 +90,7 @@ function AboSecCom () : React.JSX.Element {
 							alt='Hair Designs logo of a BOHO arrow and flower arrangement'
 						/>{ /* What: About Logo Image Element. Why: The card opens with the logo. How: This shows it above the names. */ }
 
-						<div className={ cssModObj.styNamDiv }>Juli Wilkerson<br /> &amp; Keeli Bryan</div>{ /* What: Stylist Names Div Element. Why: The two stylists sign the card. How: This breaks their names over two lines, the space before the ampersand kept as written. */ }
+						<div className={ cssModObj.styNamDiv }>Juli Wilkerson<br /> & Keeli Bryan</div>{ /* What: Stylist Names Div Element. Why: The two stylists sign the card. How: This breaks their names over two lines, the space before the ampersand kept as written. */ }
 
 						<p className={ cssModObj.aboCapPar }>Licensed Cosmetologists</p>{ /* What: About Caption Paragraph Element. Why: The stylists' title follows their names. How: This shows it in italic. */ }
 

@@ -237,7 +237,7 @@ src/
   ui/                    components every page renders (nav, footer) and
                          section-link.ts
   styles/                global CSS only (fonts.css, styles.css)
-  utils/                 app-agnostic helpers (motion.ts)
+  utils/                 app-agnostic helpers (motion.ts, rhythm.ts)
 ```
 Outside `src/`: `tests/` holds the Playwright suites (see "## Test
 suites"), and `public/_redirects` holds Netlify's single-page app fallback,

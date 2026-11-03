@@ -120,7 +120,7 @@ function HerSecCom () : React.JSX.Element {
 
 							<span className={ cssModObj.styNamSpa }>Juli Wilkerson</span>{ /* What: Stylist Name Span Element. Why: The first stylist is named. How: This shows her name on its own line. */ }
 
-							<span className={ cssModObj.styNamSpa }>&amp;</span>{ /* What: Stylist Name Span Element. Why: The names are joined like a signature. How: This shows the ampersand on its own line. */ }
+							<span className={ cssModObj.styNamSpa }>&</span>{ /* What: Stylist Name Span Element. Why: The names are joined like a signature. How: This shows the ampersand on its own line. */ }
 
 							<span className={ cssModObj.styNamSpa }>Keeli Bryan</span>{ /* What: Stylist Name Span Element. Why: The second stylist is named. How: This shows her name on its own line. */ }
 

@@ -22,10 +22,12 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers th
  * The accessibility checks axe-core can't make, run on every page state in
  * whichever engine the project runs. Names: every link and button in the
  * accessibility tree has a name, and no name carries a decorative glyph such
- * as an arrow. Keyboard: a Tab walk from the top of the page reaches its end
- * without getting trapped, never moves backwards through the document, and
- * lands only on stops that are on screen, not covered by anything else, and
- * visibly changed by focus. Reflow: at 320px wide, WCAG's narrowest reflow
+ * as an arrow, and the tree holds at least one link. Keyboard: a Tab walk
+ * from the top of the page reaches at least one stop, the skip link first
+ * where focus starts at the top, then reaches its end without getting
+ * trapped, never moves backwards through the document, and lands only on
+ * stops that are on screen, not covered by anything else, and visibly changed
+ * by focus. Reflow: at 320px wide, WCAG's narrowest reflow
  * width, nothing scrolls sideways. Motion: with reduced motion requested, the
  * page holds no animation or transition once the state has opened. The names,
  * keyboard, and motion checks list every problem they find, by element or
@@ -45,9 +47,10 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers th
 
 // #region Constants
 
-const GLY_DEC_REG = /[←↑→↓·•]/; // What: Glyph Decorative Regular Expression. Why: A decorative glyph inside a name is read aloud as noise, such as right arrow. How: This matches the arrows and dots a decorative glyph would add to a name.
-const REF_WID_NUM = 320;        // What: Reflow Width Number. Why: WCAG's reflow criterion asks for no sideways scrolling at 320 CSS pixels, the width of 1,280px at 400% zoom. How: This is the viewport width the reflow check opens each state at.
-const TAB_MAX_NUM = 80;         // What: Tab Maximum Number. Why: A keyboard trap would otherwise keep the walk going forever. How: This caps the walk at far more Tab presses than the site has stops.
+const GLY_DEC_REG = /[←↑→↓·•]/;                 // What: Glyph Decorative Regular Expression. Why: A decorative glyph inside a name is read aloud as noise, such as right arrow. How: This matches the arrows and dots a decorative glyph would add to a name.
+const REF_WID_NUM = 320;                        // What: Reflow Width Number. Why: WCAG's reflow criterion asks for no sideways scrolling at 320 CSS pixels, the width of 1,280px at 400% zoom. How: This is the viewport width the reflow check opens each state at.
+const SKI_LIN_STR = 'a "Skip to main content"'; // What: Skip Link String. Why: A page's first Tab stop should be its skip link, so a keyboard user can pass the bar at once. How: This is the skip link described the way stoInfFun describes a stop, its tag and then its text.
+const TAB_MAX_NUM = 80;                         // What: Tab Maximum Number. Why: A keyboard trap would otherwise keep the walk going forever. How: This caps the walk at far more Tab presses than the site has stops.
 
 // #endregion Constants
 
@@ -63,9 +66,11 @@ const TAB_MAX_NUM = 80;         // What: Tab Maximum Number. Why: A keyboard tra
  * @summary
  * Reads the page's accessibility tree, the same tree a screen reader reads,
  * and returns a problem for every link or button with no name, and for every
- * one whose name contains a decorative glyph that should have been hidden.
- * Elements hidden from assistive technology don't appear in the tree, so the
- * decorative elements hidden from it are never counted.
+ * one whose name contains a decorative glyph that should have been hidden,
+ * plus one when the tree holds no link at all, so a page that failed to render
+ * can't pass with nothing to check. Elements hidden from assistive technology
+ * don't appear in the tree, so the decorative elements hidden from it are
+ * never counted.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -84,8 +89,9 @@ const TAB_MAX_NUM = 80;         // What: Tab Maximum Number. Why: A keyboard tra
 async function namProFun ( curPagObj : Page ) : Promise< string[] > {
 
 
-	const ariSnaStr = await curPagObj.locator( 'body' ).ariaSnapshot();    // What: ARIA Snapshot String. Why: The accessibility tree shows each control's role and announced name. How: This reads the body's tree as text, one node per line.
-	const conLinArr = ariSnaStr.match( /- (link|button)\b[^\n]*/g ) || []; // What: Control Line Array. Why: Only links and buttons are checked here. How: This keeps every tree line for one of those roles.
+	const ariSnaStr = await curPagObj.locator( 'body' ).ariaSnapshot();                             // What: ARIA Snapshot String. Why: The accessibility tree shows each control's role and announced name. How: This reads the body's tree as text, one node per line.
+	const conLinArr = ariSnaStr.match( /- (link|button)\b[^\n]*/g ) || [];                          // What: Control Line Array. Why: Only links and buttons are checked here. How: This keeps every tree line for one of those roles.
+	const linCouNum = conLinArr.filter( ( conLinStr ) => conLinStr.startsWith( '- link' ) ).length; // What: Link Count Number. Why: Every state has links, so a tree with none means the page never rendered them. How: This counts the tree lines whose role is link.
 
 	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
@@ -102,6 +108,10 @@ async function namProFun ( curPagObj : Page ) : Promise< string[] > {
 
 
 	}
+
+
+
+	if ( !linCouNum ) proLisArr.push( 'the accessibility tree holds no link' ); // What: Link Floor Check. Why: A tree with no links would pass the name checks with nothing checked. How: This records a problem when the count is zero.
 
 
 
@@ -316,36 +326,39 @@ function stoInfFun () : StoInfTyp | null {
  * keyProFun = Keyboard Problems Function
  *
  * @summary
- * Walks the page with the Tab key from the top and returns every problem:
- * any element with a positive tabindex, which overrides the document order,
- * and every stop that comes earlier in the document than the stop before
- * it, sits off screen, is covered by something else, or looks the same
- * focused and unfocused. The walk ends when focus leaves the page, comes
- * back to the first stop, or stays on the same stop after a press, which is
- * how Firefox leaves its last stop; one that hasn't ended within TAB_MAX_NUM
- * presses counts as a keyboard trap. WebKit only tabs to links with Alt
- * held, the way Safari does by default, so the walk presses Alt+Tab there.
- * The caller requests reduced motion first, so the page jumps to each stop
- * instead of gliding and focus styles appear at once, and each press waits
- * for scrolling to settle, so every stop is measured where and how it ends
- * up.
+ * Walks the page with the Tab key from the top and returns every problem: any
+ * element with a positive tabindex, which overrides the document order, a walk
+ * that reaches no stop at all, a first stop other than the skip link when the
+ * caller asks for that check, and every stop that comes earlier in the
+ * document than the stop before it, sits off screen, is covered by something
+ * else, or looks the same focused and unfocused. The walk ends when focus
+ * leaves the page, comes back to the first stop, or stays on the same stop
+ * after a press, which is how Firefox leaves its last stop; one that hasn't
+ * ended within TAB_MAX_NUM presses counts as a keyboard trap. WebKit only tabs
+ * to links with Alt held, the way Safari does by default, so the walk presses
+ * Alt+Tab there. The caller requests reduced motion first, so the page jumps
+ * to each stop instead of gliding and focus styles appear at once, and each
+ * press waits for scrolling to settle, so every stop is measured where and how
+ * it ends up.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
  * @param curPagObj - Current Page Object: The page to walk.
  * @param engNamStr - Engine Name String: The browser the project runs in.
+ * @param skiLinBoo - Skip Link Boolean: Whether the first stop must be the
+ *                    skip link, false where focus doesn't start at the top.
  *
  * @returns Every keyboard problem found.
  * @see {@link proLisArr}
  *
  * @example
  * ```ts
- * keyProFun(page, 'webkit') // => [ 'input "conEmaInp" has no visible ...' ]
+ * keyProFun(page, 'webkit', true) // => [ 'the Tab walk reached no stop' ]
  * ```
  *
 */
 
-async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< string[] > {
+async function keyProFun ( curPagObj : Page, engNamStr : string, skiLinBoo : boolean ) : Promise< string[] > {
 
 
 	const posTabNum = await curPagObj.locator( '[tabindex]' ).evaluateAll( ( tabEleArr ) => tabEleArr.filter( ( tabCurEle ) => Number( tabCurEle.getAttribute( 'tabindex' ) ) > 0 ).length ); // What: Positive Tabindex Number. Why: A positive tabindex pulls an element ahead of the document order. How: This counts every element carrying one.
@@ -355,6 +368,7 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 
 	let firStoStr = ''; // What: First Stop String. Why: Focus coming back to the first stop means the walk went all the way around. How: This holds the first stop's description.
 	let preOrdNum = -1; // What: Previous Order Number. Why: Each stop must come later in the document than the last. How: This holds the previous stop's position among every element.
+	let stoCouNum = 0;  // What: Stop Count Number. Why: A walk that ends before reaching any stop has checked nothing. How: This counts the stops the walk has measured.
 
 
 	for ( let tabCouNum = 0; tabCouNum < TAB_MAX_NUM; tabCouNum++ ) { // What: Tab Walk Loop. Why: Every stop is checked in the order a keyboard user meets it. How: This presses Tab once per pass, up to the cap.
@@ -369,11 +383,19 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 		const walEndBoo = !stoInfObj || stoInfObj.desStr === firStoStr || stoInfObj.ordNum === preOrdNum; // What: Walk Ended Boolean. Why: Focus leaving the page, coming back around, or staying put means every stop was visited. How: This checks each in turn, the later two only once a stop exists, so the chain stays inline. // What: Firefox Walk End Note. Why: Firefox moves focus out to its own interface after the last stop but still reports that stop as focused. How: Focus staying on the same stop after a press is read as the walk leaving the page.
 
 
+		if ( walEndBoo && !stoCouNum ) proLisArr.push( 'the Tab walk reached no stop' ); // What: Empty Walk Check. Why: A walk that ends on its first press would otherwise pass with no stop checked. How: This records a problem when the walk ends before counting a stop.
+
+
+
 		if ( walEndBoo ) return proLisArr; // What: Walk End Guard. Why: A walk that reaches its end has collected every problem its checks found. How: This returns them, ending the walk.
 
 
 
 		if ( !firStoStr ) firStoStr = stoInfObj.desStr; // What: First Stop Record. Why: The walk ends if focus comes back to it. How: This remembers the first stop's description.
+
+
+
+		if ( !stoCouNum && skiLinBoo && stoInfObj.desStr !== SKI_LIN_STR ) proLisArr.push( 'the first stop is not the skip link' ); // What: Skip Link First Check. Why: A keyboard user's first stop should take them past the bar. How: This records a problem when the caller asks for the check and the first stop is anything else.
 
 
 
@@ -392,6 +414,8 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 
 
 		preOrdNum = stoInfObj.ordNum; // What: Previous Order Update. Why: The next stop is compared with this one. How: This stores this stop's position.
+
+		stoCouNum += 1; // What: Stop Count Update. Why: The walk has now measured one more stop. How: This adds one to the count.
 
 
 	}
@@ -439,7 +463,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every ch
 
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The walk should start from the state settled. How: This loads and settles it.
 
-		expect( await keyProFun( curPagObj, engNamStr ) ).toEqual( [] ); // What: No Keyboard Problems Assertion. Why: The state passes only when every stop is reachable, in order, on screen, uncovered, and visibly focused. How: This compares the problems with an empty list, so a failure prints each one.
+		expect( await keyProFun( curPagObj, engNamStr, !staRecObj.actFun ) ).toEqual( [] ); // What: No Keyboard Problems Assertion. Why: The state passes only when the walk reaches a stop and every stop is reachable, in order, on screen, uncovered, and visibly focused. How: This compares the problems with an empty list, so a failure prints each one. // What: Skip Link Argument Note. Why: A state's action leaves focus where it acted, and the open menu makes the skip link inert with the page behind it, so the menu state's walk starts at the menu's first link. How: The skip link check runs only on states with no action.
 
 
 	} );
