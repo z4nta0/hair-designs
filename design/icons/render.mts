@@ -109,49 +109,6 @@ const broInsObj = await chromium.launch();   // What: Browser Instance Object. W
 const draPagObj = await broInsObj.newPage(); // What: Draw Page Object. Why: The canvas work and the logo's measurement run inside a page. How: This opens a blank one.
 
 
-const logBoxObj = await draPagObj.evaluate( ( souInnStr ) => { // What: Logo Box Object. Why: The logo's drawn shapes don't fill its square or sit at its center, so the ring fits around the shapes themselves. How: This draws the logo in the page and returns the box around its shapes.
-
-
-	document.body.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><g>${ souInnStr }</g></svg>`; // What: Logo Draw Assignment. Why: A shape's box can only be measured once it's in the page. How: This draws the logo's shapes in a group.
-
-
-	const boxRecObj = document.querySelector( 'g' )!.getBBox(); // What: Box Rect Object. Why: The group's box is the space the logo's shapes take. How: This measures it. // What: Non-Null Note. Why: querySelector can return null. How: The line above just drew the group.
-
-
-
-	return { heiNum : boxRecObj.height, widNum : boxRecObj.width, xcoNum : boxRecObj.x, ycoNum : boxRecObj.y }; // What: Box Return. Why: A DOMRect can't leave the page, but its numbers can. How: This returns its position and size.
-
-
-}, logInnStr ); // What: Measuring Argument. Why: The page can't read this script's variables. How: This hands the logo's shapes into the page.
-
-
-
-const icoSvgFun = ( radValNum : number, rinWidNum : number ) : string => { // What: Icon SVG Function. Why: The favicons and the touch icon frame the logo the same way, with different corners and ring widths. How: This returns the logo inside a ringed navy circle on a navy square, as SVG text.
-
-
-	const logScaNum = ( RIN_OUT_NUM - rinWidNum - RIN_GAP_NUM ) / ( Math.hypot( logBoxObj.widNum, logBoxObj.heiNum ) / 2 ); // What: Logo Scale Number. Why: The logo's arrows reach its box's corners, which have to sit inside the ring. How: This divides the space inside the ring by half the box's diagonal.
-	const logXcoNum = 110 - ( logBoxObj.xcoNum + logBoxObj.widNum / 2 ) * logScaNum;                                        // What: Logo X-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center across.
-	const logYcoNum = 110 - ( logBoxObj.ycoNum + logBoxObj.heiNum / 2 ) * logScaNum;                                        // What: Logo Y-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center down.
-
-
-
-	return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><rect width='220' height='220' rx='${ radValNum }' fill='${ NAV_COL_STR }'/><circle cx='110' cy='110' r='${ RIN_OUT_NUM - rinWidNum / 2 }' fill='${ NAV_COL_STR }' stroke='${ ROS_COL_STR }' stroke-width='${ rinWidNum }'/><g transform='translate(${ logXcoNum.toFixed( 1 ) } ${ logYcoNum.toFixed( 1 ) }) scale(${ logScaNum.toFixed( 3 ) })'>${ logInnStr }</g></svg>\n`; // What: Icon SVG Return. Why: Each icon is drawn from SVG text. How: This returns the square, the ringed circle centered on it, and the fitted logo.
-
-
-};
-
-
-const icoSvgObj = { // What: Icon SVG Object. Why: Each kind of icon reads its own SVG. How: This builds the large and small favicons on a square rounded by a fifth of its side, and the touch icon on a full square, iOS rounding that one itself.
-
-
-	large : icoSvgFun( 44, RIN_LAR_NUM ), // What: Large SVG. Why: The 192 and 512px icons look best with a thin ring. How: This rounds the square and draws the thin ring.
-	small : icoSvgFun( 44, RIN_SMA_NUM ), // What: Small SVG. Why: Tab-sized icons need a ring a full pixel wide. How: This rounds the square and draws the thick ring.
-	touch : icoSvgFun( 0, RIN_LAR_NUM )   // What: Touch SVG. Why: iOS rounds the touch icon itself and fills transparent corners with black. How: This keeps the square full and draws the thin ring.
-
-
-};
-
-
 // #region renPngFun
 
 /**
@@ -216,6 +173,50 @@ async function renPngFun ( icoSvgStr : string, icoSizNum : number ) : Promise< B
 }
 
 // #endregion renPngFun
+
+
+
+const logBoxObj = await draPagObj.evaluate( ( souInnStr ) => { // What: Logo Box Object. Why: The logo's drawn shapes don't fill its square or sit at its center, so the ring fits around the shapes themselves. How: This draws the logo in the page and returns the box around its shapes.
+
+
+	document.body.innerHTML = `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><g>${ souInnStr }</g></svg>`; // What: Logo Draw Assignment. Why: A shape's box can only be measured once it's in the page. How: This draws the logo's shapes in a group.
+
+
+	const boxRecObj = document.querySelector( 'g' )!.getBBox(); // What: Box Rect Object. Why: The group's box is the space the logo's shapes take. How: This measures it. // What: Non-Null Note. Why: querySelector can return null. How: The line above just drew the group.
+
+
+
+	return { heiNum : boxRecObj.height, widNum : boxRecObj.width, xcoNum : boxRecObj.x, ycoNum : boxRecObj.y }; // What: Box Return. Why: A DOMRect can't leave the page, but its numbers can. How: This returns its position and size.
+
+
+}, logInnStr ); // What: Measuring Argument. Why: The page can't read this script's variables. How: This hands the logo's shapes into the page.
+
+
+
+const icoSvgFun = ( radValNum : number, rinWidNum : number ) : string => { // What: Icon SVG Function. Why: The favicons and the touch icon frame the logo the same way, with different corners and ring widths. How: This returns the logo inside a ringed navy circle on a navy square, as SVG text.
+
+
+	const logScaNum = ( RIN_OUT_NUM - rinWidNum - RIN_GAP_NUM ) / ( Math.hypot( logBoxObj.widNum, logBoxObj.heiNum ) / 2 ); // What: Logo Scale Number. Why: The logo's arrows reach its box's corners, which have to sit inside the ring. How: This divides the space inside the ring by half the box's diagonal.
+	const logXcoNum = 110 - ( logBoxObj.xcoNum + logBoxObj.widNum / 2 ) * logScaNum;                                        // What: Logo X-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center across.
+	const logYcoNum = 110 - ( logBoxObj.ycoNum + logBoxObj.heiNum / 2 ) * logScaNum;                                        // What: Logo Y-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center down.
+
+
+
+	return `<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'><rect width='220' height='220' rx='${ radValNum }' fill='${ NAV_COL_STR }'/><circle cx='110' cy='110' r='${ RIN_OUT_NUM - rinWidNum / 2 }' fill='${ NAV_COL_STR }' stroke='${ ROS_COL_STR }' stroke-width='${ rinWidNum }'/><g transform='translate(${ logXcoNum.toFixed( 1 ) } ${ logYcoNum.toFixed( 1 ) }) scale(${ logScaNum.toFixed( 3 ) })'>${ logInnStr }</g></svg>\n`; // What: Icon SVG Return. Why: Each icon is drawn from SVG text. How: This returns the square, the ringed circle centered on it, and the fitted logo.
+
+
+};
+
+
+const icoSvgObj = { // What: Icon SVG Object. Why: Each kind of icon reads its own SVG. How: This builds the large and small favicons on a square rounded by a fifth of its side, and the touch icon on a full square, iOS rounding that one itself.
+
+
+	large : icoSvgFun( 44, RIN_LAR_NUM ), // What: Large SVG. Why: The 192 and 512px icons look best with a thin ring. How: This rounds the square and draws the thin ring.
+	small : icoSvgFun( 44, RIN_SMA_NUM ), // What: Small SVG. Why: Tab-sized icons need a ring a full pixel wide. How: This rounds the square and draws the thick ring.
+	touch : icoSvgFun( 0, RIN_LAR_NUM )   // What: Touch SVG. Why: iOS rounds the touch icon itself and fills transparent corners with black. How: This keeps the square full and draws the thin ring.
+
+
+};
 
 
 for ( const icoRecObj of ICO_REC_ARR ) writeFileSync( OUT_DIR_STR + icoRecObj.filStr, await renPngFun( icoSvgObj[ icoRecObj.kinStr ], icoRecObj.sizNum ) ); // What: PNG Icon Loop. Why: Each PNG icon is saved under its own name. How: This renders every row from its kind's SVG and writes it into public/.
