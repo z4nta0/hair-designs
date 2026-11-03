@@ -12,7 +12,7 @@ import { opeStaFun   } from '../support/states.ts';   // What: Open State Functi
 import { SET_WAI_NUM } from '../support/feedback.ts'; // What: Settle Wait Number. Why: Each look is read once its transition has finished. How: This is the pause before each read.
 import { snaEleFun   } from '../support/feedback.ts'; // What: Snapshot Element Function. Why: Each look is recorded with whether each part of it would ease. How: This runs inside the page to read it.
 import { snaProFun   } from '../support/feedback.ts'; // What: Snap Problems Function. Why: A change has to ease rather than snap. How: This turns two snapshots into a problem for each snapped change.
-import { STA_REC_ARR } from '../support/states.ts';   // What: State Record Array. Why: Every page state is checked. How: This lists them.
+import { STA_REC_ARR } from '../support/states.ts';   // What: State Record Array. Why: Each page state but the open tooltip's is checked. How: This lists them.
 import { test        } from '@playwright/test';       // What: Test. Why: Each check of each state is its own test. How: This declares them.
 import { tipOpeFun   } from '../support/states.ts';   // What: Tooltip Open Function. Why: The open tooltip's states are left out of these checks. How: The state loop skips rows whose action is this opener.
 import { valSigFun   } from '../support/feedback.ts'; // What: Value Signature Function. Why: Two looks are told apart by their values alone. How: This joins a snapshot's values into one string.
@@ -38,8 +38,8 @@ import type { Page          } from '@playwright/test'; // What: Page. Why: The h
  * eased by a transition, its focus ring included. Each kind of element with a
  * state that switches on and off, such as the phone menu's toggle, is flipped
  * off, on, and off again by its attribute, and has to look different and ease
- * each change both ways. On the home states, any other element that takes
- * keyboard focus, such as the turned-off contact form's wrapper, has to show
+ * each change both ways. On the home states, any other element a tabindex puts
+ * in the Tab order, such as the turned-off contact form's wrapper, has to show
  * and ease its focus, and the service cards have to show and ease their hover.
  * The first keyboard stop has to draw its ring at full width. Under reduced
  * motion every change stays but switches at once. Real clicks are blocked
@@ -478,18 +478,18 @@ async function feeProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< st
  * focProFun = Focus Problems Function
  *
  * @summary
- * Probes every reachable element that takes keyboard focus without being a
- * link or button, such as the contact form's wrapper, and returns a problem
- * for each one that gives no focus feedback, or a single problem when it finds
- * none. Only focus is checked, since such an element has no hover or press
- * look of its own: each is scrolled into view, blurred with the pointer away
- * and read, then focused the way a keyboard focuses it and read again, every
- * look read once its transition has settled, then blurred. One that looks the
- * same both ways is a problem. Normally every probed property that changes,
- * on it or anything that was already inside it, has to be eased by a
- * transition ({@link snaProFun}), its focus ring included; under reduced
- * motion none of them may ease ({@link movProFun}), and every one of its own
- * transition durations must be zero.
+ * Probes every reachable element a tabindex of 0 or more puts in the Tab order
+ * without being a link or button, such as the contact form's wrapper, and
+ * returns a problem for each one that gives no focus feedback, or a single
+ * problem when it finds none. Only focus is checked, since such an element has
+ * no hover or press look of its own: each is scrolled into view, blurred with
+ * the pointer away and read, then focused the way a keyboard focuses it and
+ * read again, every look read once its transition has settled, then blurred.
+ * One that looks the same both ways is a problem. Normally every probed
+ * property that changes, on it or anything that was already inside it, has to
+ * be eased by a transition ({@link snaProFun}), its focus ring included; under
+ * reduced motion none of them may ease ({@link movProFun}), and every one of
+ * its own transition durations must be zero.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -802,7 +802,7 @@ async function togProFun ( curPagObj : Page, staIdeStr : string, redMotBoo : boo
 for ( const staRecObj of STA_REC_ARR.filter( ( staFilObj ) => staFilObj.actFun !== tipOpeFun ) ) { // What: State Test Loop. Why: Every page state is checked but the open tooltip's, which the first control probed elsewhere on the page would close. How: This declares each check once per state, skipping the states the tooltip's opener opens.
 
 
-	test( `${ staRecObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other focusable element and every service card, and checks it finds no problems.
+	test( `${ staRecObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other element a tabindex makes focusable and every service card, and checks it finds no problems.
 
 
 		test.slow(); // What: Slow Test Mark. Why: Probing every control's hover, press, and focus takes about two seconds per control, which runs past the default 30 second timeout. How: This triples this test's timeout.
@@ -842,7 +842,7 @@ for ( const staRecObj of STA_REC_ARR.filter( ( staFilObj ) => staFilObj.actFun !
 
 
 
-	test( `${ staRecObj.ideStr } keeps feedback without motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Feedback Test. Why: Visitors who ask for less motion still need to see their actions register. How: This probes every reachable link and button, every reachable toggle, and on the home states every other focusable element and every service card, with reduced motion on, and checks it finds no problems.
+	test( `${ staRecObj.ideStr } keeps feedback without motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Feedback Test. Why: Visitors who ask for less motion still need to see their actions register. How: This probes every reachable link and button, every reachable toggle, and on the home states every other element a tabindex makes focusable and every service card, with reduced motion on, and checks it finds no problems.
 
 
 		test.slow(); // What: Slow Test Mark. Why: Probing every control's hover, press, and focus takes about two seconds per control, which runs past the default 30 second timeout. How: This triples this test's timeout.

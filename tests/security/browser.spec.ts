@@ -27,8 +27,9 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The policy set
  * is given its headers here. First a check proves the policy is live, by
  * injecting an inline script and seeing it refused and reported. Then every
  * state the suites visit is checked for policy violations and checked to close
- * off every new tab link. Last, the contact form's tooltip, which none of
- * those states opens, is opened by a hover and checked for violations too.
+ * off every new tab link. Last, the contact form's tooltip, which the states
+ * open by keyboard focus, is opened by a hover and checked for violations
+ * too.
  * The contact form is turned off and never sends, so there's no post to
  * check. Adapted from tonys-toppers' own browser spec.
  *
@@ -213,7 +214,7 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Loop. Why: Every state t
 
 
 
-test( 'the open contact tooltip reports no security policy violation', async ( { browserName : broNamStr, page : curPagObj } ) => { // What: Tooltip Policy Test. Why: The tooltip only renders once the form is hovered, so no shared state loads it, yet its inline style values and fade have to pass the policy too. How: This opens the home page under the policy, hovers the form until the tooltip has faded in, and checks nothing was refused.
+test( 'the open contact tooltip reports no security policy violation', async ( { browserName : broNamStr, page : curPagObj } ) => { // What: Tooltip Policy Test. Why: The shared states open the tooltip by keyboard focus, while a hover places it at the pointer through its own inline style values, which have to pass the policy too. How: This opens the home page under the policy, hovers the form until the tooltip has faded in, and checks nothing was refused.
 
 
 	const homDesObj = STA_REC_ARR.find( ( staRecObj ) => staRecObj.ideStr === 'home-desktop' )!; // What: Home Desktop Object. Why: A mouse hovering the form is a desktop visit. How: This picks the home page's desktop state from the shared list. // What: Non-Null Note. Why: The shared list always holds a home-desktop row. How: The ! states that the find can't come back empty.

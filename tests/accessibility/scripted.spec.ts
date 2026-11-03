@@ -482,13 +482,13 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every ch
 
 
 
-	test( `${ staRecObj.ideStr } plays no motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Test. Why: Visitors who ask for less motion shouldn't see the page animate. How: This requests reduced motion, records every animation and transition that starts while the state opens, and lists those and any the page still holds once it has settled.
+	test( `${ staRecObj.ideStr } plays no motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Test. Why: Visitors who ask for less motion shouldn't see the page animate. How: This requests reduced motion, records every animation and transition longer than 1ms that starts while the state opens, and lists those and any the page still holds once it has settled.
 
 
 		await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: The preference has to be set before the page loads. How: This makes the page match prefers-reduced-motion: reduce.
 
 
-		await curPagObj.addInitScript( () => { // What: Motion Recorder Call. Why: Opening a state waits until every motion that ends has stopped, so a motion that lost its reduced-motion variant would play out during the wait and leave nothing behind to find. How: This runs before every page's script and records each animation and transition that starts.
+		await curPagObj.addInitScript( () => { // What: Motion Recorder Call. Why: Opening a state waits until every motion that ends has stopped, so a motion that lost its reduced-motion variant would play out during the wait and leave nothing behind to find. How: This runs before every page's script and records each animation and transition longer than 1ms that starts.
 
 
 			const winMotObj = window as unknown as { __motRecArr : string[] }; // What: Window Motion Object. Why: The motions are kept where the test can read them back. How: This views the window with its motion list. // What: Type Assertion Note. Why: The window has no such field in its type. How: The as names the one the recorder adds.
