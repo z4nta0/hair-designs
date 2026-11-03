@@ -192,6 +192,20 @@ it doesn't suit this design.
   their content centers. The hero stays full width, and the footer, which
   already centers its line, is unchanged.
 
+## Skip link
+Added 2026-11-02 under the user-level "## Skip Link And Modal Layers" rule.
+The page's main content is everything between the bar and the footer: the
+`<main>` in `app.tsx`, which every route renders into, carries `id='main'`
+and `tabIndex={ -1 }`, and `styles.css` drops its focus outline. The skip
+link, "Skip to main content", is the first thing `NavBarCom` renders, a light
+rose button like the phone menu's Call button that waits above the screen and
+slides down over the bar on `:focus`, layered at 2 above the bar and scrim.
+A plain click focuses the `<main>` without a hash; a modified click is left to
+the browser. The open phone menu makes it inert with the rest of the page.
+`section-link.spec.ts` checks the first Tab lands on it, on screen, on both
+pages at both widths, and that following it focuses the `<main>` with a
+clean address.
+
 ## Scroll position
 Decided 2026-10-12, confirmed by the user once the 404 page was built: the
 404 page makes this a two-route site, but `useScrTopFun` is left out, an

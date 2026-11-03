@@ -24,7 +24,9 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
  * middle click opens the section in a new tab instead, which lands on it and
  * clears its hash, while the page clicked from stays put, and a new tab
  * opened from the phone menu closes the menu. From the 404 page, a bar link
- * reaches its section on the home page. Pages open under reduced motion, so
+ * reaches its section on the home page. On every page the first Tab lands on
+ * the skip link, on screen, and following it moves focus to the main content
+ * without a hash. Pages open under reduced motion, so
  * scrolling jumps straight to its target and each position can be read at
  * once.
  *
@@ -287,6 +289,39 @@ test( "the 404 page's bar links reach their sections on the home page", async ( 
 
 
 } );
+
+
+
+for ( const [ rouPatStr, vieSizObj ] of [ [ '/', DES_VIE_OBJ ], [ '/', PHO_VIE_OBJ ], [ '/no-such-page', DES_VIE_OBJ ], [ '/no-such-page', PHO_VIE_OBJ ] ] as const ) { // What: Skip Link Loop. Why: Every page, at both widths, has to open with the skip link. How: This declares one test per page and viewport pair.
+
+
+	test( `the skip link is the first stop on ${ rouPatStr } at ${ vieSizObj.width }px and jumps to the main content`, async ( { page : curPagObj } ) => { // What: Skip Link Test. Why: A keyboard user should reach the page's content without Tabbing through the bar. How: This presses Tab once, checks the skip link took focus on screen, clicks it, and checks focus moved to the main element with the address unchanged.
+
+
+		await opeRouFun( curPagObj, rouPatStr, vieSizObj ); // What: Page Open Call. Why: Each page and width gets its own check. How: This opens the page at the loop's size.
+
+		await curPagObj.keyboard.press( 'Tab' ); // What: First Tab Press. Why: The skip link has to be the first stop. How: This moves focus from the page to its first focusable element.
+
+
+		const skiLinObj = curPagObj.getByRole( 'link', { name : 'Skip to main content' } ); // What: Skip Link Object. Why: The checks read the link by its name. How: This finds it.
+
+
+		await expect( skiLinObj ).toBeFocused();   // What: First Stop Assertion. Why: The skip link has to come before the bar's links. How: This checks the first Tab landed on it.
+		await expect( skiLinObj ).toBeInViewport(); // What: On Screen Assertion. Why: A focused skip link has to show, not stay above the screen. How: This checks it slid into view.
+
+		expect( await skiLinObj.evaluate( ( ancCurEle ) => ancCurEle.getBoundingClientRect().top >= 0 ) ).toBe( true ); // What: Top Edge Assertion. Why: The whole link should be visible, not just its lower edge. How: This checks its top sits inside the viewport.
+
+		await skiLinObj.click(); // What: Skip Click Call. Why: Following the link is the action under test. How: This clicks it.
+
+		await expect( curPagObj.locator( 'main' ) ).toBeFocused(); // What: Main Focus Assertion. Why: Focus should land past the bar, so the next Tab continues into the content. How: This checks the main element has focus.
+
+		expect( curPagObj.url() ).not.toContain( '#' ); // What: Clean Address Assertion. Why: The jump should leave no hash in the address. How: This checks the URL carries none.
+
+
+	} );
+
+
+}
 
 // #endregion Module Init
 

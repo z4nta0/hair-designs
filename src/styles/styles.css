@@ -510,6 +510,14 @@ button:focus-visible { /* What: Focused Focus Ring Controls. Why: A keyboard use
 
 }
 
+main:focus { /* What: Focused Main. Why: The skip link moves focus to the main element, which is where the jump lands rather than a control, and a ring around the whole page would only confuse. How: This removes its focus outline. */
+
+
+	outline : none;
+
+
+}
+
 /* #endregion Base Elements */
 
 
