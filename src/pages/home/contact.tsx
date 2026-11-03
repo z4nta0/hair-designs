@@ -648,14 +648,14 @@ function ConSecCom () : React.JSX.Element {
 											value=''
 										>Select a service</option>{ /* What: Placeholder Option Element. Why: The select should prompt for a choice rather than preselect a service. How: This shows a prompt that can't be chosen. */ }
 
-										{ SER_OPT_ARR.map( ( optRcdObj ) => ( // What: Service Option Map. Why: Each service is one choice. How: This renders one option per row.
+										{ SER_OPT_ARR.map( ( optRecObj ) => ( // What: Service Option Map. Why: Each service is one choice. How: This renders one option per row.
 
 
 											<option
-												key={ optRcdObj.valStr }
+												key={ optRecObj.valStr }
 
-												value={ optRcdObj.valStr }
-											>{ optRcdObj.labStr }</option> // What: Service Option Element. Why: The visitor picks a service by its label. How: This shows the row's label, valued for the form.
+												value={ optRecObj.valStr }
+											>{ optRecObj.labStr }</option> // What: Service Option Element. Why: The visitor picks a service by its label. How: This shows the row's label, valued for the form.
 
 
 										))}

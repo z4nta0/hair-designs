@@ -6,7 +6,7 @@
 import { expect      } from '@playwright/test';      // What: Expect. Why: Each check passes only when the policy is enforced and the page breaks none of its rules. How: This asserts on what each check collects from the page.
 import { heaAllFun   } from '../support/headers.ts'; // What: Headers All Function. Why: The pages are loaded under the policy Netlify really sends. How: This reads the /* block of public/_headers.
 import { opeStaFun   } from '../support/states.ts';  // What: Open State Function. Why: Each state is opened the way the other page suites open it. How: This loads the state and waits until it's settled.
-import { STA_RCD_ARR } from '../support/states.ts';  // What: State Record Array. Why: The policy has to hold in every state the suites visit. How: This is the list of states to load.
+import { STA_REC_ARR } from '../support/states.ts';  // What: State Record Array. Why: The policy has to hold in every state the suites visit. How: This is the list of states to load.
 import { test        } from '@playwright/test';      // What: Test. Why: Each state is its own test. How: This declares them.
 
 
@@ -184,15 +184,15 @@ test( 'the policy refuses an injected inline script', async ( { page : curPagObj
 
 
 
-for ( const staRcdObj of STA_RCD_ARR ) { // What: State Loop. Why: Every state the suites visit has to work under the policy. How: This declares one test per state.
+for ( const staRecObj of STA_REC_ARR ) { // What: State Loop. Why: Every state the suites visit has to work under the policy. How: This declares one test per state.
 
 
-	test( `${ staRcdObj.ideStr } breaks no rule of the security policy and closes off every new tab link`, async ( { browserName : broNamStr, page : curPagObj } ) => { // What: State Policy Test. Why: A blocked resource, such as a font, would break the page once deployed, and the policy can't be loosened to hide it. How: This opens the state under the policy and checks nothing was refused and every new tab link is closed off.
+	test( `${ staRecObj.ideStr } breaks no rule of the security policy and closes off every new tab link`, async ( { browserName : broNamStr, page : curPagObj } ) => { // What: State Policy Test. Why: A blocked resource, such as a font, would break the page once deployed, and the policy can't be loosened to hide it. How: This opens the state under the policy and checks nothing was refused and every new tab link is closed off.
 
 
 		await polSetFun( curPagObj ); // What: Policy Setup Call. Why: The page has to load under the policy. How: This adds the headers and the violation listener.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The state's fonts, images, and open menu have to load before the page is checked. How: This opens the state the way the other page suites do.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The state's fonts, images, and open menu have to load before the page is checked. How: This opens the state the way the other page suites do.
 
 
 		const opeRelArr = await curPagObj.locator( 'a[target="_blank"]' ).evaluateAll( ( ancEleArr ) => ancEleArr.map( ( ancCurEle ) => ancCurEle.getAttribute( 'rel' ) ?? '' ) ); // What: Opener Rel Array. Why: A new tab opened without noopener can reach back and change this page. How: This collects the rel of every link that opens a new tab.

@@ -135,7 +135,7 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The checks need the menu open. How: This opens and checks it.
 
 
-	const menNavObj = curPagObj.getByRole( 'banner' ); // What: Menu Bar Object. Why: The menu's rows live in the bar, apart from the inert page. How: This finds the banner landmark.
+	const menNavObj = curPagObj.getByRole( 'banner' ); // What: Menu Navigation Object. Why: The menu's rows live in the bar, apart from the inert page. How: This finds the banner landmark.
 
 
 	for ( const linNamStr of [ 'Home', 'Services', 'About', 'Contact' ] ) await expect( menNavObj.getByRole( 'link', { exact : true, name : linNamStr } ).last() ).toBeVisible(); // What: Section Links Assertion. Why: Each section should be one tap away. How: This checks each section's menu link is showing, the last match being the menu's own copy of the bar's link.
@@ -146,7 +146,7 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 
 	await expect( menNavObj.getByRole( 'link', { name : 'Find us on Facebook' } ) ).toHaveAttribute( 'target', '_blank' ); // What: Facebook Link Assertion. Why: The salon's Facebook page should open beside the site. How: This checks the link opens in a new tab.
 
-	expect( await curPagObj.evaluate( () => { const tapEle = document.elementFromPoint( 200, 800 ); return !!tapEle?.matches( '[data-mobile-menu-open]' ) && !tapEle.closest( 'header' ); } ) ).toBe( true ); // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
+	expect( await curPagObj.evaluate( () => { const tapCurEle = document.elementFromPoint( 200, 800 ); return !!tapCurEle?.matches( '[data-mobile-menu-open]' ) && !tapCurEle.closest( 'header' ); } ) ).toBe( true ); // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
 
 
 } );

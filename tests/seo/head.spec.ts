@@ -133,10 +133,10 @@ const SOC_KEY_ARR = [ // What: Social Key Array. Why: The social preview rule li
 
 // #region Home Page Checks
 
-test( 'the raw page carries the full title and one description', async ( { request : reqConObj } ) => { // What: Raw Head Test. Why: Link checkers and many crawlers read the HTML without running the script, so the home page's title and description have to be in it already. How: This fetches the page as plain HTML and checks its title and description tags.
+test( 'the raw page carries the full title and one description', async ( { request : reqCotObj } ) => { // What: Raw Head Test. Why: Link checkers and many crawlers read the HTML without running the script, so the home page's title and description have to be in it already. How: This fetches the page as plain HTML and checks its title and description tags.
 
 
-	const rawTexStr = await ( await reqConObj.get( '/' ) ).text(); // What: Raw Text String. Why: The checks read the page the way a crawler without JavaScript does. How: This fetches the root path and reads its HTML.
+	const rawTexStr = await ( await reqCotObj.get( '/' ) ).text(); // What: Raw Text String. Why: The checks read the page the way a crawler without JavaScript does. How: This fetches the root path and reads its HTML.
 
 
 	expect( rawTexStr ).toContain( "<title>Hair Designs | Hair Salon in Carson's Corner, Missouri</title>" ); // What: Raw Title Assertion. Why: The title has to be the full one, not a bare site name. How: This checks the HTML carries it.
@@ -324,10 +324,10 @@ test( 'the social preview tags are complete', async ( { page : curPagObj } ) => 
 
 
 
-test( 'the social preview image is a 1,200x630 PNG under 300 KB', async ( { request : reqConObj } ) => { // What: Preview Image Test. Why: The social tags promise a 1,200x630 card small enough for WhatsApp. How: This fetches the image, checks its byte count, and reads its size from the PNG's header.
+test( 'the social preview image is a 1,200x630 PNG under 300 KB', async ( { request : reqCotObj } ) => { // What: Preview Image Test. Why: The social tags promise a 1,200x630 card small enough for WhatsApp. How: This fetches the image, checks its byte count, and reads its size from the PNG's header.
 
 
-	const imaResObj = await reqConObj.get( '/og-image-2.png' ); // What: Image Response Object. Why: The image has to exist where the tags point. How: This fetches it from the site.
+	const imaResObj = await reqCotObj.get( '/og-image-2.png' ); // What: Image Response Object. Why: The image has to exist where the tags point. How: This fetches it from the site.
 	const pngBufObj = await imaResObj.body();                 // What: PNG Buffer Object. Why: The image's size is written in its header. How: This reads the response bytes.
 
 
@@ -342,7 +342,7 @@ test( 'the social preview image is a 1,200x630 PNG under 300 KB', async ( { requ
 
 
 
-test( 'every icon the head links to is served at its size', async ( { page : curPagObj, request : reqConObj } ) => { // What: Icons Test. Why: Browsers and apps fetch the icons the head names, and a missing or wrong-sized one shows a blank or blurry mark. How: This reads every icon link and checks each file exists and, for PNGs, has the size its link promises.
+test( 'every icon the head links to is served at its size', async ( { page : curPagObj, request : reqCotObj } ) => { // What: Icons Test. Why: Browsers and apps fetch the icons the head names, and a missing or wrong-sized one shows a blank or blurry mark. How: This reads every icon link and checks each file exists and, for PNGs, has the size its link promises.
 
 
 	await curPagObj.goto( '/' ); // What: Home Load Call. Why: The icon links live in the page's head. How: This opens the home page.
@@ -357,7 +357,7 @@ test( 'every icon the head links to is served at its size', async ( { page : cur
 	for ( const [ icoHreStr, icoSizStr ] of icoLinArr ) { // What: Icon Check Loop. Why: Every linked icon has to be real. How: This fetches each one in turn.
 
 
-		const icoResObj = await reqConObj.get( icoHreStr ); // What: Icon Response Object. Why: The icon has to exist where its link points. How: This fetches it.
+		const icoResObj = await reqCotObj.get( icoHreStr ); // What: Icon Response Object. Why: The icon has to exist where its link points. How: This fetches it.
 		const icoBufObj = await icoResObj.body();           // What: Icon Buffer Object. Why: A PNG's size is written in its header. How: This reads the bytes.
 
 
@@ -407,10 +407,10 @@ test( 'every icon the head links to is served at its size', async ( { page : cur
 
 // #region Crawler File Checks
 
-test( 'robots.txt lets crawlers in and names the sitemap', async ( { request : reqConObj } ) => { // What: Robots File Test. Why: A real salon wants every page crawled and its sitemap found. How: This fetches robots.txt and checks its rules.
+test( 'robots.txt lets crawlers in and names the sitemap', async ( { request : reqCotObj } ) => { // What: Robots File Test. Why: A real salon wants every page crawled and its sitemap found. How: This fetches robots.txt and checks its rules.
 
 
-	const robResObj = await reqConObj.get( '/robots.txt' ); // What: Robots Response Object. Why: The file is read the way a crawler reads it. How: This fetches it from the site.
+	const robResObj = await reqCotObj.get( '/robots.txt' ); // What: Robots Response Object. Why: The file is read the way a crawler reads it. How: This fetches it from the site.
 	const robTexStr = await robResObj.text();               // What: Robots Text String. Why: The rules are checked as written. How: This reads the response body.
 
 
@@ -427,10 +427,10 @@ test( 'robots.txt lets crawlers in and names the sitemap', async ( { request : r
 
 
 
-test( 'the sitemap lists the home page alone', async ( { request : reqConObj } ) => { // What: Sitemap Test. Why: The sitemap should list every indexable page and nothing else. How: This fetches it and checks its one entry.
+test( 'the sitemap lists the home page alone', async ( { request : reqCotObj } ) => { // What: Sitemap Test. Why: The sitemap should list every indexable page and nothing else. How: This fetches it and checks its one entry.
 
 
-	const sitResObj = await reqConObj.get( '/sitemap.xml' ); // What: Sitemap Response Object. Why: The file is read the way a crawler reads it. How: This fetches it from the site.
+	const sitResObj = await reqCotObj.get( '/sitemap.xml' ); // What: Sitemap Response Object. Why: The file is read the way a crawler reads it. How: This fetches it from the site.
 	const sitTexStr = await sitResObj.text();                // What: Sitemap Text String. Why: Its entries are checked as written. How: This reads the response body.
 
 

@@ -5,7 +5,7 @@
 
 import { expect      } from '@playwright/test';     // What: Expect. Why: Each state passes only when every reachable control and toggle responds. How: This asserts on what each check reads, such as that its problem list is empty.
 import { opeStaFun   } from '../support/states.ts'; // What: Open State Function. Why: Each check opens and settles its state first. How: This loads it and waits for it.
-import { STA_RCD_ARR } from '../support/states.ts'; // What: State Record Array. Why: Every page state is checked. How: This lists them.
+import { STA_REC_ARR } from '../support/states.ts'; // What: State Record Array. Why: Every page state is checked. How: This lists them.
 import { test        } from '@playwright/test';     // What: Test. Why: Each check of each state is its own test. How: This declares them.
 
 
@@ -109,7 +109,7 @@ const SET_WAI_NUM = 400;                                                        
  *   by the class name Vite keeps inside each hashed module class.
  *
  * - `staArr` (Array): State Array, the page states, by their names in
- *   `STA_RCD_ARR`, where at least one element of the kind has to be found and
+ *   `STA_REC_ARR`, where at least one element of the kind has to be found and
  *   flipped.
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -1081,22 +1081,22 @@ async function togProFun ( curPagObj : Page, staIdeStr : string, redMotBoo : boo
 
 // #region Module Init
 
-for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every page state is checked. How: This declares each check once per state.
+for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every page state is checked. How: This declares each check once per state.
 
 
-	test( `${ staRcdObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other focusable element and every service card, and checks it finds no problems.
+	test( `${ staRecObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other focusable element and every service card, and checks it finds no problems.
 
 
 		test.slow(); // What: Slow Test Mark. Why: Probing every control's hover, press, and focus takes about two seconds per control, which runs past the default 30 second timeout. How: This triples this test's timeout.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
 
 		await curPagObj.evaluate( cliBloFun ); // What: Click Block Call. Why: Pressing a control shouldn't navigate or close anything. How: This cancels every click from here on.
 
-		const proLisArr = [ ...await feeProFun( curPagObj, false ), ...await togProFun( curPagObj, staRcdObj.ideStr, false ) ]; // What: Problem List Array. Why: The state passes only when every reachable link and button responds and every switched state shows and eases. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
+		const proLisArr = [ ...await feeProFun( curPagObj, false ), ...await togProFun( curPagObj, staRecObj.ideStr, false ) ]; // What: Problem List Array. Why: The state passes only when every reachable link and button responds and every switched state shows and eases. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
 
 
-		if ( staRcdObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, false ), ...await hovProFun( curPagObj, false ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
+		if ( staRecObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, false ), ...await hovProFun( curPagObj, false ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
 
 
 
@@ -1107,10 +1107,10 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every pa
 
 
 
-	test( `${ staRcdObj.ideStr } eases its focus ring in to full width`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Focus Ring Test. Why: A keyboard user has to see where focus lands. How: This tabs to the first stop and reads its ring once it has eased in.
+	test( `${ staRecObj.ideStr } eases its focus ring in to full width`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Focus Ring Test. Why: A keyboard user has to see where focus lands. How: This tabs to the first stop and reads its ring once it has eased in.
 
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The walk starts from the state settled. How: This loads and settles it.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The walk starts from the state settled. How: This loads and settles it.
 
 		await curPagObj.keyboard.press( engNamStr === 'webkit' ? 'Alt+Tab' : 'Tab' ); // What: First Tab Press Call. Why: The ring shows only for keyboard focus. How: This tabs to the first stop, holding Alt in WebKit, which otherwise skips links the way Safari does.
 
@@ -1123,21 +1123,21 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every pa
 
 
 
-	test( `${ staRcdObj.ideStr } keeps feedback without motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Feedback Test. Why: Visitors who ask for less motion still need to see their actions register. How: This probes every reachable link and button, every reachable toggle, and on the home states every other focusable element and every service card, with reduced motion on, and checks it finds no problems.
+	test( `${ staRecObj.ideStr } keeps feedback without motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Feedback Test. Why: Visitors who ask for less motion still need to see their actions register. How: This probes every reachable link and button, every reachable toggle, and on the home states every other focusable element and every service card, with reduced motion on, and checks it finds no problems.
 
 
 		test.slow(); // What: Slow Test Mark. Why: Probing every control's hover, press, and focus takes about two seconds per control, which runs past the default 30 second timeout. How: This triples this test's timeout.
 
 		await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: The preference has to be set before the page loads. How: This makes the page match prefers-reduced-motion: reduce.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
 
 		await curPagObj.evaluate( cliBloFun ); // What: Click Block Call. Why: Pressing a control shouldn't navigate or close anything. How: This cancels every click from here on.
 
-		const proLisArr = [ ...await feeProFun( curPagObj, true ), ...await togProFun( curPagObj, staRcdObj.ideStr, true ) ]; // What: Problem List Array. Why: Every reachable link and button has to respond, and every switched state show, without moving. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
+		const proLisArr = [ ...await feeProFun( curPagObj, true ), ...await togProFun( curPagObj, staRecObj.ideStr, true ) ]; // What: Problem List Array. Why: Every reachable link and button has to respond, and every switched state show, without moving. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
 
 
-		if ( staRcdObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, true ), ...await hovProFun( curPagObj, true ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
+		if ( staRecObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, true ), ...await hovProFun( curPagObj, true ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
 
 
 

@@ -193,27 +193,27 @@ function SerSecCom () : React.JSX.Element {
 			<div className={ cssModObj.serGriDiv }>{ /* What: Services Grid Div Element. Why: The cards fill rows that adapt to the screen. How: This holds one card per service. */ }
 
 
-				{ SER_CAR_ARR.map( ( carRcdObj ) => ( // What: Services Card Map. Why: Each service gets a card. How: This renders one card per row.
+				{ SER_CAR_ARR.map( ( carRecObj ) => ( // What: Services Card Map. Why: Each service gets a card. How: This renders one card per row.
 
 
 					<div
-						key={ carRcdObj.titStr }
+						key={ carRecObj.titStr }
 
 						className={ cssModObj.serCarDiv }
 					>{ /* What: Services Card Div Element. Why: Each service is a card. How: This holds its icon, title, and description. */ }
 
 
 						<svg
-							className={` ${ cssModObj.carIcoSvg }   ${ carRcdObj.icoClaStr } `}
+							className={` ${ cssModObj.carIcoSvg }   ${ carRecObj.icoClaStr } `}
 
 							viewBox='0 0 44 44'
 
 							aria-hidden='true'
-						>{ carRcdObj.icoEle }</svg>{ /* What: Card Icon SVG Element. Why: Each card opens with a small icon in its own color. How: This draws the row's shapes, hidden from screen readers since the title names the service. */ }
+						>{ carRecObj.icoEle }</svg>{ /* What: Card Icon SVG Element. Why: Each card opens with a small icon in its own color. How: This draws the row's shapes, hidden from screen readers since the title names the service. */ }
 
-						<h3 className={ cssModObj.carTitHea }>{ carRcdObj.titStr }</h3>{ /* What: Card Title Heading Element. Why: Each card names its service. How: This shows the row's title. */ }
+						<h3 className={ cssModObj.carTitHea }>{ carRecObj.titStr }</h3>{ /* What: Card Title Heading Element. Why: Each card names its service. How: This shows the row's title. */ }
 
-						<p className={ cssModObj.carDesPar }>{ carRcdObj.desStr }</p>{ /* What: Card Description Paragraph Element. Why: Each card describes its service. How: This shows the row's description. */ }
+						<p className={ cssModObj.carDesPar }>{ carRecObj.desStr }</p>{ /* What: Card Description Paragraph Element. Why: Each card describes its service. How: This shows the row's description. */ }
 
 
 					</div>

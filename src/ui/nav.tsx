@@ -285,19 +285,19 @@ function NavBarCom () : React.JSX.Element {
 					<ul className={ cssModObj.navLinUno }>{ /* What: Navigation Links Unordered List Element. Why: The links form one list of the page's sections. How: This holds one item per link. */ }
 
 
-						{ NAV_LIN_ARR.map( ( linRcdObj ) => ( // What: Link Item Map. Why: Each section gets a link in the bar. How: This renders one list item per row.
+						{ NAV_LIN_ARR.map( ( linRecObj ) => ( // What: Link Item Map. Why: Each section gets a link in the bar. How: This renders one list item per row.
 
 
-							<li key={ linRcdObj.ideStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it. */ }
+							<li key={ linRecObj.ideStr }>{ /* What: Link Item Element. Why: Each link is one item of the list. How: This holds it. */ }
 
 
 								<a
 									className={ cssModObj.navLinAnc }
 
-									href={ `/#${ linRcdObj.ideStr }` }
+									href={ `/#${ linRecObj.ideStr }` }
 
-									onClick={ ( cliEveObj ) => secCliFun( cliEveObj, linRcdObj.ideStr ) }
-								>{ linRcdObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there without a hash. */ }
+									onClick={ ( cliEveObj ) => secCliFun( cliEveObj, linRecObj.ideStr ) }
+								>{ linRecObj.labStr }</a>{ /* What: Navigation Link Anchor Element. Why: Each link takes the visitor to its section. How: Its address points at the home page's section, which a modified click opens, while a plain click scrolls there without a hash. */ }
 
 
 							</li>
@@ -344,20 +344,20 @@ function NavBarCom () : React.JSX.Element {
 				>{ /* What: Navigation Menu Div Element. Why: Phones need the section links somewhere once the bar hides them. How: This drops below the bar with the same links, carrying data-mobile-menu-open while it's open. */ }
 
 
-					{ NAV_LIN_ARR.map( ( linRcdObj, linIndNum ) => ( // What: Menu Link Map. Why: Each section gets a link in the menu. How: This renders one anchor per row, numbering each for the staggered entrance.
+					{ NAV_LIN_ARR.map( ( linRecObj, linIndNum ) => ( // What: Menu Link Map. Why: Each section gets a link in the menu. How: This renders one anchor per row, numbering each for the staggered entrance.
 
 
 						<a
-							key={ linRcdObj.ideStr }
+							key={ linRecObj.ideStr }
 
 							className={ cssModObj.menLinAnc }
 							style={ { '--men-ite-ind' : linIndNum } as React.CSSProperties } // What: Menu Item Index Style. Why: Each row fades in just after the one before. How: This hands the row its place, which the stylesheet multiplies into its entrance delay. // What: Type Assertion Note. Why: React's style type doesn't list custom properties. How: The browser accepts any custom property in a style attribute.
 
-							href={ `/#${ linRcdObj.ideStr }` }
+							href={ `/#${ linRecObj.ideStr }` }
 
 							onAuxClick={ auxCloFun }
-							onClick={ ( cliEveObj ) => menLinFun( cliEveObj, linRcdObj.ideStr ) } // What: Menu Link Click Handler. Why: A chosen link should close the menu, whether it opens in place or in a new tab. How: This reaches the section through menLinFun, which closes the menu.
-						>{ linRcdObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This scrolls to the section without a hash and closes the menu behind it.
+							onClick={ ( cliEveObj ) => menLinFun( cliEveObj, linRecObj.ideStr ) } // What: Menu Link Click Handler. Why: A chosen link should close the menu, whether it opens in place or in a new tab. How: This reaches the section through menLinFun, which closes the menu.
+						>{ linRecObj.labStr }</a> // What: Menu Link Anchor Element. Why: Phones reach each section from the menu. How: This scrolls to the section without a hash and closes the menu behind it.
 
 
 					))}
