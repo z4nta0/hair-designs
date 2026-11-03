@@ -267,8 +267,8 @@
 .icoDotCir--plum { /* What: Icon Dot Circle Plum. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
 
 
-	fill    : #b08898;
-	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
+	fill    : oklch( from var( --acc-ter-col ) calc( l - 0.0736 ) calc( c + 0.0045 ) calc( h - 25.54 ) ); /* Accent Tertiary Color = #c9a0a0, shifted to ~= #b08898 */
+	opacity : var( --cdn-pow-001-rec );                                                                   /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
