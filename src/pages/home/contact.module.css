@@ -23,7 +23,7 @@
 
 /* #region homConSec */
 
-.homConSec { /* What: Home Contact Section. Why: The page ends on the brand's striped navy. How: This draws navy stripes with cream text. */
+.homConSec { /* What: Home Contact Section. Why: The page's last section sits on the brand's striped navy. How: This draws navy stripes with cream text. */
 
 
 	background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */

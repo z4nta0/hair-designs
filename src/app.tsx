@@ -75,7 +75,7 @@ function AppRooCom () : React.JSX.Element {
 		<div className={ cssModObj.appRooDiv }>{ /* What: App Root Div Element. Why: Every module's layout queries measure one shared container. How: This wraps the bar, the main element, and the footer in the element named the app container. */ }
 
 
-			<NavBarCom />{ /* What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders the skip link, the bar, and the phone menu. */ }
+			<NavBarCom />{ /* What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders the skip link, the scrim, and the bar with its phone menu. */ }
 
 
 
