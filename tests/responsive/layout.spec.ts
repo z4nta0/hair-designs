@@ -247,7 +247,7 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 			await opeStaFun( curPagObj, { // What: Case Open Call. Why: The layout is measured settled. How: This opens the case's path at the width, opening the menu first for the menu case.
 
 
-				heiNum : 900,              // What: Height Number. Why: Only the width changes this layout. How: Every case is measured at the same height.
+				heiNum : 900,              // What: Height Number. Why: The suite measures across widths, so the height is held fixed. How: Every case is measured at the same height.
 				ideStr : layCasObj.ideStr, // What: Identifier String. Why: The state names its case. How: This reuses the case's name.
 				patStr : layCasObj.patStr, // What: Path String. Why: The state opens the case's route. How: This reuses the case's path.
 				widNum : widCurNum,        // What: Width Number. Why: The width is what this test varies. How: This sizes the viewport to the loop's width.

@@ -69,7 +69,7 @@
 /* #endregion secTitHea */
 
 
-.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading, as on every section. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading, as in the Services, About, and Contact sections. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */

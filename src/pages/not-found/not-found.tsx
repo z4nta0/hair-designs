@@ -91,7 +91,7 @@ function NotFouCom () : React.JSX.Element {
 
 				<h1 className={ cssModObj.secTitHea }>Page not <em className={ cssModObj.titAccEmp }>found</em></h1>{ /* What: Section Title Heading Element. Why: The page's one heading says the page wasn't found. How: The last word is set apart in rose italic. */ }
 
-				<hr className={ cssModObj.secRulHor } />{ /* What: Section Rule Horizontal Rule Element. Why: A short rose rule underlines the heading, as on every section. How: This draws it, centered. */ }
+				<hr className={ cssModObj.secRulHor } />{ /* What: Section Rule Horizontal Rule Element. Why: A short rose rule underlines the heading, as in the Services, About, and Contact sections. How: This draws it, centered. */ }
 
 				<p className={ cssModObj.nofLedPar }>The page you're looking for doesn't exist, but we're still right here in Carson's Corner. Head back home, or give us a call to book your next appointment.</p>{ /* What: Not-Found Lede Paragraph Element. Why: The page points the visitor back to the salon. How: This shows one short paragraph under the rule. */ }
 
