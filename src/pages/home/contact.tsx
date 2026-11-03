@@ -286,8 +286,6 @@ function ConSecCom () : React.JSX.Element {
 
 						</svg>
 
-
-
 						<div>{ /* What: Detail Text Div Element. Why: The label and the number stack beside the icon. How: This holds them. */ }
 
 
@@ -304,7 +302,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 					</div>
-
 
 
 					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The hours pair with their icon and label. How: This lines them up. */ }
@@ -332,8 +329,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 						</svg>
-
-
 
 						<div>{ /* What: Detail Text Div Element. Why: The label and the hours stack beside the icon. How: This holds them. */ }
 
