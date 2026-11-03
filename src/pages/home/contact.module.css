@@ -500,7 +500,7 @@
 /* #endregion forFieDiv */
 
 
-.forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card, and eases its hover deepening and lift. */
+.forSubBut { /* What: Form Submit Button. Why: The form ends in a full-width rose button in the site's button style. How: This sets small spaced bold white capitals on rose across the card, and eases its hover deepening, lift and press, and focus ring. */
 
 
 	background      : var( --acc-mai-col );                      /* Accent Main Color = #d4806a */
@@ -516,7 +516,7 @@
 	padding         : var( --spa-ver-bas ) var( --spa-hor-bas ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base ~= 14.572px */
 	text-decoration : none;
 	text-transform  : uppercase;
-	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-dec-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Duration Transition Base Plus 1 ~= 209.1ms */
 	width           : 100%;
 
 
@@ -526,6 +526,13 @@
 
 	background : oklch( from var( --acc-mai-col ) calc( l - 0.053 ) c h ); /* Accent Main Color = #d4806a darkened by 0.053 */
 	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) );          /* Spacing Vertical Base Minus 7 ~= -2.035px */
+
+
+}
+.forSubBut:active { /* What: Pressed Form Submit Button. Why: A tap should register before anything else happens. How: This presses the button in slightly, which also undoes its hover lift. */
+
+
+	transform : scale( 0.97 ); /* What: Press Scale. Why: A press should register before anything else happens. How: This shrinks the control by 3%, a literal since no scale step lands within 10%. */
 
 
 }
@@ -539,7 +546,7 @@
 @media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Form Submit Button. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.forSubBut { /* What: Motionless Form Submit Button. Why: The change should simply happen. How: This turns the transition off, so the hover changes simply happen. */
+	.forSubBut { /* What: Motionless Form Submit Button. Why: The change should simply happen. How: This turns the transition off, so the hover changes, the press, and the focus ring simply apply. */
 
 
 		transition : none;
