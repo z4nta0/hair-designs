@@ -419,6 +419,8 @@ test( 'the sitemap lists the home page alone', async ( { request : reqCotObj } )
 
 } );
 
+
+
 test( 'the redirects file answers every unknown address with the app', ( { browserName : broNamStr } ) => { // What: Redirects File Test. Why: The 404 tests reach the page through Vite's own fallback, so only this file shows Netlify would serve the app, and its 404 page, for an unknown address. How: This reads public/_redirects and checks its last rule serves index.html with a 200 for every path.
 
 

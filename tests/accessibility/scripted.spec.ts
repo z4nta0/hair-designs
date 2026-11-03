@@ -77,7 +77,7 @@ const TAB_MAX_NUM = 80;                         // What: Tab Maximum Number. Why
  *
  * @param curPagObj - Current Page Object: The page to read.
  *
- * @returns Every naming problem found.
+ * @returns A promise that resolves with every naming problem found.
  * @see {@link proLisArr}
  *
  * @example
@@ -357,7 +357,7 @@ function stoInfFun () : StoInfTyp | null {
  * @param skiLinBoo - Skip Link Boolean: Whether the first stop must be the
  *                    skip link, false where focus doesn't start at the top.
  *
- * @returns Every keyboard problem found.
+ * @returns A promise that resolves with every keyboard problem found.
  * @see {@link proLisArr}
  *
  * @example

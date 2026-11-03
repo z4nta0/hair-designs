@@ -211,7 +211,7 @@ async function aniOpeFun ( curPagObj : Page, forWraObj : Locator ) : Promise< An
  *
  * @param curPagObj - Current Page Object: The page to open the form on.
  *
- * @returns The form wrapper's locator.
+ * @returns A promise that resolves with the form wrapper's locator.
  * @see {@link forWraObj}
  *
  * @example

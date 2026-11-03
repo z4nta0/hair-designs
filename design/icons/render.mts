@@ -168,7 +168,7 @@ const icoSvgObj = { // What: Icon SVG Object. Why: Each kind of icon reads its o
  *                    object's.
  * @param icoSizNum - Icon Size Number: The icon's width and height in pixels.
  *
- * @returns The finished PNG's bytes.
+ * @returns A promise that resolves with the finished PNG's bytes.
  *
  * @example
  * ```ts
