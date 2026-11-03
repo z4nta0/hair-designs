@@ -108,6 +108,7 @@
 
 
 	align-items           : center;
+	color                 : var( --tex-inv-col ); /* Text Inverse Color = #f5f0e8 */ /* What: Brand Color Note. Why: Without a color of its own the brand took the browser's default link colors, which jump from blue to red on a press with no ease, though nothing draws in them. How: This sets the bar's cream, which the name's own rule repeats. */
 	column-gap            : var( --spa-hor-bas ); /* Spacing Horizontal Base ~= 14.572px */
 	display               : grid;
 	grid-template-columns : repeat( 2, auto );
