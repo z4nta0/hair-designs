@@ -21,14 +21,14 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
  * Checks the site's section links in whichever engine the project runs. A
  * plain click on a bar link or a section button lands its section just below
  * the fixed bar without ever putting a hash in the address. A Ctrl, Cmd, or
- * middle click opens the section in a new tab instead, which lands on it and
- * clears its hash, while the page clicked from stays put, and a new tab
- * opened from the phone menu closes the menu. From the 404 page, a bar link
- * reaches its section on the home page, and "Back Home" reaches its top. On
- * every page the first Tab lands on the skip link, on screen, and following
- * it moves focus to the main content without a hash. Pages open under
- * reduced motion, so scrolling jumps straight to its target and each
- * position can be read at once.
+ * middle click on any section link opens the section in a new tab instead,
+ * which lands on it and clears its hash, while the page clicked from stays
+ * put, and a new tab opened from the phone menu closes the menu. From the 404
+ * page, a bar link reaches its section on the home page, and "Back Home"
+ * reaches its top. On every page the first Tab lands on the skip link, on
+ * screen, and following it moves focus to the main content without a hash.
+ * Pages open under reduced motion, so scrolling jumps straight to its target
+ * and each position can be read at once.
  *
  * Sections:
  *  - Constants
@@ -49,6 +49,22 @@ const NAV_LIN_ARR = [ [ 'Home', 'home' ], [ 'Services', 'services' ], [ 'About',
 const PHO_VIE_OBJ = { height : 844, width : 390 };                                                                      // What: Phone Viewport Object. Why: The phone menu exists only at 900px wide and below. How: This is the phone size the menu check uses.
 
 const CLI_KIN_ARR : Array< [ string, Parameters< Locator[ 'click' ] >[ 0 ] ] > = [ [ 'Ctrl or Cmd', { modifiers : [ 'ControlOrMeta' ] } ], [ 'middle', { button : 'middle' } ] ]; // What: Click Kind Array. Why: Both ways of asking for a new tab have to keep working. How: Each row pairs a name for the test title with the click options that make that kind of click.
+
+
+
+const NEW_TAB_ARR : Array< [ string, string, string, string ] > = [ // What: New Tab Array. Why: Every section link has to open its section in a new tab on a modified click. How: Each row names where the link sits (the bar, the phone menu, or the page's own content), the path it's clicked on, its label, and its section's ID.
+
+
+	...NAV_LIN_ARR.map( ( [ linLabStr, secIdeStr ] ) : [ string, string, string, string ] => [ 'bar', '/', linLabStr, secIdeStr ] ),  // What: Bar Link Rows. Why: Each of the bar's links opens its own section. How: This makes a home page bar row for each.
+	...NAV_LIN_ARR.map( ( [ linLabStr, secIdeStr ] ) : [ string, string, string, string ] => [ 'menu', '/', linLabStr, secIdeStr ] ), // What: Menu Link Rows. Why: The phone menu's copies of the bar's links open their sections too. How: This makes a home page menu row for each.
+	...BUT_LIN_ARR.map( ( [ butLabStr, secIdeStr ] ) : [ string, string, string, string ] => [ 'page', '/', butLabStr, secIdeStr ] ), // What: Button Link Rows. Why: The hero's and About section's buttons open their sections too. How: This makes a home page content row for each.
+
+	[ 'bar',  '/',             'Hair Designs', 'home'  ], // What: Brand Row. Why: The bar's brand is a section link to the page's top. How: This clicks it on the home page.
+	[ 'bar',  '/no-such-page', 'About',        'about' ], // What: Not Found Bar Row. Why: From the 404 page, a bar link's new tab opens the home page's section. How: This clicks the bar's About link there.
+	[ 'page', '/no-such-page', 'Back Home',    'home'  ]  // What: Not Found Back Home Row. Why: The 404 page's main way onward opens the home page's top in a new tab too. How: This clicks "Back Home" there.
+
+
+];
 
 // #endregion Constants
 
@@ -219,63 +235,59 @@ for ( const [ butLabStr, secIdeStr ] of BUT_LIN_ARR ) { // What: Button Link Loo
 
 
 
-for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click Loop. Why: Each way of asking for a new tab gets its own checks. How: This declares one bar test and one menu test per row of CLI_KIN_ARR.
+for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click Loop. Why: Each way of asking for a new tab gets its own checks. How: This declares one test per section link for each row of CLI_KIN_ARR.
 
 
-	test( `a ${ cliKinStr } click opens a section in a new tab`, async ( { page : curPagObj } ) => { // What: New Tab Test. Why: A visitor opening a section in a new tab should land on it there, and the page they clicked from should stay put. How: This makes the click, then checks the new tab's section and address and the original page's scroll and address.
+	for ( const [ plaKinStr, rouPatStr, linLabStr, secIdeStr ] of NEW_TAB_ARR ) { // What: New Tab Link Loop. Why: Every section link has to open its section in a new tab. How: This declares one test per row of NEW_TAB_ARR.
 
 
-		await opeRouFun( curPagObj, '/', DES_VIE_OBJ ); // What: Home Open Call. Why: The bar's own links show above 900px wide. How: This opens the home page at desktop size.
+		test( `a ${ cliKinStr } click on the ${ plaKinStr } link "${ linLabStr }" on ${ rouPatStr } opens its section in a new tab`, async ( { page : curPagObj } ) => { // What: New Tab Test. Why: A visitor opening a section in a new tab should land on it there, while the page they clicked from stays put and any menu the link was in closes. How: This makes the click, then checks the new tab's section and address and the original page's address, scroll, and menu.
 
 
-		const newTabPro = curPagObj.context().waitForEvent( 'page' ); // What: New Tab Promise. Why: The click opens its page in a new tab. How: This waits for the browser context to report a new page, set up before the click so it can't be missed.
+			const menLinBoo = plaKinStr === 'menu'; // What: Menu Link Boolean. Why: Only a menu link needs a phone's width and the menu opened first. How: This is true for a menu row.
 
 
-		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).first().click( cliOptObj ); // What: Modified Click Call. Why: This is the action under test. How: This clicks the bar's About link the way the loop's row says.
+			await opeRouFun( curPagObj, rouPatStr, menLinBoo ? PHO_VIE_OBJ : DES_VIE_OBJ ); // What: Page Open Call. Why: The bar's own links show above 900px wide, and the menu only at 900px and below. How: This opens the row's path at the size its place needs.
 
 
-		const newTabObj = await newTabPro; // What: New Tab Object. Why: The section should open in the new tab. How: This is the page the click opened.
-
-
-		await expect( newTabObj.locator( '#about' ) ).toBeVisible();                                          // What: Section Render Wait. Why: The new tab loads the page from scratch, so the section has to exist before it's measured. How: This waits until the About section is on the page.
-		await expect.poll( async () => Math.abs( await secGapFun( newTabObj, 'about' ) ) ).toBeLessThan( 1 ); // What: New Tab Position Assertion. Why: The new tab should land on the section. How: This waits until the About section sits less than a pixel from just below the bar.
-		await expect( newTabObj ).toHaveURL( /\/$/ );                                                         // What: New Tab Address Assertion. Why: The new tab's hash should be cleared once used. How: This checks its URL ends at the root.
-		await expect( curPagObj ).toHaveURL( /\/$/ );                                                         // What: Original Address Assertion. Why: The page clicked from shouldn't navigate. How: This checks its URL still ends at the root.
-
-		expect( await curPagObj.evaluate( () => window.scrollY ) ).toBe( 0 ); // What: Original Scroll Assertion. Why: The page clicked from should stay where it was. How: This checks it's still at the top.
-
-
-	} );
+			if ( menLinBoo ) await curPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); // What: Menu Open Guard. Why: A menu link is clickable only with the menu open. How: For a menu row, this opens it.
 
 
 
-	test( `a ${ cliKinStr } click on a menu link opens a new tab and closes the menu`, async ( { page : curPagObj } ) => { // What: Menu New Tab Test. Why: Once a visitor chooses a link in the menu, the menu should close, even when the link opens in a new tab. How: This opens the menu, makes the click, and checks the new tab's section and address, the menu closing, and the original page's scroll and address.
+			const barLinObj = curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : linLabStr } ); // What: Bar Link Object. Why: The bar holds both its own links and the menu's copies. How: This finds every bar link with the row's label.
+			const linCurObj = plaKinStr === 'page' ? curPagObj.getByRole( 'main' ).getByRole( 'link', { exact : true, name : linLabStr } ) : menLinBoo ? barLinObj.last() : barLinObj.first(); // What: Link Current Object. Why: Each place finds its link its own way. How: This takes a content link from the main element, the menu's copy as the bar's last match, and the bar's own link as its first.
 
 
-		await opeRouFun( curPagObj, '/', PHO_VIE_OBJ ); // What: Phone Open Call. Why: The menu exists only at a phone's width. How: This opens the home page at phone size.
-
-		await curPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); // What: Menu Toggle Click. Why: The link lives in the open menu. How: This opens it.
+			await linCurObj.scrollIntoViewIfNeeded(); // What: Link Scroll Call. Why: The page's scroll before the click has to be read after any scroll the click itself would make to reach the link. How: This brings the link into view first.
 
 
-		const newTabPro = curPagObj.context().waitForEvent( 'page' ); // What: New Tab Promise. Why: The click opens its page in a new tab. How: This waits for the browser context to report a new page, set up before the click so it can't be missed.
+			const oriScrNum = await curPagObj.evaluate( () => window.scrollY ); // What: Original Scroll Number. Why: The page clicked from should stay where it was. How: This reads its scroll just before the click.
+			const oriUrlStr = curPagObj.url();                                  // What: Original URL String. Why: The page clicked from shouldn't navigate. How: This reads its address just before the click.
+			const newTabPro = curPagObj.context().waitForEvent( 'page' );       // What: New Tab Promise. Why: The click opens its page in a new tab. How: This waits for the browser context to report a new page, set up before the click so it can't be missed.
 
 
-		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).last().click( cliOptObj ); // What: Modified Click Call. Why: This is the action under test. How: This clicks the menu's About link, the last match being the menu's copy of the bar's link, the way the loop's row says.
+			await linCurObj.click( cliOptObj ); // What: Modified Click Call. Why: This is the action under test. How: This clicks the link the way the loop's row says.
 
 
-		const newTabObj = await newTabPro; // What: New Tab Object. Why: The section should open in the new tab. How: This is the page the click opened.
+			const newTabObj = await newTabPro; // What: New Tab Object. Why: The section should open in the new tab. How: This is the page the click opened.
 
 
-		await expect( newTabObj.locator( '#about' ) ).toBeVisible();                                                           // What: New Tab Assertion. Why: The section should open in the new tab. How: This waits until the new tab shows the About section.
-		await expect.poll( async () => Math.abs( await secGapFun( newTabObj, 'about' ) ) ).toBeLessThan( 1 );                  // What: New Tab Position Assertion. Why: The new tab should land on the section. How: This waits until the About section sits less than a pixel from just below the bar.
-		await expect( newTabObj ).toHaveURL( /\/$/ );                                                                          // What: New Tab Address Assertion. Why: The new tab's hash should be cleared once used. How: This checks its URL ends at the root.
-		await expect( curPagObj.getByRole( 'button', { name : 'Toggle menu' } ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Menu Closed Assertion. Why: Choosing a link should close the menu, wherever the link opens. How: This checks the toggle reports the menu closed.
-		await expect( curPagObj ).toHaveURL( /\/$/ );                                                                          // What: Original Address Assertion. Why: The page clicked from shouldn't navigate. How: This checks its URL still ends at the root.
+			await expect( newTabObj.locator( `#${ secIdeStr }` ) ).toBeVisible();                                    // What: Section Render Wait. Why: The new tab loads the page from scratch, so the section has to exist before it's measured. How: This waits until the row's section is on the page.
+			await expect.poll( async () => Math.abs( await secGapFun( newTabObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: New Tab Position Assertion. Why: The new tab should land on the section. How: This waits until the section sits less than a pixel from just below the bar.
+			await expect( newTabObj ).toHaveURL( /\/$/ );                                                           // What: New Tab Address Assertion. Why: The new tab's hash should be cleared once used. How: This checks its URL ends at the root.
 
-		expect( await curPagObj.evaluate( () => window.scrollY ) ).toBe( 0 ); // What: Original Scroll Assertion. Why: The page clicked from should stay where it was. How: This checks it's still at the top.
+			if ( menLinBoo ) await expect( curPagObj.getByRole( 'button', { name : 'Toggle menu' } ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Menu Closed Guard. Why: Choosing a link should close the menu, wherever the link opens. How: For a menu row, this checks the toggle reports the menu closed.
 
 
-	} );
+
+			expect( curPagObj.url() ).toBe( oriUrlStr );                                  // What: Original Address Assertion. Why: The page clicked from shouldn't navigate. How: This checks its address is unchanged.
+			expect( await curPagObj.evaluate( () => window.scrollY ) ).toBe( oriScrNum ); // What: Original Scroll Assertion. Why: The page clicked from should stay where it was. How: This checks its scroll is unchanged.
+
+
+		} );
+
+
+	}
 
 
 }
