@@ -24,7 +24,8 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers dr
  * page. The usual ways out each close it and give the page back: tapping
  * the scrim, pressing Escape, which also returns focus to the toggle,
  * choosing a section link or the bar's brand, which also scroll to their
- * sections, and widening the screen past the phone layout, which hides the
+ * sections, choosing the Call or Facebook link, with a plain or a middle
+ * click, and widening the screen past the phone layout, which hides the
  * toggle. Adapted from the-bernie-bears' own menu spec.
  *
  * Sections:
@@ -220,6 +221,46 @@ test( 'choosing a section closes the menu on the way there', async ( { page : cu
 
 
 } );
+
+
+
+for ( const linNamStr of [ 'Call 417-988-6239', 'Find us on Facebook' ] ) { // What: Menu Extra Link Loop. Why: The menu's Call and Facebook links close it like its section links do. How: This declares the plain and middle click tests for each link.
+
+
+	for ( const cliKinStr of [ 'plain', 'middle' ] ) { // What: Click Kind Loop. Why: A middle click reaches the page as auxclick rather than click, so each needs its own check. How: This declares one test per kind of click.
+
+
+		test( `a ${ cliKinStr } click on the menu's "${ linNamStr }" link closes the menu`, async ( { page : curPagObj } ) => { // What: Extra Link Close Test. Why: Once a visitor chooses a link in the menu, the menu should close, whatever the link opens. How: This keeps the link from leaving the page, opens the menu, makes the click, and checks the menu closes.
+
+
+			await curPagObj.context().route( '**/*facebook.com/**', ( rouCurObj ) => rouCurObj.abort() ); // What: Facebook Route Block. Why: The test shouldn't reach the real Facebook page. How: This aborts any request to it, from this page or a tab the click opens.
+
+			curPagObj.context().on( 'page', ( newPagObj ) => newPagObj.close() ); // What: New Tab Closer. Why: Only the menu is under test, not a tab the link opens. How: This closes any page the context gains.
+
+			await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
+
+
+			await curPagObj.evaluate( () => { // What: Default Block Setup. Why: A plain click would dial or open Facebook, taking the page away before the check reads it. How: This cancels the default of every click and auxclick once it reaches the window, after the menu's own handlers have run.
+
+
+				for ( const eveNamStr of [ 'auxclick', 'click' ] ) window.addEventListener( eveNamStr, ( eveCurObj ) => eveCurObj.preventDefault() ); // What: Default Block Listener. Why: Each kind of click needs its default cancelled. How: This adds a window listener for each that prevents the default.
+
+
+			} );
+
+
+			await curPagObj.getByRole( 'banner' ).getByRole( 'link', { name : linNamStr } ).click( cliKinStr === 'middle' ? { button : 'middle' } : {} ); // What: Extra Link Click Call. Why: The kind of click is what's checked. How: This clicks the link with the loop's button.
+
+			await cloCheFun( curPagObj ); // What: Closed Check Call. Why: The click should close the menu and give the page back. How: This checks both.
+
+
+		} );
+
+
+	}
+
+
+}
 
 
 

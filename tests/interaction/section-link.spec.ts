@@ -345,6 +345,32 @@ for ( const [ rouPatStr, vieSizObj ] of [ [ '/', DES_VIE_OBJ ], [ '/', PHO_VIE_O
 
 }
 
+
+
+test( 'with motion on, the skip link slides into view and ends fully on screen', async ( { page : curPagObj } ) => { // What: Skip Link Slide Test. Why: The skip link moves only with motion on, so its landing has to be checked once its slide finishes, not just under reduced motion. How: This turns motion back on, presses Tab, checks the link's slide is running, waits for it to finish, and checks the whole link is on screen.
+
+
+	await opeRouFun( curPagObj, '/', DES_VIE_OBJ ); // What: Page Open Call. Why: The home page opens with the skip link like every page. How: This opens it at the desktop size.
+
+	await curPagObj.emulateMedia( { reducedMotion : 'no-preference' } ); // What: Motion On Emulation. Why: The helper turns reduced motion on, and the slide only runs without it. How: This drops the preference, which the page applies at once.
+
+	await curPagObj.keyboard.press( 'Tab' ); // What: First Tab Press. Why: Focusing the skip link is what starts its slide. How: This moves focus to the page's first focusable element.
+
+
+	const skiLinObj = curPagObj.getByRole( 'link', { name : 'Skip to main content' } ); // What: Skip Link Object. Why: The checks read the link by its name. How: This finds it.
+
+
+	await expect( skiLinObj ).toBeFocused(); // What: First Stop Assertion. Why: The slide belongs to the focused skip link. How: This checks the first Tab landed on it.
+
+	expect( await skiLinObj.evaluate( ( ancCurEle ) => ancCurEle.getAnimations().some( ( aniCurObj ) => ( aniCurObj as CSSTransition ).transitionProperty === 'transform' ) ) ).toBe( true ); // What: Slide Running Assertion. Why: A check after the slide only means something if the link really slides with motion on. How: This checks a transform transition is running on the link. // What: Type Assertion Note. Why: getAnimations returns plain animations, which carry no transition property. How: A CSS transition on the link is a CSSTransition, and anything else reads undefined and fails the match.
+
+	await skiLinObj.evaluate( ( ancCurEle ) => Promise.all( ancCurEle.getAnimations().map( ( aniCurObj ) => aniCurObj.finished ) ) ); // What: Slide Finish Wait. Why: The link's position counts only where it lands. How: This waits for every animation on the link to finish.
+
+	await expect( skiLinObj ).toBeInViewport( { ratio : 1 } ); // What: Fully On Screen Assertion. Why: Once its slide ends, the whole link should show. How: This checks every part of it sits inside the viewport.
+
+
+} );
+
 // #endregion Module Init
 
 
