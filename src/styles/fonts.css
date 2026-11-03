@@ -9,7 +9,7 @@
  * Lato for the body text, and Dancing Script for the brand's script lines,
  * replacing the Google Fonts stylesheet and preconnect link index.html used
  * to load, so a visit makes no requests to a third party. Each file is the
- * latin subset Google served for exactly the faces that stylesheet asked
+ * Latin subset Google served for exactly the faces that stylesheet asked
  * for, with the same swap behavior, so fallback text shows until a file
  * arrives: Playfair Display at 400 and 600 (one variable file Google served
  * for both) and in italic at 400, Lato at 300, 400, and 700, and Dancing

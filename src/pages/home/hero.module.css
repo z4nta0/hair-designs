@@ -257,7 +257,7 @@
 
 }
 
-.titAccEmp { /* What: Title Accent Emphasis. Why: The heading's second word is set apart. How: This sets Designs in dark rose italic. */
+.titAccEmp { /* What: Title Accent Emphasis. Why: The heading's second word is set apart. How: This sets "Designs" in dark rose italic. */
 
 
 	color      : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
