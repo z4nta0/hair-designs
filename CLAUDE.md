@@ -496,6 +496,21 @@ be scrolled into view.
   closes, and that the 404 page's bar links reach their sections.
   `tooltip.spec.ts` checks the form tooltip fades out before it's removed,
   closes on Escape after keyboard focus, and still goes under reduced motion.
+- `npm run test:security`: added 2026-11-02, from tonys-toppers'. The
+  playwright config also builds the site and serves it with `vite preview` on
+  port 5202, since the dev server injects inline scripts the policy would
+  block. `headers.spec.ts` checks `public/_headers` against the security
+  baseline (a strict Content-Security-Policy, HSTS for at least a year,
+  nosniff, DENY framing, and the referrer and permissions policies), searches
+  the build for private keys and provider tokens, and runs `npm audit` on the
+  shipped dependencies, those three in Chromium only, since a file reads the
+  same in every engine, the audit skipping with a message when npm is
+  offline. `browser.spec.ts` loads each state from the build with the
+  headers file's headers applied, proves the policy is live by seeing an
+  injected inline script refused, and checks every state reports no
+  violation (but WebKit's report for the form's select, which every select
+  draws) and that every new tab link carries `noopener` and `noreferrer`. No
+  browser key ships, and the form never sends, so there's no post to check.
 - `npm test` runs every suite.
 
 ### Accessibility pass
