@@ -63,6 +63,7 @@
 	color         : var( --tex-inv-col );                                     /* Text Inverse Color = #f5f0e8 */
 	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	line-height   : var( --ver-rhy-m01 );                                     /* Vertical Rhythm Base Minus 1 = 1 */
 	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
 
 
@@ -303,6 +304,7 @@
 	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
 	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	line-height   : var( --ver-rhy-m01 ); /* Vertical Rhythm Base Minus 1 = 1 */
 	margin-bottom : var( --spa-ver-p02 ); /* Spacing Vertical Base Plus 2 ~= 25.572px */
 
 
