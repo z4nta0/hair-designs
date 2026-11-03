@@ -64,7 +64,7 @@ treatment. The `author` meta names the business itself.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
-  Designs" in Playfair Display with Designs in light rose italic, "Juli
+  Designs" in Playfair Display with "Designs" in light rose italic, "Juli
   Wilkerson & Keeli Bryan" signed in light rose script as in the hero, and
   "Carson's Corner, Missouri" in cream Lato at a literal 40px (no scale step
   lands within 10%), all inside the center 630px square, with the bar's rose
