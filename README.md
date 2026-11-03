@@ -64,7 +64,7 @@ npm run preview
 src/
 ├── assets/        Images shared by 2+ places (logo.svg)
 ├── pages/
-│   ├── home/      Home page and its sections (hero, services, about, contact), each with its own .module.css
+│   ├── home/      Home page and its sections (hero, Services, About, Contact), each with its own .module.css
 │   └── not-found/ The 404 page
 ├── ui/            Components on every page (nav, footer), each with its own .module.css, and section-link.ts (section links that leave no hash in the address)
 ├── styles/        Global CSS (fonts.css for the self-hosted fonts, styles.css for the tokens and base elements)

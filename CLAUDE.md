@@ -233,7 +233,7 @@ src/
   assets/                images used by 2 or more places (logo.svg)
   pages/
     home/                the home page (home.tsx) and its sections (hero,
-                         services, about, contact)
+                         Services, About, Contact)
   ui/                    components every page renders (nav, footer) and
                          section-link.ts
   styles/                global CSS only (fonts.css, styles.css)
