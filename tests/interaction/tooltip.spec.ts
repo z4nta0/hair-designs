@@ -68,7 +68,7 @@ type AniRecTyp = { // What: Animation Record Type. Why: Each animation the toolt
 
 // #region Constants
 
-const TIP_LIN_STR = '417-988-6239';       // What: Tip Link String. Why: The tooltip is found by its phone link, the only link inside the form, since the form's hidden legend repeats the tooltip's message. How: This is the link's name.
+const TIP_LIN_STR = '417-988-6239';         // What: Tip Link String. Why: The tooltip is found by its phone link, the only link inside the form, since the form's hidden legend repeats the tooltip's message. How: This is the link's name.
 const TIP_DES_STR = `a "${ TIP_LIN_STR }"`; // What: Tip Description String. Why: A problem should name the link the way the feedback spec names every control. How: This joins its tag with its name, and follows the name it reads.
 
 // #endregion Constants

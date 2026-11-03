@@ -20,11 +20,11 @@ import { fileURLToPath } from 'node:url';         // What: File URL To Path. Why
  * nothing about the others. Each suite lives in its own folder under tests/,
  * the accessibility suite being the one the pre-commit check runs. Playwright
  * starts the Vite dev server on port 5191, and builds the site and serves it
- * with vite preview on 5202 for the security suite, and stops both afterwards,
- * so a dev server already running on the usual 5173 is never touched. Reports
- * and failure screenshots land in tests/output, which git ignores, while the
- * rendering suite's approved screenshots live in tests/rendering/baselines and
- * are committed.
+ * with vite preview on 5202 for the security and SEO suites, and stops both
+ * afterwards, so a dev server already running on the usual 5173 is never
+ * touched. Reports and failure screenshots land in tests/output, which git
+ * ignores, while the rendering suite's approved screenshots live in
+ * tests/rendering/baselines and are committed.
  *
  * Sections:
  *  - Constants
@@ -133,7 +133,7 @@ const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playw
 
 		},
 
-		{ // What: Preview Server. Why: The security suite reads what ships, and the dev server's inline scripts would break the strict policy. How: This builds the site and serves the build on 5202.
+		{ // What: Preview Server. Why: The security and SEO suites read what ships, and the dev server's inline scripts would break the strict policy. How: This builds the site and serves the build on 5202.
 
 
 			command             : 'npm run build && npx vite preview --port 5202 --strictPort', // What: Command. Why: The preview serves only a fresh build, and a strict port fails loudly. How: This builds the site, then serves dist/ on 5202.

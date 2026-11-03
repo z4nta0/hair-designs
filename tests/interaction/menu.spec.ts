@@ -162,7 +162,7 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 
 
 		const scrCurEle = [ ...document.querySelectorAll( '[data-mobile-menu-open]' ) ].find( ( opeCurEle ) => !opeCurEle.closest( 'header' ) )!; // What: Scrim Current Element. Why: The menu panel carries the same open attribute inside the bar. How: This finds the open element outside the header. // What: Non-Null Note. Why: find can return undefined. How: The open menu always renders its scrim outside the bar.
-		const scrStyObj = getComputedStyle( scrCurEle );                                                                                         // What: Scrim Style Object. Why: The scrim's opacity and color are what dim the page. How: This reads its computed styles.
+		const scrStyObj = getComputedStyle( scrCurEle );                                                                                          // What: Scrim Style Object. Why: The scrim's opacity and color are what dim the page. How: This reads its computed styles.
 
 
 

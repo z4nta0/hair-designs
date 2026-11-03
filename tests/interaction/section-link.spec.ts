@@ -256,7 +256,7 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 
 
 
-			const barLinObj = curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : linLabStr } ); // What: Bar Link Object. Why: The bar holds both its own links and the menu's copies. How: This finds every bar link with the row's label.
+			const barLinObj = curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : linLabStr } );                                                                         // What: Bar Link Object. Why: The bar holds both its own links and the menu's copies. How: This finds every bar link with the row's label.
 			const linCurObj = plaKinStr === 'page' ? curPagObj.getByRole( 'main' ).getByRole( 'link', { exact : true, name : linLabStr } ) : menLinBoo ? barLinObj.last() : barLinObj.first(); // What: Link Current Object. Why: Each place finds its link its own way. How: This takes a content link from the main element, the menu's copy as the bar's last match, and the bar's own link as its first.
 
 
@@ -274,7 +274,7 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 			const newTabObj = await newTabPro; // What: New Tab Object. Why: The section should open in the new tab. How: This is the page the click opened.
 
 
-			await expect( newTabObj.locator( `#${ secIdeStr }` ) ).toBeVisible();                                    // What: Section Render Wait. Why: The new tab loads the page from scratch, so the section has to exist before it's measured. How: This waits until the row's section is on the page.
+			await expect( newTabObj.locator( `#${ secIdeStr }` ) ).toBeVisible();                                   // What: Section Render Wait. Why: The new tab loads the page from scratch, so the section has to exist before it's measured. How: This waits until the row's section is on the page.
 			await expect.poll( async () => Math.abs( await secGapFun( newTabObj, secIdeStr ) ) ).toBeLessThan( 1 ); // What: New Tab Position Assertion. Why: The new tab should land on the section. How: This waits until the section sits less than a pixel from just below the bar.
 			await expect( newTabObj ).toHaveURL( /\/$/ );                                                           // What: New Tab Address Assertion. Why: The new tab's hash should be cleared once used. How: This checks its URL ends at the root.
 
@@ -350,11 +350,11 @@ test( 'with motion on, a bar link glides to its section and lands below the bar'
 	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).first().click(); // What: Bar Link Click Call. Why: This is the action under test, from the page's top, so the glide covers most of the page. How: This clicks the bar's Contact link.
 
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'contact' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The section should land just below the bar once the glide ends. How: This waits until its top sits less than a pixel from where the scroll should leave it.
-	await expect( curPagObj ).toHaveURL( /\/$/ );                                                            // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
+	await expect( curPagObj ).toHaveURL( /\/$/ );                                                           // What: Clean Address Assertion. Why: The address bar should stay free of hashes. How: This checks the URL still ends at the root.
 
 
 	const scrPosArr = await curPagObj.evaluate( () => Reflect.get( window, '__scrPosArr' ) as number[] ); // What: Scroll Position Array. Why: The check reads the positions the page passed through. How: This reads the recorded list. // What: Type Assertion Note. Why: Reflect.get reads the window's property as any. How: The recorder set it to an array of numbers.
-	const endScrNum = await curPagObj.evaluate( () => window.scrollY );                                     // What: End Scroll Number. Why: A position counts as partway only if it falls short of where the scroll ended. How: This reads the final scroll.
+	const endScrNum = await curPagObj.evaluate( () => window.scrollY );                                   // What: End Scroll Number. Why: A position counts as partway only if it falls short of where the scroll ended. How: This reads the final scroll.
 
 
 	expect( scrPosArr.some( ( scrPosNum ) => scrPosNum > 0 && scrPosNum < endScrNum - 1 ) ).toBe( true ); // What: Glide Assertion. Why: A smooth scroll passes through the page on its way, while a jump goes straight there. How: This checks some recorded position sits between the top and more than a pixel short of the end.

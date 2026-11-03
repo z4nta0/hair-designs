@@ -330,7 +330,7 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 				widNum : widCurNum,        // What: Width Number. Why: The width is what this test varies. How: This sizes the viewport to the loop's width.
 
 				...( layCasObj.menBoo ? { actFun : async ( actPagObj ) => { await actPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); } } : {} ), // What: Menu Action Spread. Why: Only the menu case opens the menu. How: This adds the toggle click as the state's action for that case.
-				...( layCasObj.tipBoo ? { actFun : tipOpeFun } : {} )                                                                                         // What: Tooltip Action Spread. Why: Only the tooltip case opens the tooltip. How: This adds the tooltip's opener as the state's action for that case, never alongside the menu's, since no case sets both.
+				...( layCasObj.tipBoo ? { actFun : tipOpeFun } : {} )                                                                                            // What: Tooltip Action Spread. Why: Only the tooltip case opens the tooltip. How: This adds the tooltip's opener as the state's action for that case, never alongside the menu's, since no case sets both.
 
 
 			} );
