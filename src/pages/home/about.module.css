@@ -72,7 +72,7 @@
 
 /* #region logBacDiv */
 
-.logBacDiv { /* What: Logo Backdrop Div. Why: The card sits on the brand's stripes. How: This draws a 4:5 panel of 24px navy stripes and centers the card on it. */
+.logBacDiv { /* What: Logo Backdrop Div. Why: The card sits on the brand's stripes. How: This draws a 4:5 panel of navy stripes and centers the card on it. */
 
 
 	align-items      : center;
@@ -89,7 +89,7 @@
 
 /* #region aboCarDiv */
 
-.aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset 28px from the panel's edges. */
+.aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset a spacing step in from the panel's edges. */
 
 
 	background : var( --bac-sur-col );                            /* Background Surface Color = #f5f0e8 */
@@ -165,7 +165,7 @@
 
 }
 
-.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */

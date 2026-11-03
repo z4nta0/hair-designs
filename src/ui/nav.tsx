@@ -435,7 +435,7 @@ function NavBarCom () : React.JSX.Element {
 
 // #region Exports
 
-export { NavBarCom }; // What: Named Exports. Why: The app root renders the bar above every page. How: This exports NavBarCom.
+export { NavBarCom }; // What: Named Export. Why: The app root renders the bar above every page. How: This exports NavBarCom.
 
 // #endregion Exports
 

@@ -48,7 +48,7 @@ const DES_VIE_OBJ = { height : 900, width : 1440 };                             
 const NAV_LIN_ARR = [ [ 'Home', 'home' ], [ 'Services', 'services' ], [ 'About', 'about' ], [ 'Contact', 'contact' ] ]; // What: Navigation Link Array. Why: Each of the bar's links leads to its own section. How: Each row pairs a link's label with its section's id.
 const PHO_VIE_OBJ = { height : 844, width : 390 };                                                                      // What: Phone Viewport Object. Why: The phone menu exists only at 900px wide and below. How: This is the phone size the menu check uses.
 
-const CLI_KIN_ARR : Array< [ string, Parameters< Locator[ 'click' ] >[ 0 ] ] > = [ [ 'Ctrl or Cmd', { modifiers : [ 'ControlOrMeta' ] } ], [ 'middle', { button : 'middle' } ] ]; // What: Click Kind Array. Why: Both ways of asking for a new tab have to keep working. How: Each row pairs a name for the test title with the click options that make that kind of click. // What: Type Assertion Note. Why: The options have to type as the click method's own. How: The annotation reads them from Locator's click parameter.
+const CLI_KIN_ARR : Array< [ string, Parameters< Locator[ 'click' ] >[ 0 ] ] > = [ [ 'Ctrl or Cmd', { modifiers : [ 'ControlOrMeta' ] } ], [ 'middle', { button : 'middle' } ] ]; // What: Click Kind Array. Why: Both ways of asking for a new tab have to keep working. How: Each row pairs a name for the test title with the click options that make that kind of click.
 
 // #endregion Constants
 

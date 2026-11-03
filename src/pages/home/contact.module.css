@@ -68,7 +68,7 @@
 
 }
 
-.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -133,7 +133,7 @@
 
 }
 
-.detIcoSvg { /* What: Detail Icon SVG. Why: Each detail opens with a small line icon. How: This draws it as a 22px light rose outline that never shrinks, nudged down to meet the label. */
+.detIcoSvg { /* What: Detail Icon SVG. Why: Each detail opens with a small line icon. How: This draws it as a small light rose outline that never shrinks, nudged down to meet the label. */
 
 
 	fill        : none;

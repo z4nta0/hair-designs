@@ -27,7 +27,7 @@
 	display        : flex;
 	flex-direction : column;
 	min-height     : 100vh;
-	padding        : var( --nav-bar-hei ) 0 0; /* Navigation Bar Height ~= 59.447px */ /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's 68px height. */
+	padding        : var( --nav-bar-hei ) 0 0; /* Navigation Bar Height ~= 59.447px */ /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's height. */
 
 
 }
@@ -282,7 +282,7 @@
 
 }
 
-.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a 56px by 2px box. */
+.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a short box 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -330,7 +330,7 @@
 
 /* #region herActDiv */
 
-.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up 16px apart, wrapping on narrow screens. */
+.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up a spacing step apart, wrapping on narrow screens. */
 
 
 	display    : flex;

@@ -135,7 +135,7 @@
 
 /* #region navBarHed */
 
-.navBarHed { /* What: Navigation Bar Header. Why: Every page opens with a fixed navy bar holding the brand and the links. How: This pins a 68px grid across the top, the brand on the left and the links or menu button on the right, above the content that scrolls under it. */
+.navBarHed { /* What: Navigation Bar Header. Why: Every page opens with a fixed navy bar holding the brand and the links. How: This pins a grid across the top, the brand on the left and the links or menu button on the right, above the content that scrolls under it. */
 
 
 	align-items           : center;
@@ -607,7 +607,7 @@
 .menCalAnc:active { /* What: Pressed Menu Call Anchor. Why: A tap should register before the call starts. How: This presses the button in slightly, undoing the hover lift. */
 
 
-	transform : scale( 0.97 );
+	transform : scale( 0.97 ); /* What: Press Scale. Why: A press should register before anything else happens. How: This shrinks the control by 3%, a literal since no scale step lands within 10%. */
 
 
 }

@@ -17,19 +17,13 @@ import { test   } from '@playwright/test'; // What: Test. Why: Each route and ea
  * Checks the site's SEO setup in whichever engine the project runs. Hair
  * Designs is a real local salon, so the home page has to be findable and
  * describe it accurately: the raw page, fetched without a browser, already
- * carries the full title and the one description, which name the salon and
- * its town; its canonical and author tags are in place; it carries no
- * noindex; and its structured data, a HairSalon, a Person for each stylist,
- * and a WebSite, matches what the page itself shows: the phone number,
- * street address, stylists, services, and Facebook page, with no opening
- * hours, since the salon works by appointment. The 404 page carries noindex,
- * a title of its own, and the one description, and each page has exactly one
- * h1. The social preview tags are complete, use absolute addresses, and match
- * the page's title and description; the card they point at is a 1,200x630
- * PNG under 300 KB; and every icon the head links to is served, the PNGs at
- * the size their links promise. robots.txt lets every crawler in and names
- * the sitemap, which lists the home page alone. Adapted from tonys-toppers'
- * own SEO suite.
+ * carries its full title and its one description, its head tags name the salon
+ * and its town, and its structured data matches what the page itself shows,
+ * such as the phone number. The 404 page stays out of search results under a
+ * title of its own. The social preview tags are complete and point at a card
+ * of the size apps expect, every icon the head links to is served, and the
+ * crawler files let every crawler in and list the home page. Adapted from
+ * tonys-toppers' own SEO suite.
  *
  * Sections:
  *  - Constants

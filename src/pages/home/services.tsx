@@ -240,7 +240,7 @@ function SerSecCom () : React.JSX.Element {
 
 // #region Exports
 
-export { SerSecCom }; // What: Named Exports. Why: The home page renders the Services section second. How: This exports SerSecCom.
+export { SerSecCom }; // What: Named Export. Why: The home page renders the Services section second. How: This exports SerSecCom.
 
 // #endregion Exports
 

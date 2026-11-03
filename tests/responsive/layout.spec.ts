@@ -101,7 +101,7 @@ const WID_LIS_ARR = [ 320, 360, 390, 414, 480, 600, 601, 768, 900, 901, 1024, 10
  *
  * @example
  * ```ts
- * page.evaluate(layProFun) // => [ 'a.navLinAnc overlaps a.navCtaAnc' ]
+ * page.evaluate(layProFun) // => [ 'a.navBraAnc overlaps a.navLinAnc' ]
  * ```
  *
 */

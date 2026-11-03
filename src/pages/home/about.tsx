@@ -147,7 +147,7 @@ function AboSecCom () : React.JSX.Element {
 
 // #region Exports
 
-export { AboSecCom }; // What: Named Exports. Why: The home page renders the About section third. How: This exports AboSecCom.
+export { AboSecCom }; // What: Named Export. Why: The home page renders the About section third. How: This exports AboSecCom.
 
 // #endregion Exports
 

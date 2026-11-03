@@ -92,7 +92,7 @@ function SitFooCom () : React.JSX.Element {
 
 // #region Exports
 
-export { SitFooCom }; // What: Named Exports. Why: The app root renders the footer below every page. How: This exports SitFooCom.
+export { SitFooCom }; // What: Named Export. Why: The app root renders the footer below every page. How: This exports SitFooCom.
 
 // #endregion Exports
 
