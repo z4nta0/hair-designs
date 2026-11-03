@@ -272,7 +272,6 @@ function ConSecCom () : React.JSX.Element {
 		};
 
 
-
 		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the press handler.
 		document.addEventListener( 'keydown', escKeyFun );     // What: Escape Listener Call. Why: Escape has to work wherever focus is, since a hover never moves it. How: This registers the key handler.
 

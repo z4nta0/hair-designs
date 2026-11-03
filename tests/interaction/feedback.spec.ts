@@ -364,9 +364,9 @@ async function conLisFun ( curPagObj : Page, conSelStr : string ) : Promise< Ele
 async function feeProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< string[] > {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const conHanArr = await conLisFun( curPagObj, 'a, button' ); // What: Control Handle Array. Why: Every reachable link and button is probed. How: This collects their handles.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 	if ( !conHanArr.length ) proLisArr.push( 'no control to probe' ); // What: Empty Probe Check. Why: A probe that finds nothing would pass without checking anything, and every state has at least the bar's brand. How: This records a problem when no control is found.
@@ -510,9 +510,9 @@ async function feeProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< st
 async function focProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< string[] > {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const tarHanArr = await conLisFun( curPagObj, FOC_TAR_STR ); // What: Target Handle Array. Why: Every reachable focusable element that isn't a link or button is probed. How: This collects them the way the controls are collected.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 	if ( !tarHanArr.length ) proLisArr.push( 'no focusable element to probe' ); // What: Empty Probe Check. Why: A probe that finds nothing would pass without checking anything, and the home page always has the contact form's wrapper. How: This records a problem when no element is found.
@@ -613,9 +613,9 @@ async function focProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< st
 async function hovProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< string[] > {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const tarHanArr = await conLisFun( curPagObj, HOV_TAR_STR ); // What: Target Handle Array. Why: Every visible service card is probed. How: This collects them the way the controls are collected.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 	if ( !tarHanArr.length ) proLisArr.push( 'no card to probe' ); // What: Empty Probe Check. Why: A probe that finds nothing would pass without checking anything. How: This records a problem when no card is found.

@@ -111,9 +111,9 @@ const WID_LIS_ARR = [ 320, 360, 390, 414, 480, 600, 601, 768, 900, 901, 1024, 10
 function layProFun () : string[] {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const vieWidNum = document.documentElement.clientWidth; // What: Viewport Width Number. Why: Edges and sideways scrolling are measured against the visible width. How: This reads the root's width without its scrollbar.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 
@@ -265,12 +265,12 @@ function layProFun () : string[] {
 function serRowFun () : string[] {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: The test prints whatever was found. How: This collects the problems.
-
 	const appWidNum = document.querySelector( '[class*="appRooDiv"]' )!.getBoundingClientRect().width; // What: App Width Number. Why: The grid's breakpoints measure the app container, not the window. How: This reads the root div's width. // What: Non-Null Note. Why: querySelector can return null. How: The app always renders its root div.
 	const carEleArr = [ ...document.querySelectorAll( '[class*="serCarDiv"]' ) ];                      // What: Card Element Array. Why: The rows are built from the cards' positions. How: This finds every Services card by its module class.
 	const colCouNum = appWidNum > 900 ? 3 : appWidNum > 600 ? 2 : 1;                                   // What: Column Count Number. Why: Each width range has its own column count. How: This picks 3, 2, or 1 the way the 900px and 600px max-width queries do.
 	const rowCouMap = new Map< number, number >();                                                     // What: Row Count Map. Why: Cards sharing a top edge sit in one row. How: This counts the cards at each rounded top.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: The test prints whatever was found. How: This collects the problems.
 
 
 	for ( const carCurEle of carEleArr ) { // What: Card Loop. Why: Every card belongs to a row. How: This adds each card to the count for its rounded top edge.

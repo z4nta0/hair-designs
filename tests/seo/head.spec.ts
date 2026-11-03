@@ -147,7 +147,7 @@ for ( const [ souNamStr, souUrlStr ] of [ [ 'dev server', '/' ], [ 'production b
 
 
 		expect( rawTexStr ).toContain( "<title>Hair Designs | Hair Salon in Carson's Corner, Missouri</title>" );                                                                                         // What: Raw Title Assertion. Why: The title has to be the full one, not a bare site name. How: This checks the HTML carries it.
-		expect( rawTexStr.match( /<meta name='description'/g ) ).toHaveLength( 1 );                                                                                                                       // What: Raw Description Assertion. Why: The page should carry exactly one description for crawlers to read. How: This counts the description tags in the HTML.
+		expect( rawTexStr.match( /<meta name='description'/g ) ).toHaveLength( 1 ); // What: Raw Description Assertion. Why: The page should carry exactly one description for crawlers to read. How: This counts the description tags in the HTML.
 		expect( rawTexStr ).toContain( "<meta name='description' content=\"Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only.\"" ); // What: Raw Description Text Assertion. Why: Crawlers that never run scripts read the description from the raw page, so it has to hold the full text. How: This checks the raw HTML carries the description tag with its whole content.
 
 

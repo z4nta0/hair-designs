@@ -473,7 +473,6 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every ch
 
 		test.slow(); // What: Slow Test Mark. Why: A full walk measures every stop and takes about 11 seconds alone, which ran past the default 30 second timeout in Firefox when every suite shared the machine. How: This triples this test's timeout.
 
-
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The walk should start from the state settled. How: This loads and settles it.
 
 		expect( await keyProFun( curPagObj, engNamStr, !staRecObj.actFun ) ).toEqual( [] ); // What: No Keyboard Problems Assertion. Why: The state passes only when the walk reaches a stop and every stop is reachable, in order, on screen, uncovered, and visibly focused. How: This compares the problems with an empty list, so a failure prints each one. // What: Skip Link Argument Note. Why: A state's action leaves focus where it acted, and the open menu makes the skip link inert with the page behind it, so the menu state's walk starts at the menu's first link. How: The skip link check runs only on states with no action.
