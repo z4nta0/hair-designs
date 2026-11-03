@@ -272,6 +272,7 @@ function stoInfFun () : StoInfTyp | null {
 
 	actCurEle.style.transition = 'none'; // What: Transition Off Set. Why: The walk runs with motion on, and a blurred stop read at once would still show its focused look mid-transition. How: This turns the stop's own transitions off for the comparison, so the blur and the refocus apply at once.
 
+
 	actCurEle.blur(); // What: Stop Blur Call. Why: The unfocused look is the other half of the comparison. How: This removes focus for a moment.
 
 
@@ -281,6 +282,7 @@ function stoInfFun () : StoInfTyp | null {
 	actCurEle.focus(); // What: Stop Refocus Call. Why: The walk continues from this stop. How: This puts focus back where the Tab press left it.
 
 	getComputedStyle( actCurEle ).outlineWidth; // What: Style Flush Read. Why: The refocused look has to be applied before the transitions return, or turning them back on would ease into it. How: This reads a computed style, which makes the browser apply the pending change.
+
 
 	actCurEle.style.transition = ''; // What: Transition Restore Set. Why: The stop should ease again once the comparison is done. How: This clears the inline value, handing the stop back its stylesheet's transitions.
 
@@ -386,7 +388,6 @@ async function keyProFun ( curPagObj : Page, engNamStr : string, skiLinBoo : boo
 		await curPagObj.keyboard.press( tabKeyStr ); // What: Tab Press Call. Why: Each pass moves focus to the next stop. How: This presses the engine's Tab key.
 
 		await curPagObj.evaluate( () => Promise.all( document.getAnimations().filter( ( aniCurObj ) => aniCurObj.effect?.getComputedTiming().iterations !== Infinity ).map( ( aniCurObj ) => aniCurObj.finished ) ) ); // What: Motion Finished Wait. Why: The walk runs with motion on, and a stop sliding in or a ring growing would be measured halfway. How: This waits for every animation and transition on the page that ends, such as the skip link's slide, to finish.
-
 		await curPagObj.evaluate( scrSetFun ); // What: Scroll Settled Wait. Why: A stop measured while the page is still scrolling it into view would read as off screen. How: This waits until the page has stopped scrolling.
 
 

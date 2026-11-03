@@ -258,6 +258,7 @@ function ConSecCom () : React.JSX.Element {
 
 				skiOpeRef.current = true; // What: Skip Open Set. Why: The wrapper's focus handler would reopen the tooltip. How: This tells it to let this one focus pass.
 
+
 				forWraRef.current!.focus(); // What: Wrapper Focus Call. Why: The keyboard visitor should stay on the form. How: This focuses the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount.
 
 
@@ -273,16 +274,15 @@ function ConSecCom () : React.JSX.Element {
 
 
 		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the press handler.
+		document.addEventListener( 'keydown', escKeyFun );     // What: Escape Listener Call. Why: Escape has to work wherever focus is, since a hover never moves it. How: This registers the key handler.
 
-		document.addEventListener( 'keydown', escKeyFun ); // What: Escape Listener Call. Why: Escape has to work wherever focus is, since a hover never moves it. How: This registers the key handler.
 
 
 		return () => { // What: Listener Cleanup Return. Why: The listeners should only run while the tooltip is open. How: This removes both when the tooltip closes or the page unmounts.
 
 
 			document.removeEventListener( 'pointerdown', outPreFun ); // What: Press Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the press handler.
-
-			document.removeEventListener( 'keydown', escKeyFun ); // What: Key Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the key handler.
+			document.removeEventListener( 'keydown', escKeyFun );     // What: Key Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the key handler.
 
 
 		};

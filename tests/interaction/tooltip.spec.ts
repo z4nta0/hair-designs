@@ -122,6 +122,7 @@ function aniWatFun () : { aniRecPro : Promise< AniRecTyp[] > } {
 
 			mutObsObj.disconnect(); // What: Observer Disconnect Call. Why: Only the tooltip's first moment is read. How: This stops watching the page.
 
+
 			resValFun( tipCurEle.getAnimations().map( ( aniCurObj ) => ( { // What: Animation Record Resolve Call. Why: The animations are read before any can finish. How: This resolves with a record of each animation the tooltip has, which reading them makes the page create.
 
 
