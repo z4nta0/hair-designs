@@ -143,7 +143,17 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 	await expect( menNavObj.getByRole( 'link', { name : 'Call 417-988-6239' } ) ).toHaveAttribute( 'href', 'tel:+1-417-988-6239' ); // What: Call Button Assertion. Why: A call is how the salon books. How: This checks the Call button dials the salon.
 	await expect( menNavObj.getByRole( 'link', { name : 'Find us on Facebook' } ) ).toHaveAttribute( 'target', '_blank' );          // What: Facebook Link Assertion. Why: The salon's Facebook page should open beside the site. How: This checks the link opens in a new tab.
 
-	expect( await curPagObj.evaluate( () => { const tapCurEle = document.elementFromPoint( 200, 800 ); return !!tapCurEle?.matches( '[data-mobile-menu-open]' ) && !tapCurEle.closest( 'header' ); } ) ).toBe( true ); // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
+	expect( await curPagObj.evaluate( () => { // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
+
+
+		const tapCurEle = document.elementFromPoint( 200, 800 ); // What: Tap Current Element. Why: The check needs whatever a tap below the panel would land on. How: This reads the element at that point.
+
+
+
+		return !!tapCurEle?.matches( '[data-mobile-menu-open]' ) && !tapCurEle.closest( 'header' ); // What: Scrim Match Return. Why: The tap has to land on the open scrim and not inside the bar. How: This returns whether the element is the scrim and sits outside the header.
+
+
+	} ) ).toBe( true ); // What: Scrim True Check. Why: The page function's answer decides the assertion. How: This expects it to be true.
 
 
 } );

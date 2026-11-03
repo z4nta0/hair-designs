@@ -303,7 +303,7 @@ for ( const [ rouPatStr, vieSizObj ] of [ [ '/', DES_VIE_OBJ ], [ '/', PHO_VIE_O
 		const skiLinObj = curPagObj.getByRole( 'link', { name : 'Skip to main content' } ); // What: Skip Link Object. Why: The checks read the link by its name. How: This finds it.
 
 
-		await expect( skiLinObj ).toBeFocused();   // What: First Stop Assertion. Why: The skip link has to come before the bar's links. How: This checks the first Tab landed on it.
+		await expect( skiLinObj ).toBeFocused();    // What: First Stop Assertion. Why: The skip link has to come before the bar's links. How: This checks the first Tab landed on it.
 		await expect( skiLinObj ).toBeInViewport(); // What: On Screen Assertion. Why: A focused skip link has to show, not stay above the screen. How: This checks it slid into view.
 
 		expect( await skiLinObj.evaluate( ( ancCurEle ) => ancCurEle.getBoundingClientRect().top >= 0 ) ).toBe( true ); // What: Top Edge Assertion. Why: The whole link should be visible, not just its lower edge. How: This checks its top sits inside the viewport.

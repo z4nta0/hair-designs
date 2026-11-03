@@ -76,7 +76,7 @@ const ARE_TAG_OBJ : Record< string, string > = { // What: Area Tag Object. Why: 
 
 
 const FAC_URL_STR = 'https://www.facebook.com/hairdesignscosmetology'; // What: Facebook URL String. Why: The structured data's sameAs has to be the Facebook page the site links to. How: This is the address both are compared with.
-const LIV_URL_STR = 'https://hairdesigns.hair/';                        // What: Live URL String. Why: The live address is the one every public tag and file must name. How: This is the address they're compared with.
+const LIV_URL_STR = 'https://hairdesigns.hair/';                       // What: Live URL String. Why: The live address is the one every public tag and file must name. How: This is the address they're compared with.
 
 
 
@@ -294,7 +294,7 @@ test( 'the social preview image is a 1,200x630 PNG under 300 KB', async ( { requ
 
 
 	const imaResObj = await reqCotObj.get( '/og-image-2.png' ); // What: Image Response Object. Why: The image has to exist where the tags point. How: This fetches it from the site.
-	const pngBufObj = await imaResObj.body();                 // What: PNG Buffer Object. Why: The image's size is written in its header. How: This reads the response bytes.
+	const pngBufObj = await imaResObj.body();                   // What: PNG Buffer Object. Why: The image's size is written in its header. How: This reads the response bytes.
 
 
 	expect( imaResObj.headers()[ 'content-type' ] ).toBe( 'image/png' );                               // What: PNG Type Assertion. Why: The tags promise a PNG. How: This checks the served type.

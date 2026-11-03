@@ -236,7 +236,15 @@ async function aniFinFun ( eleCurEle : Element ) : Promise< void > {
 async function attSetFun ( hanCurObj : ElementHandle< Element >, attNamStr : string, attValStr : string | null ) : Promise< void > {
 
 
-	await hanCurObj.evaluate( ( hanCurEle, attArgArr ) => { if ( attArgArr[ 1 ] === null ) hanCurEle.removeAttribute( attArgArr[ 0 ] ); else hanCurEle.setAttribute( attArgArr[ 0 ], attArgArr[ 1 ] ); }, [ attNamStr, attValStr ] as const ); // What: Attribute Set Call. Why: The page function takes one argument. How: This passes the name and value as a pair, removing the attribute for null and setting it otherwise. // What: Type Assertion Note. Why: Without it the array widens to a mixed array, so the page function's argument loses its pairing. How: as const keeps it a tuple, its first slot a string and its second a string or null.
+	await hanCurObj.evaluate( ( hanCurEle, attArgArr ) => { // What: Attribute Set Call. Why: The page function takes one argument. How: This passes the name and value as a pair. // What: Type Assertion Note. Why: Without it the array widens to a mixed array, so the page function's argument loses its pairing. How: as const keeps it a tuple, its first slot a string and its second a string or null.
+
+
+		if ( attArgArr[ 1 ] === null ) hanCurEle.removeAttribute( attArgArr[ 0 ] ); // What: Attribute Remove Branch. Why: A null value means the state is off. How: This removes the attribute.
+
+		else hanCurEle.setAttribute( attArgArr[ 0 ], attArgArr[ 1 ] ); // What: Attribute Set Branch. Why: Any other value marks the state on. How: This sets the attribute to it.
+
+
+	}, [ attNamStr, attValStr ] as const ); // What: Attribute Pair Argument. Why: The page function reads the name and value from one argument. How: This hands them over as a pair.
 
 
 }

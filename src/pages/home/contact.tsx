@@ -57,6 +57,8 @@ type TipPosTyp = { // What: Tip Position Type. Why: The form tooltip's state and
 
 // #region Constants
 
+// #region ARE_NAM_ARR
+
 /**
  * ARE_NAM_ARR = Area Name Array
  *
@@ -86,7 +88,11 @@ const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows 
 
 ];
 
+// #endregion ARE_NAM_ARR
 
+
+
+// #region SER_OPT_ARR
 
 /**
  * SER_OPT_ARR = Service Option Array
@@ -114,6 +120,8 @@ const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one c
 
 
 ];
+
+// #endregion SER_OPT_ARR
 
 // #endregion Constants
 

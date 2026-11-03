@@ -130,8 +130,8 @@ const icoSvgFun = ( radValNum : number, rinWidNum : number ) : string => { // Wh
 
 
 	const logScaNum = ( RIN_OUT_NUM - rinWidNum - RIN_GAP_NUM ) / ( Math.hypot( logBoxObj.widNum, logBoxObj.heiNum ) / 2 ); // What: Logo Scale Number. Why: The logo's arrows reach its box's corners, which have to sit inside the ring. How: This divides the space inside the ring by half the box's diagonal.
-	const logXcoNum = 110 - ( logBoxObj.xcoNum + logBoxObj.widNum / 2 ) * logScaNum;                                     // What: Logo X-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center across.
-	const logYcoNum = 110 - ( logBoxObj.ycoNum + logBoxObj.heiNum / 2 ) * logScaNum;                                     // What: Logo Y-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center down.
+	const logXcoNum = 110 - ( logBoxObj.xcoNum + logBoxObj.widNum / 2 ) * logScaNum;                                        // What: Logo X-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center across.
+	const logYcoNum = 110 - ( logBoxObj.ycoNum + logBoxObj.heiNum / 2 ) * logScaNum;                                        // What: Logo Y-Coordinate Number. Why: The logo's shapes should center in the circle. How: This shifts the scaled box's middle to the center down.
 
 
 
@@ -222,13 +222,12 @@ async function renPngFun ( icoSvgStr : string, icoSizNum : number ) : Promise< B
 // #endregion renPngFun
 
 
-
 for ( const icoRecObj of ICO_REC_ARR ) writeFileSync( OUT_DIR_STR + icoRecObj.filStr, await renPngFun( icoSvgObj[ icoRecObj.kinStr ], icoRecObj.sizNum ) ); // What: PNG Icon Loop. Why: Each PNG icon is saved under its own name. How: This renders every row from its kind's SVG and writes it into public/.
 
 
 
 const icoPngArr = await Promise.all( ICO_SIZ_ARR.map( ( icoSizNum ) => renPngFun( icoSvgObj.small, icoSizNum ) ) ); // What: ICO PNG Array. Why: favicon.ico packs one PNG per size, all small enough for the thick ring. How: This renders each of its sizes.
-const icoHeaBuf = Buffer.alloc( 6 + 16 * icoPngArr.length );                                                  // What: ICO Header Buffer. Why: An ICO file starts with a header and one directory entry per image. How: This allocates both.
+const icoHeaBuf = Buffer.alloc( 6 + 16 * icoPngArr.length );                                                        // What: ICO Header Buffer. Why: An ICO file starts with a header and one directory entry per image. How: This allocates both.
 
 
 icoHeaBuf.writeUInt16LE( 1, 2 );                // What: ICO Type Write. Why: The format marks icons with type 1. How: This writes it after the reserved zero.
@@ -245,10 +244,12 @@ for ( const [ icoIndNum, icoPngBuf ] of icoPngArr.entries() ) { // What: ICO Ent
 	const entSizNum = ICO_SIZ_ARR[ icoIndNum ]; // What: Entry Size Number. Why: The entry names its image's width and height. How: This reads the size it was rendered at.
 
 
-	icoHeaBuf.writeUInt8( entSizNum, entOffNum );               // What: Entry Width Write. Why: The entry names the image's width. How: This writes it.
-	icoHeaBuf.writeUInt8( entSizNum, entOffNum + 1 );           // What: Entry Height Write. Why: The entry names the image's height. How: This writes it.
-	icoHeaBuf.writeUInt16LE( 1, entOffNum + 4 );                // What: Entry Planes Write. Why: The format expects one color plane. How: This writes it.
-	icoHeaBuf.writeUInt16LE( 32, entOffNum + 6 );               // What: Entry Depth Write. Why: The images are full-color PNGs with alpha. How: This writes 32 bits per pixel.
+	icoHeaBuf.writeUInt8( entSizNum, entOffNum );     // What: Entry Width Write. Why: The entry names the image's width. How: This writes it.
+	icoHeaBuf.writeUInt8( entSizNum, entOffNum + 1 ); // What: Entry Height Write. Why: The entry names the image's height. How: This writes it.
+
+	icoHeaBuf.writeUInt16LE( 1, entOffNum + 4 );  // What: Entry Planes Write. Why: The format expects one color plane. How: This writes it.
+	icoHeaBuf.writeUInt16LE( 32, entOffNum + 6 ); // What: Entry Depth Write. Why: The images are full-color PNGs with alpha. How: This writes 32 bits per pixel.
+
 	icoHeaBuf.writeUInt32LE( icoPngBuf.length, entOffNum + 8 ); // What: Entry Size Write. Why: The entry says how many bytes its image takes. How: This writes the PNG's length.
 	icoHeaBuf.writeUInt32LE( icoOffNum, entOffNum + 12 );       // What: Entry Offset Write. Why: The entry says where its image starts. How: This writes the running offset.
 

@@ -230,8 +230,6 @@ function NavBarCom () : React.JSX.Element {
 				} }
 			>Skip to main content</a>{ /* What: Navigation Skip Anchor Element. Why: A keyboard user shouldn't have to Tab through every link in the bar to reach the page. How: This is the page's first stop, waiting above the screen until it's focused, when it slides down over the bar, and a plain click on it focuses the main element. */ }
 
-
-
 			<div
 				ref={ scrDivRef }
 
