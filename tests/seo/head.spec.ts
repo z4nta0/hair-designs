@@ -230,7 +230,7 @@ test( 'the structured data matches what the page shows', async ( { page : curPag
 
 	expect( salNodObj.priceRange ).toBe( '$20-100' ); // What: Price Range Assertion. Why: Google's rich results ask a local business for its price range, and the salon's runs from $20 to $100. How: This checks the salon node gives it in Google's own range form.
 
-	expect( pagTexStr ).toContain( '$20 to $100' ); // What: Price Range Shown Assertion. Why: The range in the data has to be visible on the page. How: This checks the Contact section's Prices row gives the same two ends.
+	expect( pagTexStr ).toContain( '$20 to $100' ); // What: Price Range Shown Assertion. Why: The range in the data has to be visible on the page. How: This checks the page's text gives the same two ends, as the Contact section's Prices row does.
 
 	expect( salNodObj.areaServed ).toHaveLength( Object.keys( ARE_TAG_OBJ ).length ); // What: Service Area Count Assertion. Why: The data and the area lookup have to list the same areas, so neither can gain one the other lacks. How: This checks the data names exactly as many areas as the lookup pairs.
 
