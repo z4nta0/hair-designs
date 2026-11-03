@@ -273,6 +273,7 @@ function serRowFun () : string[] {
 	const proLisArr : string[] = []; // What: Problem List Array. Why: The test prints whatever was found. How: This collects the problems.
 
 
+
 	for ( const carCurEle of carEleArr ) { // What: Card Loop. Why: Every card belongs to a row. How: This adds each card to the count for its rounded top edge.
 
 

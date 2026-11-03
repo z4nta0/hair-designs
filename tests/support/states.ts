@@ -128,11 +128,10 @@ async function tipOpeFun ( curPagObj : Page ) : Promise< void > {
 const STA_REC_ARR : StaRecTyp[] = [ // What: State Record Array. Why: The suites that share these states walk the same list, so a new state is added in one place. How: Each row names a state, its path, and its viewport.
 
 
-	{ heiNum : 900, ideStr : 'home-desktop',      patStr : '/',             widNum : 1440 }, // What: Home Desktop State. Why: Most visitors on a computer land here. How: This loads the home page at 1,440px.
-	{ heiNum : 844, ideStr : 'home-phone',        patStr : '/',             widNum : 390  }, // What: Home Phone State. Why: The phone layout stacks every section and hides the bar's links behind the menu. How: This loads the home page at 390px.
-	{ heiNum : 900, ideStr : 'not-found-desktop', patStr : '/no-such-page', widNum : 1440 }, // What: Not Found Desktop State. Why: A mistyped address on a computer lands on the 404 page. How: This loads an address no route matches at 1,440px.
-	{ heiNum : 844, ideStr : 'not-found-phone',   patStr : '/no-such-page', widNum : 390  }, // What: Not Found Phone State. Why: The 404 page wraps its two buttons onto two lines at about 404px wide and below. How: This loads an address no route matches at 390px.
-
+	{ heiNum : 900, ideStr : 'home-desktop',      patStr : '/',             widNum : 1440                     }, // What: Home Desktop State. Why: Most visitors on a computer land here. How: This loads the home page at 1,440px.
+	{ heiNum : 844, ideStr : 'home-phone',        patStr : '/',             widNum : 390                      }, // What: Home Phone State. Why: The phone layout stacks every section and hides the bar's links behind the menu. How: This loads the home page at 390px.
+	{ heiNum : 900, ideStr : 'not-found-desktop', patStr : '/no-such-page', widNum : 1440                     }, // What: Not Found Desktop State. Why: A mistyped address on a computer lands on the 404 page. How: This loads an address no route matches at 1,440px.
+	{ heiNum : 844, ideStr : 'not-found-phone',   patStr : '/no-such-page', widNum : 390                      }, // What: Not Found Phone State. Why: The 404 page wraps its two buttons onto two lines at about 404px wide and below. How: This loads an address no route matches at 390px.
 	{ heiNum : 900, ideStr : 'tooltip-desktop',   patStr : '/',             widNum : 1440, actFun : tipOpeFun }, // What: Tooltip Desktop State. Why: The turned-off form's tooltip is the only way its message and phone link show. How: This loads the home page at 1,440px and opens the tooltip.
 	{ heiNum : 844, ideStr : 'tooltip-phone',     patStr : '/',             widNum : 390,  actFun : tipOpeFun }, // What: Tooltip Phone State. Why: On a phone the tooltip spans most of the stacked form. How: This loads the home page at 390px and opens the tooltip.
 
