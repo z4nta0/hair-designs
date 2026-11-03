@@ -471,17 +471,20 @@ be scrolled into view.
     parallel runs with retries off all passed, so the retry was removed.
 - `npm run test:responsive`: measures the home page and the 404 page at 15
   widths from 320 to 1,920px (a pixel either side of the 600px and 900px
-  breakpoints included, plus 1,024 and 1,025px, where the template's root
-  font size used to switch), and
-  the open phone menu at every one of those up to 900px, failing on sideways
-  scrolling, an unclipped element past either edge, text spilling its box, or
-  two reachable controls overlapping.
-- `npm run test:seo`: the raw page, fetched without a browser, carries the
-  full title and one description; the home page's title, description,
-  author, canonical, and single h1; the structured data matched against the
-  page's own text and links (phone, street address, stylists, services,
-  price range, every service area, Facebook, no hours); the 404 page's
-  noindex, title, single description, and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
+  breakpoints included, plus 1,024 and 1,025px, where the template's root font
+  size used to switch), and the open phone menu at every one of those up to
+  900px, failing on sideways scrolling, an unclipped element past either edge,
+  text spilling its box, or two reachable controls overlapping, and, on the
+  home page, the Services cards not filling even rows of the column count the
+  width calls for.
+- `npm run test:seo`: the raw page, fetched without a browser, carries the full
+  title and one description; the home page's title, description, author,
+  canonical, and single h1; the structured data matched against the page's own
+  text and links (phone, street address, stylists, services, price range, every
+  service area, Facebook, no hours); the 404 page's noindex, title, single
+  description, and h1; the social preview tags, the preview image's type and
+  size, the icons the head links to, and `robots.txt` and the sitemap. Adapted
+  from tonys-toppers'.
 - `npm run test:interaction`: `feedback.spec.ts`, adapted from tonys-toppers',
   probes the reachable links and buttons in each state (skipping disabled ones
   and anything inert) at rest, hovered, pressed, unfocused, and
@@ -512,13 +515,14 @@ be scrolled into view.
   nosniff, DENY framing, and the referrer and permissions policies), searches
   the build for private keys and provider tokens, and runs `npm audit` on the
   shipped dependencies, those three in Chromium only, since a file reads the
-  same in every engine, the audit skipping with a message when npm is
-  offline. `browser.spec.ts` loads each state from the build with the
-  headers file's headers applied, proves the policy is live by seeing an
-  injected inline script refused, and checks every state reports no
-  violation (but WebKit's report for the form's select, which every select
-  draws) and that every new tab link carries `noopener` and `noreferrer`. No
-  browser key ships, and the form never sends, so there's no post to check.
+  same in every engine, the audit skipping with a message when npm is offline.
+  `browser.spec.ts` loads each state from the build with the headers file's
+  headers applied, proves the policy is live by seeing an injected inline
+  script refused, and checks that every state, and the open contact tooltip
+  reached by hovering the form, reports no violation (but WebKit's report for
+  the form's select, which every select draws) and that every new tab link
+  carries `noopener` and `noreferrer`. No browser key ships, and the form never
+  sends, so there's no post to check.
 - `npm test` runs every suite.
 
 ### Accessibility pass

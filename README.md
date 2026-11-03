@@ -75,7 +75,7 @@ design/            The icon and social preview renderers, outside the served sit
 public/            Files served at fixed addresses: the icons, the social preview card, robots.txt, sitemap.xml, and Netlify's _headers and _redirects
 tests/
 ├── accessibility/ axe-core scan and scripted checks
-├── interaction/   control feedback, the phone menu, and the form tooltip
+├── interaction/   control feedback, the section links and skip link, the phone menu, and the form tooltip
 ├── rendering/     screenshot comparisons and their baselines/
 ├── responsive/    layout checks across screen widths
 ├── security/      security headers, the policy in practice, the build, and dependencies
