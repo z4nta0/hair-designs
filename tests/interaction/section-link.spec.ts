@@ -24,11 +24,11 @@ import type { Page    } from '@playwright/test'; // What: Page. Why: The helpers
  * middle click opens the section in a new tab instead, which lands on it and
  * clears its hash, while the page clicked from stays put, and a new tab
  * opened from the phone menu closes the menu. From the 404 page, a bar link
- * reaches its section on the home page. On every page the first Tab lands on
- * the skip link, on screen, and following it moves focus to the main content
- * without a hash. Pages open under reduced motion, so
- * scrolling jumps straight to its target and each position can be read at
- * once.
+ * reaches its section on the home page, and Back Home reaches its top. On
+ * every page the first Tab lands on the skip link, on screen, and following
+ * it moves focus to the main content without a hash. Pages open under
+ * reduced motion, so scrolling jumps straight to its target and each
+ * position can be read at once.
  *
  * Sections:
  *  - Constants
@@ -249,7 +249,7 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 
 
 
-	test( `a ${ cliKinStr } click on a menu link opens a new tab and closes the menu`, async ( { page : curPagObj } ) => { // What: Menu New Tab Test. Why: Once a visitor chooses a link in the menu, the menu should close, even when the link opens in a new tab. How: This opens the menu, makes the click, and checks the new tab opened and the menu closed.
+	test( `a ${ cliKinStr } click on a menu link opens a new tab and closes the menu`, async ( { page : curPagObj } ) => { // What: Menu New Tab Test. Why: Once a visitor chooses a link in the menu, the menu should close, even when the link opens in a new tab. How: This opens the menu, makes the click, and checks the new tab's section and address, the menu closing, and the original page's scroll and address.
 
 
 		await opeRouFun( curPagObj, '/', PHO_VIE_OBJ ); // What: Phone Open Call. Why: The menu exists only at a phone's width. How: This opens the home page at phone size.
@@ -262,8 +262,17 @@ for ( const [ cliKinStr, cliOptObj ] of CLI_KIN_ARR ) { // What: Modified Click 
 
 		await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'About' } ).last().click( cliOptObj ); // What: Modified Click Call. Why: This is the action under test. How: This clicks the menu's About link, the last match being the menu's copy of the bar's link, the way the loop's row says.
 
-		await expect( ( await newTabPro ).locator( '#about' ) ).toBeVisible();                                                 // What: New Tab Assertion. Why: The section should open in the new tab. How: This waits until the new tab shows the About section.
+
+		const newTabObj = await newTabPro; // What: New Tab Object. Why: The section should open in the new tab. How: This is the page the click opened.
+
+
+		await expect( newTabObj.locator( '#about' ) ).toBeVisible();                                                           // What: New Tab Assertion. Why: The section should open in the new tab. How: This waits until the new tab shows the About section.
+		await expect.poll( async () => Math.abs( await secGapFun( newTabObj, 'about' ) ) ).toBeLessThan( 1 );                  // What: New Tab Position Assertion. Why: The new tab should land on the section. How: This waits until the About section sits less than a pixel from just below the bar.
+		await expect( newTabObj ).toHaveURL( /\/$/ );                                                                          // What: New Tab Address Assertion. Why: The new tab's hash should be cleared once used. How: This checks its URL ends at the root.
 		await expect( curPagObj.getByRole( 'button', { name : 'Toggle menu' } ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Menu Closed Assertion. Why: Choosing a link should close the menu, wherever the link opens. How: This checks the toggle reports the menu closed.
+		await expect( curPagObj ).toHaveURL( /\/$/ );                                                                          // What: Original Address Assertion. Why: The page clicked from shouldn't navigate. How: This checks its URL still ends at the root.
+
+		expect( await curPagObj.evaluate( () => window.scrollY ) ).toBe( 0 ); // What: Original Scroll Assertion. Why: The page clicked from should stay where it was. How: This checks it's still at the top.
 
 
 	} );
@@ -283,6 +292,22 @@ test( "the 404 page's bar links reach their sections on the home page", async ( 
 	await expect( curPagObj.locator( '#about' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the About section is on the page.
 	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'about' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's About section should land just below the bar. How: This waits until it sits where the jump should leave it.
 	await expect( curPagObj ).toHaveURL( /\/$/ );                                                         // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
+
+
+} );
+
+
+
+test( "the 404 page's Back Home button reaches the home page's top", async ( { page : curPagObj } ) => { // What: Not Found Back Home Test. Why: The 404 page's main way onward has to land the visitor on the home page's top without a hash. How: This opens an unknown address, clicks Back Home, and checks the home page's Home section lands below the bar with a clean address.
+
+
+	await opeRouFun( curPagObj, '/no-such-page', DES_VIE_OBJ ); // What: Not Found Open Call. Why: The 404 page answers every unknown address. How: This opens one at desktop size.
+
+	await curPagObj.getByRole( 'link', { exact : true, name : 'Back Home' } ).click(); // What: Back Home Click Call. Why: This is the action under test. How: This clicks the 404 page's Back Home button by its name.
+
+	await expect( curPagObj.locator( '#home' ) ).toBeVisible();                                          // What: Home Render Wait. Why: The click navigates to the home page, whose section has to exist before it's measured. How: This waits until the Home section is on the page.
+	await expect.poll( async () => Math.abs( await secGapFun( curPagObj, 'home' ) ) ).toBeLessThan( 1 ); // What: Section Position Assertion. Why: The home page's Home section should land where a jump to it should leave it. How: This waits until it sits less than a pixel from there.
+	await expect( curPagObj ).toHaveURL( /\/$/ );                                                        // What: Clean Address Assertion. Why: The hash used to reach the section should be cleared once used. How: This checks the URL ends at the root.
 
 
 } );

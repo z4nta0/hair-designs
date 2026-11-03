@@ -127,7 +127,7 @@ test.use( { reducedMotion : 'reduce' } ); // What: Reduced Motion Use. Why: The 
 
 
 
-test( 'the open menu offers the sections, a call, and Facebook over a dimmed page', async ( { page : curPagObj } ) => { // What: Open Menu Test. Why: The menu should stand apart from the page and offer every way onward. How: This opens it and checks its links, its extras, and the scrim under a tap below it.
+test( 'the open menu offers the sections, a call, and Facebook over a dimmed page', async ( { page : curPagObj } ) => { // What: Open Menu Test. Why: The menu should stand apart from the page and offer every way onward. How: This opens it and checks its links, its extras, and the scrim under a tap below it, and that the scrim dims the page.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The checks need the menu open. How: This opens and checks it.
@@ -154,6 +154,21 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 
 
 	} ) ).toBe( true ); // What: Scrim True Check. Why: The page function's answer decides the assertion. How: This expects it to be true.
+
+
+
+	expect( await curPagObj.evaluate( () => { // What: Scrim Dims Assertion. Why: A scrim that's on top but see-through wouldn't set the menu apart from the page. How: This checks the open scrim is fully shown and its color isn't transparent.
+
+
+		const scrCurEle = [ ...document.querySelectorAll( '[data-mobile-menu-open]' ) ].find( ( opeCurEle ) => !opeCurEle.closest( 'header' ) )!; // What: Scrim Current Element. Why: The menu panel carries the same open attribute inside the bar. How: This finds the open element outside the header. // What: Non-Null Note. Why: find can return undefined. How: The open menu always renders its scrim outside the bar.
+		const scrStyObj = getComputedStyle( scrCurEle );                                                                                         // What: Scrim Style Object. Why: The scrim's opacity and color are what dim the page. How: This reads its computed styles.
+
+
+
+		return scrStyObj.opacity === '1' && ![ 'rgba(0, 0, 0, 0)', 'transparent' ].includes( scrStyObj.backgroundColor ); // What: Scrim Dims Return. Why: A scrim still faded out, or with a transparent color, wouldn't dim the page. How: This returns whether the scrim is fully shown and its color is neither rgba(0, 0, 0, 0), the computed form of transparent, nor the keyword itself.
+
+
+	} ) ).toBe( true ); // What: Scrim Dims True Check. Why: The page function's answer decides the assertion. How: This expects it to be true.
 
 
 } );
@@ -208,10 +223,14 @@ test( 'choosing a section closes the menu on the way there', async ( { page : cu
 
 
 
-test( 'tapping the brand closes the menu', async ( { page : curPagObj } ) => { // What: Brand Close Test. Why: The brand stays tappable above the open menu, and the page it scrolls to shouldn't be left inert behind a menu still open. How: This taps the bar's brand and checks the menu closes and the page is back at its top.
+test( 'tapping the brand closes the menu', async ( { page : curPagObj } ) => { // What: Brand Close Test. Why: The brand stays tappable above the open menu, and the page it scrolls to shouldn't be left inert behind a menu still open. How: This scrolls the page down, taps the bar's brand, and checks the menu closes and the page is back at its top.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
+
+	await curPagObj.evaluate( () => window.scrollTo( 0, 1500 ) ); // What: Partway Scroll Call. Why: Starting partway down shows the brand really moves the page back to its top. How: This scrolls 1,500px down behind the open menu.
+
+	await expect.poll( () => curPagObj.evaluate( () => window.scrollY ) ).toBeGreaterThan( 0 ); // What: Scrolled Down Assertion. Why: The final top check proves nothing unless the page left its top first. How: This waits for the page to sit below its top.
 
 	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { name : 'Hair Designs' } ).first().click(); // What: Brand Tap Call. Why: The brand is the way back to the top from the open menu. How: This taps the bar's brand link.
 

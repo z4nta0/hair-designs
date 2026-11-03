@@ -154,7 +154,7 @@ test( 'the home page names the salon, its town, and its stylists', async ( { pag
 
 	expect( ( await curPagObj.title() ).length ).toBeLessThanOrEqual( 60 );                         // What: Title Length Assertion. Why: Search listings and link cards cut long titles off. How: This keeps it to 60 characters or fewer.
 	expect( desConStr ).toContain( "Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri" ); // What: Description Stylists Assertion. Why: The summary should say who does the work and where. How: This checks the description names both stylists and the town.
-	expect( desConStr.length ).toBeGreaterThanOrEqual( 100 );                                       // What: Description Minimum Assertion. Why: A summary that's too short wastes the space a listing gives it. How: This checks it runs at least 100 characters.
+	expect( desConStr.length ).toBeGreaterThanOrEqual( 120 );                                       // What: Description Minimum Assertion. Why: Link preview checkers flag a description under 120 characters as short. How: This checks it runs at least 120 characters.
 	expect( desConStr.length ).toBeLessThanOrEqual( 125 );                                          // What: Description Maximum Assertion. Why: Phones cut a summary off around 125 characters. How: This checks it stays within that.
 
 	await expect( curPagObj.locator( 'meta[name="description"]' ) ).toHaveCount( 1 );                        // What: Single Description Assertion. Why: Two descriptions would leave search engines to pick one. How: This checks there's exactly one.

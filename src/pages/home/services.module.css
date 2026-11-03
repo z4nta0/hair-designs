@@ -143,29 +143,31 @@
 
 /* #region serCarDiv */
 
-.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge, and eases its hover lift and shadow. */
+.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge, and eases its hover lift and shadow, the shadow fading out on the accelerating curve. */
 
 
 	background-color : var( --bac-sur-col );                                                                                      /* Background Surface Color = #f5f0e8 */
 	border           : var( --bor-wid-bas ) solid var( --bor-mai-col );                                                           /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
 	border-top       : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                           /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	padding          : var( --spa-ver-p03 ) var( --spa-hor-p02 );                                                                 /* Spacing Vertical Base Plus 3 ~= 33.876px, Spacing Horizontal Base Plus 2 ~= 25.572px */
-	transition       : transform var( --dur-tra-p02 ) var( --mot-sta-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */ /* What: Paint Property Note. Why: The rule animates compositor properties where it can. How: The shadow deepening under the lifted card has no compositor equivalent, so box-shadow is eased directly. */
+	transition       : transform var( --dur-tra-p02 ) var( --mot-dec-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-acc-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Motion Accelerate Easing = cubic-bezier( .4, 0, 1, 1 ) */ /* What: Paint Property Note. Why: The rule animates compositor properties where it can. How: The shadow deepening under the lifted card has no compositor equivalent, so box-shadow is eased directly. */
 
 
 }
-.serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
+.serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow, the shadow fading in on the decelerating curve. */
 
 
-	box-shadow : var( --ele-med-sha );                            /* Elevation Medium Shadow ~= 0 8.304px 25.572px plus 0 3.572px 8.304px -2.035px */
-	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) ); /* Spacing Vertical Base Minus 4 ~= -4.732px */
+	box-shadow : var( --ele-med-sha );                                                                                      /* Elevation Medium Shadow ~= 0 8.304px 25.572px plus 0 3.572px 8.304px -2.035px */
+	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) );                                                           /* Spacing Vertical Base Minus 4 ~= -4.732px */
+	transition : transform var( --dur-tra-p02 ) var( --mot-dec-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */ /* What: Paint Property Note. Why: The rule animates compositor properties where it can. How: The shadow deepening under the lifted card has no compositor equivalent, so box-shadow is eased directly. */
 
 
 }
 @media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Services Card Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.serCarDiv { /* What: Motionless Services Card Div. Why: The change should simply happen. How: This turns the transition off, so the lift simply happens. */
+	.serCarDiv,
+	.serCarDiv:hover { /* What: Motionless Services Card Div. Why: The change should simply happen. How: This turns the transition off, resting and hovered, naming the hovered rule too since its selector outranks the base, so the lift and shadow simply happen. */
 
 
 		transition : none;

@@ -26,8 +26,9 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The scan helpe
  * best-practice rules, in whichever engine the project runs. A state passes
  * only with zero violations, and each failure names its rule, its impact,
  * and the elements it found. Anything axe can't decide on its own (its
- * "incomplete" results, such as text over an image) can't fail the run, so
- * it's printed and attached to the test as needing review by hand.
+ * "incomplete" results, such as text over an image) is printed and attached
+ * to the test as needing review by hand, and only a bypass result fails the
+ * run, since the skip link should always let axe find a way past the bar.
  *
  * Sections:
  *  - Types
@@ -139,7 +140,7 @@ function sumResFun ( resLisArr : AxeResTyp[ 'violations' ] ) : string[] {
 for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every page state must pass the scan. How: This declares one axe test per state.
 
 
-	test( `${ staRecObj.ideStr } has no axe violations`, async ( { page : curPagObj }, tesInfObj ) => { // What: Axe Test. Why: A state passes only with zero axe violations. How: This opens the state, scans it, reports anything needing review, and fails on any violation.
+	test( `${ staRecObj.ideStr } has no axe violations`, async ( { page : curPagObj }, tesInfObj ) => { // What: Axe Test. Why: A state passes only with zero axe violations. How: This opens the state, scans it, reports anything needing review, and fails on any violation or bypass review.
 
 
 		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The scan should see the state settled. How: This loads and settles it.
@@ -157,7 +158,8 @@ for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every pa
 
 
 
-		expect( sumResFun( axeResObj.violations ) ).toEqual( [] ); // What: No Violations Assertion. Why: The state passes only with zero violations. How: This compares the summarized violations with an empty list, so a failure prints each one.
+		expect( axeResObj.incomplete.filter( ( resCurObj ) => resCurObj.id === 'bypass' ).map( ( resCurObj ) => resCurObj.help ) ).toEqual( [] ); // What: No Bypass Review Assertion. Why: With the skip link in place, axe accepts the page as having a way past the bar, so a bypass result left for review means the skip link is broken or missing. How: This lists any incomplete result whose ID is bypass and compares the list with an empty one.
+		expect( sumResFun( axeResObj.violations ) ).toEqual( [] );                                                                                // What: No Violations Assertion. Why: The state passes only with zero violations. How: This compares the summarized violations with an empty list, so a failure prints each one.
 
 
 	} );

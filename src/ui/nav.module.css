@@ -428,7 +428,7 @@
 
 /* #region navMenDiv */
 
-.navMenDiv { /* What: Navigation Menu Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, with visibility hiding it only once the fade out has finished. */
+.navMenDiv { /* What: Navigation Menu Div. Why: The links need a home below the bar on narrow screens. How: This hangs the panel just under the bar's rose border, faded out and nudged up while closed so it can ease into place, leaving on the accelerating curve, with visibility hiding it only once the fade out has finished. */
 
 
 	background-color : var( --bac-inv-col );                                           /* Background Inverse Color = #2b3245 */
@@ -442,17 +442,17 @@
 	right            : 0;
 	top              : calc( 100% + var( --bor-wid-xla ) );                            /* Border Width Extra Large ~= 3.572px */
 	transform        : translateY( calc( var( --spa-ver-m02 ) * -1 ) );                /* Spacing Vertical Base Minus 2 ~= -8.304px */
-	transition       : opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), visibility 0s var( --dur-tra-p01 ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+	transition       : opacity var( --dur-tra-p01 ) var( --mot-acc-eas ), transform var( --dur-tra-p01 ) var( --mot-acc-eas ), visibility 0s var( --dur-tra-p01 ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Accelerate Easing = cubic-bezier( .4, 0, 1, 1 ) */
 	visibility       : hidden;
 
 
 }
-.navMenDiv[data-mobile-menu-open] { /* What: Open Navigation Menu Div. Why: The panel should show its links once the button opens it, and they should take focus from the first moment. How: This fades it in and settles it into place, turning visibility on at once rather than at the end of a transition. */
+.navMenDiv[data-mobile-menu-open] { /* What: Open Navigation Menu Div. Why: The panel should show its links once the button opens it, and they should take focus from the first moment. How: This fades it in and settles it into place on the decelerating curve, turning visibility on at once rather than at the end of a transition. */
 
 
 	opacity    : 1;
 	transform  : none;
-	transition : opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), visibility 0s; /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease */
+	transition : opacity var( --dur-tra-p01 ) var( --mot-dec-eas ), transform var( --dur-tra-p01 ) var( --mot-dec-eas ), visibility 0s; /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 	visibility : visible;
 
 
@@ -496,7 +496,7 @@
 	letter-spacing : calc( var( --cdn-pow-007-rec ) * 1em );                                                       /* Core-Design-Number to the Power of 7 Reciprocal ~= 0.140em */
 	padding        : var( --spa-ver-bas ) 0;                                                                       /* Spacing Vertical Base ~= 14.572px */
 	text-transform : uppercase;
-	transition     : color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	transition     : color var( --dur-tra-p01 ) var( --mot-sta-eas ), opacity var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 
 
 }
@@ -591,7 +591,7 @@
 	padding          : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-align       : center;
 	text-transform   : uppercase;
-	transition       : background-color var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	transition       : background-color var( --dur-tra-p01 ) var( --mot-sta-eas ), transform var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 1 ~= 209.1ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
 
 
 }

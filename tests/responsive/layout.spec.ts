@@ -20,11 +20,12 @@ import { test      } from '@playwright/test';     // What: Test. Why: Each page 
  * whose layout breaks: the page scrolling sideways, a visible element reaching
  * past either edge of the screen (unless an ancestor clips it on purpose),
  * text spilling out of its own box, or two controls a visitor can reach
- * overlapping each other. The widths run from 320px, WCAG's narrowest reflow
- * width, to 1,920px, and include a pixel either side of each of the site's
- * breakpoints, where a layout switches and is most likely to crowd. Pages open
- * under reduced motion, which changes nothing about the layout but skips the
- * wait for entrance animations.
+ * overlapping each other. On the home page, the Services cards also have to
+ * fill even rows of the column count each width calls for. The widths run
+ * from 320px, WCAG's narrowest reflow width, to 1,920px, and include a pixel
+ * either side of each of the site's breakpoints, where a layout switches and
+ * is most likely to crowd. Pages open under reduced motion, which changes
+ * nothing about the layout but skips the wait for entrance animations.
  *
  * Sections:
  *  - Constants
@@ -226,6 +227,79 @@ function layProFun () : string[] {
 
 // #endregion layProFun
 
+
+
+// #region serRowFun
+
+/**
+ * serRowFun = Services Rows Function
+ *
+ * @summary
+ * Runs inside the page and returns a problem when the Services cards don't
+ * fill even rows at the width the page is shown at. The cards are grouped
+ * into rows by their rounded top edges, and every row has to hold the same
+ * number of cards: 3 while the app container is wider than 900px, 2 while
+ * it's wider than 600px, and 1 at 600px and narrower, matching the grid's
+ * max-width container queries. Finding no cards is a problem too, so the
+ * check can't pass by finding nothing. Passed to Playwright's evaluate, so
+ * it can't read anything from this file.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+ * @param void - This function takes no parameters.
+ *
+ * @returns Every Services row problem found.
+ * @see {@link proLisArr}
+ *
+ * @example
+ * ```ts
+ * page.evaluate(serRowFun) // => [ 'no Services cards were found' ]
+ * ```
+ *
+*/
+
+function serRowFun () : string[] {
+
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: The test prints whatever was found. How: This collects the problems.
+
+	const appWidNum = document.querySelector( '[class*="appRooDiv"]' )!.getBoundingClientRect().width; // What: App Width Number. Why: The grid's breakpoints measure the app container, not the window. How: This reads the root div's width. // What: Non-Null Note. Why: querySelector can return null. How: The app always renders its root div.
+	const carEleArr = [ ...document.querySelectorAll( '[class*="serCarDiv"]' ) ];                      // What: Card Element Array. Why: The rows are built from the cards' positions. How: This finds every Services card by its module class.
+	const colCouNum = appWidNum > 900 ? 3 : appWidNum > 600 ? 2 : 1;                                   // What: Column Count Number. Why: Each width range has its own column count. How: This picks 3, 2, or 1 the way the 900px and 600px max-width queries do.
+	const rowCouMap = new Map< number, number >();                                                     // What: Row Count Map. Why: Cards sharing a top edge sit in one row. How: This counts the cards at each rounded top.
+
+
+	for ( const carCurEle of carEleArr ) { // What: Card Loop. Why: Every card belongs to a row. How: This adds each card to the count for its rounded top edge.
+
+
+		const rowTopNum = Math.round( carCurEle.getBoundingClientRect().top ); // What: Row Top Number. Why: Cards in one row share their top edge. How: This reads the card's top to the nearest pixel.
+
+
+		rowCouMap.set( rowTopNum, ( rowCouMap.get( rowTopNum ) ?? 0 ) + 1 ); // What: Row Count Set. Why: The row's count grows by this card. How: This adds one to the count at its top.
+
+
+	}
+
+
+
+	if ( !carEleArr.length ) proLisArr.push( 'no Services cards were found' ); // What: No Cards Check. Why: A check that finds no cards would pass without the grid. How: This records that none were found.
+
+
+
+	const rowCouArr = [ ...rowCouMap.values() ]; // What: Row Count Array. Why: Each row's count is compared with the column count. How: This lists the counts in row order.
+
+
+	if ( rowCouArr.some( ( rowCouNum ) => rowCouNum !== colCouNum ) ) proLisArr.push( `the Services cards sit in rows of ${ rowCouArr.join( ', ' ) } rather than ${ colCouNum } each` ); // What: Uneven Rows Check. Why: Every row should hold the same number of cards, set by the width. How: This records the rows' counts when any differs from the column count.
+
+
+
+	return proLisArr; // What: Problem List Return. Why: The test prints whatever was found. How: This hands back every problem collected.
+
+
+}
+
+// #endregion serRowFun
+
 // #endregion Helpers
 
 
@@ -238,7 +312,7 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 	for ( const widCurNum of WID_LIS_ARR.filter( ( widFilNum ) => !layCasObj.menBoo || widFilNum <= MEN_MAX_NUM ) ) { // What: Width Loop. Why: Each case is measured at every width it exists at. How: This declares one test per width, skipping menu widths past the breakpoint.
 
 
-		test( `${ layCasObj.ideStr } holds its layout at ${ widCurNum }px`, async ( { page : curPagObj } ) => { // What: Layout Test. Why: The layout should hold together at every width. How: This opens the case at the width and lists its layout problems.
+		test( `${ layCasObj.ideStr } holds its layout at ${ widCurNum }px`, async ( { page : curPagObj } ) => { // What: Layout Test. Why: The layout should hold together at every width. How: This opens the case at the width and lists its layout problems, and for the home case its Services row problems.
 
 
 			await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: Entrance animations don't change the layout, so waiting on them only slows the run. How: This makes the page match prefers-reduced-motion, which turns them off.
@@ -257,6 +331,9 @@ for ( const layCasObj of LAY_CAS_ARR ) { // What: Case Loop. Why: Every page is 
 			} );
 
 			expect( await curPagObj.evaluate( layProFun ) ).toEqual( [] ); // What: No Layout Problems Assertion. Why: The width passes only with nothing spilling or overlapping. How: This compares the problems with an empty list, so a failure prints each one.
+
+
+			if ( layCasObj.ideStr === 'home' ) expect( await curPagObj.evaluate( serRowFun ) ).toEqual( [] ); // What: Services Rows Check. Why: The Services grid should fill even rows at every width. How: For the home case, this compares the Services row problems with an empty list, so a failure prints each one.
 
 
 		} );

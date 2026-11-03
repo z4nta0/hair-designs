@@ -419,11 +419,13 @@ with unchanged screenshots unless the step is meant to change the page.
    README updated, and the user's live checks of the deploy (the preview
    card through a checker such as opengraph.xyz). Done 2026-10-12: the
    final run passed lint, the type check, the build, and all 306 tests in
-   all three engines on its first pass, with no axe violations. axe's two
-   needs-review items are explained: the Contact section's text on striped
-   navy, which axe can't measure (hand-checked, lowest 5.30:1), and
+   all three engines on its first pass, with no axe violations. axe's
+   needs-review items were explained then: the Contact section's text on
+   striped navy, which axe can't measure (hand-checked, lowest 5.30:1), and
    "bypass" with the phone menu open, since the page it would skip to is
-   deliberately inert then. The branch was merged and deployed as version
+   deliberately inert then. The skip link since added makes axe accept the
+   page even with the menu open, so the suite now fails on any bypass
+   result. The branch was merged and deployed as version
    1.0.0, and the user's post-deploy checks all passed: the security
    headers, the preview card in opengraph.xyz, and the sitemap submitted to
    Google Search Console and Bing Webmaster Tools (a Safari check of the

@@ -85,6 +85,7 @@ test( 'the content security policy allows only the site itself', () => { // What
 	expect( cspValStr ).not.toContain( 'unsafe-eval' );        // What: No Unsafe Eval Assertion. Why: Evaluated strings run as code. How: This checks the policy never allows it.
 	expect( cspValStr ).not.toMatch( /(^|\s)\*(\s|;|$)/ );     // What: No Wildcard Assertion. Why: A bare * would let any origin load resources. How: This checks no directive allows every origin.
 	expect( cspValStr ).not.toMatch( /https?:\/\// );          // What: No Outside Origin Assertion. Why: The site loads everything from itself, so a named outside origin would let another site's files in. How: This checks no directive lists an HTTP or HTTPS address.
+	expect( cspValStr ).not.toMatch( /\b(data|blob):/ );       // What: No Data Or Blob Assertion. Why: A data: or blob: source would let injected markup carry its own content past the self-only policy. How: This checks no directive lists either scheme.
 
 
 } );

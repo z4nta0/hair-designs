@@ -4,7 +4,7 @@
 // #region Imports
 
 import reaPluObj from 'eslint-plugin-react';       // What: React Plugin Object. Why: An undefined component in a JSX tag should fail lint. How: This registers the plugin behind react/jsx-no-undef.
-import rehPluObj from 'eslint-plugin-react-hooks'; // What: React-Hooks Plugin Object. Why: Hook calls follow rules plain JS linting can't check. How: Its recommended rules are spread into the .tsx config.
+import rehPluObj from 'eslint-plugin-react-hooks'; // What: React-Hooks Plugin Object. Why: Hook calls follow rules plain JS linting can't check. How: Its recommended rules are spread into the hooks config.
 import tyeEslObj from 'typescript-eslint';         // What: TypeScript ESLint Object. Why: ESLint's default parser can't read TypeScript's type annotations. How: Its recommended rules are spread into the config, and its parser is set on both configs below.
 
 // #endregion Imports
@@ -23,12 +23,14 @@ import tyeEslObj from 'typescript-eslint';         // What: TypeScript ESLint Ob
  * component reference a rename missed. ESLint's own no-undef is left off, as
  * typescript-eslint recommends, since TypeScript already reports every
  * undefined name and no-undef can't see TypeScript's type-only names. Every
- * .tsx file also gets the React Hooks plugin's recommended rules, minus the
- * four React Compiler readiness rules, which only matter to a site built with
- * the React Compiler, which this one isn't. Generated output (dist/ and
- * tests/output/) is ignored. npm run lint runs it across the repo, and an
- * editor integration can run it per file. Adapted from ease-my-life's own
- * config.
+ * .tsx file and every .ts file under src/ also gets the React Hooks plugin's
+ * recommended rules, so a custom hook in a file without JSX is checked too,
+ * minus the four React Compiler readiness rules, which only matter to a site
+ * built with the React Compiler, which this one isn't. The tests stay out of
+ * the hooks rules, since Playwright's test.use reads as React's use.
+ * Generated output (dist/ and tests/output/) is ignored. npm run lint runs it
+ * across the repo, and an editor integration can run it per file. Adapted
+ * from ease-my-life's own config.
  *
  * Sections:
  *  - Constants
@@ -42,7 +44,7 @@ import tyeEslObj from 'typescript-eslint';         // What: TypeScript ESLint Ob
 
 // #region Constants
 
-const ESL_CON_ARR = [ // What: ESLint Config Array. Why: ESLint reads its flat config as an array of objects, each scoped to the files it lists. How: This holds the build-output ignore, typescript-eslint's recommended configs and two rule overrides, the src/ undefined-component config, and the .tsx hooks config.
+const ESL_CON_ARR = [ // What: ESLint Config Array. Why: ESLint reads its flat config as an array of objects, each scoped to the files it lists. How: This holds the build-output ignore, typescript-eslint's recommended configs and two rule overrides, the src/ undefined-component config, and the hooks config.
 
 
 	{ ignores : [ 'dist/**', 'tests/output/**' ] }, // What: Ignores Object. Why: The build output and the test suites' reports are generated, not hand-written, so their lint results mean nothing. How: This global ignores entry skips both folders for every config below; one glob each, since braces break ESLint's matching here.
@@ -84,17 +86,17 @@ const ESL_CON_ARR = [ // What: ESLint Config Array. Why: ESLint reads its flat c
 
 	},
 
-	{ // What: JSX Config Object. Why: Hook calls in components follow rules of their own. How: This adds the React Hooks recommended rules for every .tsx file.
+	{ // What: Hooks Config Object. Why: Hook calls in components and custom hooks follow rules of their own. How: This adds the React Hooks recommended rules for every .tsx file and every .ts file under src/.
 
 
-		files   : [ '**/*.tsx' ],                                   // What: Files. Why: Components, and most hook calls, live in .tsx files. How: This matches every one of them.
+		files   : [ '**/*.tsx', 'src/**/*.ts' ],                    // What: Files. Why: Components live in .tsx files, and a custom hook may live in a .ts file under src/, while the tests stay out, since Playwright's test.use reads as React's use. How: This matches every .tsx file and the .ts files under src/.
 		plugins : { react : reaPluObj, 'react-hooks' : rehPluObj }, // What: Plugins. Why: The hooks rules come from the React Hooks plugin. How: This registers it beside the React plugin.
 
-		languageOptions : { // What: Language Options. Why: These files are TypeScript with JSX. How: This sets the TypeScript parser and turns on JSX parsing.
+		languageOptions : { // What: Language Options. Why: These files are TypeScript, the .tsx ones with JSX. How: This sets the TypeScript parser and turns on JSX parsing.
 
 
 			parser        : tyeEslObj.parser,                 // What: Parser. Why: ESLint's default parser can't read TypeScript. How: This sets typescript-eslint's parser.
-			parserOptions : { ecmaFeatures : { jsx : true } } // What: Parser Options. Why: These files contain JSX. How: This turns on JSX parsing.
+			parserOptions : { ecmaFeatures : { jsx : true } } // What: Parser Options. Why: The .tsx files contain JSX. How: This turns on JSX parsing.
 
 
 		},
