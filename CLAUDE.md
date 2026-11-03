@@ -234,6 +234,7 @@ src/
   pages/
     home/                the home page (home.tsx) and its sections (hero,
                          Services, About, Contact)
+    not-found/           the 404 page (not-found.tsx)
   ui/                    components every page renders (nav, footer) and
                          section-link.ts
   styles/                global CSS only (fonts.css, styles.css)
@@ -272,7 +273,8 @@ replacing the old `netlify.toml`.
   it's the page's `contentinfo` landmark.
 - **Component names** follow the naming rules since the formatting pass:
   `AppRooCom`, `NavBarCom`, `SitFooCom`, `HomPagCom`, `HerSecCom`,
-  `SerSecCom`, `AboSecCom`, and `ConSecCom`, each exported by name.
+  `SerSecCom`, `AboSecCom`, `ConSecCom`, and `NotFouCom`, each exported by
+  name.
 - **Every component has its own CSS module** (`hero.module.css`,
   `nav.module.css`, ...), read as `cssModObj` through camelCase keys only,
   and `styles/styles.css` holds just the color tokens and the base element
