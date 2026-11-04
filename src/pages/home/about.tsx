@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './about.module.css';     // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './about.module.css';    // What: CSS Module Object. Why: The About section is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The stylists' card opens with the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
@@ -18,8 +18,8 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  *
  * @summary
  * The home page's About section: a card with the logo, both stylists' names,
- * and their title on a striped navy panel, beside the salon's story and a
- * button to the Contact section.
+ * and their title on a striped navy panel, beside the salon's story (stacked
+ * at 900px and narrower) and a button to the Contact section.
  *
  * Sections:
  *  - Components
@@ -40,7 +40,8 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  *
  * @summary
  * Renders the About section, telling the salon's story beside a card naming
- * its two stylists. Its id, about, is the target of the bar's About link.
+ * its two stylists (stacked at 900px and narrower). Its ID, `about`, is the
+ * target of the page's links to this section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -69,7 +70,7 @@ function AboSecCom () : React.JSX.Element {
 			id='about'
 
 			className={ cssModObj.homAboSec }
-		>{ /* What: Home About Section Element. Why: The page's third section tells the salon's story. How: Its id, about, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home About Section Element. Why: The page's third section tells the salon's story. How: Its ID, `about`, is kept as a readable word since the links to it name it in their addresses (/#about). */ }
 
 
 			<div className={ cssModObj.aboVisDiv }>{ /* What: About Visual Div Element. Why: The section's visual half holds the stylists' card. How: This sets a positioning context for its panel. */ }
@@ -89,7 +90,7 @@ function AboSecCom () : React.JSX.Element {
 							alt='Hair Designs logo of a BOHO arrow and flower arrangement'
 						/>{ /* What: About Logo Image Element. Why: The card opens with the logo. How: This shows it above the names. */ }
 
-						<div className={ cssModObj.styNamDiv }>Juli Wilkerson<br /> &amp; Keeli Bryan</div>{ /* What: Stylist Names Div Element. Why: The two stylists sign the card. How: This breaks their names over two lines, the space before the ampersand kept as written. */ }
+						<div className={ cssModObj.styNamDiv }>Juli Wilkerson<br /> & Keeli Bryan</div>{ /* What: Stylist Names Div Element. Why: The two stylists sign the card. How: This breaks their names over two lines, the space before the ampersand kept as written. */ }
 
 						<p className={ cssModObj.aboCapPar }>Licensed Cosmetologists</p>{ /* What: About Caption Paragraph Element. Why: The stylists' title follows their names. How: This shows it in italic. */ }
 
@@ -104,7 +105,7 @@ function AboSecCom () : React.JSX.Element {
 
 
 
-			<div>{ /* What: About Text Div Element. Why: The story forms the section's second column. How: This holds the eyebrow, heading, rule, paragraphs, and button. */ }
+			<div>{ /* What: About Text Div Element. Why: The story forms the section's second column, below the card at 900px and narrower. How: This holds the eyebrow, heading, rule, paragraphs, and button. */ }
 
 
 				<p className={ cssModObj.eyeLabPar }>Our Story</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the heading. How: This shows it above the heading. */ }
@@ -113,7 +114,7 @@ function AboSecCom () : React.JSX.Element {
 
 				<hr className={ cssModObj.secRulHor } />{ /* What: Section Rule Horizontal Rule Element. Why: A short rose rule underlines the heading. How: This draws it. */ }
 
-				<p className={ cssModObj.aboBodPar }>Tucked along State Hwy 254 in Carson's Corner, Missouri, Hair Designs is a family run salon with heart. Juli Wilkerson and Keeli Bryan bring years of professional cosmetology experience right to your neighborhood with no big city drive required.</p>{ /* What: About Body Paragraph Element. Why: The story opens with where the salon is and who runs it. How: This shows the first paragraph. */ }
+				<p className={ cssModObj.aboBodPar }>Tucked along State Hwy 254 in Carson's Corner, Missouri, Hair Designs is a family-run salon with heart. Juli Wilkerson and Keeli Bryan bring years of professional cosmetology experience right to your neighborhood with no big-city drive required.</p>{ /* What: About Body Paragraph Element. Why: The story opens with where the salon is and who runs it. How: This shows the first paragraph. */ }
 
 				<p className={ cssModObj.aboBodPar }>Whether you're coming in for a quick trim or a complete color transformation, you'll be welcomed like a neighbor, because you are one. We take pride in listening to what you want and delivering results you'll love.</p>{ /* What: About Body Paragraph Element. Why: The story turns to how clients are treated. How: This shows the second paragraph. */ }
 
@@ -125,7 +126,7 @@ function AboSecCom () : React.JSX.Element {
 					href='/#contact'
 
 					onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'contact' ) }
-				>Reach Out</a>{ /* What: Primary Button Base Anchor Element. Why: The story ends with a way to reach the salon. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+				>Reach Out</a>{ /* What: Button Base Anchor Primary Element. Why: The story ends with a way to reach the salon. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 
 			</div>
@@ -147,7 +148,7 @@ function AboSecCom () : React.JSX.Element {
 
 // #region Exports
 
-export { AboSecCom }; // What: Named Exports. Why: The home page renders the About section third. How: This exports AboSecCom.
+export { AboSecCom }; // What: Named Export. Why: The home page renders the About section third. How: This exports AboSecCom.
 
 // #endregion Exports
 

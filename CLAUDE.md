@@ -36,17 +36,17 @@ treatment. The `author` meta names the business itself.
   stylist with the title "Licensed Cosmetologist", and to a `WebSite` it
   publishes. The service area and `priceRange` (`$20-100`, added 2026-10-18,
   the user's figure, after Google's rich results report flagged it as a
-  missing, non-critical field, written in the range form Google's own
-  examples use) both appear on the page since 2026-11-02, as the Contact
-  section's Service Area tags and its Prices row ("$20 to $100, depending on
-  the service"). The SEO suite pairs every `areaServed` name, exactly as
-  `index.html` writes it, with the tag that shows it, the way
-  seal-and-shield's does, and checks the page shows the same price range.
-  `public/` gains `robots.txt` (every crawler allowed),
-  `sitemap.xml` (the home page alone), and `_headers` (a strict
-  Content-Security-Policy and the usual hardening headers, checked against the
-  built site in all three engines; WebKit reports one harmless violation from
-  its own styling of the form's select, which draws identically either way).
+  missing, non-critical field, written in the range form Google's own examples
+  use) both appear on the page since 2026-11-02, as the Contact section's
+  "Service Area" tags and its "Prices" row ("$20 to $100, depending on the
+  service"). The SEO suite pairs every `areaServed` name, exactly as
+  `index.html` writes it, with the tag that shows it, the way seal-and-shield's
+  does, and checks the page shows the same price range. `public/` gains
+  `robots.txt` (every crawler allowed), `sitemap.xml` (the home page alone),
+  and `_headers` (a strict Content-Security-Policy and the usual hardening
+  headers, checked against the built site in all three engines; WebKit reports
+  one harmless violation from its own styling of the form's select, which draws
+  identically either way).
 - **Canonical** (recorded 2026-11-02, under the user-level rule for a site
   whose only other route is a `noindex` page): the site counts as one indexed
   page, so its canonical link stays in `index.html`, where crawlers that
@@ -64,7 +64,7 @@ treatment. The `author` meta names the business itself.
 - **Social preview and icons** (done 2026-10-12): `public/og-image-2.png`, a
   1,200x630 PNG of about 53 KB, rendered from `design/og-image/card.html` by
   `npm run og-image`: the hero logo panel's navy stripes, the logo, "Hair
-  Designs" in Playfair Display with Designs in light rose italic, "Juli
+  Designs" in Playfair Display with "Designs" in light rose italic, "Juli
   Wilkerson & Keeli Bryan" signed in light rose script as in the hero, and
   "Carson's Corner, Missouri" in cream Lato at a literal 40px (no scale step
   lands within 10%), all inside the center 630px square, with the bar's rose
@@ -116,8 +116,11 @@ Built 2026-10-12 (`90d30fb`).
   with a mouse or tapping opens a tooltip at that point: "The form is
   disabled at this time. Please call us at 417-988-6239. We apologize for
   any inconvenience.", with the number as a `tel:` link. It closes when the
-  mouse leaves, on a tap outside the form, or on Escape, and a press on the
-  tooltip itself doesn't move it, so its link can be tapped.
+  mouse leaves, on a tap outside the form, or on Escape however it opened (a
+  hover included, per WCAG 2.2's 1.4.13, since 2026-11-03), and a press on the
+  tooltip itself doesn't move it, so its link can be tapped. Escape on its
+  phone link hands focus back to the wrapper without reopening the tooltip,
+  so a keyboard user isn't dropped to the page's start.
 - The wrapper is one Tab stop (`role='group'`, labeled "Contact form, turned
   off", with a rose focus ring). Focusing it opens the tooltip at the form's
   top edge, and the next Tab reaches its phone link. On blur it waits a frame
@@ -132,6 +135,12 @@ Built 2026-10-12 (`90d30fb`).
 - Known quirk: Tab past the tooltip's link, the page's last stop, sends
   Firefox's focus to its own toolbar without a blur the page can see, so the
   tooltip stays up until focus or the pointer returns.
+- **The tooltip on the narrowest phones** (decided 2026-11-03, the audit's
+  question 11): the tooltip is a fixed 243px wide, so below about 330px it
+  overhangs the form. At 320px the form's wrapper spans 64px to 256px and
+  the tooltip 64px to 307px, 51px past the form but 13px inside the screen,
+  with its text and link still usable. It's left that way, since a tooltip
+  overhanging its card reads normally.
 - **Copy** (decided with the user 2026-10-12, step 7): the stylists' quote
   invites a call or a visit instead of a message ("We're your neighbors, so
   give us a call or stop by. We'd love to hear from you."), the form card
@@ -212,7 +221,7 @@ Decided 2026-10-12, confirmed by the user once the 404 page was built: the
 exception to the user-level rule. The 404 page
 fits one screen at every size checked except the smallest phone (320 by
 568, about 140px of scroll), and every link on it (the bar's brand and
-section links, the phone menu's, and its own Back Home button) goes through
+section links, the phone menu's, and its own "Back Home" button) goes through
 `secCliFun` with a section hash, which the home page scrolls to on arrival.
 So no navigation opens a page without a hash, the one case the hook covers.
 the-bernie-bears' hook would also fight this site's hash clearing: the home
@@ -233,11 +242,12 @@ src/
   assets/                images used by 2 or more places (logo.svg)
   pages/
     home/                the home page (home.tsx) and its sections (hero,
-                         services, about, contact)
+                         Services, About, Contact)
+    not-found/           the 404 page (not-found.tsx)
   ui/                    components every page renders (nav, footer) and
                          section-link.ts
   styles/                global CSS only (fonts.css, styles.css)
-  utils/                 app-agnostic helpers (motion.ts)
+  utils/                 app-agnostic helpers (motion.ts, rhythm.ts)
 ```
 Outside `src/`: `tests/` holds the Playwright suites (see "## Test
 suites"), and `public/_redirects` holds Netlify's single-page app fallback,
@@ -253,7 +263,7 @@ replacing the old `netlify.toml`.
   tab, while a plain click goes through `ui/section-link.ts`'s `secCliFun`:
   it scrolls to the section in place (instantly under reduced motion,
   through `utils/motion.ts`'s `redMotFun`), or from any other page navigates
-  home with the section's id as the hash. The home page jumps to a section
+  home with the section's ID as the hash. The home page jumps to a section
   named in the hash on arrival, from a shared address or another page, and
   clears it. Adapted from tonys-toppers' version, with `useSecCliFun` added
   so every link shares one click handler; the phone menu closes only when a
@@ -272,7 +282,8 @@ replacing the old `netlify.toml`.
   it's the page's `contentinfo` landmark.
 - **Component names** follow the naming rules since the formatting pass:
   `AppRooCom`, `NavBarCom`, `SitFooCom`, `HomPagCom`, `HerSecCom`,
-  `SerSecCom`, `AboSecCom`, and `ConSecCom`, each exported by name.
+  `SerSecCom`, `AboSecCom`, `ConSecCom`, and `NotFouCom`, each exported by
+  name.
 - **Every component has its own CSS module** (`hero.module.css`,
   `nav.module.css`, ...), read as `cssModObj` through camelCase keys only,
   and `styles/styles.css` holds just the color tokens and the base element
@@ -325,7 +336,7 @@ with unchanged screenshots unless the step is meant to change the page.
    tokens**, one file per commit. The earlier hand formatting is replaced
    wherever it differs from the rules: per-declaration CSS comments,
    `══ Start/End ══` banners, `< tag >` spacing, JSX stored in a variable
-   before it's returned, and `return void 0`. Section ids become the
+   before it's returned, and `return void 0`. Section IDs become the
    readable navigation targets `home`, `services`, `about`, and `contact`.
    The Vite template's `index.css` and `AppRooCom.module.css` go, the
    global rules hiding in `HomPagCom.module.css` (`:root`, the reset,
@@ -341,7 +352,7 @@ with unchanged screenshots unless the step is meant to change the page.
      rewritten from the template (its leftover variables had collided with
      the site's own), `main.tsx` and `app.tsx`, self-hosted fonts (which
      ended the Firefox flake), `index.html`, `vite.config.ts` with its page
-     minifier, `.gitignore`, the section ids, then the nav, footer, hero,
+     minifier, `.gitignore`, the section IDs, then the nav, footer, hero,
      Services, About, and Contact, each with its own module, and finally
      camelCase-only module keys. The design tokens and the horizontal
      layout come next.
@@ -360,7 +371,7 @@ with unchanged screenshots unless the step is meant to change the page.
      catch-all route for every path no other route matches. In the salon's
      own style (a script eyebrow, "Page not found" with a rose italic accent,
      the short rose rule, and one line pointing back to Carson's Corner),
-     with two ways onward: Back Home, through `secCliFun` to the home page's
+     with two ways onward: "Back Home", through `secCliFun` to the home page's
      top, and a Call button, since the salon books by phone. Its own title is
      "Page Not Found | Hair Designs" and it carries `noindex`; it keeps
      `index.html`'s description. The app root became a column at least a
@@ -419,11 +430,13 @@ with unchanged screenshots unless the step is meant to change the page.
    README updated, and the user's live checks of the deploy (the preview
    card through a checker such as opengraph.xyz). Done 2026-10-12: the
    final run passed lint, the type check, the build, and all 306 tests in
-   all three engines on its first pass, with no axe violations. axe's two
-   needs-review items are explained: the Contact section's text on striped
-   navy, which axe can't measure (hand-checked, lowest 5.30:1), and
+   all three engines on its first pass, with no axe violations. axe's
+   needs-review items were explained then: the Contact section's text on
+   striped navy, which axe can't measure (hand-checked, lowest 5.30:1), and
    "bypass" with the phone menu open, since the page it would skip to is
-   deliberately inert then. The branch was merged and deployed as version
+   deliberately inert then. The skip link since added makes axe accept the
+   page even with the menu open, so the suite now fails on any bypass
+   result. The branch was merged and deployed as version
    1.0.0, and the user's post-deploy checks all passed: the security
    headers, the preview card in opengraph.xyz, and the sitemap submitted to
    Google Search Console and Bing Webmaster Tools (a Safari check of the
@@ -467,35 +480,43 @@ be scrolled into view.
     parallel runs with retries off all passed, so the retry was removed.
 - `npm run test:responsive`: measures the home page and the 404 page at 15
   widths from 320 to 1,920px (a pixel either side of the 600px and 900px
-  breakpoints included, plus 1,024 and 1,025px, where the template's root
-  font size used to switch), and
-  the open phone menu at every one of those up to 900px, failing on sideways
-  scrolling, an unclipped element past either edge, text spilling its box, or
-  two reachable controls overlapping.
-- `npm run test:seo`: the raw page, fetched without a browser, carries the
-  full title and one description; the home page's title, description,
-  author, canonical, and single h1; the structured data matched against the
-  page's own text and links (phone, street address, stylists, services,
-  price range, every service area, Facebook, no hours); the 404 page's
-  noindex, title, single description, and h1; and `robots.txt` and the sitemap. Adapted from tonys-toppers'.
-- `npm run test:interaction`: `feedback.spec.ts`, adapted from
-  tonys-toppers', hovers and presses every reachable link and button in each
-  state (skipping disabled ones and anything inert), failing any that looks
-  the same hovered as at rest or pressed as hovered, or whose transitions
-  leave out the focus ring's outline; it checks the first Tab stop's ring
-  eases in to 2px, and that under reduced motion every control still
-  responds with nothing transitioning. `menu.spec.ts`, adapted from
-  the-bernie-bears', checks the open menu (its links, Call button, Facebook
-  link, and the scrim under a tap) and every way out: the scrim, Escape
-  (focus back on the toggle), a section link (landing about 63px down, below
-  the bar, with a clean address), the brand, and widening the screen.
-  `section-link.spec.ts`, adapted from reese-roofing's behavior spec, checks
-  every bar link and section button lands its section below the bar with a
-  clean address and no hashchange, that a Ctrl, Cmd, or middle click opens it
-  in a new tab while the page clicked from stays put and the phone menu
-  closes, and that the 404 page's bar links reach their sections.
-  `tooltip.spec.ts` checks the form tooltip fades out before it's removed,
-  closes on Escape after keyboard focus, and still goes under reduced motion.
+  breakpoints included, plus 1,024 and 1,025px, where the template's root font
+  size used to switch), and the open phone menu at every one of those up to
+  900px, failing on sideways scrolling, an unclipped element past either edge,
+  text spilling its box, or two reachable controls overlapping, and, on the
+  home page, the Services cards not filling even rows of the column count the
+  width calls for.
+- `npm run test:seo`: the raw page, fetched without a browser, carries the full
+  title and one description; the home page's title, description, author,
+  canonical, and single h1; the structured data matched against the page's own
+  text and links (phone, street address, stylists, services, price range, every
+  service area, Facebook, no hours); the 404 page's noindex, title, single
+  description, and h1; the social preview tags, the preview image's type and
+  size, the icons the head links to, and `robots.txt` and the sitemap. Adapted
+  from tonys-toppers'.
+- `npm run test:interaction`: `feedback.spec.ts`, adapted from tonys-toppers',
+  probes the reachable links and buttons in each state (skipping disabled ones
+  and anything inert) at rest, hovered, pressed, unfocused, and
+  keyboard-focused, failing any that looks the same or whose changed
+  properties, the focus ring included, aren't eased; it flips the menu toggle,
+  open panel, and scrim by their attributes, checks the form wrapper's focus
+  and the Services cards' hover the same way, checks the first Tab stop draws
+  its ring at 2px, and that under reduced motion every control still responds
+  with nothing transitioning. `menu.spec.ts`, adapted from the-bernie-bears',
+  checks the open menu (its links, Call button, Facebook link, and the scrim
+  under a tap) and every way out: the scrim, Escape (focus back on the toggle),
+  a section link (landing about 63px down, below the bar, with a clean
+  address), the brand, and widening the screen. `section-link.spec.ts`, adapted
+  from reese-roofing's behavior spec, checks every bar link and section button
+  lands its section below the bar with a clean address and no hashchange, that
+  a Ctrl, Cmd, or middle click opens it in a new tab while the page clicked
+  from stays put and the phone menu closes, and that the 404 page's bar links
+  and "Back Home" link reach their sections. `tooltip.spec.ts` checks the form
+  tooltip fades in when it opens and out before it's removed, closes on Escape
+  after keyboard focus, after a hover, and from its phone link, which hands
+  focus back to the form, still goes under reduced motion (opening without a fade
+  there), and gives its phone link hover, press, and focus feedback with and
+  without motion; the probe's helpers live in `tests/support/feedback.ts`.
 - `npm run test:security`: added 2026-11-02, from tonys-toppers'. The
   playwright config also builds the site and serves it with `vite preview` on
   port 5202, since the dev server injects inline scripts the policy would
@@ -504,13 +525,14 @@ be scrolled into view.
   nosniff, DENY framing, and the referrer and permissions policies), searches
   the build for private keys and provider tokens, and runs `npm audit` on the
   shipped dependencies, those three in Chromium only, since a file reads the
-  same in every engine, the audit skipping with a message when npm is
-  offline. `browser.spec.ts` loads each state from the build with the
-  headers file's headers applied, proves the policy is live by seeing an
-  injected inline script refused, and checks every state reports no
-  violation (but WebKit's report for the form's select, which every select
-  draws) and that every new tab link carries `noopener` and `noreferrer`. No
-  browser key ships, and the form never sends, so there's no post to check.
+  same in every engine, the audit skipping with a message when npm is offline.
+  `browser.spec.ts` loads each state from the build with the headers file's
+  headers applied, proves the policy is live by seeing an injected inline
+  script refused, and checks that every state, and the open contact tooltip
+  reached by hovering the form, reports no violation (but WebKit's report for
+  the form's select, which every select draws) and that every new tab link
+  carries `noopener` and `noreferrer`. No browser key ships, and the form never
+  sends, so there's no post to check.
 - `npm test` runs every suite.
 
 ### Accessibility pass
@@ -556,7 +578,7 @@ passes (126 tests) in all three.
   user's other projects: the taglines lead into real headings and the
   captions are captions, so making them headings would add false entries to
   the outline screen reader users navigate by.
-- **Checked by hand**: axe can't measure text over the contact section's
+- **Checked by hand**: axe can't measure text over the Contact section's
   striped navy, so it lists those items as needing review. Measured against
   both stripes (and the quote box's 6% white overlay), the lowest is 5.30:1
   (the quote's sign-off), so all pass.

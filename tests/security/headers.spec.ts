@@ -85,6 +85,7 @@ test( 'the content security policy allows only the site itself', () => { // What
 	expect( cspValStr ).not.toContain( 'unsafe-eval' );        // What: No Unsafe Eval Assertion. Why: Evaluated strings run as code. How: This checks the policy never allows it.
 	expect( cspValStr ).not.toMatch( /(^|\s)\*(\s|;|$)/ );     // What: No Wildcard Assertion. Why: A bare * would let any origin load resources. How: This checks no directive allows every origin.
 	expect( cspValStr ).not.toMatch( /https?:\/\// );          // What: No Outside Origin Assertion. Why: The site loads everything from itself, so a named outside origin would let another site's files in. How: This checks no directive lists an HTTP or HTTPS address.
+	expect( cspValStr ).not.toMatch( /\b(data|blob):/ );       // What: No Data Or Blob Assertion. Why: A data: or blob: source would let injected markup carry its own content past the self-only policy. How: This checks no directive lists either scheme.
 
 
 } );
@@ -119,6 +120,8 @@ test( 'the built site holds no secrets', () => { // What: Secret Search Test. Wh
 
 	const proLisArr : string[] = []; // What: Problem List Array. Why: Every match is reported at once. How: This collects one entry per match.
 
+	let filCouNum = 0; // What: File Count Number. Why: A search that read no file would pass without searching anything. How: This counts the built text files read, starting from none.
+
 
 	for ( const filEntObj of readdirSync( DIS_DIR_STR, { recursive : true, withFileTypes : true } ) ) { // What: Built Entry Loop. Why: Every built file could hold a secret. How: This walks every file and folder in the build.
 
@@ -131,10 +134,17 @@ test( 'the built site holds no secrets', () => { // What: Secret Search Test. Wh
 		const filTexStr = readFileSync( filPatStr, 'utf8' );            // What: File Text String. Why: Each pattern is searched in the file's text. How: This reads the built file.
 
 
+		filCouNum += 1; // What: File Count Increment. Why: The search has to prove it read the build. How: This counts the file just read.
+
+
 		for ( const secPatReg of SEC_PAT_ARR ) if ( secPatReg.test( filTexStr ) ) proLisArr.push( `${ relative( DIS_DIR_STR, filPatStr ) } matches ${ secPatReg }` ); // What: Pattern Loop. Why: Each kind of secret is searched for. How: This records the file, relative to the build, and the pattern for every match.
 
 
 	}
+
+
+
+	if ( !filCouNum ) proLisArr.push( 'the build holds no text file to search' ); // What: Empty Build Guard. Why: An empty or skipped build would otherwise pass. How: This records a problem when no file was read.
 
 
 

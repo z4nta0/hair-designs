@@ -7,10 +7,10 @@
 # site sends nothing anywhere. That lets the Content-Security-Policy be
 # strict rather than needing broad allowances.
 #
-# default-src 'self' is the fallback every unlisted directive inherits, so
-# connect-src, font-src, img-src, and manifest-src need no lines of their own.
-# The directives listed either need a different value than 'self' (frame-src,
-# object-src), are never covered by default-src at all (base-uri,
+# default-src 'self' is the fallback every unlisted fetch directive inherits,
+# so connect-src, font-src, img-src, and manifest-src need no lines of their
+# own. The directives listed either need a different value than 'self'
+# (frame-src, object-src), are never covered by default-src at all (base-uri,
 # frame-ancestors, form-action), or just state the default for clarity
 # (script-src, style-src). As in the sibling sites, style-src needs no
 # 'unsafe-inline': the build ships no inline styles, and React sets its few
@@ -25,8 +25,8 @@
 # Strict-Transport-Security keeps browsers on HTTPS for two years across
 # every subdomain, leaving out preload, which commits the domain to the
 # browsers' built-in HTTPS list and is slow to undo. Referrer-Policy sends a
-# referrer only to this same origin. Permissions-Policy turns off every
-# powerful browser feature the site never uses.
+# referrer only to this same origin. Permissions-Policy turns off a list of
+# powerful browser features the site never uses.
 #
 # @author z4nta0 <https://github.com/z4nta0>
 

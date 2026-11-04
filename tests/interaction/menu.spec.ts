@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import { expect } from '@playwright/test'; // What: Expect. Why: Each check passes only when the menu behaves as it should. How: This asserts on the menu's state, the page's inert parts, and focus.
+import { expect } from '@playwright/test'; // What: Expect. Why: Each check passes only when the menu behaves as it should. How: This asserts on what each check reads, such as the menu's state.
 import { test   } from '@playwright/test'; // What: Test. Why: Each way of using the menu is its own test. How: This declares them.
 
 
@@ -24,7 +24,8 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers dr
  * page. The usual ways out each close it and give the page back: tapping
  * the scrim, pressing Escape, which also returns focus to the toggle,
  * choosing a section link or the bar's brand, which also scroll to their
- * sections, and widening the screen past the phone layout, which hides the
+ * sections, choosing the Call or Facebook link, with a plain or a middle
+ * click, and widening the screen past the phone layout, which hides the
  * toggle. Adapted from the-bernie-bears' own menu spec.
  *
  * Sections:
@@ -38,6 +39,43 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers dr
 
 
 // #region Helpers
+
+// #region cloCheFun
+
+/**
+ * cloCheFun = Close Check Function
+ *
+ * @summary
+ * Checks the closed state every way out has to leave: the toggle reports
+ * the menu closed, and neither the main content nor the footer is inert.
+ *
+ * @author z4nta0 <https://github.com/z4nta0>
+ *
+ * @param curPagObj - Current Page Object: The page whose menu should be
+ *                    closed.
+ *
+ * @returns A promise that settles once the closed state is checked, with no
+ *          value.
+ *
+ * @example
+ * ```ts
+ * cloCheFun(page) // => Promise<void>
+ * ```
+ *
+*/
+
+async function cloCheFun ( curPagObj : Page ) : Promise< void > {
+
+
+	await expect( curPagObj.locator( '[aria-label="Toggle menu"]' ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Closed State Assertion. Why: The way out should close the menu. How: This checks the toggle reports it closed, found by its label rather than its role, since a widened screen hides it.
+	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 0 );                            // What: Page Restored Assertion. Why: The page has to be usable again. How: This checks neither the main content nor the footer is inert.
+
+
+}
+
+// #endregion cloCheFun
+
+
 
 // #region menOpeFun
 
@@ -66,58 +104,19 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The helpers dr
 async function menOpeFun ( curPagObj : Page ) : Promise< void > {
 
 
-	await curPagObj.setViewportSize( { height : 844, width : 390 } ); // What: Phone Viewport Call. Why: The menu exists only at a phone's width. How: This sizes the page before it loads.
+	await curPagObj.setViewportSize( { height : 844, width : 390 } ); // What: Phone Viewport Call. Why: The menu shows only at 900px and narrower, and a phone is within that. How: This sizes the page before it loads.
 
 	await curPagObj.goto( '/' ); // What: Home Page Navigation. Why: The home page is long enough for the scrim to cover real content. How: This loads it.
 
 	await curPagObj.getByRole( 'button', { name : 'Toggle menu' } ).click(); // What: Menu Toggle Click. Why: Every check starts with the menu open. How: This opens it.
 
 	await expect( curPagObj.getByRole( 'button', { name : 'Toggle menu' } ) ).toHaveAttribute( 'aria-expanded', 'true' ); // What: Open State Assertion. Why: The toggle has to report the menu open. How: This checks its aria-expanded.
-
-	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 2 ); // What: Inert Page Assertion. Why: Content under the scrim shouldn't take focus or be read. How: This checks the main content and the footer are both inert.
+	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 2 );                                   // What: Inert Page Assertion. Why: Content under the scrim shouldn't take focus or be read. How: This checks the main content and the footer are both inert.
 
 
 }
 
 // #endregion menOpeFun
-
-
-
-// #region cloCheFun
-
-/**
- * cloCheFun = Close Check Function
- *
- * @summary
- * Checks the closed state every way out has to leave: the toggle reports
- * the menu closed, and nothing on the page is inert any more.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param curPagObj - Current Page Object: The page whose menu should be
- *                    closed.
- *
- * @returns A promise that settles once the closed state is checked, with no
- *          value.
- *
- * @example
- * ```ts
- * cloCheFun(page) // => Promise<void>
- * ```
- *
-*/
-
-async function cloCheFun ( curPagObj : Page ) : Promise< void > {
-
-
-	await expect( curPagObj.locator( '[aria-label="Toggle menu"]' ) ).toHaveAttribute( 'aria-expanded', 'false' ); // What: Closed State Assertion. Why: The way out should close the menu. How: This checks the toggle reports it closed, found by its label rather than its role, since a widened screen hides it.
-
-	await expect( curPagObj.locator( 'main[inert], footer[inert]' ) ).toHaveCount( 0 ); // What: Page Restored Assertion. Why: The page has to be usable again. How: This checks neither the main content nor the footer is inert.
-
-
-}
-
-// #endregion cloCheFun
 
 // #endregion Helpers
 
@@ -129,13 +128,13 @@ test.use( { reducedMotion : 'reduce' } ); // What: Reduced Motion Use. Why: The 
 
 
 
-test( 'the open menu offers the sections, a call, and Facebook over a dimmed page', async ( { page : curPagObj } ) => { // What: Open Menu Test. Why: The menu should stand apart from the page and offer every way onward. How: This opens it and checks its links, its extras, and the scrim under a tap below it.
+test( 'the open menu offers the sections, a call, and Facebook over a dimmed page', async ( { page : curPagObj } ) => { // What: Open Menu Test. Why: The menu should stand apart from the page and offer every way onward. How: This opens it and checks its links, its extras, and the scrim under a tap below it, and that the scrim dims the page.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The checks need the menu open. How: This opens and checks it.
 
 
-	const menNavObj = curPagObj.getByRole( 'banner' ); // What: Menu Bar Object. Why: The menu's rows live in the bar, apart from the inert page. How: This finds the banner landmark.
+	const menNavObj = curPagObj.getByRole( 'banner' ); // What: Menu Navigation Object. Why: The menu's rows live in the bar, apart from the inert page. How: This finds the banner landmark.
 
 
 	for ( const linNamStr of [ 'Home', 'Services', 'About', 'Contact' ] ) await expect( menNavObj.getByRole( 'link', { exact : true, name : linNamStr } ).last() ).toBeVisible(); // What: Section Links Assertion. Why: Each section should be one tap away. How: This checks each section's menu link is showing, the last match being the menu's own copy of the bar's link.
@@ -143,10 +142,35 @@ test( 'the open menu offers the sections, a call, and Facebook over a dimmed pag
 
 
 	await expect( menNavObj.getByRole( 'link', { name : 'Call 417-988-6239' } ) ).toHaveAttribute( 'href', 'tel:+1-417-988-6239' ); // What: Call Button Assertion. Why: A call is how the salon books. How: This checks the Call button dials the salon.
+	await expect( menNavObj.getByRole( 'link', { name : 'Find us on Facebook' } ) ).toHaveAttribute( 'target', '_blank' );          // What: Facebook Link Assertion. Why: The salon's Facebook page should open beside the site. How: This checks the link opens in a new tab.
 
-	await expect( menNavObj.getByRole( 'link', { name : 'Find us on Facebook' } ) ).toHaveAttribute( 'target', '_blank' ); // What: Facebook Link Assertion. Why: The salon's Facebook page should open beside the site. How: This checks the link opens in a new tab.
 
-	expect( await curPagObj.evaluate( () => { const tapEle = document.elementFromPoint( 200, 800 ); return !!tapEle?.matches( '[data-mobile-menu-open]' ) && !tapEle.closest( 'header' ); } ) ).toBe( true ); // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
+	expect( await curPagObj.evaluate( () => { // What: Scrim On Top Assertion. Why: A tap on the page below the menu has to land on the scrim, not the page. How: This checks the element under a point below the panel is the open scrim, outside the bar.
+
+
+		const tapCurEle = document.elementFromPoint( 200, 800 ); // What: Tap Current Element. Why: The check needs whatever a tap below the panel would land on. How: This reads the element at that point.
+
+
+
+		return !!tapCurEle?.matches( '[data-mobile-menu-open]' ) && !tapCurEle.closest( 'header' ); // What: Scrim Match Return. Why: The tap has to land on the open scrim and not inside the bar. How: This returns whether the element is the scrim and sits outside the header.
+
+
+	} ) ).toBe( true ); // What: Scrim True Check. Why: The page function's answer decides the assertion. How: This expects it to be true.
+
+
+
+	expect( await curPagObj.evaluate( () => { // What: Scrim Dims Assertion. Why: A scrim that's on top but see-through wouldn't set the menu apart from the page. How: This checks the open scrim is fully shown and its color isn't transparent.
+
+
+		const scrCurEle = [ ...document.querySelectorAll( '[data-mobile-menu-open]' ) ].find( ( opeCurEle ) => !opeCurEle.closest( 'header' ) )!; // What: Scrim Current Element. Why: The menu panel carries the same open attribute inside the bar. How: This finds the open element outside the header. // What: Non-Null Note. Why: find can return undefined. How: The open menu always renders its scrim outside the bar.
+		const scrStyObj = getComputedStyle( scrCurEle );                                                                                          // What: Scrim Style Object. Why: The scrim's opacity and color are what dim the page. How: This reads its computed styles.
+
+
+
+		return scrStyObj.opacity === '1' && ![ 'rgba(0, 0, 0, 0)', 'transparent' ].includes( scrStyObj.backgroundColor ); // What: Scrim Dims Return. Why: A scrim still faded out, or with a transparent color, wouldn't dim the page. How: This returns whether the scrim is fully shown and its color is neither rgba(0, 0, 0, 0), the computed form of transparent, nor the keyword itself.
+
+
+	} ) ).toBe( true ); // What: Scrim Dims True Check. Why: The page function's answer decides the assertion. How: This expects it to be true.
 
 
 } );
@@ -183,16 +207,16 @@ test( 'Escape closes the menu and returns focus to the toggle', async ( { page :
 
 
 
-test( 'choosing a section closes the menu on the way there', async ( { page : curPagObj } ) => { // What: Link Close Test. Why: A chosen section should come into view with the menu out of the way. How: This taps the menu's Contact link and checks the menu closes, the section sits below the bar, and the address stays clean.
+test( 'choosing a section closes the menu on the way there', async ( { page : curPagObj } ) => { // What: Link Close Test. Why: A chosen section should come into view with the menu out of the way. How: This taps the menu's "Contact" link and checks the menu closes, the section lands just below the bar, and the address stays clean.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
 
-	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).last().click(); // What: Contact Tap Call. Why: A section link is the menu's main use. How: This taps the menu's Contact link.
+	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { exact : true, name : 'Contact' } ).last().click(); // What: Contact Tap Call. Why: A section link is the menu's main use. How: This taps the menu's "Contact" link.
 
 	await cloCheFun( curPagObj ); // What: Closed Check Call. Why: The tap should close the menu and give the page back. How: This checks both.
 
-	await expect.poll( () => curPagObj.evaluate( () => Math.round( document.getElementById( 'contact' )!.getBoundingClientRect().top ) ) ).toBeLessThan( 66 ); // What: Section Arrival Assertion. Why: The Contact section should come to the top of the screen, just below the bar, which WebKit once overshot by about 29px. How: This waits for its top to sit at the bar's height and border, about 63px, from the viewport's top. // What: Non-Null Note. Why: getElementById can return null. How: The home page always renders the Contact section.
+	await expect.poll( () => curPagObj.evaluate( () => Math.abs( Math.round( document.getElementById( 'contact' )!.getBoundingClientRect().top - parseFloat( getComputedStyle( document.documentElement ).scrollPaddingTop ) ) ) ) ).toBeLessThan( 1 ); // What: Section Arrival Assertion. Why: The Contact section should land just below the bar, neither short of it, as WebKit once stopped about 29px short, nor under it. How: This waits until its top sits less than a pixel from the root's scroll padding, the bar's height and border, which the section's stacked form leaves the phone page room to scroll it to. // What: Non-Null Note. Why: getElementById can return null. How: The home page always renders the Contact section.
 
 	expect( curPagObj.url() ).not.toContain( '#' ); // What: Clean Address Assertion. Why: Section links leave no hash in the address. How: This checks the URL carries none.
 
@@ -201,10 +225,54 @@ test( 'choosing a section closes the menu on the way there', async ( { page : cu
 
 
 
-test( 'tapping the brand closes the menu', async ( { page : curPagObj } ) => { // What: Brand Close Test. Why: The brand stays tappable above the open menu, and the page it scrolls to shouldn't be left inert behind a menu still open. How: This taps the bar's brand and checks the menu closes and the page is back at its top.
+for ( const linNamStr of [ 'Call 417-988-6239', 'Find us on Facebook' ] ) { // What: Menu Extra Link Loop. Why: The menu's Call and Facebook links close it like its section links do. How: This declares the plain and middle click tests for each link.
+
+
+	for ( const cliKinStr of [ 'plain', 'middle' ] ) { // What: Click Kind Loop. Why: A middle click reaches the page as auxclick rather than click, so each needs its own check. How: This declares one test per kind of click.
+
+
+		test( `a ${ cliKinStr } click on the menu's "${ linNamStr }" link closes the menu`, async ( { page : curPagObj } ) => { // What: Extra Link Close Test. Why: Once a visitor chooses a link in the menu, the menu should close, whatever the link opens. How: This keeps the link from leaving the page, opens the menu, makes the click, and checks the menu closes.
+
+
+			await curPagObj.context().route( '**/*facebook.com/**', ( rouCurObj ) => rouCurObj.abort() ); // What: Facebook Route Block. Why: The test shouldn't reach the real Facebook page. How: This aborts any request to it, from this page or a tab the click opens.
+
+			curPagObj.context().on( 'page', ( newPagObj ) => newPagObj.close() ); // What: New Tab Closer. Why: Only the menu is under test, not a tab the link opens. How: This closes any page the context gains.
+
+			await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
+
+
+			await curPagObj.evaluate( () => { // What: Default Block Setup. Why: A plain click would dial or open Facebook, taking the page away before the check reads it. How: This cancels the default of every click and auxclick once it reaches the window, after the menu's own handlers have run.
+
+
+				for ( const eveNamStr of [ 'auxclick', 'click' ] ) window.addEventListener( eveNamStr, ( eveCurObj ) => eveCurObj.preventDefault() ); // What: Default Block Listener. Why: Each kind of click needs its default cancelled. How: This adds a window listener for each that prevents the default.
+
+
+			} );
+
+
+			await curPagObj.getByRole( 'banner' ).getByRole( 'link', { name : linNamStr } ).click( cliKinStr === 'middle' ? { button : 'middle' } : {} ); // What: Extra Link Click Call. Why: The kind of click is what's checked. How: This clicks the link with the loop's button.
+
+			await cloCheFun( curPagObj ); // What: Closed Check Call. Why: The click should close the menu and give the page back. How: This checks both.
+
+
+		} );
+
+
+	}
+
+
+}
+
+
+
+test( 'tapping the brand closes the menu', async ( { page : curPagObj } ) => { // What: Brand Close Test. Why: The brand stays tappable above the open menu, and the page it scrolls to shouldn't be left inert behind a menu still open. How: This scrolls the page down, taps the bar's brand, and checks the menu closes and the page is back at its top.
 
 
 	await menOpeFun( curPagObj ); // What: Menu Open Call. Why: The check needs the menu open. How: This opens and checks it.
+
+	await curPagObj.evaluate( () => window.scrollTo( 0, 1500 ) ); // What: Partway Scroll Call. Why: Starting partway down shows the brand really moves the page back to its top. How: This scrolls 1,500px down behind the open menu.
+
+	await expect.poll( () => curPagObj.evaluate( () => window.scrollY ) ).toBeGreaterThan( 0 ); // What: Scrolled Down Assertion. Why: The final top check proves nothing unless the page left its top first. How: This waits for the page to sit below its top.
 
 	await curPagObj.getByRole( 'banner' ).getByRole( 'link', { name : 'Hair Designs' } ).first().click(); // What: Brand Tap Call. Why: The brand is the way back to the top from the open menu. How: This taps the bar's brand link.
 

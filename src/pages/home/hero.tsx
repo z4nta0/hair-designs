@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './hero.module.css';      // What: CSS Module Object. Why: The hero is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './hero.module.css';     // What: CSS Module Object. Why: The hero is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 import logSvgUrl from '../../assets/logo.svg'; // What: Logo SVG URL. Why: The hero's centerpiece is the logo. How: Vite resolves this to the image's fingerprinted URL, which the logo's src reads.
 
 
@@ -17,11 +17,11 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * hero.tsx = Hero
  *
  * @summary
- * The home page's opening section: the logo on a striped navy panel beside
- * the welcome, with the salon's name, its trade and town, both stylists,
- * and buttons to the Services and Contact sections, then a navy bar with the
- * phone number and address. Both panels' contents rise into place as the
- * page opens.
+ * The home page's opening section: the logo on a striped navy panel beside the
+ * welcome (stacked at 900px and narrower), with the salon's name, its trade
+ * and town, both stylists, and buttons to the Services and Contact sections,
+ * then a navy bar with the phone number and address. Both panels' contents
+ * rise into place as the page opens.
  *
  * Sections:
  *  - Components
@@ -41,10 +41,10 @@ import { useSecCliFun } from '../../ui/section-link.ts'; // What: Use Section Cl
  * HerSecCom = Hero Section Component
  *
  * @summary
- * Renders the hero section, the first thing a visitor sees: the logo panel
- * and the welcome panel side by side (stacked on narrow screens), then the
- * bar with the phone number and address. Its id, home, is the target of the
- * bar's brand and Home links.
+ * Renders the hero section, the first thing a visitor sees: the logo panel and
+ * the welcome panel side by side (stacked at 900px and narrower), then the bar
+ * with the phone number and address. Its ID, `home`, is the target of the
+ * page's links to the top of the home page.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -73,13 +73,13 @@ function HerSecCom () : React.JSX.Element {
 			id='home'
 
 			className={ cssModObj.homHerSec }
-		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its id, home, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home Hero Section Element. Why: The page opens with the hero. How: Its ID, `home`, is kept as a readable word since the links to it name it in their addresses (/#home). */ }
 
 
-			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked on narrow screens. */ }
+			<div className={ cssModObj.herGriDiv }>{ /* What: Hero Grid Div Element. Why: The logo and the welcome share the screen. How: This splits it into two columns, stacked at 900px and narrower. */ }
 
 
-				<div className={ cssModObj.herLefDiv }>{ /* What: Hero Left Div Element. Why: The logo sits on the brand's stripes. How: This centers it on striped navy with a rose divider at its edge. */ }
+				<div className={ cssModObj.herLefDiv }>{ /* What: Hero Left Div Element. Why: The logo sits on the brand's stripes. How: This centers it on striped navy, with a rose divider at its edge above 900px. */ }
 
 
 					<div className={ cssModObj.herLogDiv }>{ /* What: Hero Logo Div Element. Why: The logo should rise into place as the page opens. How: This plays the entrance for it. */ }
@@ -120,7 +120,7 @@ function HerSecCom () : React.JSX.Element {
 
 							<span className={ cssModObj.styNamSpa }>Juli Wilkerson</span>{ /* What: Stylist Name Span Element. Why: The first stylist is named. How: This shows her name on its own line. */ }
 
-							<span className={ cssModObj.styNamSpa }>&amp;</span>{ /* What: Stylist Name Span Element. Why: The names are joined like a signature. How: This shows the ampersand on its own line. */ }
+							<span className={ cssModObj.styNamSpa }>&</span>{ /* What: Stylist Name Span Element. Why: The names are joined like a signature. How: This shows the ampersand on its own line. */ }
 
 							<span className={ cssModObj.styNamSpa }>Keeli Bryan</span>{ /* What: Stylist Name Span Element. Why: The second stylist is named. How: This shows her name on its own line. */ }
 
@@ -129,7 +129,7 @@ function HerSecCom () : React.JSX.Element {
 
 						<p className={ cssModObj.herCapPar }>Licensed Cosmetologists</p>{ /* What: Hero Caption Paragraph Element. Why: The stylists' title follows their names. How: This shows it in italic. */ }
 
-						<div className={ cssModObj.herActDiv }>{ /* What: Hero Actions Div Element. Why: The welcome ends with two ways onward. How: This sets the buttons in a row. */ }
+						<div className={ cssModObj.herActDiv }>{ /* What: Hero Actions Div Element. Why: The welcome ends with two ways onward. How: This sets the buttons in a row, wrapping onto two lines at about 416px wide and below. */ }
 
 
 							<a
@@ -138,7 +138,7 @@ function HerSecCom () : React.JSX.Element {
 								href='/#services'
 
 								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'services' ) }
-							>Our Services</a>{ /* What: Primary Button Base Anchor Element. Why: Seeing the services is the main next step. How: This scrolls to the Services section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+							>Our Services</a>{ /* What: Button Base Anchor Primary Element. Why: Seeing the services is the main next step. How: This scrolls to the Services section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 							<a
 								className={` ${ cssModObj.butBasAnc }   ${ cssModObj.butBasAncOutline } `}
@@ -146,7 +146,7 @@ function HerSecCom () : React.JSX.Element {
 								href='/#contact'
 
 								onClick={ ( cliEveObj ) => secCliFun( cliEveObj, 'contact' ) }
-							>Get in Touch</a>{ /* What: Outline Button Base Anchor Element. Why: Reaching the salon is the other next step. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
+							>Get in Touch</a>{ /* What: Button Base Anchor Outline Element. Why: Reaching the salon is the other next step. How: This scrolls to the Contact section without leaving a hash in the address, or opens it in a new tab on a modified click. */ }
 
 
 						</div>
@@ -232,7 +232,7 @@ function HerSecCom () : React.JSX.Element {
 
 // #region Exports
 
-export { HerSecCom }; // What: Named Exports. Why: The home page renders the hero first. How: This exports HerSecCom.
+export { HerSecCom }; // What: Named Export. Why: The home page renders the hero first. How: This exports HerSecCom.
 
 // #endregion Exports
 

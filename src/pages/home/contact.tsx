@@ -3,12 +3,12 @@
 
 // #region Imports
 
-import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: The Contact section is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './contact.module.css'; // What: CSS Module Object. Why: The Contact section is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 
-import { rhyPxlFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
-import { useEffect } from 'react';                 // What: Use Effect. Why: An open form tooltip closes when a tap lands anywhere else. How: This adds and removes that page-wide listener while the tooltip is open.
-import { useRef    } from 'react';                 // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds the wrapper and the tooltip.
+import { rhyPixFun } from '../../utils/rhythm.ts'; // What: Rhythm Pixel Function. Why: The tooltip's centering math needs its width in pixels, the same rhythm step its stylesheet uses. How: This turns the step's name into pixels at the current root size.
+import { useEffect } from 'react';                 // What: Use Effect. Why: An open form tooltip closes on page-wide events, such as a tap anywhere else. How: This adds and removes those listeners while the tooltip is open.
+import { useRef    } from 'react';                 // What: Use Ref. Why: The tooltip is placed and closed relative to the disabled form's wrapper. How: This holds what the tooltip's handlers read between renders, such as the wrapper element.
 import { useState  } from 'react';                 // What: Use State. Why: The form tooltip opens at a position. How: This holds that position, or null while it's closed.
 
 // #endregion Imports
@@ -20,11 +20,11 @@ import { useState  } from 'react';                 // What: Use State. Why: The 
  *
  * @summary
  * The home page's Contact section: the phone number, hours, prices, service
- * area, and a quote from the stylists beside the contact form, which is
- * shown but turned off, since the salon doesn't take messages. Its fields sit
- * in a disabled fieldset, and hovering, tapping, or tabbing to them opens a
- * tooltip pointing to the phone number, while the fieldset's hidden legend
- * tells screen readers the same.
+ * area, and a quote from the stylists beside the contact form (stacked at
+ * 900px and narrower), which is shown but turned off, since the salon doesn't
+ * take messages. Its fields sit in a disabled fieldset, and hovering, tapping,
+ * or tabbing to them opens a tooltip pointing to the phone number, while the
+ * fieldset's hidden legend tells screen readers the same.
  *
  * Sections:
  *  - Types
@@ -57,19 +57,22 @@ type TipPosTyp = { // What: Tip Position Type. Why: The form tooltip's state and
 
 // #region Constants
 
+// #region ARE_NAM_ARR
+
 /**
  * ARE_NAM_ARR = Area Name Array
  *
  * @summary
- * The places the salon serves, as the Contact section's Service Area tags
- * show them: Hickory County first, then the towns around Carson's Corner.
+ * The places the salon serves, as the tags under "Service Area" in the
+ * Contact section show them: Hickory County first, then the towns around
+ * Carson's Corner.
  * Every row is one place's name, so no row needs a comment of its own.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
 */
 
-const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows one tag per place the salon serves. How: Each entry is a place's name as its tag reads.
+const ARE_NAM_ARR = [ // What: Area Name Array. Why: The "Service Area" row shows one tag per place the salon serves. How: Each entry is a place's name as its tag reads.
 
 
 	'Hickory County',
@@ -86,7 +89,11 @@ const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows 
 
 ];
 
+// #endregion ARE_NAM_ARR
 
+
+
+// #region SER_OPT_ARR
 
 /**
  * SER_OPT_ARR = Service Option Array
@@ -94,7 +101,9 @@ const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows 
  * @summary
  * The service select's choices after its placeholder, in order. Every row
  * shares one shape, so its fields carry no comments of their own:
+ *
  * - `labStr` (String): Label String, the choice as the visitor reads it.
+ *
  * - `valStr` (String): Value String, the choice as the form would send it.
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -104,16 +113,18 @@ const ARE_NAM_ARR = [ // What: Area Name Array. Why: The Service Area row shows 
 const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one choice per service plus a general one. How: Each row pairs a choice's label with its value.
 
 
-	{ labStr : 'Haircut & Styling',        valStr : 'Haircut and Styling'      },
-	{ labStr : 'Color & Highlights',       valStr : 'Color and Highlights'     },
-	{ labStr : 'Perms & Texture',          valStr : 'Perms and Texture'        },
-	{ labStr : 'Special Occasion',         valStr : 'Special Occasion'         },
-	{ labStr : "Men's Cut",                valStr : "Men's Cut"                },
-	{ labStr : 'Hair Treatment',           valStr : 'Hair Treatment'           },
-	{ labStr : 'Other / General Question', valStr : 'Other / General Question' }
+	{ labStr : 'Haircut & Styling',        valStr : 'Haircut and Styling'      }, // What: Haircut And Styling Option Row. Why: Cuts and styling are the first service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Color & Highlights',       valStr : 'Color and Highlights'     }, // What: Color And Highlights Option Row. Why: Color is the second service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Perms & Texture',          valStr : 'Perms and Texture'        }, // What: Perms And Texture Option Row. Why: Perms and texture are the third service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Special Occasion',         valStr : 'Special Occasion'         }, // What: Special Occasion Option Row. Why: Special occasion styling is the fourth service card. How: This pairs the choice's label with its value.
+	{ labStr : "Men's Cut",                valStr : "Men's Cut"                }, // What: Men's Cut Option Row. Why: Men's cuts are the fifth service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Hair Treatment',           valStr : 'Hair Treatment'           }, // What: Hair Treatment Option Row. Why: Treatments are the sixth service card. How: This pairs the choice's label with its value.
+	{ labStr : 'Other / General Question', valStr : 'Other / General Question' }  // What: Other Or General Question Option Row. Why: A visitor may want something no card names. How: This pairs the choice's label with its value.
 
 
 ];
+
+// #endregion SER_OPT_ARR
 
 // #endregion Constants
 
@@ -121,8 +132,8 @@ const SER_OPT_ARR = [ // What: Service Option Array. Why: The select lists one c
 
 // #region Helpers
 
-const endTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj?.leaBoo ? null : curPosObj;               // What: End Tip Function. Why: A closing tooltip should leave the page once its fade has played, while an opening one's fade ending changes nothing. How: This state updater removes a leaving tooltip and returns any other state unchanged.
-const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosObj, leaBoo : true }; // What: Leave Tip Function. Why: Every way of closing the tooltip should fade it out rather than snap it away. How: This state updater marks an open tooltip as leaving, in place, and leaves a closed one closed.
+const endTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj?.leaBoo ? null : curPosObj;         // What: End Tip Function. Why: A closing tooltip should leave the page once its fade has played, while an opening one's fade ending changes nothing. How: This state updater removes a leaving tooltip and returns any other state unchanged.
+const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosObj, leaBoo : true }; // What: Leave Tip Function. Why: Every way of closing the tooltip should fade it out rather than snap it away. How: This state updater returns a copy of an open tooltip's state marked as leaving, at the same position, and leaves a closed one closed.
 
 // #endregion Helpers
 
@@ -137,12 +148,13 @@ const leaTipFun = ( curPosObj : TipPosTyp | null ) => curPosObj && { ...curPosOb
  *
  * @summary
  * Renders the Contact section and runs its form tooltip. The tooltip's
- * position lives in state, null while it's closed: a mouse entering the
- * form or a tap on it opens the tooltip at that point, focusing the form's
- * wrapper opens it at the form's top edge, and it closes when the mouse
- * leaves, on Escape, when focus settles outside the form, or on a tap
- * anywhere else. Its id, contact, is the target of the bar's Contact link
- * and the hero's and About section's buttons.
+ * position lives in state, null while it's closed: a mouse entering the form
+ * or a tap on it opens the tooltip at that point, focusing the form's wrapper
+ * opens it at the form's top edge, and it closes when the mouse leaves, on
+ * Escape however it opened, when focus settles outside the form, or on a tap
+ * anywhere else. Escape on the tooltip's phone link hands focus back to the
+ * wrapper. Its ID, `contact`, is the target of the page's links to this
+ * section.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -161,10 +173,10 @@ function ConSecCom () : React.JSX.Element {
 
 
 	const forWraRef = useRef< HTMLDivElement >( null ); // What: Form Wrapper Reference. Why: The tooltip is placed inside the disabled form's wrapper and closes when a tap lands outside it. How: This holds the wrapper element.
+	const skiOpeRef = useRef( false );                  // What: Skip Open Reference. Why: Escape on the tooltip's phone link hands focus back to the wrapper, which would otherwise reopen the tooltip it just closed. How: This is true only for that one hand-back, and the wrapper's focus handler clears it.
 	const tipDivRef = useRef< HTMLDivElement >( null ); // What: Tip Div Reference. Why: A press on the tooltip itself, such as on its phone link, shouldn't move it. How: This holds the tooltip element while it's open.
 
 	const [ tipPosObj, setTipPosObj ] = useState< TipPosTyp | null >( null ); // What: Tip Position Object And Setter. Why: The tooltip opens where the visitor pointed, or at the top of the form for the keyboard, and fades out before it goes. How: This holds its left and top in pixels within the wrapper and whether it's leaving, or null once it's gone.
-
 
 
 	// #region plaTipFun
@@ -175,8 +187,8 @@ function ConSecCom () : React.JSX.Element {
 	 * @summary
 	 * Opens the tooltip at a point on the screen, measured from the form
 	 * wrapper's corner. Its left is clamped so the tooltip, as wide as the
-	 * p10 rhythm step and centered on the point, never spills past either
-	 * side of the form.
+	 * p10 rhythm step and centered on the point, stays inside the form's
+	 * sides whenever the form is at least as wide as the tooltip.
 	 *
 	 * @author z4nta0 <https://github.com/z4nta0>
 	 *
@@ -197,7 +209,7 @@ function ConSecCom () : React.JSX.Element {
 	const plaTipFun = ( cliXcoNum : number, cliYcoNum : number ) => { // What: Place Tip Function. Why: The tooltip should open where the visitor pointed without spilling past the form's sides. How: This stores the point's position within the wrapper as the tooltip's position.
 
 
-		const halWidNum = rhyPxlFun( 'p10' ) / 2;                             // What: Half Width Number. Why: The tooltip's center has to stay half its width inside each side. How: This halves the p10 rhythm step its stylesheet sizes it to. // Vertical Rhythm Base Plus 10 ~= 242.522px
+		const halWidNum = rhyPixFun( 'p10' ) / 2;                             // What: Half Width Number. Why: The tooltip's center has to stay half its width inside each side. How: This halves the p10 rhythm step its stylesheet sizes it to. // Vertical Rhythm Base Plus 10 ~= 242.522px
 		const wraRecObj = forWraRef.current!.getBoundingClientRect();         // What: Wrapper Rectangle Object. Why: The point has to be measured from the wrapper's corner. How: This reads the wrapper's box in viewport pixels. // What: Non-Null Note. Why: Only the wrapper's own events call this function. How: Those events can't fire before the ref is attached.
 		const lefMaxNum = Math.max( halWidNum, wraRecObj.width - halWidNum ); // What: Left Maximum Number. Why: The tooltip's center has to stay half its width inside the right side. How: This is the wrapper's width less half the tooltip's, never below the left limit.
 
@@ -223,24 +235,59 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-	useEffect( () => { // What: Outside Tap Effect. Why: On a touchscreen there's no pointer leaving the form, so an open tooltip closes when a tap lands anywhere else. How: This listens for presses on the page while the tooltip is open and closes it for one outside the wrapper.
+	useEffect( () => { // What: Outside Close Effect. Why: On a touchscreen there's no pointer leaving the form, so an open tooltip closes when a tap lands anywhere else, and Escape has to close it however it opened, a mouse's hover included, which never puts focus in the form. How: This listens for presses and keys on the page while the tooltip is open, closing it for a press outside the wrapper or for Escape.
 
 
-		if ( !tipPosObj || tipPosObj.leaBoo ) return; // What: Closed Tooltip Guard. Why: A closed or closing tooltip has nothing to close. How: This skips the listener.
+		if ( !tipPosObj || tipPosObj.leaBoo ) return; // What: Closed Tooltip Guard. Why: A closed or closing tooltip has nothing to close. How: This skips the listeners.
 
 
 
 		const outPreFun = ( preEveObj : PointerEvent ) => { if ( !forWraRef.current!.contains( preEveObj.target as Node ) ) setTipPosObj( leaTipFun ); }; // What: Outside Press Function. Why: Only a press outside the form should close the tooltip. How: This fades it out when the press's target isn't inside the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 
 
-		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the handler.
+
+		const escKeyFun = ( keyEveObj : KeyboardEvent ) => { // What: Escape Key Function. Why: Escape is the expected way to dismiss a tooltip, and focus on its phone link mustn't fall to the page when the link goes. How: For Escape, this hands focus from the link back to the wrapper without reopening the tooltip, then fades the tooltip out.
+
+
+			if ( keyEveObj.key !== 'Escape' ) return; // What: Other Key Guard. Why: Only Escape closes the tooltip. How: This ignores every other key.
 
 
 
-		return () => document.removeEventListener( 'pointerdown', outPreFun ); // What: Listener Cleanup Return. Why: The listener should only run while the tooltip is open. How: This removes it when the tooltip closes or the page unmounts.
+			if ( tipDivRef.current?.contains( document.activeElement ) ) { // What: Link Focus Check. Why: The phone link disappears with the tooltip, which would drop its focus to the page. How: When focus is inside the tooltip, this moves it back to the wrapper first.
 
 
-	}, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listener is added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to an open position, then to a leaving one, as it does.
+				skiOpeRef.current = true; // What: Skip Open Set. Why: The wrapper's focus handler would reopen the tooltip. How: This tells it to let this one focus pass.
+
+
+				forWraRef.current!.focus(); // What: Wrapper Focus Call. Why: The keyboard visitor should stay on the form. How: This focuses the wrapper. // What: Non-Null Note. Why: The listener only exists while the wrapper is mounted and its tooltip open. How: The effect removes it before the wrapper can unmount.
+
+
+			}
+
+
+
+			setTipPosObj( leaTipFun ); // What: Tip Close Call. Why: Escape closes the tooltip. How: This fades it out.
+
+
+		};
+
+
+		document.addEventListener( 'pointerdown', outPreFun ); // What: Outside Press Listener Call. Why: Presses anywhere on the page have to be seen. How: This registers the press handler.
+		document.addEventListener( 'keydown', escKeyFun );     // What: Escape Listener Call. Why: Escape has to work wherever focus is, since a hover never moves it. How: This registers the key handler.
+
+
+
+		return () => { // What: Listener Cleanup Return. Why: The listeners should only run while the tooltip is open. How: This removes both when the tooltip closes or the page unmounts.
+
+
+			document.removeEventListener( 'pointerdown', outPreFun ); // What: Press Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the press handler.
+			document.removeEventListener( 'keydown', escKeyFun );     // What: Key Listener Removal. Why: A closed tooltip has nothing to close. How: This removes the key handler.
+
+
+		};
+
+
+	}, [ tipPosObj ] ); // What: Effect Dependency Array. Why: The listeners are added when the tooltip opens and removed when it closes. How: tipPosObj changes from null to an open position, then to a leaving one, as it does.
 
 
 
@@ -251,7 +298,7 @@ function ConSecCom () : React.JSX.Element {
 			id='contact'
 
 			className={ cssModObj.homConSec }
-		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its id, contact, is kept as a readable word since in-page links put it in the address bar. */ }
+		>{ /* What: Home Contact Section Element. Why: The page ends with how to reach the salon. How: Its ID, `contact`, is kept as a readable word since the links to it name it in their addresses (/#contact). */ }
 
 
 			<p className={ cssModObj.eyeLabPar }>Find Us</p>{ /* What: Eyebrow Label Paragraph Element. Why: A script line leads into the heading. How: This shows it above the heading. */ }
@@ -262,10 +309,10 @@ function ConSecCom () : React.JSX.Element {
 
 
 
-			<div className={ cssModObj.conLayDiv }>{ /* What: Contact Layout Div Element. Why: The details and the form card sit side by side. How: This holds both columns, stacked on narrow screens. */ }
+			<div className={ cssModObj.conLayDiv }>{ /* What: Contact Layout Div Element. Why: The details and the form card sit side by side. How: This holds both columns, stacked at 900px and narrower. */ }
 
 
-				<div className={ cssModObj.conDetDiv }>{ /* What: Contact Details Div Element. Why: The phone number, hours, prices, service area, and a word from the stylists form the first column. How: This holds them. */ }
+				<div className={ cssModObj.conDetDiv }>{ /* What: Contact Details Div Element. Why: The phone number, hours, prices, service area, and a word from the stylists form the first column, above the form card at 900px and narrower. How: This holds them. */ }
 
 
 					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The phone number pairs with its icon and label. How: This lines them up. */ }
@@ -289,7 +336,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the number stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Phone</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Phone. */ }
+							<strong className={ cssModObj.detLabStr }>Phone</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Phone". */ }
 
 							<a
 								className={ cssModObj.detValAnc }
@@ -333,7 +380,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the hours stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Hours</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Hours. */ }
+							<strong className={ cssModObj.detLabStr }>Hours</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Hours". */ }
 
 							<span className={ cssModObj.detValSpa }>By Appointment<br />Call us to schedule</span>{ /* What: Detail Value Span Element. Why: The salon works by appointment. How: This says so over two lines. */ }
 
@@ -371,7 +418,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the price range stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Prices</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Prices. */ }
+							<strong className={ cssModObj.detLabStr }>Prices</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Prices". */ }
 
 							<span className={ cssModObj.detValSpa }>$20 to $100, depending on the service</span>{ /* What: Detail Value Span Element. Why: A visitor should know roughly what a visit costs, and the structured data's price range has to appear on the page. How: This gives the range. */ }
 
@@ -380,6 +427,7 @@ function ConSecCom () : React.JSX.Element {
 
 
 					</div>
+
 
 
 					<div className={ cssModObj.detRowDiv }>{ /* What: Detail Row Div Element. Why: The service area pairs with its icon and label. How: This lines them up. */ }
@@ -410,7 +458,7 @@ function ConSecCom () : React.JSX.Element {
 						<div>{ /* What: Detail Text Div Element. Why: The label and the places stack beside the icon. How: This holds them. */ }
 
 
-							<strong className={ cssModObj.detLabStr }>Service Area</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows Service Area. */ }
+							<strong className={ cssModObj.detLabStr }>Service Area</strong>{ /* What: Detail Label Strong Element. Why: The detail is named above its value. How: This shows "Service Area". */ }
 
 							<ul className={ cssModObj.areTagUno }>{ /* What: Area Tag Unordered List Element. Why: The places the salon serves read as a list of labels, and the structured data's service area has to appear on the page. How: This sets them as tags in a row that wraps. */ }
 
@@ -437,12 +485,13 @@ function ConSecCom () : React.JSX.Element {
 					</div>
 
 
+
 					<div className={ cssModObj.conQuoDiv }>{ /* What: Contact Quote Div Element. Why: A word from the stylists closes the details. How: This sets it on a faint panel with a rose edge. */ }
 
 
 						<p className={ cssModObj.quoBodPar }>"We're your neighbors, so give us a call or stop by. We'd love to hear from you."</p>{ /* What: Quote Body Paragraph Element. Why: The stylists speak to visitors directly. How: This shows their words. */ }
 
-						<p className={ cssModObj.quoSigPar }>— Juli &amp; Keeli</p>{ /* What: Quote Signature Paragraph Element. Why: The quote is signed by the stylists. How: This shows their names in script after an em dash, the copy rules' exception for a quote's attribution. */ }
+						<p className={ cssModObj.quoSigPar }>— Juli & Keeli</p>{ /* What: Quote Signature Paragraph Element. Why: The quote is signed by the stylists. How: This shows their names in script after an em dash, the copy rules' exception for a quote's attribution. */ }
 
 
 					</div>
@@ -462,22 +511,25 @@ function ConSecCom () : React.JSX.Element {
 					<form onSubmit={ ( subEveObj ) => subEveObj.preventDefault() }>{ /* What: Contact Form Element. Why: The fields keep a form's semantics, though the salon doesn't take messages. How: Its only attribute stops a submission, which its disabled fields can't trigger anyway. */ }
 
 
-
 						<div
 							ref={ forWraRef }
 
 							className={ cssModObj.forWraDiv }
 
-							tabIndex={ 0 }
 							aria-describedby='forNotLeg'
 							aria-label='Contact form, turned off'
 							role='group'
+							tabIndex={ 0 }
 
 							onBlur={ bluCloFun }
 							onFocus={ ( focEveObj ) => { // What: Focus Open Handler. Why: Keyboard users reach the form as one stop and need the same message. How: This opens the tooltip centered at the form's top edge when the wrapper itself takes focus.
 
 
 								if ( focEveObj.target !== focEveObj.currentTarget ) return; // What: Own Focus Guard. Why: Focus moving onto the tooltip's own link shouldn't move the tooltip. How: This acts only when the wrapper itself takes focus.
+
+
+
+								if ( skiOpeRef.current ) { skiOpeRef.current = false; return; } // What: Hand-Back Guard. Why: Escape on the phone link returns focus here after closing the tooltip, which shouldn't reopen. How: This clears the flag and leaves the tooltip closed.
 
 
 
@@ -493,12 +545,10 @@ function ConSecCom () : React.JSX.Element {
 
 
 							} }
-							onKeyDown={ ( keyEveObj ) => { if ( keyEveObj.key === 'Escape' ) setTipPosObj( leaTipFun ); } } // What: Escape Close Handler. Why: A tooltip should close on Escape. How: This closes it for the Escape key.
 							onPointerDown={ ( preEveObj ) => { if ( !tipDivRef.current?.contains( preEveObj.target as Node ) ) plaTipFun( preEveObj.clientX, preEveObj.clientY ); } } // What: Press Open Handler. Why: A tap on a touchscreen has no hover to open the tooltip, but a tap on the open tooltip, such as on its phone link, mustn't move it out from under the finger. How: This opens it where the finger landed, unless the press was inside the tooltip. // What: Type Assertion Note. Why: A pointer event's target is typed as an EventTarget, while contains needs a Node. How: Every press lands on a node in the page.
 							onPointerEnter={ ( entEveObj ) => { if ( entEveObj.pointerType === 'mouse' ) plaTipFun( entEveObj.clientX, entEveObj.clientY ); } } // What: Mouse Enter Handler. Why: A mouse hovering the form should learn why it's turned off. How: This opens the tooltip where the pointer entered, for a mouse only, since a touch also fires enter before its press.
 							onPointerLeave={ ( leaEveObj ) => { if ( leaEveObj.pointerType === 'mouse' ) setTipPosObj( leaTipFun ); } } // What: Mouse Leave Handler. Why: The tooltip should go once the mouse moves off the form. How: This closes it for a mouse only, since a touch fires leave as soon as the finger lifts.
-						>{ /* What: Form Wrapper Div Element. Why: Disabled fields don't reliably pass the pointer on in every browser, and the keyboard skips them entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and described by the fieldset's legend. */ }
-
+						>{ /* What: Form Wrapper Div Element. Why: The disabled fieldset ignores the pointer, and the keyboard skips its fields entirely. How: This wraps the disabled fields, catches the pointer for them, and takes one keyboard stop, opening the tooltip from each and described by the fieldset's legend. */ }
 
 
 							<fieldset
@@ -515,8 +565,7 @@ function ConSecCom () : React.JSX.Element {
 								>The form is disabled at this time. Please call us at 417-988-6239. We apologize for any inconvenience.</legend>{ /* What: Form Note Legend Element. Why: A fieldset should say what its group is, and screen readers should hear why the form is off without needing the tooltip. How: This holds the tooltip's message, hidden visually, and also describes the wrapper through aria-describedby. */ }
 
 
-
-								<div className={ cssModObj.forRowDiv }>{ /* What: Form Row Div Element. Why: The first and last name fields share a row. How: This splits it into two columns, stacked on narrow screens. */ }
+								<div className={ cssModObj.forRowDiv }>{ /* What: Form Row Div Element. Why: The first and last name fields share a row. How: This splits it into two columns, stacked at 900px and narrower. */ }
 
 
 									<div>{ /* What: First Name Field Div Element. Why: The label and its input form one group. How: This holds them in the row's first column. */ }
@@ -538,12 +587,10 @@ function ConSecCom () : React.JSX.Element {
 											placeholder='Jane'
 											required
 											type='text'
-										/>{ /* What: First Name Input Element. Why: The form asks for the visitor's first name. How: Its name, firstName, is kept as the form data key. */ }
+										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's first name. How: Its name, `firstName`, is kept as the form data key. */ }
 
 
 									</div>
-
-
 
 									<div>{ /* What: Last Name Field Div Element. Why: The label and its input form one group. How: This holds them in the row's second column. */ }
 
@@ -564,14 +611,13 @@ function ConSecCom () : React.JSX.Element {
 											placeholder='Smith'
 											required
 											type='text'
-										/>{ /* What: Last Name Input Element. Why: The form asks for the visitor's last name. How: Its name, lastName, is kept as the form data key. */ }
+										/>{ /* What: Form Field Input Element. Why: The form asks for the visitor's last name. How: Its name, `lastName`, is kept as the form data key. */ }
 
 
 									</div>
 
 
 								</div>
-
 
 
 								<div className={ cssModObj.forFieDiv }>{ /* What: Form Field Div Element. Why: The phone field and its label form one group. How: This spaces it from the next. */ }
@@ -592,7 +638,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder='417-555-0100'
 										type='tel'
-									/>{ /* What: Phone Number Input Element. Why: The form offers to take a number to call back. How: Its name, phone, is kept as the form data key. */ }
+									/>{ /* What: Form Field Input Element. Why: The form offers to take a number to call back. How: Its name, `phone`, is kept as the form data key. */ }
 
 
 								</div>
@@ -615,11 +661,10 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder='jane@email.com'
 										type='email'
-									/>{ /* What: Email Address Input Element. Why: The form offers to take an email address. How: Its name, email, is kept as the form data key. */ }
+									/>{ /* What: Form Field Input Element. Why: The form offers to take an email address. How: Its name, `email`, is kept as the form data key. */ }
 
 
 								</div>
-
 
 
 								<div className={ cssModObj.forFieDiv }>{ /* What: Form Field Div Element. Why: The service field and its label form one group. How: This spaces it from the next. */ }
@@ -640,7 +685,7 @@ function ConSecCom () : React.JSX.Element {
 
 										defaultValue=''
 										required
-									>{ /* What: Service Interest Select Element. Why: The form asks which service the visitor wants. How: It starts on its placeholder, and its name, service, is kept as the form data key. */ }
+									>{ /* What: Form Field Select Element. Why: The form asks which service the visitor wants. How: It starts on its placeholder, and its name, `service`, is kept as the form data key. */ }
 
 
 										<option
@@ -648,14 +693,14 @@ function ConSecCom () : React.JSX.Element {
 											value=''
 										>Select a service</option>{ /* What: Placeholder Option Element. Why: The select should prompt for a choice rather than preselect a service. How: This shows a prompt that can't be chosen. */ }
 
-										{ SER_OPT_ARR.map( ( optRcdObj ) => ( // What: Service Option Map. Why: Each service is one choice. How: This renders one option per row.
+										{ SER_OPT_ARR.map( ( optRecObj ) => ( // What: Service Option Map. Why: Each service is one choice. How: This renders one option per row.
 
 
 											<option
-												key={ optRcdObj.valStr }
+												key={ optRecObj.valStr }
 
-												value={ optRcdObj.valStr }
-											>{ optRcdObj.labStr }</option> // What: Service Option Element. Why: The visitor picks a service by its label. How: This shows the row's label, valued for the form.
+												value={ optRecObj.valStr }
+											>{ optRecObj.labStr }</option> // What: Service Option Element. Why: The visitor picks a service by its label. How: This shows the row's label, valued for the form.
 
 
 										))}
@@ -665,7 +710,6 @@ function ConSecCom () : React.JSX.Element {
 
 
 								</div>
-
 
 
 								<div className={ cssModObj.forFieDiv }>{ /* What: Form Field Div Element. Why: The message field and its label form one group. How: This spaces it from the button. */ }
@@ -686,7 +730,7 @@ function ConSecCom () : React.JSX.Element {
 
 										placeholder="Tell us a little about what you're looking for…"
 										required
-									/>{ /* What: Message Body Textarea Element. Why: The form asks what the visitor is looking for. How: Its name, message, is kept as the form data key. */ }
+									/>{ /* What: Form Field Textarea Element. Why: The form asks what the visitor is looking for. How: Its name, `message`, is kept as the form data key. */ }
 
 
 								</div>
@@ -727,7 +771,6 @@ function ConSecCom () : React.JSX.Element {
 						</div>
 
 
-
 					</form>
 
 
@@ -753,7 +796,7 @@ function ConSecCom () : React.JSX.Element {
 
 // #region Exports
 
-export { ConSecCom }; // What: Named Exports. Why: The home page renders the Contact section last. How: This exports ConSecCom.
+export { ConSecCom }; // What: Named Export. Why: The home page renders the Contact section last. How: This exports ConSecCom.
 
 // #endregion Exports
 

@@ -9,7 +9,7 @@
  * Lato for the body text, and Dancing Script for the brand's script lines,
  * replacing the Google Fonts stylesheet and preconnect link index.html used
  * to load, so a visit makes no requests to a third party. Each file is the
- * latin subset Google served for exactly the faces that stylesheet asked
+ * Latin subset Google served for exactly the faces that stylesheet asked
  * for, with the same swap behavior, so fallback text shows until a file
  * arrives: Playfair Display at 400 and 600 (one variable file Google served
  * for both) and in italic at 400, Lato at 300, 400, and 700, and Dancing
@@ -24,7 +24,7 @@
 
 
 
-@font-face { /* What: Dancing Script Medium Font Face. Why: Dancing Script is the brand's script face, setting the taglines, the stylists' names, and the quote's sign-off at its medium weight. How: This loads its latin file at weight 500, showing fallback text until it arrives. */
+@font-face { /* What: Dancing Script Medium Font Face. Why: Dancing Script is the brand's script face, and this is its medium weight. How: This loads its Latin file at weight 500, showing fallback text until it arrives. */
 
 
 	font-display : swap;
@@ -36,8 +36,7 @@
 
 }
 
-
-@font-face { /* What: Lato Light Font Face. Why: Lato's light weight sets the hero's spaced subheading. How: This loads its latin file at weight 300, showing fallback text until it arrives. */
+@font-face { /* What: Lato Light Font Face. Why: Lato is the body font, and this is its light weight. How: This loads its Latin file at weight 300, showing fallback text until it arrives. */
 
 
 	font-display : swap;
@@ -49,8 +48,7 @@
 
 }
 
-
-@font-face { /* What: Lato Regular Font Face. Why: Lato is the body font, setting paragraphs, form fields, and the rest of the running text at its regular weight. How: This loads its latin file at weight 400, showing fallback text until it arrives. */
+@font-face { /* What: Lato Regular Font Face. Why: Lato is the body font, and this is its regular weight. How: This loads its Latin file at weight 400, showing fallback text until it arrives. */
 
 
 	font-display : swap;
@@ -62,8 +60,7 @@
 
 }
 
-
-@font-face { /* What: Lato Bold Font Face. Why: Lato's bold weight sets the bar's links, the buttons, and the form's labels. How: This loads its latin file at weight 700, showing fallback text until it arrives. */
+@font-face { /* What: Lato Bold Font Face. Why: Lato is the body font, and this is its bold weight. How: This loads its Latin file at weight 700, showing fallback text until it arrives. */
 
 
 	font-display : swap;
@@ -75,8 +72,7 @@
 
 }
 
-
-@font-face { /* What: Playfair Display Regular Font Face. Why: Playfair Display is the display face, setting the bar's name at its regular weight. How: This loads its latin file at weight 400 from the variable file it shares with the semibold, showing fallback text until it arrives. */
+@font-face { /* What: Playfair Display Regular Font Face. Why: Playfair Display is the display face, and this is its regular weight. How: This loads its Latin file at weight 400 from the variable file it shares with the semibold, showing fallback text until it arrives. */
 
 
 	font-display : swap;
@@ -88,8 +84,7 @@
 
 }
 
-
-@font-face { /* What: Playfair Display Semibold Font Face. Why: Playfair Display's semibold sets the hero's heading and, as the heaviest weight loaded, the section and card headings too. How: This loads its latin file at weight 600 from the same variable file as the regular, showing fallback text until it arrives. */
+@font-face { /* What: Playfair Display Semibold Font Face. Why: Playfair Display is the display face, and this is its semibold weight. How: This loads its Latin file at weight 600 from the same variable file as the regular, showing fallback text until it arrives. */
 
 
 	font-display : swap;
@@ -101,8 +96,7 @@
 
 }
 
-
-@font-face { /* What: Playfair Display Italic Font Face. Why: Playfair Display's italic sets the hero's Designs, the Licensed Cosmetologists captions, and the descriptions under them. How: This loads its latin file at italic weight 400, showing fallback text until it arrives. */
+@font-face { /* What: Playfair Display Italic Font Face. Why: Playfair Display is the display face, and this is its italic. How: This loads its Latin file at italic weight 400, showing fallback text until it arrives. */
 
 
 	font-display : swap;

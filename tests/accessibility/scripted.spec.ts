@@ -3,13 +3,13 @@
 
 // #region Imports
 
-import { expect      } from '@playwright/test';     // What: Expect. Why: Each check passes only with no problems found. How: This asserts each problem list is empty.
+import { expect      } from '@playwright/test';     // What: Expect. Why: Each check passes only with no problems found. How: This asserts that each check found no problems, such as an empty problem list.
 import { opeStaFun   } from '../support/states.ts'; // What: Open State Function. Why: Each check opens and settles its state first. How: This loads it and waits for it.
-import { STA_RCD_ARR } from '../support/states.ts'; // What: State Record Array. Why: Every page state is checked. How: This lists them.
+import { STA_REC_ARR } from '../support/states.ts'; // What: State Record Array. Why: Every page state is checked. How: This lists them.
 import { test        } from '@playwright/test';     // What: Test. Why: Each check of each state is its own test. How: This declares them.
 
 
-import type { Page } from '@playwright/test'; // What: Page. Why: Every helper drives a Playwright page. How: This types their page parameters.
+import type { Page } from '@playwright/test'; // What: Page. Why: The helpers that drive the page from the test take a Playwright page, while those that run inside it take none. How: This types the driving helpers' page parameters.
 
 // #endregion Imports
 
@@ -22,13 +22,18 @@ import type { Page } from '@playwright/test'; // What: Page. Why: Every helper d
  * The accessibility checks axe-core can't make, run on every page state in
  * whichever engine the project runs. Names: every link and button in the
  * accessibility tree has a name, and no name carries a decorative glyph such
- * as an arrow. Keyboard: a Tab walk from the top of the page reaches its end
- * without getting trapped, never moves backwards through the document, and
- * lands only on stops that are on screen, not covered by anything else, and
- * visibly changed by focus. Reflow: at 320px wide, WCAG's narrowest reflow
+ * as an arrow, and the tree holds at least one link. Keyboard: a Tab walk
+ * from the top of the page reaches at least one stop, the skip link first
+ * where focus starts at the top, then reaches its end without getting
+ * trapped, never moves backwards through the document, and lands only on
+ * stops that are on screen, not covered by anything else, and visibly changed
+ * by focus. Reflow: at 320px wide, WCAG's narrowest reflow
  * width, nothing scrolls sideways. Motion: with reduced motion requested, no
- * animation or transition plays while the state opens. Each failure lists
- * every problem found, by element.
+ * animation or transition longer than 1ms starts while the state opens, and
+ * the page holds none once it has. The names,
+ * keyboard, and motion checks list every problem they find, by element or
+ * animation name, and the reflow check reports how far the page scrolls
+ * sideways.
  *
  * Sections:
  *  - Constants
@@ -43,9 +48,10 @@ import type { Page } from '@playwright/test'; // What: Page. Why: Every helper d
 
 // #region Constants
 
-const GLY_DEC_REG = /[←↑→↓·•]/; // What: Glyph Decorative Regular Expression. Why: A decorative glyph inside a name is read aloud as noise, such as right arrow. How: This matches the arrows and dots a decorative glyph would add to a name.
-const REF_WID_NUM = 320;        // What: Reflow Width Number. Why: WCAG's reflow criterion asks for no sideways scrolling at 320 CSS pixels, the width of 1,280px at 400% zoom. How: This is the viewport width the reflow check opens each state at.
-const TAB_MAX_NUM = 80;         // What: Tab Maximum Number. Why: A keyboard trap would otherwise keep the walk going forever. How: This caps the walk at far more Tab presses than the site has stops.
+const GLY_DEC_REG = /[←↑→↓·•]/;                 // What: Glyph Decorative Regular Expression. Why: A decorative glyph inside a name is read aloud as noise, such as right arrow. How: This matches the arrows and dots a decorative glyph would add to a name.
+const REF_WID_NUM = 320;                        // What: Reflow Width Number. Why: WCAG's reflow criterion asks for no sideways scrolling at 320 CSS pixels, the width of 1,280px at 400% zoom. How: This is the viewport width the reflow check opens each state at.
+const SKI_LIN_STR = 'a "Skip to main content"'; // What: Skip Link String. Why: A page's first Tab stop should be its skip link, so a keyboard user can pass the bar at once. How: This is the skip link described the way stoInfFun describes a stop, its tag and then its text.
+const TAB_MAX_NUM = 80;                         // What: Tab Maximum Number. Why: A keyboard trap would otherwise keep the walk going forever. How: This caps the walk at far more Tab presses than the site has stops.
 
 // #endregion Constants
 
@@ -61,15 +67,17 @@ const TAB_MAX_NUM = 80;         // What: Tab Maximum Number. Why: A keyboard tra
  * @summary
  * Reads the page's accessibility tree, the same tree a screen reader reads,
  * and returns a problem for every link or button with no name, and for every
- * one whose name contains a decorative glyph that should have been hidden.
- * Elements hidden from assistive technology don't appear in the tree, so the
- * decorative elements hidden from it are never counted.
+ * one whose name contains a decorative glyph that should have been hidden,
+ * plus one when the tree holds no link at all, so a page that failed to render
+ * can't pass with nothing to check. Elements hidden from assistive technology
+ * don't appear in the tree, so the decorative elements hidden from it are
+ * never counted.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
  * @param curPagObj - Current Page Object: The page to read.
  *
- * @returns Every naming problem found.
+ * @returns A promise that resolves with every naming problem found.
  * @see {@link proLisArr}
  *
  * @example
@@ -82,8 +90,9 @@ const TAB_MAX_NUM = 80;         // What: Tab Maximum Number. Why: A keyboard tra
 async function namProFun ( curPagObj : Page ) : Promise< string[] > {
 
 
-	const ariSnaStr = await curPagObj.locator( 'body' ).ariaSnapshot();    // What: ARIA Snapshot String. Why: The accessibility tree shows each control's role and announced name. How: This reads the body's tree as text, one node per line.
-	const conLinArr = ariSnaStr.match( /- (link|button)\b[^\n]*/g ) || []; // What: Control Line Array. Why: Only links and buttons are checked here. How: This keeps every tree line for one of those roles.
+	const ariSnaStr = await curPagObj.locator( 'body' ).ariaSnapshot();                             // What: ARIA Snapshot String. Why: The accessibility tree shows each control's role and announced name. How: This reads the body's tree as text, one node per line.
+	const conLinArr = ariSnaStr.match( /- (link|button)\b[^\n]*/g ) || [];                          // What: Control Line Array. Why: Only links and buttons are checked here. How: This keeps every tree line for one of those roles.
+	const linCouNum = conLinArr.filter( ( conLinStr ) => conLinStr.startsWith( '- link' ) ).length; // What: Link Count Number. Why: Every state has links, so a tree with none means the page never rendered them. How: This counts the tree lines whose role is link.
 
 	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
@@ -100,6 +109,10 @@ async function namProFun ( curPagObj : Page ) : Promise< string[] > {
 
 
 	}
+
+
+
+	if ( !linCouNum ) proLisArr.push( 'the accessibility tree holds no link' ); // What: Link Floor Check. Why: A tree with no links would pass the name checks with nothing checked. How: This records a problem when the count is zero.
 
 
 
@@ -120,11 +133,10 @@ async function namProFun ( curPagObj : Page ) : Promise< string[] > {
  * @summary
  * Runs inside the page and resolves once the page has stopped scrolling,
  * meaning its scroll position hasn't changed for 15 frames in a row (about a
- * quarter of a second), or after 2 seconds at most. WebKit scrolls a focused
- * text field into view a few frames after focusing it rather than at once,
- * so measuring a stop straight after the Tab press would find it still off
- * screen. Passed to Playwright's evaluate, so it can't read anything from
- * this file.
+ * quarter of a second), or after 2 seconds at most. Focusing a stop below the
+ * fold scrolls the page, and measuring the stop while the page is still
+ * scrolling it into view would find it off screen. Passed to Playwright's
+ * evaluate, so it can't read anything from this file.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -187,6 +199,7 @@ type StoInfTyp = { // What: Stop Information Type. Why: The keyboard walk judges
 
 	covBoo : boolean, // What: Covered Boolean. Why: A stop hidden behind another element can't be seen while focused. How: This is true when something else sits on top of the stop's center.
 	desStr : string,  // What: Description String. Why: A problem should name the element a person would recognize. How: This joins the stop's tag and its label or text.
+	fulBoo : boolean, // What: Full Boolean. Why: A stop that slides in on focus, such as the skip link, has to end up whole on screen, not just partly in view. How: This is true when the stop's whole height sits inside the viewport.
 	indBoo : boolean, // What: Indicator Boolean. Why: A keyboard user has to see where focus is. How: This is true when focusing the stop changes how it looks.
 	ordNum : number,  // What: Order Number. Why: Focus order is compared with document order. How: This is the stop's position among every element in the page.
 	visBoo : boolean  // What: Visible Boolean. Why: A stop off screen leaves a keyboard user lost. How: This is true when the stop has a size and overlaps the viewport.
@@ -220,7 +233,7 @@ type StoInfTyp = { // What: Stop Information Type. Why: The keyboard walk judges
  *
  * @example
  * ```ts
- * page.evaluate(stoInfFun) // => { covBoo, desStr, indBoo, ordNum, visBoo }
+ * page.evaluate(stoInfFun) // => { covBoo, desStr, fulBoo, indBoo, ... }
  * ```
  *
 */
@@ -248,13 +261,16 @@ function stoInfFun () : StoInfTyp | null {
 
 
 
-		return [ styCurObj.outlineStyle, styCurObj.outlineWidth, styCurObj.outlineColor, styCurObj.boxShadow, styCurObj.borderColor, styCurObj.backgroundColor, styCurObj.color, styCurObj.textDecorationLine ].join( '|' ); // What: Signature Return. Why: Two looks compare as one string. How: This joins every style a focus indicator usually changes.
+		return [ styCurObj.outlineStyle, styCurObj.outlineWidth, styCurObj.outlineColor, styCurObj.boxShadow, styCurObj.borderColor, styCurObj.backgroundColor, styCurObj.color, styCurObj.textDecorationLine ].join( '|' ); // What: Signature Return. Why: Two looks compare as one string. How: This joins the styles a focus indicator usually changes.
 
 
 	};
 
 
 	const focSigStr = sigStyFun(); // What: Focused Signature String. Why: The stop's look while focused is the first half of the comparison. How: This reads it before anything changes.
+
+
+	actCurEle.style.transition = 'none'; // What: Transition Off Set. Why: The walk runs with motion on, and a blurred stop read at once would still show its focused look mid-transition. How: This turns the stop's own transitions off for the comparison, so the blur and the refocus apply at once.
 
 
 	actCurEle.blur(); // What: Stop Blur Call. Why: The unfocused look is the other half of the comparison. How: This removes focus for a moment.
@@ -265,6 +281,11 @@ function stoInfFun () : StoInfTyp | null {
 
 	actCurEle.focus(); // What: Stop Refocus Call. Why: The walk continues from this stop. How: This puts focus back where the Tab press left it.
 
+	getComputedStyle( actCurEle ).outlineWidth; // What: Style Flush Read. Why: The refocused look has to be applied before the transitions return, or turning them back on would ease into it. How: This reads a computed style, which makes the browser apply the pending change.
+
+
+	actCurEle.style.transition = ''; // What: Transition Restore Set. Why: The stop should ease again once the comparison is done. How: This clears the inline value, handing the stop back its stylesheet's transitions.
+
 
 	const recCurObj = actCurEle.getBoundingClientRect();                                                                       // What: Rect Current Object. Why: A focused stop has to be on screen and uncovered. How: This measures the stop.
 	const topCurEle = document.elementFromPoint( recCurObj.left + recCurObj.width / 2, recCurObj.top + recCurObj.height / 2 ); // What: Top Current Element. Why: Whatever is drawn on top at the stop's center is what a person sees there. How: This asks the page which element sits at that point.
@@ -272,10 +293,10 @@ function stoInfFun () : StoInfTyp | null {
 
 
 	const ariLabStr = actCurEle.getAttribute( 'aria-label' ); // What: ARIA Label String. Why: A stop's own label names it best. How: This reads its aria-label, or null.
-	const eleIdeStr = actCurEle.id;                           // What: Element Identifier String. Why: A form field without a label is still recognizable by its id. How: This reads the stop's id, empty when it has none.
+	const eleIdeStr = actCurEle.id;                           // What: Element Identifier String. Why: A form field without a label is still recognizable by its ID. How: This reads the stop's ID, empty when it has none.
 	const eleTexStr = actCurEle.textContent;                  // What: Element Text String. Why: A link or button is usually named by its text. How: This reads the stop's text.
 
-	const stoLabStr = ariLabStr || eleIdeStr || eleTexStr || ''; // What: Stop Label String. Why: A problem should name the stop the way a person would recognize it. How: This takes the label, then the id, then the text, then nothing.
+	const stoLabStr = ariLabStr || eleIdeStr || eleTexStr || ''; // What: Stop Label String. Why: A problem should name the stop the way a person would recognize it. How: This takes the label, then the ID, then the text, then nothing.
 
 
 	const botBelBoo = recCurObj.bottom > 0;        // What: Bottom Below Boolean. Why: A stop entirely above the viewport is off screen. How: This is true when its bottom edge sits below the viewport's top.
@@ -289,11 +310,12 @@ function stoInfFun () : StoInfTyp | null {
 
 
 
-	return { // What: Stop Information Return. Why: The walk judges each stop outside the page. How: This hands back the stop's coverage, description, indicator, position, and visibility.
+	return { // What: Stop Information Return. Why: The walk judges each stop outside the page. How: This hands back the stop's coverage, description, fullness on screen, indicator, position, and visibility.
 
 
 		covBoo : !!topCurEle && !actCurEle.contains( topCurEle ),                               // What: Covered Boolean. Why: The stop is hidden when something else is on top of it. How: This is true when the top element at its center is neither the stop nor inside it.
-		desStr : `${ actCurEle.tagName.toLowerCase() } "${ stoLabStr.trim().slice( 0, 40 ) }"`, // What: Description String. Why: A problem should name the element a person would recognize. How: This joins the tag with the first 40 characters of its label, id, or text.
+		desStr : `${ actCurEle.tagName.toLowerCase() } "${ stoLabStr.trim().slice( 0, 40 ) }"`, // What: Description String. Why: A problem should name the element a person would recognize. How: This joins the tag with the first 40 characters of its label, ID, or text.
+		fulBoo : recCurObj.top >= 0 && recCurObj.bottom <= innerHeight,                         // What: Full Boolean. Why: A stop that slides in on focus has to end up whole on screen. How: This is true when its top and bottom edges both sit inside the viewport.
 		indBoo : focSigStr !== bluSigStr,                                                       // What: Indicator Boolean. Why: A keyboard user has to see where focus is. How: This is true when focusing the stop changes how it looks.
 		ordNum : Array.prototype.indexOf.call( document.querySelectorAll( '*' ), actCurEle ),   // What: Order Number. Why: Focus order is compared with document order. How: This is the stop's position among every element in the page.
 		visBoo : visStoBoo                                                                      // What: Visible Boolean. Why: A stop off screen leaves a keyboard user lost. How: This reads whether the stop has a size and overlaps the viewport.
@@ -314,36 +336,40 @@ function stoInfFun () : StoInfTyp | null {
  * keyProFun = Keyboard Problems Function
  *
  * @summary
- * Walks the page with the Tab key from the top and returns every problem:
- * any element with a positive tabindex, which overrides the document order,
- * and every stop that comes earlier in the document than the stop before
- * it, sits off screen, is covered by something else, or looks the same
- * focused and unfocused. The walk ends when focus leaves the page, comes
- * back to the first stop, or stays on the same stop after a press, which is
- * how Firefox leaves its last stop; one that hasn't ended within TAB_MAX_NUM
- * presses counts as a keyboard trap. WebKit only tabs to links with Alt
- * held, the way Safari does by default, so the walk presses Alt+Tab there.
- * The caller requests reduced motion first, so the page jumps to each stop
- * instead of gliding and focus styles appear at once, and each press waits
- * for scrolling to settle, so every stop is measured where and how it ends
- * up.
+ * Walks the page with the Tab key from the top and returns every problem: any
+ * element with a positive tabindex, which overrides the document order, a walk
+ * that reaches no stop at all, a first stop other than the skip link when the
+ * caller asks for that check, along with one only partly on screen, and every
+ * stop that comes earlier in the document than the stop before it, sits off
+ * screen, is covered by something else, or looks the same focused and
+ * unfocused. The walk ends when focus
+ * leaves the page, comes back to the first stop, or stays on the same stop
+ * after a press, which is how Firefox leaves its last stop; one that hasn't
+ * ended within TAB_MAX_NUM presses counts as a keyboard trap. WebKit only tabs
+ * to links with Alt held, the way Safari does by default, so the walk presses
+ * Alt+Tab there. The walk runs with motion on, and each press waits for
+ * every animation and transition that ends to finish and for scrolling to
+ * settle, so every stop is measured where and how it ends up, the skip link
+ * included, which also has to land whole on screen.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
  * @param curPagObj - Current Page Object: The page to walk.
  * @param engNamStr - Engine Name String: The browser the project runs in.
+ * @param skiLinBoo - Skip Link Boolean: Whether the first stop must be the
+ *                    skip link, false where focus doesn't start at the top.
  *
- * @returns Every keyboard problem found.
+ * @returns A promise that resolves with every keyboard problem found.
  * @see {@link proLisArr}
  *
  * @example
  * ```ts
- * keyProFun(page, 'webkit') // => [ 'input "conEmaInp" has no visible ...' ]
+ * keyProFun(page, 'webkit', true) // => [ 'the Tab walk reached no stop' ]
  * ```
  *
 */
 
-async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< string[] > {
+async function keyProFun ( curPagObj : Page, engNamStr : string, skiLinBoo : boolean ) : Promise< string[] > {
 
 
 	const posTabNum = await curPagObj.locator( '[tabindex]' ).evaluateAll( ( tabEleArr ) => tabEleArr.filter( ( tabCurEle ) => Number( tabCurEle.getAttribute( 'tabindex' ) ) > 0 ).length ); // What: Positive Tabindex Number. Why: A positive tabindex pulls an element ahead of the document order. How: This counts every element carrying one.
@@ -353,6 +379,7 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 
 	let firStoStr = ''; // What: First Stop String. Why: Focus coming back to the first stop means the walk went all the way around. How: This holds the first stop's description.
 	let preOrdNum = -1; // What: Previous Order Number. Why: Each stop must come later in the document than the last. How: This holds the previous stop's position among every element.
+	let stoCouNum = 0;  // What: Stop Count Number. Why: A walk that ends before reaching any stop has checked nothing. How: This counts the stops the walk has measured.
 
 
 	for ( let tabCouNum = 0; tabCouNum < TAB_MAX_NUM; tabCouNum++ ) { // What: Tab Walk Loop. Why: Every stop is checked in the order a keyboard user meets it. How: This presses Tab once per pass, up to the cap.
@@ -360,18 +387,29 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 
 		await curPagObj.keyboard.press( tabKeyStr ); // What: Tab Press Call. Why: Each pass moves focus to the next stop. How: This presses the engine's Tab key.
 
-		await curPagObj.evaluate( scrSetFun ); // What: Scroll Settled Wait. Why: Some engines scroll a focused field into view a few frames late. How: This waits until the page has stopped scrolling.
+		await curPagObj.evaluate( () => Promise.all( document.getAnimations().filter( ( aniCurObj ) => aniCurObj.effect?.getComputedTiming().iterations !== Infinity ).map( ( aniCurObj ) => aniCurObj.finished ) ) ); // What: Motion Finished Wait. Why: The walk runs with motion on, and a stop sliding in or a ring growing would be measured halfway. How: This waits for every animation and transition on the page that ends, such as the skip link's slide, to finish.
+		await curPagObj.evaluate( scrSetFun ); // What: Scroll Settled Wait. Why: A stop measured while the page is still scrolling it into view would read as off screen. How: This waits until the page has stopped scrolling.
 
 
 		const stoInfObj = await curPagObj.evaluate( stoInfFun );                                          // What: Stop Information Object. Why: The stop is described and measured inside the page. How: This runs stoInfFun there.
 		const walEndBoo = !stoInfObj || stoInfObj.desStr === firStoStr || stoInfObj.ordNum === preOrdNum; // What: Walk Ended Boolean. Why: Focus leaving the page, coming back around, or staying put means every stop was visited. How: This checks each in turn, the later two only once a stop exists, so the chain stays inline. // What: Firefox Walk End Note. Why: Firefox moves focus out to its own interface after the last stop but still reports that stop as focused. How: Focus staying on the same stop after a press is read as the walk leaving the page.
 
 
-		if ( walEndBoo ) return proLisArr; // What: Walk End Guard. Why: A walk that reaches its end has found every problem there is. How: This returns them, ending the walk.
+		if ( walEndBoo && !stoCouNum ) proLisArr.push( 'the Tab walk reached no stop' ); // What: Empty Walk Check. Why: A walk that ends on its first press would otherwise pass with no stop checked. How: This records a problem when the walk ends before counting a stop.
+
+
+
+		if ( walEndBoo ) return proLisArr; // What: Walk End Guard. Why: A walk that reaches its end has collected every problem its checks found. How: This returns them, ending the walk.
 
 
 
 		if ( !firStoStr ) firStoStr = stoInfObj.desStr; // What: First Stop Record. Why: The walk ends if focus comes back to it. How: This remembers the first stop's description.
+
+
+
+		if ( !stoCouNum && skiLinBoo && stoInfObj.desStr !== SKI_LIN_STR ) proLisArr.push( 'the first stop is not the skip link' ); // What: Skip Link First Check. Why: A keyboard user's first stop should take them past the bar. How: This records a problem when the caller asks for the check and the first stop is anything else.
+
+		else if ( !stoCouNum && skiLinBoo && !stoInfObj.fulBoo ) proLisArr.push( 'the skip link is only partly on screen once it lands' ); // What: Skip Link Landing Check. Why: The skip link slides down on focus, and it has to be judged where it lands, whole on screen. How: Once the first stop is the skip link, this records a problem when its top or bottom edge sits outside the viewport after its motion has finished.
 
 
 
@@ -390,6 +428,8 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 
 
 		preOrdNum = stoInfObj.ordNum; // What: Previous Order Update. Why: The next stop is compared with this one. How: This stores this stop's position.
+
+		stoCouNum += 1; // What: Stop Count Update. Why: The walk has now measured one more stop. How: This adds one to the count.
 
 
 	}
@@ -413,14 +453,13 @@ async function keyProFun ( curPagObj : Page, engNamStr : string ) : Promise< str
 
 // #region Module Init
 
-for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every check runs on every page state. How: This declares each check once per state.
+for ( const staRecObj of STA_REC_ARR ) { // What: State Test Loop. Why: Every check runs on every page state. How: This declares each check once per state.
 
 
-	test( `${ staRcdObj.ideStr } names every link and button cleanly`, async ( { page : curPagObj } ) => { // What: Names Test. Why: Every control must be announced by a clean name. How: This opens the state and checks its accessibility tree.
+	test( `${ staRecObj.ideStr } names every link and button cleanly`, async ( { page : curPagObj } ) => { // What: Names Test. Why: Every link and button must be announced by a clean name. How: This opens the state and checks its accessibility tree.
 
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The tree should be read with the state settled. How: This loads and settles it.
-
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The tree should be read with the state settled. How: This loads and settles it.
 
 		expect( await namProFun( curPagObj ) ).toEqual( [] ); // What: No Name Problems Assertion. Why: The state passes only with clean names. How: This compares the problems with an empty list, so a failure prints each one.
 
@@ -429,28 +468,24 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every ch
 
 
 
-	test( `${ staRcdObj.ideStr } walks cleanly with the keyboard`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Keyboard Test. Why: Everything has to be usable without a mouse. How: This opens the state under reduced motion and walks it with Tab.
+	test( `${ staRecObj.ideStr } walks cleanly with the keyboard`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Keyboard Test. Why: Everything has to be usable without a mouse. How: This opens the state with motion on and walks it with Tab.
 
 
 		test.slow(); // What: Slow Test Mark. Why: A full walk measures every stop and takes about 11 seconds alone, which ran past the default 30 second timeout in Firefox when every suite shared the machine. How: This triples this test's timeout.
 
-		await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: A smooth scroll or a focus transition still running would be measured halfway. How: This makes the page match prefers-reduced-motion, which turns both off.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The walk should start from the state settled. How: This loads and settles it.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The walk should start from the state settled. How: This loads and settles it.
-
-
-		expect( await keyProFun( curPagObj, engNamStr ) ).toEqual( [] ); // What: No Keyboard Problems Assertion. Why: The state passes only when every stop is reachable, in order, on screen, uncovered, and visibly focused. How: This compares the problems with an empty list, so a failure prints each one.
+		expect( await keyProFun( curPagObj, engNamStr, !staRecObj.actFun ) ).toEqual( [] ); // What: No Keyboard Problems Assertion. Why: The state passes only when the walk reaches a stop and every stop is reachable, in order, on screen, uncovered, and visibly focused. How: This compares the problems with an empty list, so a failure prints each one. // What: Skip Link Argument Note. Why: A state's action leaves focus where it acted, and the open menu makes the skip link inert with the page behind it, so the menu state's walk starts at the menu's first link. How: The skip link check runs only on states with no action.
 
 
 	} );
 
 
 
-	test( `${ staRcdObj.ideStr } reflows at ${ REF_WID_NUM }px without scrolling sideways`, async ( { page : curPagObj } ) => { // What: Reflow Test. Why: Zoomed-in visitors read in one column without scrolling sideways. How: This opens the state at the reflow width and compares the page's scroll width with its visible width.
+	test( `${ staRecObj.ideStr } reflows at ${ REF_WID_NUM }px without scrolling sideways`, async ( { page : curPagObj } ) => { // What: Reflow Test. Why: Zoomed-in visitors read in one column without scrolling sideways. How: This opens the state at the reflow width and compares the page's scroll width with its visible width.
 
 
-		await opeStaFun( curPagObj, { ...staRcdObj, widNum : REF_WID_NUM } ); // What: Narrow State Open Call. Why: Reflow is judged at WCAG's narrowest width. How: This opens the state with its width replaced by the reflow width.
-
+		await opeStaFun( curPagObj, { ...staRecObj, widNum : REF_WID_NUM } ); // What: Narrow State Open Call. Why: Reflow is judged at WCAG's narrowest width. How: This opens the state with its width replaced by the reflow width.
 
 		expect( await curPagObj.evaluate( () => document.documentElement.scrollWidth - document.documentElement.clientWidth ) ).toBeLessThanOrEqual( 0 ); // What: No Sideways Scroll Assertion. Why: The page passes only when nothing reaches past the viewport's width. How: This subtracts the visible width from the scrollable width, which stays at zero without sideways scrolling.
 
@@ -459,15 +494,46 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every ch
 
 
 
-	test( `${ staRcdObj.ideStr } plays no motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Test. Why: Visitors who ask for less motion shouldn't see the page animate. How: This requests reduced motion, opens the state, and lists anything that played.
+	test( `${ staRecObj.ideStr } plays no motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Test. Why: Visitors who ask for less motion shouldn't see the page animate. How: This requests reduced motion, records every animation and transition longer than 1ms that starts while the state opens, and lists those and any the page still holds once it has settled.
 
 
 		await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: The preference has to be set before the page loads. How: This makes the page match prefers-reduced-motion: reduce.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: Entrance animations and the state's own action are the motion being checked. How: This loads the state and runs its action.
+
+		await curPagObj.addInitScript( () => { // What: Motion Recorder Call. Why: Opening a state waits until every motion that ends has stopped, so a motion that lost its reduced-motion variant would play out during the wait and leave nothing behind to find. How: This runs before every page's script and records each animation and transition longer than 1ms that starts.
 
 
-		expect( await curPagObj.evaluate( () => document.getAnimations().filter( ( aniCurObj ) => ( Number( aniCurObj.effect?.getTiming().duration ) || 0 ) > 1 ).map( ( aniCurObj ) => ( aniCurObj as CSSAnimation ).animationName || ( aniCurObj as CSSTransition ).transitionProperty || 'script animation' ) ) ).toEqual( [] ); // What: No Motion Assertion. Why: The state passes only when nothing animated as it opened. How: This lists every animation or transition the page still holds that lasts longer than 1ms, which should be none. // What: Type Assertion Note. Why: getAnimations returns plain Animation objects, which don't type their CSS names. How: Each one is read as a CSS animation, then a CSS transition, falling back to a generic label when neither name exists.
+			const winMotObj = window as unknown as { __motRecArr : string[] }; // What: Window Motion Object. Why: The motions are kept where the test can read them back. How: This views the window with its motion list. // What: Type Assertion Note. Why: The window has no such field in its type. How: The as names the one the recorder adds.
+
+
+			winMotObj.__motRecArr = []; // What: Motion List Assignment. Why: Each page starts with none. How: This sets an empty list.
+
+
+			const recMotFun = ( eveCurObj : AnimationEvent | TransitionEvent ) => { // What: Record Motion Function. Why: Under reduced motion a rule may shorten a motion to .01ms rather than turn it off, so an end event still fires, and only a motion longer than that is real. How: This finds the started motion among its element's animations, pseudo-elements included, and records its name and element when it lasts longer than 1ms.
+
+
+				const motNamStr = 'animationName' in eveCurObj ? eveCurObj.animationName : eveCurObj.propertyName; // What: Motion Name String. Why: The recorded motion is named the way the stylesheet names it. How: This reads an animation's keyframe name or a transition's property.
+				const tarCurEle = eveCurObj.target as Element;                                                     // What: Target Current Element. Why: The motion's timing lives on the element it plays on. How: This reads the event's target. // What: Type Assertion Note. Why: An event's target is typed as a plain event target. How: Animation and transition events only fire on elements, so this reads it as one.
+				const motDurNum = Math.max( 0, ...tarCurEle.getAnimations( { subtree : true } ).filter( ( aniCurObj ) => ( ( aniCurObj as CSSAnimation ).animationName ?? ( aniCurObj as CSSTransition ).transitionProperty ) === motNamStr ).map( ( aniCurObj ) => Number( aniCurObj.effect?.getTiming().duration ) || 0 ) ); // What: Motion Duration Number. Why: Only a motion longer than 1ms counts. How: This takes the longest duration among the element's motions with the started one's name, or 0 when one too short to still be listed has already ended. // What: Type Assertion Note. Why: getAnimations returns plain Animation objects, which don't type their CSS names. How: Each one is read as a CSS animation, whose name is missing on a transition, then as a CSS transition.
+
+
+				if ( motDurNum > 1 ) winMotObj.__motRecArr.push( `${ motNamStr } on ${ tarCurEle.tagName.toLowerCase() }` ); // What: Motion Record Check. Why: A motion longer than 1ms is one reduced motion should have stopped. How: This adds its name and element's tag to the list.
+
+
+			};
+
+
+			document.addEventListener( 'animationstart', recMotFun, true ); // What: Animation Start Listener Call. Why: Every CSS animation fires animationstart as it begins. How: This records each one, capturing so none is missed below a handler that stops it.
+			document.addEventListener( 'transitionrun', recMotFun, true );  // What: Transition Run Listener Call. Why: Every CSS transition fires transitionrun once it's created, even before any delay ends. How: This records each one, capturing so none is missed below a handler that stops it.
+
+
+		} );
+
+
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: Entrance animations and the state's own action are the motion being checked. How: This loads the state and runs its action.
+
+		expect( await curPagObj.evaluate( () => ( window as unknown as { __motRecArr : string[] } ).__motRecArr ) ).toEqual( [] ); // What: No Started Motion Assertion. Why: The state passes only when no motion longer than 1ms started while it opened. How: This compares the recorder's list with an empty list, so a failure prints each motion and its element. // What: Type Assertion Note. Why: The window has no such field in its type. How: The as names the one the recorder adds.
+		expect( await curPagObj.evaluate( () => document.getAnimations().filter( ( aniCurObj ) => ( Number( aniCurObj.effect?.getTiming().duration ) || 0 ) > 1 ).map( ( aniCurObj ) => ( aniCurObj as CSSAnimation ).animationName || ( aniCurObj as CSSTransition ).transitionProperty || 'script animation' ) ) ).toEqual( [] ); // What: No Motion Assertion. Why: The state passes only when no animation or transition is left once it opened. How: This lists every animation or transition the page still holds that lasts longer than 1ms, which should be none. // What: Type Assertion Note. Why: getAnimations returns plain Animation objects, which don't type their CSS names. How: Each one is read as a CSS animation, then a CSS transition, falling back to a generic label when neither name exists.
 
 
 	} );

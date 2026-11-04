@@ -22,10 +22,10 @@ import type { Plugin } from 'vite'; // What: Plugin. Why: The page minifier is a
  * The build and dev server config. It compiles React and, for production
  * builds only, compacts index.html, which Vite processes but never minifies,
  * so the page's comments, indentation, and any JSON-LD whitespace stay out of
- * what visitors download. Every other setting stays at Vite's default,
- * including copying the files in public/ (the favicon and Netlify's
- * _redirects) into the build untouched. It also reads CSS module class
- * names as camelCase keys only. Adapted from seal-and-shield's own config.
+ * what visitors download. It also reads CSS module class names as camelCase
+ * keys only. Beyond those, Vite's defaults stand, including copying the files
+ * in public/ (such as Netlify's _redirects) into the build untouched. Adapted
+ * from seal-and-shield's own config.
  *
  * Sections:
  *  - Helpers
@@ -102,7 +102,6 @@ const minHtmFun = () : Plugin => ({ // What: Minify HTML Function. Why: index.ht
 });
 
 // #endregion minHtmFun
-
 
 
 const VIT_CON_OBJ = defineConfig({ // What: Vite Config Object. Why: Vite reads its whole configuration from this file's default export. How: This builds the config, including the minHtmFun plugin above.

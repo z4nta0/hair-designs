@@ -9,9 +9,8 @@
  * column grid with the logo on a striped navy panel beside the cream welcome
  * panel, which stack at 900px and narrower, and the navy bar of contact
  * details beneath them. Both panels' contents rise into place on load through
- * blockEnterFadeIn, the logo's a little sooner, and stay put under reduced
- * motion. The primary and outline buttons are modifiers of one butBasAnc
- * class.
+ * blockEnterFadeIn, the logo's a little sooner. The primary and outline
+ * buttons are modifiers of one butBasAnc class.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -27,7 +26,7 @@
 	display        : flex;
 	flex-direction : column;
 	min-height     : 100vh;
-	padding        : var( --nav-bar-hei ) 0 0; /* Navigation Bar Height ~= 59.447px */ /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's 68px height. */
+	padding        : var( --nav-bar-hei ) 0 0; /* Navigation Bar Height ~= 59.447px */ /* What: Bar Clearance Note. Why: The fixed bar would cover the top of the section. How: This pads the top by the bar's height. */
 
 
 }
@@ -62,7 +61,7 @@
 
 /* #region herLefDiv */
 
-.herLefDiv { /* What: Hero Left Div. Why: The logo sits on the brand's striped navy. How: This centers its contents on 30px navy stripes, positioned so its rose divider can sit on its edge. */
+.herLefDiv { /* What: Hero Left Div. Why: The logo sits on the brand's striped navy. How: This centers its contents on navy stripes, positioned so its rose divider can sit on its edge. */
 
 
 	align-items      : center;
@@ -75,7 +74,7 @@
 
 
 }
-.herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a 3px rose bar down the panel's right edge, a pixel over the seam. */
+.herLefDiv::after { /* What: Hero Left Div Divider. Why: A rose line marks the seam between the two panels. How: This draws a rose bar one extra large border step wide down the panel's right edge, reaching a base border width over the seam. */
 
 
 	background : var( --acc-mai-col );              /* Accent Main Color = #d4806a */
@@ -138,7 +137,7 @@
 
 
 }
-@keyframes blockEnterFadeIn { /* What: Block Enter Fade In. Why: The hero's two blocks rise into place as the page opens. How: This fades a block in from transparent while it slides up 28px. */
+@keyframes blockEnterFadeIn { /* What: Block Enter Fade In. Why: The hero's two blocks rise into place as the page opens. How: This fades a block in from transparent while it slides up the p02 vertical spacing step. */
 
 
 	from {
@@ -162,13 +161,13 @@
 
 }
 
-.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it to the p10 rhythm step, square, never wider than its panel on the narrowest phones, and lifts it off the stripes with a soft drop shadow. */
+.herLogIma { /* What: Hero Logo Image. Why: The logo is the hero's centerpiece on the stripes. How: This sizes it square, growing with the screen between the p09 and p10 rhythm steps, never wider than its panel on the narrowest phones, and lifts it off the stripes with a soft drop shadow. */
 
 
-	filter    : drop-shadow( 0 calc( var( --ver-rhy-m03 ) * 1rem ) calc( var( --ver-rhy-p02 ) * 1rem ) rgb( 0 0 0 / var( --cdn-pow-003-rec ) ) ); /* Vertical Rhythm Base Minus 3 ~= 6.268px, Vertical Rhythm Base Plus 2 ~= 25.572px, black @ 0.430 opacity */
-	height    : auto; /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
+	filter    : drop-shadow( 0 calc( var( --ver-rhy-m03 ) * 1rem ) calc( var( --ver-rhy-p02 ) * 1rem ) rgb( 0 0 0 / var( --cdn-pow-003-rec ) ) ); /* Vertical Rhythm Base Minus 3 ~= 6.268px, Vertical Rhythm Base Plus 2 ~= 25.572px, = black @ 0.430 opacity */ /* What: Shadow Color Note. Why: A shadow tinted from the navy shadow color would vanish against the navy stripes it falls on. How: This keeps the drop shadow black, which the rule allows a drop shadow to be. */
+	height    : auto;                                                                                                    /* What: Height Note. Why: On the narrowest phones the width shrinks to fit the panel. How: This keeps the square logo's height following its width. */
 	max-width : 100%;
-	width     : clamp( calc( var( --ver-rhy-p09 ) * 1rem ), var( --hor-rhy-021 ), calc( var( --ver-rhy-p10 ) * 1rem ) );                          /* Vertical Rhythm Base Plus 9 ~= 183.070px, Horizontal Rhythm 21, Vertical Rhythm Base Plus 10 ~= 242.522px, about 183.070px - 242.522px */
+	width     : clamp( calc( var( --ver-rhy-p09 ) * 1rem ), var( --hor-rhy-021 ), calc( var( --ver-rhy-p10 ) * 1rem ) ); /* Vertical Rhythm Base Plus 9 ~= 183.070px, Horizontal Rhythm 21, Vertical Rhythm Base Plus 10 ~= 242.522px, about 183.070px - 242.522px */
 
 
 }
@@ -242,6 +241,7 @@
 
 }
 
+
 /* #region herTitHea */
 
 .herTitHea { /* What: Hero Title Heading. Why: The salon's name is the page's main heading. How: This sets it in large navy Playfair Display that grows with the screen, its two lines set close. */
@@ -257,7 +257,7 @@
 
 }
 
-.titAccEmp { /* What: Title Accent Emphasis. Why: The heading's second word is set apart. How: This sets Designs in dark rose italic. */
+.titAccEmp { /* What: Title Accent Emphasis. Why: The heading's second word is set apart. How: This sets "Designs" in dark rose italic. */
 
 
 	color      : var( --acc-dar-col ); /* Accent Dark Color = #c7745f */
@@ -267,6 +267,7 @@
 }
 
 /* #endregion herTitHea */
+
 
 .herSubPar { /* What: Hero Subheading Paragraph. Why: The trade and the town follow the name. How: This sets them in light, widely spaced warm gray capitals. */
 
@@ -282,7 +283,7 @@
 
 }
 
-.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a 56px by 2px box. */
+.herRulHor { /* What: Hero Rule Horizontal Rule. Why: A short rose rule divides the name from the stylists. How: This keeps the browser's inset border, colored rose through the color property, in a short box about 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -292,6 +293,7 @@
 
 
 }
+
 
 /* #region styNamDiv */
 
@@ -316,6 +318,7 @@
 
 /* #endregion styNamDiv */
 
+
 .herCapPar { /* What: Hero Caption Paragraph. Why: The stylists' title sits under their names. How: This sets it in warm gray Playfair Display italic. */
 
 
@@ -328,9 +331,10 @@
 
 }
 
+
 /* #region herActDiv */
 
-.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up 16px apart, wrapping on narrow screens. */
+.herActDiv { /* What: Hero Actions Div. Why: The two calls to action sit in a row. How: This lines them up a spacing step apart, wrapping onto two lines at about 416px wide and below. */
 
 
 	display    : flex;
@@ -341,7 +345,7 @@
 
 }
 
-.butBasAnc { /* What: Button Base Anchor. Why: Both calls to action share one button shape. How: This sets small spaced bold capitals in a padded block, with a transition for the hover changes. */
+.butBasAnc { /* What: Button Base Anchor. Why: Both calls to action share one button shape. How: This sets small spaced bold capitals in a padded block, and eases its hover fill, color, and lift, its press, and its focus ring. */
 
 
 	border          : none;
@@ -354,11 +358,11 @@
 	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-decoration : none;
 	text-transform  : uppercase;
-	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), color var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), color var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-dec-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Duration Transition Base Plus 1 ~= 209.1ms */
 
 
 }
-.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The main call to action stands out. How: This fills it navy with cream text. */
+.butBasAnc--primary { /* What: Button Base Anchor Primary. Why: The main call to action stands out. How: This fills it navy with cream text. */
 
 
 	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
@@ -366,7 +370,7 @@
 
 
 }
-.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+.butBasAnc--primary:hover { /* What: Hovered Button Base Anchor Primary. Why: The button should respond to the pointer. How: This lightens it and lifts it about 2px. */
 
 
 	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */
@@ -374,7 +378,7 @@
 
 
 }
-.butBasAnc--outline { /* What: Outline Button Base Anchor. Why: The second call to action stays quieter. How: This outlines it in navy. */
+.butBasAnc--outline { /* What: Button Base Anchor Outline. Why: The second call to action stays quieter. How: This outlines it in navy. */
 
 
 	background : transparent;
@@ -383,7 +387,7 @@
 
 
 }
-.butBasAnc--outline:hover { /* What: Hovered Outline Button Base Anchor. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it 2px. */
+.butBasAnc--outline:hover { /* What: Hovered Button Base Anchor Outline. Why: The button should respond to the pointer. How: This fills it navy with cream text and lifts it about 2px. */
 
 
 	background : var( --bac-inv-col );                            /* Background Inverse Color = #2b3245 */
@@ -425,7 +429,7 @@
 
 /* #region herBarDiv */
 
-.herBarDiv { /* What: Hero Bar Div. Why: The phone number and address sit in a band under the panels. How: This centers them on navy below a rose rule, wrapping on narrow screens. */
+.herBarDiv { /* What: Hero Bar Div. Why: The phone number and address sit in a band under the panels. How: This centers them on navy below a rose rule, wrapping onto two lines at about 618px wide and below. */
 
 
 	align-items     : center;

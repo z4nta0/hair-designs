@@ -3,7 +3,7 @@
 
 // #region Imports
 
-import cssModObj from './footer.module.css'; // What: CSS Module Object. Why: The footer is styled in its own module, whose class names Vite hashes. How: Every element reads its class from this.
+import cssModObj from './footer.module.css'; // What: CSS Module Object. Why: The footer is styled in its own module, whose class names Vite hashes. How: Its elements read their classes from this.
 
 // #endregion Imports
 
@@ -68,7 +68,7 @@ function SitFooCom () : React.JSX.Element {
 
 				<span className={ cssModObj.copAccSpa }> Hair Designs </span>{ /* What: Copyright Accent Span Element. Why: The salon's name stands out in the line. How: This colors it light rose. */ }
 
-				· Juli Wilkerson &amp; Keeli Bryan · Carson's Corner, Mo. ·
+				· Juli Wilkerson & Keeli Bryan · Carson's Corner, Mo. ·
 
 				<span className={ cssModObj.copAccSpa }> 417-988-6239 </span>{ /* What: Copyright Accent Span Element. Why: The phone number stands out in the line. How: This colors it light rose. */ }
 
@@ -92,7 +92,7 @@ function SitFooCom () : React.JSX.Element {
 
 // #region Exports
 
-export { SitFooCom }; // What: Named Exports. Why: The app root renders the footer below every page. How: This exports SitFooCom.
+export { SitFooCom }; // What: Named Export. Why: The app root renders the footer below every page. How: This exports SitFooCom.
 
 // #endregion Exports
 

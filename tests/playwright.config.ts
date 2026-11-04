@@ -17,10 +17,10 @@ import { fileURLToPath } from 'node:url';         // What: File URL To Path. Why
  * The config behind npm test and its suites, each run against the real site in
  * all three of Playwright's engines (Chromium, Firefox, and WebKit), one
  * project per suite and engine, since a check that passes in one engine proves
- * nothing about the others. The suites are accessibility, which the pre-commit
- * check runs, interaction, rendering, responsive, security, and seo.
- * Playwright starts the Vite dev server on port 5191, and builds the site and
- * serves it with vite preview on 5202 for the security suite, and stops both
+ * nothing about the others. Each suite lives in its own folder under tests/,
+ * the accessibility suite being the one the pre-commit check runs. Playwright
+ * starts the Vite dev server on port 5191, and builds the site and serves it
+ * with vite preview on 5202 for the security and SEO suites, and stops both
  * afterwards, so a dev server already running on the usual 5173 is never
  * touched. Reports and failure screenshots land in tests/output, which git
  * ignores, while the rendering suite's approved screenshots live in
@@ -43,7 +43,7 @@ const ENG_NAM_ARR = [ // What: Engine Name Array. Why: Every suite runs in all t
 
 	'chromium', // What: Chromium Engine. Why: Chrome and Edge render with it. How: This is Playwright's Chromium build.
 	'firefox',  // What: Firefox Engine. Why: Firefox renders with its own engine, Gecko. How: This is Playwright's Firefox build.
-	'webkit'    // What: WebKit Engine. Why: Safari, and every browser on iOS, renders with it. How: This is Playwright's WebKit build.
+	'webkit'    // What: WebKit Engine. Why: Safari renders with it, as do the browsers on iOS outside the EU, where Apple's App Store rules require WebKit. How: This is Playwright's WebKit build.
 
 
 ] as const;
@@ -60,7 +60,7 @@ const SUI_NAM_ARR = [ // What: Suite Name Array. Why: Each suite lives in its ow
 
 
 	'accessibility', // What: Accessibility Suite. Why: The pre-commit accessibility scan runs from here. How: This names tests/accessibility.
-	'interaction',   // What: Interaction Suite. Why: Each control's feedback, the phone menu, and the form tooltip are checked from here. How: This names tests/interaction.
+	'interaction',   // What: Interaction Suite. Why: The site's interactive behavior is checked from here. How: This names tests/interaction.
 	'rendering',     // What: Rendering Suite. Why: Each page state is compared with its approved screenshot from here. How: This names tests/rendering.
 	'responsive',    // What: Responsive Suite. Why: Each page is measured across screen widths from here. How: This names tests/responsive.
 	'security',      // What: Security Suite. Why: The site's security policy, its build, and its dependencies are checked from here. How: This names tests/security.
@@ -70,8 +70,7 @@ const SUI_NAM_ARR = [ // What: Suite Name Array. Why: Each suite lives in its ow
 ];
 
 
-
-const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playwright reads its whole setup from this file's default export. How: This holds the shared page settings, one project per suite and engine, the reporters, and the dev server.
+const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playwright reads its whole setup from this file's default export. How: This holds the shared page settings, one project per suite and engine, the reporters, and the servers.
 
 
 	fullyParallel        : false,                                              // What: Fully Parallel. Why: Each spec file walks its states in order. How: This keeps a file's tests running in sequence, while separate files may still run in parallel.
@@ -109,7 +108,7 @@ const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playw
 
 	],
 
-	use : { // What: Use. Why: Every suite shares the same page setup. How: This sets the base URL, locale, and failure artifacts.
+	use : { // What: Use. Why: Every suite shares the same page setup. How: This sets the locale and the failure artifacts.
 
 
 		locale     : 'en-US',            // What: Locale. Why: The site is written in US English. How: This runs every page in it.
@@ -134,7 +133,7 @@ const PLA_CON_OBJ = defineConfig({ // What: Playwright Config Object. Why: Playw
 
 		},
 
-		{ // What: Preview Server. Why: The security suite reads what ships, and the dev server's inline scripts would break the strict policy. How: This builds the site and serves the build on 5202.
+		{ // What: Preview Server. Why: The security and SEO suites read what ships, and the dev server's inline scripts would break the strict policy. How: This builds the site and serves the build on 5202.
 
 
 			command             : 'npm run build && npx vite preview --port 5202 --strictPort', // What: Command. Why: The preview serves only a fresh build, and a strict port fails loudly. How: This builds the site, then serves dist/ on 5202.

@@ -25,7 +25,7 @@ Open the URL Vite prints (usually `http://localhost:5173`).
 
 ```bash
 npm run lint       # ESLint across the repo
-npm run typecheck  # TypeScript across src/, the configs, and tests/
+npm run typecheck  # TypeScript across src/, the configs, tests/, and design/
 ```
 
 ## Tests
@@ -33,9 +33,9 @@ npm run typecheck  # TypeScript across src/, the configs, and tests/
 ```bash
 npm test                    # every suite
 npm run test:accessibility  # axe-core plus scripted keyboard, naming, reflow, and motion checks
-npm run test:interaction    # hover, press, and focus feedback on every control, the phone menu, and the form tooltip
+npm run test:interaction    # feedback on the reachable controls, the section links and skip link, the phone menu, and the form tooltip
 npm run test:rendering      # full-page screenshots of each page state against approved baselines
-npm run test:responsive     # both pages from 320 to 1,920px: no sideways scroll, spill, or overlap
+npm run test:responsive     # both pages from 320 to 1,920px: no sideways scroll, spill, or overlap, and the Services cards' rows
 npm run test:security       # the security headers, the policy against the built site, secrets in the build, and npm audit
 npm run test:seo            # titles, descriptions, structured data, social tags, icons, robots.txt, and the sitemap
 ```
@@ -64,7 +64,7 @@ npm run preview
 src/
 ├── assets/        Images shared by 2+ places (logo.svg)
 ├── pages/
-│   ├── home/      Home page and its sections (hero, services, about, contact), each with its own .module.css
+│   ├── home/      Home page and its sections (hero, Services, About, Contact), each with its own .module.css
 │   └── not-found/ The 404 page
 ├── ui/            Components on every page (nav, footer), each with its own .module.css, and section-link.ts (section links that leave no hash in the address)
 ├── styles/        Global CSS (fonts.css for the self-hosted fonts, styles.css for the tokens and base elements)
@@ -75,12 +75,12 @@ design/            The icon and social preview renderers, outside the served sit
 public/            Files served at fixed addresses: the icons, the social preview card, robots.txt, sitemap.xml, and Netlify's _headers and _redirects
 tests/
 ├── accessibility/ axe-core scan and scripted checks
-├── interaction/   control feedback, the phone menu, and the form tooltip
+├── interaction/   control feedback, the section links and skip link, the phone menu, and the form tooltip
 ├── rendering/     screenshot comparisons and their baselines/
 ├── responsive/    layout checks across screen widths
 ├── security/      security headers, the policy in practice, the build, and dependencies
 ├── seo/           search and social preview checks
-├── support/       the page states the suites visit and the headers file reader
+├── support/       the page states the suites visit, the headers file reader, and the feedback probe's shared helpers
 └── playwright.config.ts
 ```
 

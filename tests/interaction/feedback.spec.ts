@@ -3,10 +3,19 @@
 
 // #region Imports
 
-import { expect      } from '@playwright/test';     // What: Expect. Why: Each state passes only when every reachable control and toggle responds. How: This asserts on what each check reads, such as that its problem list is empty.
-import { opeStaFun   } from '../support/states.ts'; // What: Open State Function. Why: Each check opens and settles its state first. How: This loads it and waits for it.
-import { STA_RCD_ARR } from '../support/states.ts'; // What: State Record Array. Why: Every page state is checked. How: This lists them.
-import { test        } from '@playwright/test';     // What: Test. Why: Each check of each state is its own test. How: This declares them.
+import { cliBloFun   } from '../support/feedback.ts'; // What: Click Block Function. Why: Pressing a control shouldn't navigate or close anything mid-check. How: This cancels every click in the page.
+import { CON_PRO_ARR } from '../support/feedback.ts'; // What: Control Property Array. Why: A control's looks, such as its hover, are compared over the same properties. How: This lists them.
+import { expect      } from '@playwright/test';       // What: Expect. Why: Each state passes only when every reachable control and toggle responds. How: This asserts on what each check reads, such as that its problem list is empty.
+import { FOC_PRO_ARR } from '../support/feedback.ts'; // What: Focus Property Array. Why: A focus look is compared over the control properties and the ring's outline. How: This lists them.
+import { movProFun   } from '../support/feedback.ts'; // What: Moving Problems Function. Why: Under reduced motion a change has to switch rather than ease. How: This turns two snapshots into a problem for each eased change.
+import { opeStaFun   } from '../support/states.ts';   // What: Open State Function. Why: Each check opens and settles its state first. How: This loads it and waits for it.
+import { SET_WAI_NUM } from '../support/feedback.ts'; // What: Settle Wait Number. Why: Each look is read once its transition has finished. How: This is the pause before each read.
+import { snaEleFun   } from '../support/feedback.ts'; // What: Snapshot Element Function. Why: Each look is recorded with whether each part of it would ease. How: This runs inside the page to read it.
+import { snaProFun   } from '../support/feedback.ts'; // What: Snap Problems Function. Why: A change has to ease rather than snap. How: This turns two snapshots into a problem for each snapped change.
+import { STA_REC_ARR } from '../support/states.ts';   // What: State Record Array. Why: Each page state but the open tooltip's is checked. How: This lists them.
+import { test        } from '@playwright/test';       // What: Test. Why: Each check of each state is its own test. How: This declares them.
+import { tipOpeFun   } from '../support/states.ts';   // What: Tip Open Function. Why: The open tooltip's states are left out of these checks. How: The state loop skips rows whose action is this opener.
+import { valSigFun   } from '../support/feedback.ts'; // What: Value Signature Function. Why: Two looks are told apart by their values alone. How: This joins a snapshot's values into one string.
 
 
 import type { ElementHandle } from '@playwright/test'; // What: Element Handle. Why: Each control and toggle is probed through a handle to its element. How: This types the element handles the helpers collect and read.
@@ -20,20 +29,23 @@ import type { Page          } from '@playwright/test'; // What: Page. Why: The h
  * feedback.spec.ts = Feedback Spec
  *
  * @summary
- * Checks the interaction feedback rule on every page state, in whichever
- * engine the project runs. Every reachable link and button has to look
- * different hovered than at rest, pressed than hovered, and focused than
- * unfocused, and every property each of those changes, on it or anything
- * inside it, has to be eased by a transition, its focus ring included. Each
- * kind of element with a state that switches on and off, such as the phone
- * menu's toggle, is flipped off, on, and off again by its attribute, and has
- * to look different and ease each change both ways. On the home states, any
- * other element that takes keyboard focus, such as the turned-off contact
- * form's wrapper, has to show and ease its focus, and the service cards have
- * to show and ease their hover. The first keyboard stop has to draw its ring
- * at full width. Under reduced motion every change stays but switches at
- * once. Real clicks are blocked during the checks, so pressing
- * a control never navigates or closes anything mid-check. Adapted from
+ * Checks the interaction feedback rule on every page state but the open
+ * tooltip's, in whichever engine the project runs, since probing the page's
+ * other controls would close the tooltip, whose phone link the tooltip spec
+ * probes instead. Every reachable link and button has to look different
+ * hovered than at rest, pressed than hovered, and focused than unfocused, and
+ * every property each of those changes, on it or anything inside it, has to be
+ * eased by a transition, its focus ring included. Each kind of element with a
+ * state that switches on and off, such as the phone menu's toggle, is flipped
+ * off, on, and off again by its attribute, and has to look different and ease
+ * each change both ways. On the home states, any other element a tabindex puts
+ * in the Tab order, such as the turned-off contact form's wrapper, has to show
+ * and ease its focus, and the service cards have to show and ease their hover.
+ * The first keyboard stop has to draw its ring at full width. Under reduced
+ * motion every change stays but switches at once. Real clicks are blocked
+ * during the checks, so pressing a control never navigates or closes anything
+ * mid-check. The snapshot and comparison helpers live in
+ * tests/support/feedback.ts, shared with the tooltip spec. Adapted from
  * come-hang's and tonys-toppers' own feedback specs.
  *
  * Sections:
@@ -49,17 +61,6 @@ import type { Page          } from '@playwright/test'; // What: Page. Why: The h
 
 
 // #region Types
-
-type SnaRecTyp = { // What: Snapshot Record Type. Why: An element's look, and whether each part of it would ease, is compared between two moments the same way. How: This holds one value and one duration per probed property.
-
-
-	durArr : number[], // What: Duration Array. Why: A property that changes has to ease rather than snap. How: This holds each probed property's transition duration in milliseconds, or 0 when no transition covers it, with an inherited color taking its parent's duration and a currentColor border taking the color's when that's longer.
-	valArr : string[]  // What: Value Array. Why: Two moments are compared property by property. How: This holds each probed property's computed value.
-
-
-};
-
-
 
 type TogTarTyp = { // What: Toggle Target Type. Why: Each kind of element with a state that switches on and off is flipped the same way. How: This holds what to find, which attribute marks the state, its two values, and the states it has to be found in.
 
@@ -79,12 +80,9 @@ type TogTarTyp = { // What: Toggle Target Type. Why: Each kind of element with a
 
 // #region Constants
 
-const CON_PRO_ARR = [ 'color', 'background-color', 'border-color', 'transform', 'opacity' ]; // What: Control Property Array. Why: Hover, press, and toggle feedback changes these, on a control and on what's inside it, such as the menu toggle's lines. How: Each is compared between moments, and each that changes has to be transitioned.
-const FOC_PRO_ARR = [ ...CON_PRO_ARR, 'outline-color', 'outline-offset', 'outline-width' ];  // What: Focus Property Array. Why: A control's focus can change its look as well as draw its ring. How: Each is compared between unfocused and focused, and each that changes has to be transitioned.
-const FOC_TAR_STR = '[tabindex]:not( a, button, [tabindex^="-"] )';                          // What: Focus Target String. Why: An element that takes keyboard focus without being a link or button, such as the contact form's wrapper, has to show focus too. How: This matches every element with a tabindex of 0 or more that isn't a link or button.
-const HOV_PRO_ARR = [ ...CON_PRO_ARR, 'box-shadow' ];                                        // What: Hover Property Array. Why: A service card's hover fades in a shadow as well as lifting it. How: Each is compared between rest and hover, and each that changes has to be transitioned.
-const HOV_TAR_STR = '[class*="serCarDiv"]';                                                  // What: Hover Target String. Why: The service cards respond to hover without being controls, so the control probe never reaches them. How: This matches each by its CSS module class, whose name Vite keeps inside the hashed class.
-const SET_WAI_NUM = 400;                                                                     // What: Settle Wait Number. Why: Each look is read once its transition has finished, and the longest interface transition runs about 277ms. How: This is the pause, in milliseconds, before each look is read.
+const FOC_TAR_STR = '[tabindex]:not( a, button, [tabindex^="-"] )'; // What: Focus Target String. Why: An element that takes keyboard focus without being a link or button, such as the contact form's wrapper, has to show focus too. How: This matches every element with a tabindex of 0 or more that isn't a link or button.
+const HOV_PRO_ARR = [ ...CON_PRO_ARR, 'box-shadow' ];               // What: Hover Property Array. Why: A service card's hover fades in a shadow as well as lifting it. How: Each is compared between rest and hover, and each that changes has to be transitioned.
+const HOV_TAR_STR = '[class*="serCarDiv"]';                         // What: Hover Target String. Why: The service cards respond to hover without being controls, so the control probe never reaches them. How: This matches each by its CSS module class, whose name Vite keeps inside the hashed class.
 
 
 
@@ -109,7 +107,7 @@ const SET_WAI_NUM = 400;                                                        
  *   by the class name Vite keeps inside each hashed module class.
  *
  * - `staArr` (Array): State Array, the page states, by their names in
- *   `STA_RCD_ARR`, where at least one element of the kind has to be found and
+ *   `STA_REC_ARR`, where at least one element of the kind has to be found and
  *   flipped.
  *
  * @author z4nta0 <https://github.com/z4nta0>
@@ -236,58 +234,20 @@ async function aniFinFun ( eleCurEle : Element ) : Promise< void > {
 async function attSetFun ( hanCurObj : ElementHandle< Element >, attNamStr : string, attValStr : string | null ) : Promise< void > {
 
 
-	await hanCurObj.evaluate( ( hanCurEle, attArgArr ) => { if ( attArgArr[ 1 ] === null ) hanCurEle.removeAttribute( attArgArr[ 0 ] ); else hanCurEle.setAttribute( attArgArr[ 0 ], attArgArr[ 1 ] ); }, [ attNamStr, attValStr ] as const ); // What: Attribute Set Call. Why: The page function takes one argument. How: This passes the name and value as a pair, removing the attribute for null and setting it otherwise. // What: Type Assertion Note. Why: Without it the array widens to a mixed array, so the page function's argument loses its pairing. How: as const keeps it a tuple, its first slot a string and its second a string or null.
+	await hanCurObj.evaluate( ( hanCurEle, attArgArr ) => { // What: Attribute Set Call. Why: The page function takes one argument. How: This passes the name and value as a pair. // What: Type Assertion Note. Why: Without it the array widens to a mixed array, so the page function's argument loses its pairing. How: as const keeps it a tuple, its first slot a string and its second a string or null.
+
+
+		if ( attArgArr[ 1 ] === null ) hanCurEle.removeAttribute( attArgArr[ 0 ] ); // What: Attribute Remove Branch. Why: A null value means the state is off. How: This removes the attribute.
+
+		else hanCurEle.setAttribute( attArgArr[ 0 ], attArgArr[ 1 ] ); // What: Attribute Set Branch. Why: Any other value marks the state on. How: This sets the attribute to it.
+
+
+	}, [ attNamStr, attValStr ] as const ); // What: Attribute Pair Argument. Why: The page function reads the name and value from one argument. How: This hands them over as a pair.
 
 
 }
 
 // #endregion attSetFun
-
-
-
-// #region cliBloFun
-
-/**
- * cliBloFun = Click Block Function
- *
- * @summary
- * Runs inside the page and cancels every click before the app handles it, so
- * pressing a control during a check never follows a link, starts a phone
- * call, or closes the menu. It listens on the document in the capture phase,
- * ahead of React's own listener on the app's root, and both prevents the
- * click's default and stops it from going any further. Passed to Playwright's
- * evaluate, so it can't read anything from this file.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param void - This function takes no parameters.
- *
- * @returns This function does not return anything.
- *
- * @example
- * ```ts
- * page.evaluate(cliBloFun) // => void
- * ```
- *
-*/
-
-function cliBloFun () : void {
-
-
-	document.addEventListener( 'click', ( cliEveObj ) => { // What: Click Block Listener. Why: A press during a check shouldn't do anything. How: This cancels every click in the capture phase, before the page or React sees it.
-
-
-		cliEveObj.preventDefault(); // What: Default Prevention Call. Why: A link shouldn't navigate mid-check. How: This cancels the click's default.
-
-		cliEveObj.stopPropagation(); // What: Propagation Stop Call. Why: React's handlers, such as a menu link closing the menu, shouldn't run either. How: This keeps the click from reaching the app's root.
-
-
-	}, true ); // What: Capture Phase Flag. Why: The block has to run ahead of the app's own handlers. How: This registers the listener for the capture phase.
-
-
-}
-
-// #endregion cliBloFun
 
 
 
@@ -330,7 +290,21 @@ async function conLisFun ( curPagObj : Page, conSelStr : string ) : Promise< Ele
 	for ( const conCurObj of await curPagObj.$$( conSelStr ) ) { // What: Control Loop. Why: Every element the selector matches is judged on its own. How: This keeps each one a visitor can reach.
 
 
-		const conReaBoo = await conCurObj.evaluate( ( conCurEle ) => conCurEle.getAttribute( 'tabindex' ) !== '-1' && !conCurEle.matches( ':disabled' ) && !conCurEle.closest( '[inert]' ) ); // What: Control Reachable Boolean. Why: An element outside the tab order, disabled, or inside inert content can't be reached. How: This checks all three inside the page.
+		const conReaBoo = await conCurObj.evaluate( ( conCurEle ) => { // What: Control Reachable Boolean. Why: An element outside the tab order, disabled, or inside inert content can't be reached. How: This checks all three inside the page.
+
+
+			const notDisBoo = !conCurEle.matches( ':disabled' );             // What: Not Disabled Boolean. Why: A disabled control takes no input. How: This is true when the element isn't disabled.
+			const notIneBoo = !conCurEle.closest( '[inert]' );               // What: Not Inert Boolean. Why: Inert content can't be reached. How: This is true when no ancestor is inert.
+			const tabOrdBoo = conCurEle.getAttribute( 'tabindex' ) !== '-1'; // What: Tab Order Boolean. Why: A control taken out of the tab order can't be reached by Tab. How: This is true unless its tabindex is -1.
+
+			const reaConBoo = notDisBoo && notIneBoo && tabOrdBoo; // What: Reachable Control Boolean. Why: A control counts only when all three hold. How: This combines them.
+
+
+
+			return reaConBoo; // What: Reachable Control Return. Why: The test reads the verdict back. How: This returns the combined boolean.
+
+
+		} );
 
 
 		if ( conReaBoo && await conCurObj.isVisible() ) conHanArr.push( conCurObj ); // What: Reachable Control Record. Why: Only elements a visitor can see and reach are checked. How: This keeps the element when it's both.
@@ -346,262 +320,6 @@ async function conLisFun ( curPagObj : Page, conSelStr : string ) : Promise< Ele
 }
 
 // #endregion conLisFun
-
-
-
-// #region movProFun
-
-/**
- * movProFun = Moving Problems Function
- *
- * @summary
- * The reduced-motion counterpart of {@link snaProFun}: compares two snapshots
- * of the same element, taken before and after a change, and returns one
- * problem for each probed property that changed on the element or anything
- * inside it while a transition still eases it, read from the later snapshot.
- * A property that eases on several inner elements is one problem.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param froRecArr - From Record Array: The snapshot before the change.
- * @param tarRecArr - Target Record Array: The snapshot after the change.
- * @param proNamArr - Property Name Array: The probed property names, in the
- *                    snapshots' order.
- * @param desLabStr - Description Label String: The element's name in each
- *                    problem.
- * @param staNamStr - State Name String: The change in each problem, such as
- *                    'when toggled on'.
- *
- * @returns One problem per eased property.
- *
- * @example
- * ```ts
- * movProFun(inaSnaArr, actSnaArr, CON_PRO_ARR, 'button "Toggle menu"',
- *   'when toggled on')
- * // => []
- * ```
- *
-*/
-
-function movProFun ( froRecArr : SnaRecTyp[], tarRecArr : SnaRecTyp[], proNamArr : string[], desLabStr : string, staNamStr : string ) : string[] {
-
-
-	const movNamSet = new Set< string >(); // What: Moving Name Set. Why: A property that eases on several inner elements is one problem. How: This collects each eased property's name once.
-
-
-	for ( const [ recIndNum, tarCurObj ] of tarRecArr.entries() ) { // What: Record Compare Loop. Why: Every element of the snapshot has to switch its changes at once. How: This compares each later record with the earlier one in its place.
-
-
-		const froCurObj = froRecArr[ recIndNum ]; // What: From Current Object. Why: The change is read against the same element's earlier record. How: This finds it by place.
-
-
-		if ( !froCurObj ) continue; // What: Missing Record Guard. Why: An element that appeared with the change has nothing to compare with. How: This skips it.
-
-
-
-		for ( const [ proIndNum, proNamStr ] of proNamArr.entries() ) if ( froCurObj.valArr[ proIndNum ] !== tarCurObj.valArr[ proIndNum ] && tarCurObj.durArr[ proIndNum ] > 0 ) movNamSet.add( proNamStr ); // What: Property Compare Loop. Why: Under reduced motion a change should switch rather than ease. How: This records each one whose value changed while its later duration is above 0.
-
-
-	}
-
-
-
-	return [ ...movNamSet ].map( ( proNamStr ) => `${ desLabStr } eases its ${ proNamStr } ${ staNamStr } under reduced motion` ); // What: Motion Problems Return. Why: Each eased property should be reported plainly. How: This turns each name into a problem line.
-
-
-}
-
-// #endregion movProFun
-
-
-
-// #region snaEleFun
-
-/**
- * snaEleFun = Snapshot Element Function
- *
- * @summary
- * Runs inside the page and records how an element looks right now, and whether
- * each part of that look would ease if it changed: for the element and every
- * element inside it, each probed property's computed value and the duration of
- * the transition covering it, listed by its own name, by a shorthand holding
- * it (such as background for background-color), or by all, or 0 when none is.
- * The border color reads only the sides actually drawn, those with a width
- * above zero, as one color when they all share it, since an undrawn side's
- * color can change without anything showing. An inner element whose color
- * matches its parent's takes the parent's duration for it, since an inherited
- * color eases with the parent's transition, and a border color matching the
- * element's own color takes the longer of its own duration and the color's,
- * since an unset border color is currentColor and follows the color as it
- * eases. An identity matrix reads as none, since the two draw the same.
- * Passed to Playwright's evaluate, so it can't read anything from this file.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param eleCurEle - Element Current Element: The element to record.
- * @param proNamArr - Property Name Array: The property names to probe.
- *
- * @returns One record per element, the element itself first.
- * @see {@link snaRecArr}
- *
- * @example
- * ```ts
- * handle.evaluate(snaEleFun, CON_PRO_ARR) // => [ { durArr, valArr }, ... ]
- * ```
- *
-*/
-
-function snaEleFun ( eleCurEle : Element, proNamArr : string[] ) : SnaRecTyp[] {
-
-
-	const parNamObj : Record< string, string > = { 'background-color' : 'background', 'border-color' : 'border', 'outline-color' : 'outline', 'outline-offset' : 'outline', 'outline-width' : 'outline' }; // What: Parent Name Object. Why: A transition listed by a shorthand covers the longhands inside it. How: This maps each probed longhand that has a shorthand to it.
-
-
-
-	const borValFun = ( styCurObj : CSSStyleDeclaration ) : string => [ ...new Set( [ 'top', 'right', 'bottom', 'left' ].filter( ( sidNamStr ) => styCurObj.getPropertyValue( `border-${ sidNamStr }-width` ) !== '0px' ).map( ( sidNamStr ) => styCurObj.getPropertyValue( `border-${ sidNamStr }-color` ) ) ) ].join( ' ' ); // What: Border Value Function. Why: Only a drawn border's color shows, so an undrawn side changing color isn't feedback. How: This joins the distinct colors of the sides wider than zero, one color when they share it.
-
-
-
-	const snaStyFun = ( styCurObj : CSSStyleDeclaration ) : SnaRecTyp => { // What: Snapshot Style Function. Why: Each element is recorded the same way. How: This reads its probed values and the duration covering each.
-
-
-		const traDurArr = styCurObj.transitionDuration.split( ',' ).map( ( traDurStr ) => parseFloat( traDurStr ) * ( traDurStr.trim().endsWith( 'ms' ) ? 1 : 1000 ) ); // What: Transition Duration Array. Why: A covered property eases only with a duration above zero. How: This reads each listed duration in milliseconds.
-		const traNamArr = styCurObj.transitionProperty.split( ',' ).map( ( traNamStr ) => traNamStr.trim() );                                                           // What: Transition Name Array. Why: A property eases only when its transition lists it. How: This reads each listed property name.
-
-
-
-		const durProFun = ( proNamStr : string ) : number => { // What: Duration Property Function. Why: Each probed property needs the duration of whichever transition covers it. How: This finds the first listing by its name, its shorthand, or all, and reads its duration, which repeats when fewer durations than names are listed.
-
-
-			const traIndNum = traNamArr.findIndex( ( traNamStr ) => [ proNamStr, 'all', parNamObj[ proNamStr ] ].includes( traNamStr ) ); // What: Transition Index Number. Why: The covering transition's place picks its duration. How: This finds the first name that covers the property.
-
-
-
-			return traIndNum < 0 ? 0 : traDurArr[ traIndNum % traDurArr.length ]; // What: Covering Duration Return. Why: An uncovered property has no transition at all. How: This returns 0 for one, or its listing's duration.
-
-
-		};
-
-
-
-		return { // What: Snapshot Record Return. Why: Each element's record holds its values and durations side by side. How: This reads both for every probed property.
-
-
-			durArr : proNamArr.map( durProFun ), // What: Duration Array. Why: A property that changes has to ease rather than snap. How: This reads the duration of the transition covering each probed property, or 0 when none does.
-			valArr : proNamArr.map( ( proNamStr ) => ( proNamStr === 'border-color' ? borValFun( styCurObj ) : styCurObj.getPropertyValue( proNamStr ).replace( /^matrix\(1, 0, 0, 1, 0, 0\)$/, 'none' ) ) ) // What: Value Array. Why: Two moments are compared property by property. How: This reads each probed property's computed value, taking the border color from its drawn sides only and reading an identity matrix as none, since a transform settled at translateY( 0 ) draws the same as no transform.
-
-
-		};
-
-
-	};
-
-
-
-	const borIndNum = proNamArr.indexOf( 'border-color' );                                          // What: Border Index Number. Why: An unset border color follows the color, so its place is checked against color's. How: This finds its place, or -1 when it isn't probed.
-	const colIndNum = proNamArr.indexOf( 'color' );                                                 // What: Color Index Number. Why: Only color is inherited among the probed properties. How: This finds its place, or -1 when it isn't probed.
-	const borColBoo = borIndNum >= 0 && colIndNum >= 0;                                             // What: Border Color Boolean. Why: The currentColor check needs both properties probed. How: This is true when the border color and the color are both in the list.
-	const eleLisArr = [ eleCurEle, ...eleCurEle.querySelectorAll( '*' ) ];                          // What: Element List Array. Why: A change to an inner element counts as the element's own. How: This lists the element and everything inside it, parents before children.
-	const snaRecArr = eleLisArr.map( ( lisCurEle ) => snaStyFun( getComputedStyle( lisCurEle ) ) ); // What: Snapshot Record Array. Why: Each element is recorded. How: This snapshots every listed element's computed styles.
-
-
-	for ( const [ lisIndNum, lisCurEle ] of eleLisArr.entries() ) { // What: Inherited Color Loop. Why: An inner element whose color comes from its parent eases with the parent's transition. How: This gives each one whose color matches its parent's the parent's duration, in document order, so it passes down every level.
-
-
-		const parIndNum = lisCurEle.parentElement ? eleLisArr.indexOf( lisCurEle.parentElement ) : -1; // What: Parent Index Number. Why: Only a parent inside the element passes its color down here. How: This finds the parent's place in the list, or -1.
-
-
-		if ( parIndNum < 0 || colIndNum < 0 ) continue; // What: No Parent Guard. Why: The element itself, and every element when color isn't probed, keeps its own duration. How: This skips them.
-
-
-
-		if ( snaRecArr[ lisIndNum ].valArr[ colIndNum ] === snaRecArr[ parIndNum ].valArr[ colIndNum ] ) snaRecArr[ lisIndNum ].durArr[ colIndNum ] = snaRecArr[ parIndNum ].durArr[ colIndNum ]; // What: Inherited Duration Assignment. Why: A color matching the parent's is the parent's, eased by the parent's transition. How: This copies the parent's color duration.
-
-
-	}
-
-
-
-	for ( const snaRecObj of snaRecArr ) if ( borColBoo && snaRecObj.valArr[ borIndNum ] === snaRecObj.valArr[ colIndNum ] ) snaRecObj.durArr[ borIndNum ] = Math.max( snaRecObj.durArr[ borIndNum ], snaRecObj.durArr[ colIndNum ] ); // What: Current Color Border Loop. Why: A border color matching the element's own color is currentColor, which follows the color as it eases. How: This gives each such border color the longer of its own duration and the color's.
-
-
-
-	return snaRecArr; // What: Snapshot Records Return. Why: The caller compares two moments' records. How: This hands back every record.
-
-
-}
-
-// #endregion snaEleFun
-
-
-
-// #region snaProFun
-
-/**
- * snaProFun = Snap Problems Function
- *
- * @summary
- * Compares two snapshots of the same element, taken before and after a
- * change, and returns one problem for each probed property that changed on
- * the element or anything inside it without a transition to ease it, read
- * from the later snapshot, since a change eases with the transition of the
- * state it moves into. A property that snaps on several inner elements is one
- * problem.
- *
- * @author z4nta0 <https://github.com/z4nta0>
- *
- * @param froRecArr - From Record Array: The snapshot before the change.
- * @param tarRecArr - Target Record Array: The snapshot after the change.
- * @param proNamArr - Property Name Array: The probed property names, in the
- *                    snapshots' order.
- * @param desLabStr - Description Label String: The element's name in each
- *                    problem.
- * @param staNamStr - State Name String: The change in each problem, such as
- *                    'when hovered'.
- *
- * @returns One problem per snapped property.
- *
- * @example
- * ```ts
- * snaProFun(resSnaArr, hovSnaArr, CON_PRO_ARR, 'a "Services"', 'when hovered')
- * // => []
- * ```
- *
-*/
-
-function snaProFun ( froRecArr : SnaRecTyp[], tarRecArr : SnaRecTyp[], proNamArr : string[], desLabStr : string, staNamStr : string ) : string[] {
-
-
-	const snaNamSet = new Set< string >(); // What: Snapped Name Set. Why: A property that snaps on several inner elements is one problem. How: This collects each snapped property's name once.
-
-
-	for ( const [ recIndNum, tarCurObj ] of tarRecArr.entries() ) { // What: Record Compare Loop. Why: Every element of the snapshot has to ease its own probed changes. How: This compares each later record with the earlier one in its place.
-
-
-		const froCurObj = froRecArr[ recIndNum ]; // What: From Current Object. Why: The change is read against the same element's earlier record. How: This finds it by place.
-
-
-		if ( !froCurObj ) continue; // What: Missing Record Guard. Why: An element that appeared with the change has nothing to compare with. How: This skips it.
-
-
-
-		for ( const [ proIndNum, proNamStr ] of proNamArr.entries() ) if ( froCurObj.valArr[ proIndNum ] !== tarCurObj.valArr[ proIndNum ] && tarCurObj.durArr[ proIndNum ] === 0 ) snaNamSet.add( proNamStr ); // What: Property Compare Loop. Why: A property that changed with nothing to ease it snaps. How: This records each one whose value changed while its later duration is 0.
-
-
-	}
-
-
-
-	return [ ...snaNamSet ].map( ( proNamStr ) => `${ desLabStr } snaps its ${ proNamStr } ${ staNamStr }` ); // What: Snap Problems Return. Why: Each snapped property should be reported plainly. How: This turns each name into a problem line.
-
-
-}
-
-// #endregion snaProFun
-
-
-
-const valSigFun = ( snaRecArr : SnaRecTyp[] ) : string => JSON.stringify( snaRecArr.map( ( snaRecObj ) => snaRecObj.valArr ) ); // What: Value Signature Function. Why: A look is the same between two moments only when every probed value matches. How: This joins every record's values into one string to compare.
 
 
 
@@ -646,9 +364,9 @@ const valSigFun = ( snaRecArr : SnaRecTyp[] ) : string => JSON.stringify( snaRec
 async function feeProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< string[] > {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const conHanArr = await conLisFun( curPagObj, 'a, button' ); // What: Control Handle Array. Why: Every reachable link and button is probed. How: This collects their handles.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 	if ( !conHanArr.length ) proLisArr.push( 'no control to probe' ); // What: Empty Probe Check. Why: A probe that finds nothing would pass without checking anything, and every state has at least the bar's brand. How: This records a problem when no control is found.
@@ -760,18 +478,18 @@ async function feeProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< st
  * focProFun = Focus Problems Function
  *
  * @summary
- * Probes every reachable element that takes keyboard focus without being a
- * link or button, such as the contact form's wrapper, and returns a problem
- * for each one that gives no focus feedback, or a single problem when it finds
- * none. Only focus is checked, since such an element has no hover or press
- * look of its own: each is scrolled into view, blurred with the pointer away
- * and read, then focused the way a keyboard focuses it and read again, every
- * look read once its transition has settled, then blurred. One that looks the
- * same both ways is a problem. Normally every probed property that changes,
- * on it or anything that was already inside it, has to be eased by a
- * transition ({@link snaProFun}), its focus ring included; under reduced
- * motion none of them may ease ({@link movProFun}), and every one of its own
- * transition durations must be zero.
+ * Probes every reachable element a tabindex of 0 or more puts in the Tab order
+ * without being a link or button, such as the contact form's wrapper, and
+ * returns a problem for each one that gives no focus feedback, or a single
+ * problem when it finds none. Only focus is checked, since such an element has
+ * no hover or press look of its own: each is scrolled into view, blurred with
+ * the pointer away and read, then focused the way a keyboard focuses it and
+ * read again, every look read once its transition has settled, then blurred.
+ * One that looks the same both ways is a problem. Normally every probed
+ * property that changes, on it or anything that was already inside it, has to
+ * be eased by a transition ({@link snaProFun}), its focus ring included; under
+ * reduced motion none of them may ease ({@link movProFun}), and every one of
+ * its own transition durations must be zero.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -792,9 +510,9 @@ async function feeProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< st
 async function focProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< string[] > {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const tarHanArr = await conLisFun( curPagObj, FOC_TAR_STR ); // What: Target Handle Array. Why: Every reachable focusable element that isn't a link or button is probed. How: This collects them the way the controls are collected.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 	if ( !tarHanArr.length ) proLisArr.push( 'no focusable element to probe' ); // What: Empty Probe Check. Why: A probe that finds nothing would pass without checking anything, and the home page always has the contact form's wrapper. How: This records a problem when no element is found.
@@ -895,9 +613,9 @@ async function focProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< st
 async function hovProFun ( curPagObj : Page, redMotBoo : boolean ) : Promise< string[] > {
 
 
-	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
-
 	const tarHanArr = await conLisFun( curPagObj, HOV_TAR_STR ); // What: Target Handle Array. Why: Every visible service card is probed. How: This collects them the way the controls are collected.
+
+	const proLisArr : string[] = []; // What: Problem List Array. Why: Every problem should be reported, not just the first. How: This collects them.
 
 
 	if ( !tarHanArr.length ) proLisArr.push( 'no card to probe' ); // What: Empty Probe Check. Why: A probe that finds nothing would pass without checking anything. How: This records a problem when no card is found.
@@ -1081,22 +799,23 @@ async function togProFun ( curPagObj : Page, staIdeStr : string, redMotBoo : boo
 
 // #region Module Init
 
-for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every page state is checked. How: This declares each check once per state.
+for ( const staRecObj of STA_REC_ARR.filter( ( staFilObj ) => staFilObj.actFun !== tipOpeFun ) ) { // What: State Test Loop. Why: Every page state is checked but the open tooltip's, which the first control probed elsewhere on the page would close. How: This declares each check once per state, skipping the states the tooltip's opener opens.
 
 
-	test( `${ staRcdObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other focusable element and every service card, and checks it finds no problems.
+	test( `${ staRecObj.ideStr } gives every control hover, press, and focus feedback, and every toggle its switch`, async ( { page : curPagObj } ) => { // What: Feedback Test. Why: Every interaction should visibly register. How: This opens the state, blocks clicks, probes every reachable link and button and every reachable toggle, and on the home states every other element a tabindex makes focusable and every service card, and checks it finds no problems.
 
 
 		test.slow(); // What: Slow Test Mark. Why: Probing every control's hover, press, and focus takes about two seconds per control, which runs past the default 30 second timeout. How: This triples this test's timeout.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
 
 		await curPagObj.evaluate( cliBloFun ); // What: Click Block Call. Why: Pressing a control shouldn't navigate or close anything. How: This cancels every click from here on.
 
-		const proLisArr = [ ...await feeProFun( curPagObj, false ), ...await togProFun( curPagObj, staRcdObj.ideStr, false ) ]; // What: Problem List Array. Why: The state passes only when every reachable link and button responds and every switched state shows and eases. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
+
+		const proLisArr = [ ...await feeProFun( curPagObj, false ), ...await togProFun( curPagObj, staRecObj.ideStr, false ) ]; // What: Problem List Array. Why: The state passes only when every reachable link and button responds and every switched state shows and eases. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
 
 
-		if ( staRcdObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, false ), ...await hovProFun( curPagObj, false ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
+		if ( staRecObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, false ), ...await hovProFun( curPagObj, false ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
 
 
 
@@ -1107,14 +826,14 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every pa
 
 
 
-	test( `${ staRcdObj.ideStr } eases its focus ring in to full width`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Focus Ring Test. Why: A keyboard user has to see where focus lands. How: This tabs to the first stop and reads its ring once it has eased in.
+	test( `${ staRecObj.ideStr } draws its focus ring at full width`, async ( { browserName : engNamStr, page : curPagObj } ) => { // What: Focus Ring Test. Why: A keyboard user has to see where focus lands. How: This tabs to the first stop and reads its ring once it has had time to grow in.
 
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The walk starts from the state settled. How: This loads and settles it.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The walk starts from the state settled. How: This loads and settles it.
 
 		await curPagObj.keyboard.press( engNamStr === 'webkit' ? 'Alt+Tab' : 'Tab' ); // What: First Tab Press Call. Why: The ring shows only for keyboard focus. How: This tabs to the first stop, holding Alt in WebKit, which otherwise skips links the way Safari does.
 
-		await curPagObj.waitForTimeout( SET_WAI_NUM ); // What: Ring Settle Wait. Why: The ring is read once it has grown in. How: This pauses for the settle time.
+		await curPagObj.waitForTimeout( SET_WAI_NUM ); // What: Ring Settle Wait. Why: The ring is read once it has had time to grow in. How: This pauses for the settle time.
 
 		expect( await curPagObj.evaluate( () => getComputedStyle( document.activeElement as Element ).outlineWidth ) ).toBe( '2px' ); // What: Full Ring Assertion. Why: The ring has to reach its full width. How: This reads the focused stop's outline width, which the large border width token snaps to 2px. // What: Type Assertion Note. Why: activeElement types as possibly null. How: The Tab press just put focus on a stop.
 
@@ -1123,21 +842,22 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Test Loop. Why: Every pa
 
 
 
-	test( `${ staRcdObj.ideStr } keeps feedback without motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Feedback Test. Why: Visitors who ask for less motion still need to see their actions register. How: This probes every reachable link and button, every reachable toggle, and on the home states every other focusable element and every service card, with reduced motion on, and checks it finds no problems.
+	test( `${ staRecObj.ideStr } keeps feedback without motion under reduced motion`, async ( { page : curPagObj } ) => { // What: Reduced Motion Feedback Test. Why: Visitors who ask for less motion still need to see their actions register. How: This probes every reachable link and button, every reachable toggle, and on the home states every other element a tabindex makes focusable and every service card, with reduced motion on, and checks it finds no problems.
 
 
 		test.slow(); // What: Slow Test Mark. Why: Probing every control's hover, press, and focus takes about two seconds per control, which runs past the default 30 second timeout. How: This triples this test's timeout.
 
 		await curPagObj.emulateMedia( { reducedMotion : 'reduce' } ); // What: Reduced Motion Emulation. Why: The preference has to be set before the page loads. How: This makes the page match prefers-reduced-motion: reduce.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The controls are probed with the state settled. How: This loads and settles it.
 
 		await curPagObj.evaluate( cliBloFun ); // What: Click Block Call. Why: Pressing a control shouldn't navigate or close anything. How: This cancels every click from here on.
 
-		const proLisArr = [ ...await feeProFun( curPagObj, true ), ...await togProFun( curPagObj, staRcdObj.ideStr, true ) ]; // What: Problem List Array. Why: Every reachable link and button has to respond, and every switched state show, without moving. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
+
+		const proLisArr = [ ...await feeProFun( curPagObj, true ), ...await togProFun( curPagObj, staRecObj.ideStr, true ) ]; // What: Problem List Array. Why: Every reachable link and button has to respond, and every switched state show, without moving. How: This gathers both probes' problems, so a failure prints each one, the toggles' included when a control fails.
 
 
-		if ( staRcdObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, true ), ...await hovProFun( curPagObj, true ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
+		if ( staRecObj.ideStr.startsWith( 'home-' ) ) proLisArr.push( ...await focProFun( curPagObj, true ), ...await hovProFun( curPagObj, true ) ); // What: Home Probes Call. Why: The contact form's wrapper and the service cards show, with nothing covering them, only on the home states. How: On the home desktop and phone states, this adds the focusable elements' and the cards' problems.
 
 
 

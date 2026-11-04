@@ -53,7 +53,7 @@ const carPagObj = await broInsObj.newPage( { viewport : { height : 630, width : 
 
 await carPagObj.goto( CAR_URL_STR ); // What: Card Load Call. Why: The card has to be on screen before it's captured. How: This opens card.html.
 
-await carPagObj.evaluate( () => Promise.all( [ document.fonts.ready, ...[ ...document.images ].map( ( imaCurEle ) => imaCurEle.decode() ) ] ) ); // What: Fonts And Logo Ready Wait. Why: Text captured before its web font loads would be set in a fallback, and an undecoded logo would be missing. How: This waits for every font face and image.
+await carPagObj.evaluate( () => Promise.all( [ document.fonts.ready, ...[ ...document.images ].map( ( imaCurEle ) => imaCurEle.decode() ) ] ) ); // What: Fonts And Logo Ready Wait. Why: Text captured before its web font loads would be set in a fallback, and an undecoded logo would be missing. How: This waits for the fonts the card uses and for its images to decode.
 
 await carPagObj.screenshot( { path : OUT_PAT_STR, type : 'png' } ); // What: Card Capture Call. Why: This writes the finished image. How: This saves the page as a PNG in public/.
 
@@ -63,11 +63,11 @@ await broInsObj.close(); // What: Browser Close Call. Why: The script should exi
 const outBytNum = statSync( OUT_PAT_STR ).size; // What: Output Bytes Number. Why: The card has to stay under WhatsApp's limit. How: This reads the saved file's size.
 
 
-if ( outBytNum >= MAX_BYT_NUM ) throw new Error( `og-image-2.png is ${ outBytNum } bytes, at or over the ${ MAX_BYT_NUM } byte limit.` ); // What: Size Guard. Why: An image over the limit would quietly drop out of WhatsApp previews. How: This fails the run with the file's size.
+if ( outBytNum >= MAX_BYT_NUM ) throw new Error( `og-image-2.png is ${ outBytNum.toLocaleString( 'en-US' ) } bytes, at or over the ${ MAX_BYT_NUM.toLocaleString( 'en-US' ) } byte limit.` ); // What: Size Guard. Why: An image over the limit would quietly drop out of WhatsApp previews. How: This fails the run with the file's size.
 
 
 
-console.log( `Wrote ${ OUT_PAT_STR } (${ outBytNum } bytes).` ); // What: Result Log Call. Why: The run should say what it wrote. How: This prints the path and size.
+console.log( `Wrote ${ OUT_PAT_STR } (${ outBytNum.toLocaleString( 'en-US' ) } bytes).` ); // What: Result Log Call. Why: The run should say what it wrote. How: This prints the path and size.
 
 // #endregion Module Init
 

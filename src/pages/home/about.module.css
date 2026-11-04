@@ -72,7 +72,7 @@
 
 /* #region logBacDiv */
 
-.logBacDiv { /* What: Logo Backdrop Div. Why: The card sits on the brand's stripes. How: This draws a 4:5 panel of 24px navy stripes and centers the card on it. */
+.logBacDiv { /* What: Logo Backdrop Div. Why: The card sits on the brand's stripes. How: This draws a 4:5 panel of navy stripes and centers the card on it. */
 
 
 	align-items      : center;
@@ -89,7 +89,7 @@
 
 /* #region aboCarDiv */
 
-.aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset 28px from the panel's edges. */
+.aboCarDiv { /* What: About Card Div. Why: The stylists' details read as a framed card on the stripes. How: This sets a centered cream card with a light rose border, inset a spacing step in from the panel's edges. */
 
 
 	background : var( --bac-sur-col );                            /* Background Surface Color = #f5f0e8 */
@@ -105,7 +105,7 @@
 .aboLogIma { /* What: About Logo Image. Why: The card opens with the logo. How: This sizes it square between two rhythm steps, growing with the screen. */
 
 
-	height        : auto;                                                                                                    /* What: Height Note. Why: The logo's width shrinks a step on narrower screens. How: This keeps the square logo's height following its width. */
+	height        : auto;                                                                                                    /* What: Height Note. Why: The logo's width follows the screen between its two bounds. How: This keeps the square logo's height following its width. */
 	margin-bottom : var( --spa-ver-p02 );                                                                                    /* Spacing Vertical Base Plus 2 ~= 25.572px */
 	width         : clamp( calc( var( --ver-rhy-p07 ) * 1rem ), var( --hor-rhy-019 ), calc( var( --ver-rhy-p08 ) * 1rem ) ); /* Vertical Rhythm Base Plus 7 ~= 104.323px, Horizontal Rhythm 19, Vertical Rhythm Base Plus 8 ~= 138.199px, about 104.323px - 138.199px */
 
@@ -160,12 +160,13 @@
 	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
 	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	line-height   : var( --ver-rhy-m01 );                                     /* Vertical Rhythm Base Minus 1 = 1 */
 	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
 
 
 }
 
-.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a short box about 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -188,7 +189,7 @@
 
 }
 
-.butBasAnc { /* What: Button Base Anchor. Why: The story ends with a way to reach the salon, in the hero's button shape. How: This sets small spaced bold capitals in a padded block a little below the last paragraph, with a transition for the hover changes. */
+.butBasAnc { /* What: Button Base Anchor. Why: The story ends with a way to reach the salon, in the hero's button shape. How: This sets small spaced bold capitals in a padded block a little below the last paragraph, and eases its hover fill and lift, its press, and its focus ring. */
 
 
 	border          : none;
@@ -202,11 +203,11 @@
 	padding         : var( --spa-ver-bas ) var( --spa-hor-p03 ); /* Spacing Vertical Base ~= 14.572px, Spacing Horizontal Base Plus 3 ~= 33.876px */
 	text-decoration : none;
 	text-transform  : uppercase;
-	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-sta-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Duration Transition Base Plus 1 ~= 209.1ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */
+	transition      : background var( --dur-tra-p02 ) var( --mot-sta-eas ), transform var( --dur-tra-p02 ) var( --mot-dec-eas ), outline-offset var( --dur-tra-p01 ) var( --mot-dec-eas ), outline-width var( --dur-tra-p01 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Duration Transition Base Plus 1 ~= 209.1ms */
 
 
 }
-.butBasAnc--primary { /* What: Primary Button Base Anchor. Why: The call to action stands out. How: This fills it navy with cream text. */
+.butBasAnc--primary { /* What: Button Base Anchor Primary. Why: The call to action stands out. How: This fills it navy with cream text. */
 
 
 	background : var( --bac-inv-col ); /* Background Inverse Color = #2b3245 */
@@ -214,7 +215,7 @@
 
 
 }
-.butBasAnc--primary:hover { /* What: Hovered Primary Button Base Anchor. Why: The button should respond to the pointer. How: This lightens it and lifts it 2px. */
+.butBasAnc--primary:hover { /* What: Hovered Button Base Anchor Primary. Why: The button should respond to the pointer. How: This lightens it and lifts it about 2px. */
 
 
 	background : var( --bac-inr-col );                            /* Background Inverse Raised Color = #3c4562 */

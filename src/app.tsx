@@ -10,7 +10,7 @@ import { HomPagCom } from './pages/home/home.tsx';           // What: Home Page 
 import { NavBarCom } from './ui/nav.tsx';                    // What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders it above the main element.
 import { NotFouCom } from './pages/not-found/not-found.tsx'; // What: Not Found Component. Why: Every unknown address should land on a real page. How: The catch-all route renders it.
 import { Route     } from 'react-router';                    // What: Route. Why: Each page is matched to a path. How: This declares one path and the page it renders.
-import { Routes    } from 'react-router';                    // What: Routes. Why: Only one page should render for any path. How: This renders the first route whose path matches.
+import { Routes    } from 'react-router';                    // What: Routes. Why: Only one page should render for any path. How: This renders the route that best matches the path.
 import { SitFooCom } from './ui/footer.tsx';                 // What: Site Footer Component. Why: Every page ends with the footer. How: This renders it after the main element.
 
 // #endregion Imports
@@ -75,7 +75,7 @@ function AppRooCom () : React.JSX.Element {
 		<div className={ cssModObj.appRooDiv }>{ /* What: App Root Div Element. Why: Every module's layout queries measure one shared container. How: This wraps the bar, the main element, and the footer in the element named the app container. */ }
 
 
-			<NavBarCom />{ /* What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders the logo, the section links, and the phone menu. */ }
+			<NavBarCom />{ /* What: Navigation Bar Component. Why: Every page opens with the fixed bar. How: This renders the skip link, the scrim, and the bar with its phone menu. */ }
 
 
 
@@ -85,16 +85,18 @@ function AppRooCom () : React.JSX.Element {
 				className={ cssModObj.appConMai }
 
 				tabIndex={ -1 }
-			>{ /* What: App Content Main Element. Why: Each page's content is the page's main landmark, apart from the bar and footer every page shares. How: Its id, kept readable since it's the skip link's target, and its tabIndex of -1 let the skip link move focus here without adding it to the Tab order; it holds the route table and grows to fill the screen. */ }
+			>{ /* What: App Content Main Element. Why: Each page's content is the page's main landmark, apart from the bar and footer every page shares. How: Its ID, kept readable since it's the skip link's target, and its tabIndex of -1 let the skip link move focus here without adding it to the Tab order; it holds the route table and grows to fill the screen. */ }
 
 
-				<Routes>{ /* What: Page Routes. Why: Only one page should render for any path. How: This renders the first route below whose path matches. */ }
+				<Routes>{ /* What: Page Routes. Why: Only one page should render for any path. How: This renders the route below that best matches the path. */ }
 
 
 					<Route
 						element={ <HomPagCom /> }
 						path='/'
 					/>{ /* What: Home Route. Why: The site's root address is its home page. How: This renders HomPagCom at the root path. */ }
+
+
 
 					<Route
 						element={ <NotFouCom /> }
@@ -128,7 +130,7 @@ function AppRooCom () : React.JSX.Element {
 
 // #region Exports
 
-export { AppRooCom }; // What: Named Exports. Why: main.tsx is the sole consumer, mounting this as the site's root. How: This exports AppRooCom.
+export { AppRooCom }; // What: Named Export. Why: main.tsx is the sole consumer, mounting this as the site's root. How: This exports AppRooCom.
 
 // #endregion Exports
 

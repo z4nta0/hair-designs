@@ -17,7 +17,7 @@
 
 /* #region sitFooFoo */
 
-.sitFooFoo { /* What: Site Footer Footer. Why: The page ends on a quiet dark band below a rose rule. How: This sets a centered line of small spaced faded cream text on the darkest navy. */
+.sitFooFoo { /* What: Site Footer Footer. Why: The page ends on a quiet dark band below a rose rule. How: This sets a centered line of spaced faded cream text on the darkest navy. */
 
 
 	background     : var( --bac-ivd-col );                            /* Background Inverse Deepest Color = #1d2235 */

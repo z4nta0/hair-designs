@@ -1,3 +1,6 @@
+
+
+
 <!doctype html><!-- What: Document Type Declaration. Why: Browsers render the page in standards mode only with a doctype. How: This declares HTML5. -->
 
 
@@ -18,7 +21,7 @@
 
 		<!-- #region Card Styles -->
 
-		<style>/* What: Card Style Element. Why: The card is one fixed-size image, styled here from the site's own fonts and tokens. How: This imports the site's font faces and global stylesheet, then lays the card out on the site's scale, keeping literal pixels only for the image's fixed size. */
+		<style>/* What: Card Style Element. Why: The card is one fixed-size image, styled here from the site's own fonts and tokens. How: This imports the site's font faces and global stylesheet, then lays the card out on the site's scale, keeping literal pixels only for the image's fixed size and its 40px tagline. */
 
 
 			@import url( '../../src/styles/fonts.css' );  /* What: Site Fonts Import. Why: The card should be set in the site's own typefaces. How: This loads the site's font faces, whose file paths resolve from fonts.css itself. */
@@ -34,7 +37,7 @@
 				align-items      : center;
 				background-color : var( --bac-inv-col );                                           /* Background Inverse Color = #2b3245 */
 				background-image : repeating-linear-gradient( 90deg, var( --bac-inv-col ) 0, var( --bac-inv-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem ), var( --bac-ind-col ) calc( var( --ver-rhy-p03 ) * 1rem * 2 ) ); /* Background Inverse Color = #2b3245, Vertical Rhythm Base Plus 3 ~= 33.876px and ~= 67.752px doubled, Background Inverse Dark Color = #232a3d */
-				border-bottom    : calc( var( --ver-rhy-m02 ) * 1rem ) solid var( --acc-mai-col ); /* Vertical Rhythm Base Minus 2 ~= 8.304px, Accent Main Color = #d4806a */ /* What: Rose Foot Note. Why: The bar's rose line is part of the site's look, and at its own 3.57px it would vanish in a thumbnail. How: This draws it a rhythm step thicker. */
+				border-bottom    : calc( var( --ver-rhy-m02 ) * 1rem ) solid var( --acc-mai-col ); /* Vertical Rhythm Base Minus 2 ~= 8.304px, Accent Main Color = #d4806a */ /* What: Rose Foot Note. Why: The bar's rose line is part of the site's look, and at its own 3.57px it would vanish in a thumbnail. How: This draws it three rhythm steps thicker, at the m02 step. */
 				display          : flex;
 				height           : 630px;
 				justify-content  : center;
@@ -71,7 +74,7 @@
 
 			/* #region carNamPar */
 
-			.carNamPar { /* What: Card Name Paragraph. Why: The salon's name is the card's main line, large enough to read at thumbnail size. How: This sets it in the hero title's cream Playfair Display at its largest step. */
+			.carNamPar { /* What: Card Name Paragraph. Why: The salon's name is the card's main line, large enough to read at thumbnail size. How: This sets it in cream Playfair Display, the hero title's face, at base plus 7. */
 
 
 				color       : var( --tex-inv-col );     /* Text Inverse Color = #f5f0e8 */
@@ -84,7 +87,7 @@
 
 			}
 
-			.titAccEmp { /* What: Title Accent Emphasis. Why: The name's second word is set apart, as in the hero. How: This sets Designs in light rose italic, the shade that holds up on navy. */
+			.titAccEmp { /* What: Title Accent Emphasis. Why: The name's second word is set apart, as in the hero. How: This sets "Designs" in light rose italic, the shade that holds up on navy. */
 
 
 				color      : var( --acc-lig-col ); /* Accent Light Color = #e8a898 */
@@ -163,3 +166,5 @@
 
 
 </html>
+
+

@@ -6,7 +6,7 @@
 import { expect      } from '@playwright/test';      // What: Expect. Why: Each check passes only when the policy is enforced and the page breaks none of its rules. How: This asserts on what each check collects from the page.
 import { heaAllFun   } from '../support/headers.ts'; // What: Headers All Function. Why: The pages are loaded under the policy Netlify really sends. How: This reads the /* block of public/_headers.
 import { opeStaFun   } from '../support/states.ts';  // What: Open State Function. Why: Each state is opened the way the other page suites open it. How: This loads the state and waits until it's settled.
-import { STA_RCD_ARR } from '../support/states.ts';  // What: State Record Array. Why: The policy has to hold in every state the suites visit. How: This is the list of states to load.
+import { STA_REC_ARR } from '../support/states.ts';  // What: State Record Array. Why: The policy has to hold in every state the suites visit. How: This is the list of states to load.
 import { test        } from '@playwright/test';      // What: Test. Why: Each state is its own test. How: This declares them.
 
 
@@ -27,8 +27,11 @@ import type { Page } from '@playwright/test'; // What: Page. Why: The policy set
  * is given its headers here. First a check proves the policy is live, by
  * injecting an inline script and seeing it refused and reported. Then every
  * state the suites visit is checked for policy violations and checked to close
- * off every new tab link. The contact form is turned off and never sends, so
- * there's no post to check. Adapted from tonys-toppers' own browser spec.
+ * off every new tab link. Last, the contact form's tooltip, which the states
+ * open by keyboard focus, is opened by a hover and checked for violations
+ * too.
+ * The contact form is turned off and never sends, so there's no post to
+ * check. Adapted from tonys-toppers' own browser spec.
  *
  * Sections:
  *  - Helpers
@@ -184,18 +187,18 @@ test( 'the policy refuses an injected inline script', async ( { page : curPagObj
 
 
 
-for ( const staRcdObj of STA_RCD_ARR ) { // What: State Loop. Why: Every state the suites visit has to work under the policy. How: This declares one test per state.
+for ( const staRecObj of STA_REC_ARR ) { // What: State Loop. Why: Every state the suites visit has to work under the policy. How: This declares one test per state.
 
 
-	test( `${ staRcdObj.ideStr } breaks no rule of the security policy and closes off every new tab link`, async ( { browserName : broNamStr, page : curPagObj } ) => { // What: State Policy Test. Why: A blocked resource, such as a font, would break the page once deployed, and the policy can't be loosened to hide it. How: This opens the state under the policy and checks nothing was refused and every new tab link is closed off.
+	test( `${ staRecObj.ideStr } breaks no rule of the security policy and closes off every new tab link`, async ( { browserName : broNamStr, page : curPagObj } ) => { // What: State Policy Test. Why: A blocked resource, such as a font, would break the page once deployed, and the policy can't be loosened to hide it. How: This opens the state under the policy and checks nothing was refused and every new tab link is closed off.
 
 
 		await polSetFun( curPagObj ); // What: Policy Setup Call. Why: The page has to load under the policy. How: This adds the headers and the violation listener.
 
-		await opeStaFun( curPagObj, staRcdObj ); // What: State Open Call. Why: The state's fonts, images, and open menu have to load before the page is checked. How: This opens the state the way the other page suites do.
+		await opeStaFun( curPagObj, staRecObj ); // What: State Open Call. Why: The state's fonts, images, and open menu have to load before the page is checked. How: This opens the state the way the other page suites do.
 
 
-		const opeRelArr = await curPagObj.locator( 'a[target="_blank"]' ).evaluateAll( ( ancEleArr ) => ancEleArr.map( ( ancCurEle ) => ancCurEle.getAttribute( 'rel' ) ?? '' ) ); // What: Opener Rel Array. Why: A new tab opened without noopener can reach back and change this page. How: This collects the rel of every link that opens a new tab.
+		const opeRelArr = await curPagObj.locator( 'a[target="_blank"]' ).evaluateAll( ( ancEleArr ) => ancEleArr.map( ( ancCurEle ) => ancCurEle.getAttribute( 'rel' ) ?? '' ) ); // What: Opener Relationship Array. Why: A new tab opened without noopener can reach back and change this page. How: This collects the rel of every link that opens a new tab.
 		const vioLisArr = ( await polVioFun( curPagObj ) ).filter( ( vioCurStr ) => !( broNamStr === 'webkit' && vioCurStr === 'style-src-attr blocked inline on select' ) );      // What: Violation List Array. Why: WebKit reports a style attribute violation for every select element, even one built in a blank script with no style of its own, which no page can avoid short of allowing inline style attributes everywhere. How: This keeps every violation but that one WebKit select report.
 
 
@@ -209,6 +212,38 @@ for ( const staRcdObj of STA_RCD_ARR ) { // What: State Loop. Why: Every state t
 
 }
 
+
+
+test( 'the open contact tooltip reports no security policy violation', async ( { browserName : broNamStr, page : curPagObj } ) => { // What: Tooltip Policy Test. Why: The shared states open the tooltip by keyboard focus at the form's top edge, while a hover places it at the pointer, and its inline position there has to pass the policy too. How: This opens the home page under the policy, hovers the form until the tooltip has faded in, and checks nothing was refused.
+
+
+	const homDesObj = STA_REC_ARR.find( ( staRecObj ) => staRecObj.ideStr === 'home-desktop' )!; // What: Home Desktop Object. Why: A mouse hovering the form is a desktop visit. How: This picks the home page's desktop state from the shared list. // What: Non-Null Note. Why: The shared list always holds a home-desktop row. How: The ! states that the find can't come back empty.
+
+
+	await polSetFun( curPagObj ); // What: Policy Setup Call. Why: The page has to load under the policy. How: This adds the headers and the violation listener.
+
+	await opeStaFun( curPagObj, homDesObj ); // What: State Open Call. Why: The page's fonts and images have to load before the form is hovered. How: This opens the home page at the desktop size the way the other page suites do.
+
+
+	const forWraObj = curPagObj.getByRole( 'group', { name : 'Contact form, turned off' } ); // What: Form Wrapper Object. Why: The wrapper catches the pointer for the turned-off form. How: This finds it by its name.
+
+
+	await forWraObj.scrollIntoViewIfNeeded(); // What: Form Scroll Call. Why: The form has to be on screen to hover. How: This scrolls it into view.
+
+	await forWraObj.hover(); // What: Form Hover Call. Why: A mouse over the form opens the tooltip. How: This moves the pointer onto the wrapper.
+
+	await expect( forWraObj.getByRole( 'link', { name : '417-988-6239' } ) ).toBeVisible(); // What: Open Assertion. Why: The tooltip has to be showing before its violations are read. How: This waits for its phone link to show.
+
+	await curPagObj.locator( '[class*="forTipDiv"]' ).evaluate( ( tipCurEle ) => Promise.all( tipCurEle.getAnimations().map( ( aniCurObj ) => aniCurObj.finished ) ).then( () => undefined ) ); // What: Fade Settle Call. Why: A violation from the fade would be reported while it plays. How: This finds the tooltip by its CSS module class, whose name Vite keeps inside the hashed class, and waits for every animation on it to finish.
+
+
+	const vioLisArr = ( await polVioFun( curPagObj ) ).filter( ( vioCurStr ) => !( broNamStr === 'webkit' && vioCurStr === 'style-src-attr blocked inline on select' ) ); // What: Violation List Array. Why: WebKit reports a style attribute violation for every select element, which no page can avoid short of allowing inline style attributes everywhere. How: This keeps every violation but that one WebKit select report.
+
+
+	expect( vioLisArr ).toEqual( [] ); // What: No Violation Assertion. Why: The open tooltip should load nothing the policy refuses. How: This checks none was refused.
+
+
+} );
 
 // #endregion Module Init
 

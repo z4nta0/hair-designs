@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router';   // What: Use Navigate. Why: The ha
  * @summary
  * The home page, the site's only real page, which stacks its four sections in
  * order: the hero, Services, About, and Contact. A visitor arriving with a
- * section's id as the hash, from a shared address such as /#about or another
+ * section's ID as the hash, from a shared address such as /#about or another
  * page's section link, lands on that section, and the hash is cleared from
  * the address once used. Each section lives in its own
  * file beside this one, and the bar and footer around them come from ui/,
@@ -64,10 +64,9 @@ import { useNavigate } from 'react-router';   // What: Use Navigate. Why: The ha
 function HomPagCom () : React.JSX.Element {
 
 
-	const { hash : hasValStr } = useLocation(); // What: Hash Value String. Why: A visitor can arrive with a section's id as the hash. How: This reads the hash, e.g. #contact, or an empty string, renaming the router's hash key.
+	const { hash : hasValStr } = useLocation(); // What: Hash Value String. Why: A visitor can arrive with a section's ID as the hash. How: This reads the hash, e.g. #contact, or an empty string, renaming the router's hash key.
 
 	const navRouFun = useNavigate(); // What: Navigate Router Function. Why: The hash should be cleared once the page has used it. How: This is the router's navigate function.
-
 
 
 	useEffect( () => { // What: Hash Arrival Effect. Why: A visitor arriving from a shared address or another page's section link should land on that section, with no hash left in the address. How: Once the fonts have loaded, this jumps to the section the hash names, then replaces the address with one without it.
@@ -77,7 +76,7 @@ function HomPagCom () : React.JSX.Element {
 
 
 
-		void document.fonts.ready.then( () => { // What: Fonts Ready Callback. Why: The jump should land where the section sits once the fonts have reflowed the page above it, which Chromium otherwise misses by about 2px. How: This waits for every font face to load, then jumps and clears the hash; void marks the returned promise as deliberately not awaited.
+		void document.fonts.ready.then( () => { // What: Fonts Ready Callback. Why: The jump should land where the section sits once the fonts have reflowed the page above it, which Chromium otherwise misses by about 2px. How: This waits for the fonts the page uses to load, then jumps and clears the hash; void marks the returned promise as deliberately not awaited.
 
 
 			document.getElementById( hasValStr.slice( 1 ) )?.scrollIntoView( { behavior : 'instant' } ); // What: Arrival Scroll Call. Why: The visitor should land on the section, as a normal link arrival would. How: This jumps to the element the hash names, without the html element's smooth scrolling, since gliding down from the top of a freshly loaded page would be slow.
@@ -88,14 +87,14 @@ function HomPagCom () : React.JSX.Element {
 		} );
 
 
-	}, [ hasValStr, navRouFun ] ); // What: Effect Dependency Array. Why: Each new hash has to be handled once. How: hasValStr changes when a visitor arrives with a hash, and navRouFun is listed because the effect calls it, though it stays the same between renders.
+	}, [ hasValStr, navRouFun ] ); // What: Effect Dependency Array. Why: Each new hash has to be handled once. How: hasValStr changes when a visitor arrives with a hash, and navRouFun is listed because the effect calls it.
 
 
 
 	return (
 
 
-		<>{ /* What: Home Page Fragment. Why: The sections sit side by side in the main landmark app.tsx provides. How: This groups them without adding an element. */ }
+		<>{ /* What: Home Page Fragment. Why: The sections stack in order in the main landmark app.tsx provides. How: This groups them without adding an element. */ }
 
 
 			<HerSecCom />{ /* What: Hero Section Component. Why: The page opens with the hero. How: This renders it. */ }

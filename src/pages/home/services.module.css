@@ -8,9 +8,9 @@
  * Styles for SerSecCom, the home page's Services section on ivory: its header
  * (a script eyebrow, the heading, a short rose rule, and an intro) above a
  * grid of six cream cards, each with a line icon, a title, and a description,
- * lifting slightly on hover. Each icon's SVG takes a color modifier and its
- * shapes draw in currentColor, so one class per shape serves every card, with
- * modifiers only where a card's shape differs.
+ * lifting slightly on hover. Each icon's SVG takes a color modifier and most
+ * of its shapes draw in currentColor, so one class per shape serves every
+ * card, with modifiers only where a card's shape differs.
  *
  * @author z4nta0 <https://github.com/z4nta0>
  *
@@ -71,12 +71,13 @@
 	color         : var( --tex-mai-col );                                     /* Text Main Color = #2b3245 */
 	font-family   : var( --fon-fam-br1 );                                     /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : clamp( var( --fon-siz-p03 ), 4vw, var( --fon-siz-p05 ) ); /* Font Size Base Plus 3 ~= 25.572px, Font Size Base Plus 5 ~= 44.876px */
+	line-height   : var( --ver-rhy-m01 );                                     /* Vertical Rhythm Base Minus 1 = 1 */
 	margin-bottom : var( --spa-ver-bas );                                     /* Spacing Vertical Base ~= 14.572px */
 
 
 }
 
-.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a 48px by 2px box. */
+.secRulHor { /* What: Section Rule Horizontal Rule. Why: A short rose rule underlines the heading. How: This keeps the browser's inset border, colored rose through the color property, in a short box about 2px tall. */
 
 
 	color         : var( --acc-mai-col );                /* Accent Main Color = #d4806a */
@@ -141,32 +142,33 @@
 }
 
 
-
 /* #region serCarDiv */
 
-.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge. */
+.serCarDiv { /* What: Services Card Div. Why: Each service is a card. How: This sets a cream card with a soft border and a heavier rose top edge, and eases its hover lift and shadow, the shadow fading out on the accelerating curve. */
 
 
 	background-color : var( --bac-sur-col );                                                                                      /* Background Surface Color = #f5f0e8 */
 	border           : var( --bor-wid-bas ) solid var( --bor-mai-col );                                                           /* Border Width Base ~= 1.160px, Border Main Color = #e0d5c8 */
 	border-top       : var( --bor-wid-xla ) solid var( --acc-mai-col );                                                           /* Border Width Extra Large ~= 3.572px, Accent Main Color = #d4806a */
 	padding          : var( --spa-ver-p03 ) var( --spa-hor-p02 );                                                                 /* Spacing Vertical Base Plus 3 ~= 33.876px, Spacing Horizontal Base Plus 2 ~= 25.572px */
-	transition       : transform var( --dur-tra-p02 ) var( --mot-sta-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-sta-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Standard Easing = ease */
+	transition       : transform var( --dur-tra-p02 ) var( --mot-dec-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-acc-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ), Motion Accelerate Easing = cubic-bezier( .4, 0, 1, 1 ) */ /* What: Paint Property Note. Why: The rule animates compositor properties where it can. How: The shadow deepening under the lifted card has no compositor equivalent, so box-shadow is eased directly. */
 
 
 }
-.serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it 5px with a soft navy shadow. */
+.serCarDiv:hover { /* What: Hovered Services Card Div. Why: The card should respond to the pointer. How: This lifts it about 2px with a soft navy shadow, the shadow fading in on the decelerating curve. */
 
 
-	box-shadow : var( --ele-med-sha );                            /* Elevation Medium Shadow, about 0 8px 26px plus 0 3.6px 8px -2px */
-	transform  : translateY( calc( var( --spa-ver-m04 ) * -1 ) ); /* Spacing Vertical Base Minus 4 ~= -4.732px */
+	box-shadow : var( --ele-med-sha );                                                                                      /* Elevation Medium Shadow ~= 0 8.304px 25.572px plus 0 3.572px 8.304px -2.035px */
+	transform  : translateY( calc( var( --spa-ver-m07 ) * -1 ) );                                                           /* Spacing Vertical Base Minus 7 ~= -2.035px */
+	transition : transform var( --dur-tra-p02 ) var( --mot-dec-eas ), box-shadow var( --dur-tra-p02 ) var( --mot-dec-eas ); /* Duration Transition Base Plus 2 ~= 277.0ms, Motion Decelerate Easing = cubic-bezier( .2, .7, .3, 1 ) */ /* What: Paint Property Note. Why: The rule animates compositor properties where it can. How: The shadow deepening under the lifted card has no compositor equivalent, so box-shadow is eased directly. */
 
 
 }
 @media ( prefers-reduced-motion : reduce ) { /* What: Reduced Motion Services Card Div. Why: Someone who asked for less motion shouldn't see it move. How: This applies under the reduced-motion preference. */
 
 
-	.serCarDiv { /* What: Motionless Services Card Div. Why: The change should simply happen. How: This turns the transition off, so the lift simply happens. */
+	.serCarDiv,
+	.serCarDiv:hover { /* What: Motionless Services Card Div. Why: The change should simply happen. How: This turns the transition off, resting and hovered, naming the hovered rule too since its selector outranks the base, so the lift and shadow simply happen. */
 
 
 		transition : none;
@@ -180,7 +182,7 @@
 
 /* #region carIcoSvg */
 
-.carIcoSvg { /* What: Card Icon SVG. Why: Each card opens with a small line icon. How: This sizes it to 44px with no fill by default, so only the shapes that ask for one are filled. */
+.carIcoSvg { /* What: Card Icon SVG. Why: Each card opens with a small line icon. How: This sizes it to the p04 rhythm step with no fill by default, so only the shapes that ask for one are filled. */
 
 
 	fill          : none;
@@ -190,21 +192,21 @@
 
 
 }
-.carIcoSvg--rose { /* What: Rose Card Icon SVG. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
+.carIcoSvg--rose { /* What: Card Icon SVG Rose. Why: Some icons are drawn in the brand's rose. How: This sets the color its shapes read as currentColor. */
 
 
 	color : var( --acc-mai-col ); /* Accent Main Color = #d4806a */
 
 
 }
-.carIcoSvg--sage { /* What: Sage Card Icon SVG. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
+.carIcoSvg--sage { /* What: Card Icon SVG Sage. Why: Some icons are drawn in sage. How: This sets the color its shapes read as currentColor. */
 
 
 	color : var( --acc-sec-col ); /* Accent Secondary Color = #8ea89a */
 
 
 }
-.carIcoSvg--mauve { /* What: Mauve Card Icon SVG. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
+.carIcoSvg--mauve { /* What: Card Icon SVG Mauve. Why: Some icons are drawn in mauve. How: This sets the color its shapes read as currentColor. */
 
 
 	color : var( --acc-ter-col ); /* Accent Tertiary Color = #c9a0a0 */
@@ -230,7 +232,7 @@
 
 
 }
-.icoFilPat--soft { /* What: Soft Icon Fill Path. Why: The men's cut icon's shape is a little fainter. How: This lowers its opacity. */
+.icoFilPat--soft { /* What: Icon Fill Path Soft. Why: The men's cut icon's shape is a little fainter. How: This lowers its opacity. */
 
 
 	opacity : 0.65;
@@ -247,10 +249,27 @@
 
 
 }
-.icoStrLin--bold { /* What: Bold Icon Stroke Line. Why: The men's cut icon's line is a little heavier. How: This thickens it. */
+.icoStrLin--bold { /* What: Icon Stroke Line Bold. Why: The men's cut icon's line is a little heavier. How: This thickens it. */
 
 
 	stroke-width : 2.2;
+
+
+}
+
+.icoDotCir { /* What: Icon Dot Circle. Why: Two icons draw a small filled dot. How: This fills it in the icon's color, faded. */
+
+
+	fill    : currentColor;
+	opacity : 0.65;
+
+
+}
+.icoDotCir--plum { /* What: Icon Dot Circle Plum. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
+
+
+	fill    : oklch( from var( --acc-ter-col ) calc( l - 0.0736 ) calc( c + 0.0045 ) calc( h - 25.54 ) ); /* Accent Tertiary Color = #c9a0a0, shifted to ~= #b08898 */
+	opacity : var( --cdn-pow-001-rec );                                                                   /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -262,23 +281,6 @@
 	height  : 12px;
 	opacity : var( --cdn-pow-002-rec ); /* Core-Design-Number to the Power of 2 Reciprocal ~= 0.570 */
 	width   : 16px;
-
-
-}
-
-.icoDotCir { /* What: Icon Dot Circle. Why: Two icons center a small filled dot. How: This fills it in the icon's color, faded. */
-
-
-	fill    : currentColor;
-	opacity : 0.65;
-
-
-}
-.icoDotCir--plum { /* What: Plum Icon Dot Circle. Why: The perms icon's dot is a deeper plum than its mauve. How: This fills it plum and a little stronger. */
-
-
-	fill    : #b08898;
-	opacity : var( --cdn-pow-001-rec ); /* Core-Design-Number to the Power of 1 Reciprocal ~= 0.755 */
 
 
 }
@@ -303,12 +305,13 @@
 	color         : var( --tex-mai-col ); /* Text Main Color = #2b3245 */
 	font-family   : var( --fon-fam-br1 ); /* Font Family Brand 1 = 'Playfair Display' */
 	font-size     : var( --fon-siz-p02 ); /* Font Size Base Plus 2 ~= 19.304px */
+	line-height   : var( --ver-rhy-m01 ); /* Vertical Rhythm Base Minus 1 = 1 */
 	margin-bottom : var( --spa-ver-m01 ); /* Spacing Vertical Base Minus 1 = 11px */
 
 
 }
 
-.carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it small in warm gray. */
+.carDesPar { /* What: Card Description Paragraph. Why: Each card describes its service. How: This sets it in warm gray. */
 
 
 	color       : var( --tex-mut-col ); /* Text Muted Color = #716c67 */

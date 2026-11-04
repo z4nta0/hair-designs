@@ -1,3 +1,6 @@
+
+
+
 <!doctype html><!-- What: Document Type Declaration. Why: Browsers render the page in standards mode only with a doctype. How: This declares HTML5. -->
 
 
@@ -20,8 +23,8 @@
 		<!-- #region Search -->
 
 		<meta name='author'      content='Hair Designs' />        <!-- What: Author Meta. Why: Search engines and link preview inspectors look for who a page belongs to, and on a real business's site that's the business itself. How: This names Hair Designs. -->
-		<link href='https://hairdesigns.hair/' rel='canonical' /> <!-- What: Canonical Link. Why: Netlify also serves the site at deploy preview and netlify.app addresses, which should all count as one page. How: This names the live address as the page's own. -->
 		<meta name='description' content="Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only." /> <!-- What: Description Meta. Why: Search listings show a short summary under the title, and it should name the services, the stylists, and the town. How: This sums up the salon in 120 characters, so phones show it whole. -->
+		<link href='https://hairdesigns.hair/' rel='canonical' /> <!-- What: Canonical Link. Why: Netlify also serves the site at deploy preview and netlify.app addresses, which should all count as one page. How: This names the live address as the page's own. -->
 
 		<!-- #endregion Search -->
 
@@ -54,10 +57,10 @@
 
 
 		<link href='/favicon-2.svg'         rel='icon' type='image/svg+xml' />             <!-- What: SVG Icon Link. Why: Modern browsers prefer a vector favicon that stays sharp at any tab density. How: This points at the logo inside a rose-ringed navy circle on a rounded navy square, which holds up on light and dark tab bars alike and keeps a round shape where a search result draws icons in a circle. -->
-		<link href='/favicon.ico'           rel='icon' sizes='any' />                      <!-- What: ICO Icon Link. Why: Older browsers read only a .ico favicon. How: This points at the root favicon.ico, which also answers the request browsers make for it on their own. -->
+		<link href='/favicon.ico'           rel='icon' sizes='any' />                      <!-- What: ICO Icon Link. Why: Browsers request /favicon.ico on their own, so it should hold a real icon. How: This points at the root favicon.ico, the file that answers that request. -->
 		<link href='/favicon-2-16x16.png'   rel='icon' sizes='16x16'   type='image/png' /> <!-- What: Small PNG Icon Link. Why: Small tab icons look crisper drawn at their own size. How: This offers the 16px PNG. -->
-		<link href='/favicon-2-32x32.png'   rel='icon' sizes='32x32'   type='image/png' /> <!-- What: Medium PNG Icon Link. Why: A browser without SVG favicons needs a raster fallback, and most pick a 32px tab icon. How: This offers the 32px PNG. -->
-		<link href='/favicon-2-192x192.png' rel='icon' sizes='192x192' type='image/png' /> <!-- What: Large PNG Icon Link. Why: Some browsers and Android pick a large icon for shortcuts and tab previews. How: This offers the 192px PNG. -->
+		<link href='/favicon-2-32x32.png'   rel='icon' sizes='32x32'   type='image/png' /> <!-- What: Medium PNG Icon Link. Why: A browser without SVG favicons needs a raster fallback. How: This offers the 32px PNG, at a tab icon's larger size. -->
+		<link href='/favicon-2-192x192.png' rel='icon' sizes='192x192' type='image/png' /> <!-- What: Large PNG Icon Link. Why: Home screen shortcuts and other large uses need a bigger raster icon. How: This offers the 192px PNG. -->
 		<link href='/favicon-2-512x512.png' rel='icon' sizes='512x512' type='image/png' /> <!-- What: Extra Large PNG Icon Link. Why: High-density screens and app launchers can ask for a bigger icon still. How: This offers the 512px PNG. -->
 
 		<!-- #endregion Icons -->
@@ -89,11 +92,11 @@
 
 		<!-- #region Twitter Card -->
 
-		<meta name='twitter:card'        content='summary_large_image' />                                    <!-- What: Twitter Card Meta. Why: X and similar sites pick a preview layout from this tag. How: This asks for the large image layout, which suits the 1,200x630 card. -->
-		<meta name='twitter:description' content="Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only." /> <!-- What: Twitter Description Meta. Why: The preview shows a summary. How: This repeats the page's description. -->
-		<meta name='twitter:image'       content='https://hairdesigns.hair/og-image-2.png' />                <!-- What: Twitter Image Meta. Why: The preview shows an image. How: This points at the same card as Open Graph. -->
+		<meta name='twitter:card'        content='summary_large_image' /> <!-- What: Twitter Card Meta. Why: X and similar sites pick a preview layout from this tag. How: This asks for the large image layout, which suits the 1,200x630 card. -->
+		<meta name='twitter:description' content="Haircuts, color, perms, and styling by Juli Wilkerson and Keeli Bryan in Carson's Corner, Missouri. By appointment only." />                   <!-- What: Twitter Description Meta. Why: The preview shows a summary. How: This repeats the page's description. -->
+		<meta name='twitter:image'       content='https://hairdesigns.hair/og-image-2.png' />                                                                                                    <!-- What: Twitter Image Meta. Why: The preview shows an image. How: This points at the same card as Open Graph. -->
 		<meta name='twitter:image:alt'   content="Hair Designs logo of crossed arrows and flowers above the words Hair Designs, Juli Wilkerson &amp; Keeli Bryan, Carson's Corner, Missouri." /> <!-- What: Twitter Image Alt Meta. Why: Screen readers read the preview image's description. How: This repeats the Open Graph alt text. -->
-		<meta name='twitter:title'       content="Hair Designs | Hair Salon in Carson's Corner, Missouri" /> <!-- What: Twitter Title Meta. Why: The preview shows a title. How: This matches the page title. -->
+		<meta name='twitter:title'       content="Hair Designs | Hair Salon in Carson's Corner, Missouri" />                                                                                     <!-- What: Twitter Title Meta. Why: The preview shows a title. How: This matches the page title. -->
 
 		<!-- #endregion Twitter Card -->
 
@@ -266,7 +269,7 @@
 	<body><!-- What: Document Body Element. Why: The site renders into the body. How: This holds the mount element and the module script. -->
 
 
-		<div id='appMouDiv'></div><!-- What: App Mount Div Element. Why: React needs one element to render the whole site into. How: main.tsx finds this by its id and creates the React root on it. -->
+		<div id='appMouDiv'></div><!-- What: App Mount Div Element. Why: React needs one element to render the whole site into. How: main.tsx finds this by its ID and creates the React root on it. -->
 
 		<script src='/src/main.tsx' type='module'>/* What: Main Module Script. Why: The browser has to load the site's entry point. How: This loads main.tsx as an ES module, which Vite replaces with the built bundle in production. */</script>
 
@@ -275,3 +278,5 @@
 
 
 </html>
+
+
